@@ -86,9 +86,3 @@ Route::resource('jobs', 'JobsController')->except('index');
 // Freelancers
 Route::get('browse-freelancers', 'FreelancersController@index')->name('freelancers.index');
 Route::resource('freelancers', 'FreelancersController')->except('index');
-
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

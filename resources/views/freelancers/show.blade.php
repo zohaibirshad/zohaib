@@ -325,15 +325,12 @@
 				<!-- Form -->
 				<form method="post">
 
-					<div class="input-with-icon-left">
-						<i class="icon-material-outline-account-circle"></i>
-						<input type="text" class="input-text with-border" name="name" id="name" placeholder="First and Last Name"/>
-					</div>
-
-					<div class="input-with-icon-left">
-						<i class="icon-material-baseline-mail-outline"></i>
-						<input type="text" class="input-text with-border" name="emailaddress" id="emailaddress" placeholder="Email Address"/>
-					</div>
+                    <div class="submit-field">
+                        <select class="selectpicker" data-live-search="true" title="Choose Job">
+                            <option>Ecommerce Application</option>
+                            <option>React Native UI Template</option>
+                        </select>
+                    </div>
 
 					<textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
 
