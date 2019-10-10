@@ -40,6 +40,8 @@
 ================================================== -->
 <div class="container">
 	<div class="row">
+
+		
 		
 		<!-- Content -->
 		<div class="col-xl-8 col-lg-8 content-right-offset">
@@ -75,9 +77,9 @@
 			<div class="clearfix"></div>
 			
 			<!-- Freelancers Bidding -->
-			{{-- <div class="boxed-list margin-bottom-60">
+			<div class="boxed-list margin-bottom-60">
 				<div class="boxed-list-headline">
-					<h3><i class="icon-material-outline-group"></i> Freelancers Bidding</h3>
+					<h3><i class="icon-material-outline-group"></i> Current Bids</h3>
 				</div>
 				<ul class="boxed-list-ul">
 					<li>
@@ -86,7 +88,7 @@
 							<div class="bids-avatar">
 								<div class="freelancer-avatar">
 									<div class="verified-badge"></div>
-									<a href="single-freelancer-profile.html"><img src="images/user-avatar-big-01.jpg" alt=""></a>
+									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a>
 								</div>
 							</div>
 							
@@ -94,7 +96,7 @@
 							<div class="bids-content">
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="single-freelancer-profile.html">Tom Smith <img class="flag" src="images/flags/gb.svg" alt="" title="United Kingdom" data-tippy-placement="top"></a></h4>
+									<h4><a href="#">Tom Smith <img class="flag" src="{{ asset('assets/images/flags/gb.svg') }}" alt="" title="United Kingdom" data-tippy-placement="top"></a></h4>
 									<div class="star-rating" data-rating="4.9"></div>
 								</div>
 							</div>
@@ -114,7 +116,7 @@
 							<div class="bids-avatar">
 								<div class="freelancer-avatar">
 									<div class="verified-badge"></div>
-									<a href="single-freelancer-profile.html"><img src="images/user-avatar-big-02.jpg" alt=""></a>
+									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></a>
 								</div>
 							</div>
 							
@@ -122,7 +124,7 @@
 							<div class="bids-content">
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="single-freelancer-profile.html">David Peterson <img class="flag" src="images/flags/de.svg" alt="" title="Germany" data-tippy-placement="top"></a></h4>
+									<h4><a href="#">David Peterson <img class="flag" src="{{ asset('assets/images/flags/de.svg') }}" alt="" title="Germany" data-tippy-placement="top"></a></h4>
 									<div class="star-rating" data-rating="4.2"></div>
 								</div>
 							</div>
@@ -141,7 +143,7 @@
 							<!-- Avatar -->
 							<div class="bids-avatar">
 								<div class="freelancer-avatar">
-									<a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
+									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
 								</div>
 							</div>
 							
@@ -149,7 +151,7 @@
 							<div class="bids-content">
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="single-freelancer-profile.html">Marcin Kowalski <img class="flag" src="images/flags/pl.svg" alt="" title="Poland" data-tippy-placement="top"></a></h4>
+									<h4><a href="#">Marcin Kowalski <img class="flag" src="{{ asset('assets/images/flags/pl.svg') }}" alt="" title="Poland" data-tippy-placement="top"></a></h4>
 									<span class="not-rated">Minimum of 3 votes required</span>
 
 								</div>
@@ -169,7 +171,7 @@
 							<!-- Avatar -->
 							<div class="bids-avatar">
 								<div class="freelancer-avatar">
-									<a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
+									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
 								</div>
 							</div>
 							
@@ -177,7 +179,7 @@
 							<div class="bids-content">
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="single-freelancer-profile.html">Sebastiano Piccio <img class="flag" src="images/flags/it.svg" alt="" title="Italy" data-tippy-placement="top"></a></h4>
+									<h4><a href="#">Sebastiano Piccio <img class="flag" src="{{ asset('assets/images/flags/it.svg') }}" alt="" title="Italy" data-tippy-placement="top"></a></h4>
 									<div class="star-rating" data-rating="4.5"></div>
 								</div>
 							</div>
@@ -192,7 +194,7 @@
 						</div>
 					</li>
 				</ul>
-			</div> --}}
+			</div>
 
 		</div>
 		

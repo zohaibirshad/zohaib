@@ -4,6 +4,7 @@
 			<div class="col-md-12">
 
 				<h2>@yield('title')</h2>
+				<span>@yield('subtitle')</span>
 
 				{{--  <!-- Breadcrumbs -->
 				<nav id="breadcrumbs" class="dark">

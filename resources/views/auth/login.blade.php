@@ -19,7 +19,7 @@
 					
 				<!-- Form -->
 				<form method="POST" id="login-form" action="{{ route('login') }}">
-                        @csrf
+                    @csrf
                     @if ($errors->has('email'))
                     <span class="text-sm text-red-500">
                         <strong> {{ $errors->first('email') }}</strong>

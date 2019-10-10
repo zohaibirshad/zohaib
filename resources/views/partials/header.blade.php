@@ -22,6 +22,16 @@
 							</a>
 						</li>
 						<li>
+							<a href="{{ route('blog.index') }}" class="{{ (request()->is('blog')) ? 'current' : '' }}">
+							Blog
+							</a>
+						</li>
+						<li>
+							<a href="{{ route('pricing') }}" class="{{ (request()->is('pricing')) ? 'current' : '' }}">
+							Pricing
+							</a>
+						</li>
+						<li>
 							<a href="{{ route('freelancers.index') }}" class="{{ (request()->is('browse-freelancers')) ? 'current' : '' }}">
 								Browse Freelancers
 							</a>
@@ -71,14 +81,14 @@
 					<div class="header-notifications">
 						<!-- Trigger -->
 						<div class="header-notifications-trigger">
-							<a href="login" class="text-uppercase">Login</a>
+							<a href="{{ route('login.page') }}" class="text-uppercase">Login</a>
 						</div>
 					</div>
 
 					<div class="header-notifications">
 						<!-- Trigger -->
 						<div class="header-notifications-trigger">
-							<a href="/register" class="text-uppercase">Register</a>
+							<a href="{{ route('register.page') }}" class="text-uppercase">Register</a>
 						</div>
 					</div>
 

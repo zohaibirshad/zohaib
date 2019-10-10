@@ -23,12 +23,16 @@
 							<li class="{{ (request()->is('messages')) ? 'active' : '' }}">
 								<a href="{{ route('messages') }}"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a>
 							</li>
-							{{-- <li><a href="#"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
-							<li><a href="#"><i class="icon-material-outline-rate-review"></i> Reviews</a></li> --}}
+							<li class="{{ (request()->is('bookmarks')) ? 'active' : '' }}">
+								<a href="{{ route('bookmarks') }}"><i class="icon-material-outline-star-border"></i> Bookmarks </a>
+							</li>
+							<li class="{{ (request()->is('reviews')) ? 'active' : '' }}">
+								<a href="{{ route('reviews') }}"><i class="icon-material-outline-rate-review"></i> Reviews</a>
+							</li>
 						</ul>
 						
 						<ul data-submenu-title="Organize and Manage">
-							<li class="{{ (request()->is('new-jobs') || request()->is('ongoing-jobs') || request()->is('bidders') || request()->is('my-bids')) ? 'active-submenu' : '' }}"><a href="#"><i class="icon-material-outline-assignment"></i> Jobs</a>
+							<li class="{{ (request()->is('new-jobs') || request()->is('ongoing-jobs') || request()->is('bidders') || request()->is('my-bids') || request()->is('invites')) ? 'active-submenu' : '' }}"><a href="#"><i class="icon-material-outline-assignment"></i> Jobs</a>
 								<ul>
 									<li><a href="{{ route('new-jobs') }}">[H] New Jobs <span class="nav-tag">1</span></a></li>
 									{{-- New and Unassigned Jobs just posted by Hirer --}}
@@ -40,6 +44,8 @@
 
 									<li><a href="{{ route('my-bids') }}">[F] My Active Bids <span class="nav-tag">4</span></a></li>
 									{{-- Active Jobs bidded on by Freelancer --}}
+
+									<li><a href="{{ route('invites') }}">[F] Job Invites <span class="nav-tag">1</span></a></li>
 								</ul>	
 							</li>
 

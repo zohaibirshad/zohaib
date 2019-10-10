@@ -46,6 +46,10 @@ Route::get('ongoing-jobs', function () {
     return view('dashboard.jobs.ongoing_jobs');
 })->name('ongoing-jobs');
 
+Route::get('invites', function () {
+    return view('dashboard.jobs.invites');
+})->name('invites');
+
 Route::get('bidders/{id}', function () {
     return view('dashboard.bidders');
 })->name('bidders');
@@ -57,6 +61,14 @@ Route::get('my-bids', function () {
 Route::get('messages', function () {
     return view('dashboard.messages');
 })->name('messages');
+
+Route::get('reviews', function () {
+    return view('dashboard.reviews');
+})->name('reviews');
+
+Route::get('bookmarks', function () {
+    return view('dashboard.bookmarks');
+})->name('bookmarks');
 
 Route::get('settings', function () {
     return view('dashboard.settings');
@@ -86,3 +98,20 @@ Route::resource('jobs', 'JobsController')->except('index');
 // Freelancers
 Route::get('browse-freelancers', 'FreelancersController@index')->name('freelancers.index');
 Route::resource('freelancers', 'FreelancersController')->except('index');
+
+// Blog
+Route::resource('blog', 'BlogController')->only('index', 'show');
+
+// Subscription
+Route::get('pricing', function () {
+    return view('subscription.pricing');
+})->name('pricing');
+Route::get('checkout', function () {
+    return view('subscription.checkout');
+})->name('checkout');
+Route::get('order-confirmation', function () {
+    return view('subscription.confirmation');
+})->name('confirmation');
+Route::get('invoice', function () {
+    return view('subscription.invoice');
+})->name('invoice');

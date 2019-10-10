@@ -13,6 +13,19 @@
 	<div class="row">
 		<div class="col-xl-3 col-lg-4">
 			<div class="sidebar-container">
+
+				<!-- Keywords -->
+				<div class="sidebar-widget">
+					<h3>Search</h3>
+					<div class="keywords-container">
+						<div class="keyword-input-container">
+							<input type="text" class="keyword-input" placeholder="e.g. job title"/>
+							<button class="keyword-input-button ripple-effect"><i class="icon-feather-search"></i></button>
+						</div>
+						<div class="keywords-list"><!-- keywords go here --></div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
 				
 				<!-- Location -->
 				<div class="sidebar-widget">
@@ -42,36 +55,23 @@
 					</select>
 				</div>
 
-				<!-- Keywords -->
-				<div class="sidebar-widget">
-					<h3>Keywords</h3>
-					<div class="keywords-container">
-						<div class="keyword-input-container">
-							<input type="text" class="keyword-input" placeholder="e.g. job title"/>
-							<button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
-						</div>
-						<div class="keywords-list"><!-- keywords go here --></div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-
 				<!-- Budget -->
-				{{-- <div class="sidebar-widget">
+				<div class="sidebar-widget">
 					<h3>Fixed Price</h3>
 					<div class="margin-top-55"></div>
 
 					<!-- Range Slider -->
 					<input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="10" data-slider-max="2500" data-slider-step="25" data-slider-value="[10,2500]"/>
-				</div> --}}
+				</div>
 
 				<!-- Hourly Rate -->
-				{{-- <div class="sidebar-widget">
+				<div class="sidebar-widget">
 					<h3>Hourly Rate</h3>
 					<div class="margin-top-55"></div>
 
 					<!-- Range Slider -->
 					<input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="10" data-slider-max="150" data-slider-step="5" data-slider-value="[10,200]"/>
-				</div> --}}
+				</div>
 
 				<!-- Tags -->
 				<div class="sidebar-widget">

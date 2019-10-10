@@ -13,6 +13,19 @@
 	<div class="row">
 		<div class="col-xl-3 col-lg-4">
 			<div class="sidebar-container">
+
+				<!-- Keywords -->
+				<div class="sidebar-widget">
+					<h3>Search</h3>
+					<div class="keywords-container">
+						<div class="keyword-input-container">
+							<input type="text" class="keyword-input" placeholder="e.g. job title"/>
+							<button class="keyword-input-button ripple-effect"><i class="icon-feather-search"></i></button>
+						</div>
+						<div class="keywords-list"><!-- keywords go here --></div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
 				
 				<!-- Location -->
 				<div class="sidebar-widget">
@@ -40,6 +53,15 @@
 						<option>Translation</option>
 						<option>Sales & Marketing</option>
 					</select>
+				</div>
+
+				<!-- Hourly Rate -->
+				<div class="sidebar-widget">
+					<h3>Hourly Rate</h3>
+					<div class="margin-top-55"></div>
+
+					<!-- Range Slider -->
+					<input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="10" data-slider-max="250" data-slider-step="5" data-slider-value="[10,250]"/>
 				</div>
 
 				<!-- Tags -->
