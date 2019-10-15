@@ -9,7 +9,7 @@
 				
 				<!-- Logo -->
 				<div id="logo">
-					<a href="/home"><img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
+					<a href="/"><img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
 				</div>
 
 				<!-- Main Navigation -->
