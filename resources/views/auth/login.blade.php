@@ -18,7 +18,7 @@
 				</div>
 					
 				<!-- Form -->
-				<form method="POST" id="login-form" action="{{ route('login') }}">
+				<form method="POST" id="login-form" action="/login">
                     @csrf
                     @if ($errors->has('email'))
                     <span class="text-sm text-red-500">

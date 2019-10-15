@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +12,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Auth::routes();
 
 Route::namespace("Auth")->group(function () {
@@ -22,13 +23,13 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('login', function () {
-    return view('auth.login');
-})->name('login.page'); 
+// Route::get('login', function () {
+//     return view('auth.login');
+// })->name('login.page'); 
 
-Route::get('register', function () {
-    return view('auth.register');
-})->name('register.page');
+// Route::get('register', function () {
+//     return view('auth.register');
+// })->name('register.page');
 
 Route::get('how-it-works', function () {
     return view('how_it_works');
@@ -115,3 +116,4 @@ Route::get('order-confirmation', function () {
 Route::get('invoice', function () {
     return view('subscription.invoice');
 })->name('invoice');
+
