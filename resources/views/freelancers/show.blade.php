@@ -189,7 +189,7 @@
                     </div>
     
                     <!-- Button -->
-                    <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></a>
+                    <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Recruit Me <i class="icon-material-outline-arrow-right-alt"></i></a>
     
                     <!-- Freelancer Indicators -->
                     <div class="sidebar-widget">
@@ -301,7 +301,7 @@
     </div>
 </div>
 
-<!-- Make an Offer Popup
+<!-- Recruit Me Popup
 ================================================== -->
 <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 
@@ -309,7 +309,7 @@
 	<div class="sign-in-form">
 
 		<ul class="popup-tabs-nav">
-			<li><a href="#tab">Make an Offer</a></li>
+			<li><a href="#tab">Recruit Me</a></li>
 		</ul>
 
 		<div class="popup-tabs-container">
@@ -343,7 +343,7 @@
 				</form>
 				
 				<!-- Button -->
-				<button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></button>
+				<button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit">Recruit <i class="icon-material-outline-arrow-right-alt"></i></button>
 
 			</div>
 			<!-- Login -->
@@ -378,12 +378,12 @@
 				</form>
 				
 				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="make-an-offer-form">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></button>
+				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="make-an-offer-form">Recruit Me <i class="icon-material-outline-arrow-right-alt"></i></button>
 
 			</div>
 
 		</div>
 	</div>
 </div>
-<!-- Make an Offer Popup / End -->
+<!-- Recruit Me Popup / End -->
 @endsection
