@@ -9,7 +9,7 @@
 				
 				<!-- Logo -->
 				<div id="logo">
-					<a href="{{ route('home') }}"><img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
+					<a href="/"><img src="{{ asset('assets/images/logo.png') }}" alt=""></a>
 				</div>
 
 				<!-- Main Navigation -->
@@ -47,7 +47,7 @@
 							</a>
 						</li>
 						<li class="d-sm-block d-md-none">
-							<a href="login" class="{{ (request()->is('login')) ? 'current' : '' }}">
+							<a href="/login" class="{{ (request()->is('login')) ? 'current' : '' }}">
 								Log In
 							</a>
 						</li>
@@ -81,14 +81,14 @@
 					<div class="header-notifications">
 						<!-- Trigger -->
 						<div class="header-notifications-trigger">
-							<a href="{{ route('login.page') }}" class="text-uppercase">Login</a>
+							<a href="/login" class="text-uppercase">Login</a>
 						</div>
 					</div>
 
 					<div class="header-notifications">
 						<!-- Trigger -->
 						<div class="header-notifications-trigger">
-							<a href="{{ route('register.page') }}" class="text-uppercase">Register</a>
+							<a href="/register" class="text-uppercase">Register</a>
 						</div>
 					</div>
 
