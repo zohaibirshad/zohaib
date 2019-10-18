@@ -16,23 +16,27 @@ class FreelancersController extends Controller
         return view('freelancers.index');
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * Bookmark Job.
      *
+     * @param  string  $job_uuid
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function bookmark_job(Request $request, $job_uuid)
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
+     /**
+     * Delete Bookmark Job.
      *
+     * @param  string  $job_uuid
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function delete_bookmark_job(Request $request, $job_uuid)
     {
         //
     }
@@ -49,12 +53,13 @@ class FreelancersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Review a hirer.
      *
-     * @param  int  $id
+     * @param  string  $job_uuid
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function review_hirer(Request $request, $job_uuid)
     {
         //
     }
@@ -63,21 +68,107 @@ class FreelancersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  string  $profile_uuid
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_profile(Request $request, $profile_uuid)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Accept Invite.
      *
-     * @param  int  $id
+     * @param  string  $invite_uuid
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function accept_invite(Request $request, $invite_uuid)
+    {
+        //
+    }
+
+    /**
+     * Reject Invite.
+     *
+     * @param  string  $invite_uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function reject_invite($invite_uuid)
+    {
+        //
+    }
+
+    /**
+     * Make a bid on a job
+     *
+     * @param  string  $job_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function bid(Request $request, $job_uuid)
+    {
+        //
+    }
+
+    /**
+     * Edit Bid.
+     *
+     * @param  string  $bid_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_bid(Request $request, $bid_uuid)
+    {
+        //
+    }
+
+
+    /**
+     * Delete Bid.
+     *
+     * @param  string  $bid_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_bid(Request $request, $bid_uuid)
+    {
+        //
+    }
+
+    /**
+     * Add a milestone
+     *
+     * @param  string  $job_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function add_milestone(Request $request, $job_uuid)
+    {
+        //
+    }
+
+     /**
+     * Edit a milestone
+     *
+     * @param  string  $mile_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_milestone(Request $request, $mile_uuid)
+    {
+        //
+    }
+
+
+     /**
+     * Delete a milestone
+     *
+     * @param  string  $mile_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_milestone(Request $request, $mile_uuid)
     {
         //
     }

@@ -6,11 +6,14 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Place;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\MorphMany;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
 use Benjacho\BelongsToManyField\BelongsToManyField;
 
@@ -72,10 +75,13 @@ class Job extends Resource
             ID::make( __('Id'),  'id')
             ->rules('required')
             ->sortable(),
+            BelongsTo::make('Profile')
+            ->searchable()
+            ->sortable(),    
             Text::make( __('Title'),  'name')
             ->sortable(),       
             Trix::make( __('Description'),  'description')
-            ->withFiles('public'),     
+            ->withFiles('public'), 
             BelongsTo::make('Industry')
             ->searchable()
             ->sortable(),
@@ -84,17 +90,42 @@ class Job extends Resource
             BelongsTo::make('Select Budget', 'job_budget', 'App\Nova\Job')
             ->searchable()
             ->sortable(),
+            Number::make( __('Bid Duration'),  'duration')
+            ->sortable(),  
             Select::make( __('Status'),  'status')
             ->sortable()
             ->options([
-                '0' => 'Not Assigned',
-                '1' => 'Assigned',
+                'not assigned' => 'Not Assigned',
+                'assigned' => 'Assigned',
+                'completed' => 'Completed',
             ]),
-            Text::make( __('Custom Budget'),  'custom_budget')
-            ->sortable(),
+            Select::make( __('Featured'),  'featured')
+            ->sortable()
+            ->options([
+                'no' => 'No',
+                'yes' => 'Yes',
+            ])->displayUsingLabels(),
+
+            Place::make( __('City'),  'city')
+                ->sortable()
+                ->onlyCities(),
+
             BelongsTo::make('Country')
-            ->searchable()
-            ->sortable(),
+                ->searchable()
+                ->sortable(),
+            Select::make( __('On Time'),  'ontime')
+            ->sortable()
+            ->options([
+                'no' => 'No',
+                'yes' => 'Yes',
+            ]),
+            Select::make( __('On Budget'),  'onbudget')
+            ->sortable()
+            ->options([
+                'no' => 'No',
+                'yes' => 'Yes',
+            ]),
+            MorphMany::make('Reviews'),
             HasMany::make('JobAttachment'),
             HasMany::make('Bid'),
             Notes::make('Notes','notes')->onlyOnDetail(),

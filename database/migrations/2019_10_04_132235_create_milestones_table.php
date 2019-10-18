@@ -14,6 +14,7 @@ class CreateMilestonesTable extends Migration
     {
         Schema::create('milestones', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('uuid');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('profile_id')->unsigned()->nullable();
@@ -22,6 +23,8 @@ class CreateMilestonesTable extends Migration
             $table->foreign('job_id')->references('id')->on('jobs');
             $table->bigInteger('bid_id')->unsigned()->nullable();
             $table->foreign('bid_id')->references('id')->on('bids');
+            $table->string('heading')->nullable();
+            $table->string('status')->nullable();
             $table->text('activity')->nullable();
             $table->decimal('cost', 13,2)->nullable();
             $table->timestamps();

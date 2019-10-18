@@ -10,11 +10,12 @@ use Laravel\Passport\HasApiTokens;
 use DigitalCloud\ModelNotes\HasNotes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class User extends Authenticatable implements Auditable
 {
-    use Notifiable, HasRoles, HasApiTokens, HasNotes, AuditTrait;
+    use Notifiable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes;
 
     protected $guard_name = 'web';
 
@@ -47,6 +48,6 @@ class User extends Authenticatable implements Auditable
 
     public function profile()
     {
-        return $this->hasOne('App\Models\Profile');
+        return $this->hasOne('App\Models\Profile')->with('media');
     }
 }

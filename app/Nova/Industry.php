@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
@@ -72,6 +73,12 @@ class Industry extends Resource
                 Text::make( __('Name'),  'name')
                 ->rules('required')
                 ->sortable(),
+                Select::make( __('Featured Job'),  'featured')
+                ->sortable()
+                ->options([
+                    'no' => 'No',
+                    'yes' => 'Yes',
+                ])->displayUsingLabels(),
                 Textarea::make( __('Description'),  'description')
                 ->hideFromIndex()
                 ->sortable(),

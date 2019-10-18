@@ -19,7 +19,7 @@ protected $casts = [
 
 public function profiles()
 {
-    return $this->belongsToMany('App\Models\Profile');
+    return $this->belongsToMany('App\Models\Profile')->with('media');
 }
 
 public function jobs()

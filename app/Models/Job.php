@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DigitalCloud\ModelNotes\HasNotes;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Uuid;
+
 
 class Job extends Model
 {
-    use HasNotes;
+    use HasNotes, SoftDeletes, Uuid;
 
     /**
     * @var  string
@@ -18,6 +21,11 @@ class Job extends Model
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
+    public function profile()
+    {
+        return $this->belongsTo('App\Models\Profile')->with('media');
+    }
 
     public function industry()
     {
@@ -45,6 +53,16 @@ class Job extends Model
     public function bids()
     {
         return $this->hasMany('App\Models\Bid');
+                        
     }
+
+    /**
+     * Get all of the job's reviews.
+     */
+    public function reviews()
+    {
+        return $this->morphMany('App\Models\Review', 'reviewable');
+    }
+
 
 }

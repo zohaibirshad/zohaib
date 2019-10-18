@@ -24,6 +24,6 @@ class SocialLink extends Model
 
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile', 'profile_id', 'id');
+        return $this->belongsTo('App\Models\Profile', 'profile_id', 'id')->with('media');
     }
 }

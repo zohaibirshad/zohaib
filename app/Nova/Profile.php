@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\MorphMany;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Benjacho\BelongsToManyField\BelongsToManyField;
@@ -83,6 +84,8 @@ class Profile extends Resource
             Text::make( __('Name'),  'name')
             ->rules('required')
             ->sortable(),
+            Text::make( __('Professional Headline'),  'headline')
+            ->rules('required'),
             BelongsToManyField::make('Job Categories', 'industries', 'App\Nova\Industry')->options(\App\Models\Industry::all())->nullable(),
             BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->options(\App\Models\Skill::all())->nullable(),
             BelongsToManyField::make('Attachments', 'attachments', 'App\Nova\ProfileAttachment')->options(\App\Models\Attachment::all())->nullable(),
@@ -102,8 +105,8 @@ class Profile extends Resource
             Select::make( __('Verified'),  'verified')
             ->sortable()
             ->options([
-                '1' => 'Yes',
-                '0' => 'No',
+                'no' => 'No',
+                'yes' => 'Yes',
             ])->displayUsingLabels(),
             Currency::make( __('Rate'),  'rate')
             ->sortable(),
@@ -114,6 +117,8 @@ class Profile extends Resource
             HasMany::make('SocialLink'),
 
             HasMany::make('Bid'),
+
+            MorphMany::make('Reviews'),
 
             Notes::make('Notes','notes')->onlyOnDetail(),
 

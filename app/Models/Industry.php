@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Industry extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, SoftDeletes;
 
 /**
 * @var  string
@@ -20,6 +22,11 @@ protected $casts = [
 'updated_at' => 'datetime',
 ];
 
+public function registerMediaCollections()
+{
+    $this->addMediaCollection('industry');
+
+}
 
 public function profiles()
 {

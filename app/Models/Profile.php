@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use DigitalCloud\ModelNotes\HasNotes;
+use App\Traits\Uuid;
 
 class Profile extends Model implements HasMedia
 {
-    use HasMediaTrait, HasNotes;
+    use HasMediaTrait, HasNotes, Uuid;
     /**
     * @var  string
     */
@@ -19,6 +20,12 @@ class Profile extends Model implements HasMedia
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('profile');
+
+    }
 
     public function user()
     {
@@ -53,5 +60,18 @@ class Profile extends Model implements HasMedia
     public function bids()
     {
         return $this->hasMany('App\Models\Bid');
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany('App\Models\Job');
+    }
+
+    /**
+     * Get all of the user's reviews.
+     */
+    public function reviews()
+    {
+        return $this->morphMany('App\Models\Review', 'reviewable');
     }
 }

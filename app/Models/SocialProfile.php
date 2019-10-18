@@ -20,9 +20,15 @@ class SocialProfile extends Model implements HasMedia
     'updated_at' => 'datetime',
     ];
 
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('icon');
+
+    }
+
     public function profiles()
     {
-        return $this->hasMany('App\Models\SocialLink');
+        return $this->hasMany('App\Models\SocialLink')->with('media');
     }
 
 }

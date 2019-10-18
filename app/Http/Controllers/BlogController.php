@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogTag;
+use App\Models\BlogPost;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -13,29 +16,21 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('blog.index');
+        $blog_posts = BlogPost::with('categories', 'tags')->latest()->paginate(4);
+
+        $featured_posts = BlogPost::where('featured', 'yes')->with('categories', 'tags')->latest()->paginate(4);
+
+        $trending_posts = BlogPost::with('categories', 'tags')->orderBy('count', 'desc')->latest()->paginate(4);
+
+        $categories = BlogCategory::limit(10)->get();
+
+        $tags = BlogTag::limit(15)->get();
+
+        return view('blog.index', compact('blog_posts', 'featured_posts', 'trending_posts',
+                                           'categories', 'tags'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -45,40 +40,69 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return view('blog.show');
+        $blog_post = BlogPost::where('id', $id)
+                             ->with('categories', 'tags')
+                             ->first();
+
+        $trending_posts = BlogPost::with('categories', 'tags')->orderBy('count', 'desc')->latest()->paginate(4);
+
+        $categories = BlogCategory::limit(10)->get();
+
+        $tags = BlogTag::limit(15)->get();
+
+        return view('blog.show', compact('blog_post', 'trending_posts',
+                                            'categories', 'tags'));
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * show a specified blog category posts.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function category($id)
     {
-        //
+        $trending_posts = BlogPost::with('categories', 'tags')->orderBy('count', 'desc')->latest()->paginate(4);
+
+        $categories = BlogCategory::limit(10)->get();
+
+        $tags = BlogTag::limit(15)->get();
+
+        $blog_posts = BlogPost::whereHas('categories', function (Builder $query) {
+                                    $query->where('id', $id);
+                                })
+                              ->with('categories', 'tags')
+                              ->latest()
+                              ->paginate(4);
+
+        return view('blog.category', compact('blog_post', 'trending_posts',
+                                         'categories', 'tags'));
+
     }
 
     /**
-     * Update the specified resource in storage.
+     * show a specified blog tag posts.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function tag($id)
     {
-        //
-    }
+       $trending_posts = BlogPost::with('categories', 'tags')->orderBy('count', 'desc')->latest()->paginate(4);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $categories = BlogCategory::limit(10)->get();
+
+        $tags = BlogTag::limit(15)->get();
+        
+        $blog_posts = BlogPost::whereHas('tags', function (Builder $query) {
+                                    $query->where('id', $id);
+                                })
+                              ->with('categories', 'tags')
+                              ->latest()
+                              ->paginate(4);
+
+        return view('blog.category', compact('blog_post', 'trending_posts',
+                                         'categories', 'tags'));
     }
 }

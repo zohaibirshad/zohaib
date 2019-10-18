@@ -14,6 +14,7 @@ class CreateInvitesTable extends Migration
     {
         Schema::create('invites', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('uuid');
             $table->unsignedBigInteger('profile_id')->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles');
             $table->unsignedBigInteger('job_id')->nullable();

@@ -14,6 +14,9 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('uuid');
+            $table->bigInteger('profile_id')->unsigned()->nullable();
+            $table->foreign('profile_id')->references('id')->on('profiles');
             $table->bigInteger('industry_id')->nullable()->unsigned();
             $table->foreign('industry_id')->references('id')->on('industries');
             $table->integer('country_id')->unsigned()->nullable();
@@ -22,8 +25,13 @@ class CreateJobsTable extends Migration
             $table->foreign('job_budget_id')->references('id')->on('job_budgets');
             $table->string('name')->nullable();
             $table->string('status')->nullable();
-            $table->string('custom_budget')->nullable();
+            $table->string('city')->nullable();
+            $table->string('featured')->nullable();
+            $table->string('ontime')->nullable();
+            $table->string('onbudget')->nullable();
+            $table->string('duration')->nullable();
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

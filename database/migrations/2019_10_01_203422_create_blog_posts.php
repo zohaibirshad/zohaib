@@ -20,6 +20,7 @@ class CreateBlogPosts extends Migration
             $table->string('featured')->nullable();
             $table->bigInteger('count')->nullable();
             $table->text('body')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

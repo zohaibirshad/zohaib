@@ -16,6 +16,8 @@ class CreateIndustries extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('featured')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -2,9 +2,10 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\DateTime;
 
 
@@ -62,14 +63,21 @@ class JobBudget extends Resource
     public function fields(Request $request)
     {
         return [
-                                                ID::make( __('Id'),  'id')
-->rules('required')
-->sortable()
-,
-                                                                Text::make( __('Budget'),  'budget')
-->sortable()
-,
-                                                                                                                        ];
+                ID::make( __('Id'),  'id')
+                    ->rules('required')
+                    ->sortable(),
+
+                Text::make( __('From'),  'from')
+                    ->sortable(),
+                Text::make( __('To'),  'to')
+                ->sortable(),
+                Select::make( __('Type'),  'type')
+                ->sortable()
+                ->options([
+                    'fixed' => 'Fixed',
+                    'hour' => 'Hour',
+                ])->displayUsingLabels(),
+            ];
     }
 
     /**

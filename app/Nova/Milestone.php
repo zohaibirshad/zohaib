@@ -5,8 +5,9 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Currency;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
 
@@ -67,6 +68,9 @@ class Milestone extends Resource
         return [
             ID::make( __('Id'),  'id')
             ->rules('required')
+            ->sortable(),            
+            BelongsTo::make('Profile')
+            ->searchable()
             ->sortable(),
             BelongsTo::make('Job')
             ->searchable()
@@ -74,13 +78,21 @@ class Milestone extends Resource
             BelongsTo::make('Bid')
             ->searchable()
             ->sortable(),
-            Text::make( __('Activity'),  'activity')
+            Text::make( __('Heading'),  'heading')
+            ->sortable(),
+            Textarea::make( __('Activity'),  'activity')
             ->sortable(),
             Currency::make( __('Cost'),  'cost')
             ->sortable(),
-            BelongsTo::make('Profile')
-            ->searchable()
-            ->sortable(),
+            Select::make( __('Status'),  'status')
+            ->sortable()
+            ->options([
+                'pending' => 'Pending',
+                'approved' => 'Approved',
+                'started' => 'Started',
+                'completed' => 'Completed',
+                'paid' => 'Paid',
+            ])->displayUsingLabels(),
             Notes::make('Notes','notes')->onlyOnDetail(),
     ];
     }

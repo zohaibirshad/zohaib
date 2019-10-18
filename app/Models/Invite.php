@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DigitalCloud\ModelNotes\HasNotes;
+use App\Traits\Uuid;
 
 class Invite extends Model
 {
-    use HasNotes;
+    use HasNotes, Uuid;
 
     /**
     * @var  string
@@ -21,7 +22,7 @@ class Invite extends Model
 
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile', 'profile_id', 'id');
+        return $this->belongsTo('App\Models\Profile', 'profile_id', 'id')->with('media');
     }
     public function job()
     {

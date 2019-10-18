@@ -247,6 +247,19 @@
 					</div>
 					<!-- Widget / End-->
 
+					<!-- Widget -->
+					<div class="sidebar-widget">
+						<h3>Categories</h3>
+						<div class="task-tags">
+							<a href="#"><span>Tips</span></a>
+							<a href="#"><span>Marketing</span></a>
+							<a href="#"><span>Recruitment</span></a>
+							<a href="#"><span>salary</span></a>
+							<a href="#"><span>income</span></a>
+							<a href="#"><span>application</span></a>
+						</div>
+					</div>
+
 
 					<!-- Widget -->
 					<div class="sidebar-widget">

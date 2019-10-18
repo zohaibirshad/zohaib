@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use DigitalCloud\ModelNotes\HasNotes;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class BlogPost extends Model implements HasMedia
 {
-    use HasMediaTrait, HasNotes;
+    use HasMediaTrait, HasNotes, SoftDeletes;
 
     /**
     * @var  string
@@ -20,6 +22,12 @@ class BlogPost extends Model implements HasMedia
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('featured');
+
+    }
     
     public function user()
     {

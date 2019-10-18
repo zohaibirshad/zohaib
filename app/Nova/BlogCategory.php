@@ -62,15 +62,13 @@ class BlogCategory extends Resource
     public function fields(Request $request)
     {
         return [
-                                                ID::make( __('Id'),  'id')
-->rules('required')
-->sortable()
-,
-                                                                Text::make( __('Name'),  'name')
-->rules('required')
-->sortable()
-,
-                                                                                            ];
+                ID::make( __('Id'),  'id')
+                ->rules('required')
+                ->sortable(),
+                Text::make( __('Name'),  'name')
+                ->rules('required')
+                ->sortable(),
+            ];
     }
 
     /**

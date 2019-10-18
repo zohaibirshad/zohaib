@@ -87,8 +87,8 @@ class BlogPost extends Resource
             Select::make( __('Featured Article'),  'featured')
             ->sortable()
             ->options([
-                '0' => 'No',
-                '1' => 'Yes',
+                'no' => 'No',
+                'yes' => 'Yes',
             ])->displayUsingLabels(),
             Text::make( __('Count'),  'count')
             ->exceptOnForms()
