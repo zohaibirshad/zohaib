@@ -19,29 +19,21 @@
 				<!-- Blog Post Thumbnail -->
 				<div class="blog-post-thumbnail">
 					<div class="blog-post-thumbnail-inner">
-						<span class="blog-item-tag">Tips</span>
+						<span class="blog-item-tag">{{ $post->categories[0]->name }}</span>
 						<img src="{{ asset("assets/images/blog-04.jpg") }}" alt="">
 					</div>
 				</div>
 
 				<!-- Blog Post Content -->
 				<div class="blog-post-content">
-					<h3 class="margin-bottom-10">5 Myths That Prevent Job Seekers from Overcoming Failure</h3>
+					<h3 class="margin-bottom-10">{{ $post->title }}</h3>
 
 					<div class="blog-post-info-list margin-bottom-20">
-						<a href="#" class="blog-post-info">22 July 2019</a>
-						<a href="#"  class="blog-post-info">5 Comments</a>
+						<a href="#" class="blog-post-info">{{ $post->created_at }}</a>
+						{{-- <a href="#"  class="blog-post-info">5 Comments</a> --}}
 					</div>
 
-					<p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae, tempus sed augue. Curabitur quis lectus quis augue dapibus facilisis. Vivamus tincidunt orci est, in vehicula nisi eleifend ut. Vestibulum sagittis varius orci vitae.</p>
-
-					<blockquote class="margin-top-20 margin-bottom-20">
-						Mauris aliquet ultricies ante, non faucibus ante gravida sed. Sed ultrices pellentesque purus, vulputate volutpat ipsum hendrerit sed neque sed sapien rutrum.
-					</blockquote>
-
-					<p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. Cras suscipit, quam vitae adipiscing faucibus, risus nibh laoreet odio, a porttitor metus eros ut enim. Morbi augue velit, tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium lorem hendrerit eros sagittis fermentum.</p>
-
-					<p>Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo. In libero urna, venenatis sit amet ornare non, suscipit nec risus. Sed consequat justo non mauris pretium at tempor justo sodales. Quisque tincidunt laoreet malesuada. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer vitae ante enim. Fusce sed elit est. Suspendisse sit amet mauris in quam pretium faucibus et aliquam odio. </p>
+					<div>{!! $post->body !!}</div>
 
 					<!-- Share Buttons -->
 					<div class="share-buttons margin-top-25">
@@ -61,7 +53,7 @@
 			</div>
 			<!-- Blog Post Content / End -->
 			
-			<!-- Blog Nav -->
+			{{-- <!-- Blog Nav -->
 			<ul id="posts-nav" class="margin-top-0 margin-bottom-40">
 				<li class="next-post">
 					<a href="#">
@@ -75,9 +67,9 @@
 						<strong>11 Tips to Help You Get New Clients Through Cold Calling</strong>
 					</a>
 				</li>
-			</ul>
+			</ul> --}}
 			
-			<!-- Related Posts -->
+			{{-- <!-- Related Posts -->
 			<div class="row">
 				
 				<!-- Headline -->
@@ -226,7 +218,7 @@
 					
 				</div>
 			</div>
-			<!-- Leava a Comment / End -->
+			<!-- Leava a Comment / End --> --}}
 
 		</div>
 		<!-- Inner Content / End -->
@@ -242,36 +234,20 @@
 						<ul class="widget-tabs">
 
 							<!-- Post #1 -->
-							<li>
-								<a href="{{ route('blog.show', 1) }}" class="widget-content active">
-									<img src="{{ asset('assets/images/blog-02a.jpg') }}" alt="">
-									<div class="widget-text">
-										<h5>How to "Woo" a Recruiter and Land Your Dream Job</h5>
-										<span>29 June 2019</span>
-									</div>
-								</a>
-							</li>
+							@forelse ($trending_posts as $post)
+								<li>
+									<a href="{{ route('blog.show', $post->slug) }}" class="widget-content active">
+										<img src="{{ asset('assets/images/blog-02a.jpg') }}" alt="">
+										<div class="widget-text">
+											<h5>{{ $post->title }}</h5>
+											<span>{{ $post->created_at }}</span>
+										</div>
+									</a>
+								</li>	
+							@empty
+								<h3>NO TRENDING POSTS AT THE MOMENT</h3>
+							@endforelse
 
-							<!-- Post #2 -->
-							<li>
-								<a href="{{ route('blog.show', 1) }}" class="widget-content">
-									<img src="{{ asset('assets/images/blog-07a.jpg') }}" alt="">
-									<div class="widget-text">
-										<h5>What It Really Takes to Make $100k Before You Turn 30</h5>
-										<span>3 June 2019</span>
-									</div>
-								</a>
-							</li>
-							<!-- Post #3 -->
-							<li>
-								<a href="{{ route('blog.show', 1) }}" class="widget-content">
-									<img src="{{ asset('assets/images/blog-04a.jpg') }}" alt="">
-									<div class="widget-text">
-										<h5>5 Myths That Prevent Job Seekers from Overcoming Failure</h5>
-										<span>5 June 2019</span>
-									</div>
-								</a>
-							</li>
 						</ul>
 
 					</div>
@@ -280,14 +256,10 @@
 				<!-- Widget -->
 				<div class="sidebar-widget">
 					<h3>Tags</h3>
-					<div class="task-tags">
-						<a href="#"><span>employer</span></a>
-						<a href="#"><span>recruiting</span></a>
-						<a href="#"><span>work</span></a>
-						<a href="#"><span>salary</span></a>
-						<a href="#"><span>tips</span></a>
-						<a href="#"><span>income</span></a>
-						<a href="#"><span>application</span></a>
+					<div class="task-tags text-lowercase">
+						@foreach ($tags as $tag)
+							<a href="#"><span>{{ $tag->name }}</span></a>
+						@endforeach
 					</div>
 				</div>
 
