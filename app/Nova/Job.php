@@ -75,7 +75,10 @@ class Job extends Resource
             ID::make( __('Id'),  'id')
             ->rules('required')
             ->sortable(),
-            BelongsTo::make('Profile')
+            BelongsTo::make('Hirer', 'owner', 'App\Nova\User')
+            ->searchable()
+            ->sortable(),  
+            BelongsTo::make('Freelancer', 'profile', 'App\Nova\Profile')
             ->searchable()
             ->sortable(),    
             Text::make( __('Title'),  'name')
@@ -90,14 +93,13 @@ class Job extends Resource
             BelongsTo::make('Select Budget', 'job_budget', 'App\Nova\Job')
             ->searchable()
             ->sortable(),
-            Number::make( __('Bid Duration'),  'duration')
-            ->sortable(),  
             Select::make( __('Status'),  'status')
             ->sortable()
             ->options([
                 'not assigned' => 'Not Assigned',
                 'assigned' => 'Assigned',
                 'completed' => 'Completed',
+                'inactive' => 'Make inactive',
             ]),
             Select::make( __('Featured'),  'featured')
             ->sortable()

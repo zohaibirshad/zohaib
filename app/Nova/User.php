@@ -6,8 +6,10 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\MorphToMany;
 use Coreproc\NovaAuditingUserFields\CreatedBy;
 use Coreproc\NovaAuditingUserFields\UpdatedBy;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
@@ -71,7 +73,13 @@ class User extends Resource
 
             Notes::make('Notes','notes')->onlyOnDetail(),
             
-            HasOne::make('Profile')
+            HasOne::make('Profile'),
+            HasMany::make('Jobs'),
+            HasMany::make('Reviews'),
+
+            MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
+            MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+     
 
         ];
     }

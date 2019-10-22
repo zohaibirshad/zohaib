@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 
 class BlogPost extends Model implements HasMedia
@@ -23,6 +24,23 @@ class BlogPost extends Model implements HasMedia
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
+   
+    /**
+     * Boot function from laravel.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = (string) Str::slug($model->title);
+        });
+
+        static::updating(function ($model) {
+            $model->slug = (string) Str::slug($model->title);
+        });
+    }
 
     public function getCreatedAtAttribute()
     {

@@ -76,6 +76,12 @@ class Bid extends Resource
             BelongsTo::make('Job')
             ->searchable()
             ->sortable(),
+            Select::make( __('Rate Type'),  'rate_type')
+            ->sortable()
+            ->options([
+                            'fixed' => 'fixed',
+                            'hourly' => 'hourly',
+                        ]),
             Currency::make( __('Rate'),  'rate')
             ->sortable(),
             Number::make( __('Delivery Time'),  'delivery_time')
@@ -90,9 +96,7 @@ class Bid extends Resource
             ->sortable()
             ->options([
                             'pending' => 'pending',
-                            'active' => 'active',
-                            'delayed' => 'delayed',
-                            'completed' => 'completed',
+                            'accepted' => 'accepted',
                         ]),
             Trix::make( __('Description'),  'description')
             ->sortable()

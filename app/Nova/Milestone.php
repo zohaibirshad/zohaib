@@ -91,6 +91,7 @@ class Milestone extends Resource
                 'approved' => 'Approved',
                 'started' => 'Started',
                 'completed' => 'Completed',
+                'approve completed' => 'Approve Completed',
                 'paid' => 'Paid',
             ])->displayUsingLabels(),
             Notes::make('Notes','notes')->onlyOnDetail(),

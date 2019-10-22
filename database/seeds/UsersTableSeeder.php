@@ -25,6 +25,19 @@ class UsersTableSeeder extends Seeder
                 'email' => 'emradegh@gmail.com',
                 'email_verified_at' => now(),
             ],
+            [
+                'name' => 'Emmanuel Oduro',
+                'password' => bcrypt('decount'),
+                'email' => 'emmarthurson@gmail.com',
+                'email_verified_at' => now(),
+            ],
+            [
+                'name' => 'Emmanuel Oduro (Hirer)',
+                'password' => bcrypt('decount'),
+                'email' => 'emmanuel@jumeni.com',
+                'email_verified_at' => now(),
+            ],
+            
         ];
         
         foreach($users as $user){

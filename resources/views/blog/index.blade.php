@@ -14,7 +14,7 @@
 				<div class="blog-carousel">
 
 					@forelse($featured_posts as $post)
-					<a href="{{ route('blog.show', $post->slug) }}" class="blog-compact-item-container">
+					<a href="blog/{{ $post->slug }}" class="blog-compact-item-container">
 						<div class="blog-compact-item">
 							<img src="{{ asset('assets/images/blog-04a.jpg') }}" alt="">
 							<span class="blog-item-tag">{{ $post->categories[0]->name }}</span>
@@ -53,7 +53,7 @@
 
 				<!-- Blog Post -->
 				@forelse ($blog_posts as $post)
-					<a href="{{ route('blog.show', $post->slug) }}" class="blog-post">
+					<a href="blog/{{ $post->slug }}" class="blog-post">
 						<!-- Blog Post Thumbnail -->
 						<div class="blog-post-thumbnail">
 							<div class="blog-post-thumbnail-inner">
@@ -93,7 +93,7 @@
 							<!-- Post #1 -->
 							@forelse ($trending_posts as $post)
 								<li>
-									<a href="{{ route('blog.show', $post->slug) }}" class="widget-content active">
+									<a href="blog/{{ $post->slug }}" class="widget-content active">
 										<img src="{{ asset('assets/images/blog-02a.jpg') }}" alt="">
 										<div class="widget-text">
 											<h5>{{ $post->title }}</h5>

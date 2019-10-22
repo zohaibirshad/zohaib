@@ -14,25 +14,26 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $category = $request->category;
-        $tag = $request->tag;
+        // $category = $request->category;
+        // $tag = $request->tag;
 
         $blog_posts = BlogPost::with('categories', 'tags')->latest()
-            ->when(!empty($category), function ($query) use ($category) {
-                $query->whereHas('categories', function ($q) use ($category) {
-                    $q->where('id', $category)->orwhere('slug', $category);
-                });
-            })
-            ->when(!empty($tag), function ($query) use ($tag) {
-                $query->whereHas('tags', function ($q) use ($tag) {
-                    $q->where('id', $tag)->orwhere('slug', $tag);
-                });
-            })
+            // ->when(!empty($category), function ($query) use ($category) {
+            //     $query->whereHas('categories', function ($q) use ($category) {
+            //         $q->where('id', $category)
+            //         ->orwhere('slug', $category);
+            //     });
+            // })
+            // ->when(!empty($tag), function ($query) use ($tag) {
+            //     $query->whereHas('tags', function ($q) use ($tag) {
+            //         $q->where('id', $tag)->orwhere('slug', $tag);
+            //     });
+            // })
             ->paginate(4);
-        $blog_posts->appends(['category' => $category]);
-        $blog_posts->appends(['tag' => $tag]);
+        // $blog_posts->appends(['category' => $category]);
+        // $blog_posts->appends(['tag' => $tag]);
 
         $featured_posts = BlogPost::where('featured', 'yes')->with('categories', 'tags')->latest()->limit(5)->get();
 
@@ -52,17 +53,16 @@ class BlogController extends Controller
     }
 
 
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    public function show($slug)
     {
-        $post = BlogPost::where('id', $id)
-            ->orWhere('slug', $id)
+        $post = BlogPost::where('slug', $slug)
             ->with('categories', 'tags')
             ->first();
 
