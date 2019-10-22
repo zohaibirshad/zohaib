@@ -22,7 +22,8 @@ class BlogController extends Controller
         $blog_posts = BlogPost::with('categories', 'tags')->latest()
             ->when(!empty($category), function ($query) use ($category) {
                 $query->whereHas('categories', function ($q) use ($category) {
-                    $q->where('id', $category)->orwhere('slug', $category);
+                    $q->where('id', $category)
+                    ->orwhere('slug', $category);
                 });
             })
             ->when(!empty($tag), function ($query) use ($tag) {
@@ -52,13 +53,13 @@ class BlogController extends Controller
     }
 
 
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         $post = BlogPost::where('id', $id)
