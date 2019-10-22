@@ -24,6 +24,7 @@ class CreateBidsTable extends Migration
             $table->decimal('rate', 13, 2)->nullable();
             $table->integer('delivery_time')->nullable();
             $table->string('delivery_type')->nulable();
+            $table->string('rate_type')->nulable();
             $table->string('status')->nulable();
             $table->string('description')->nullable();
             $table->timestamps();

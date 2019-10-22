@@ -90,14 +90,13 @@ class Job extends Resource
             BelongsTo::make('Select Budget', 'job_budget', 'App\Nova\Job')
             ->searchable()
             ->sortable(),
-            Number::make( __('Bid Duration'),  'duration')
-            ->sortable(),  
             Select::make( __('Status'),  'status')
             ->sortable()
             ->options([
                 'not assigned' => 'Not Assigned',
                 'assigned' => 'Assigned',
                 'completed' => 'Completed',
+                'inactive' => 'Make inactive',
             ]),
             Select::make( __('Featured'),  'featured')
             ->sortable()

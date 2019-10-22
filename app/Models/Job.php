@@ -56,12 +56,26 @@ class Job extends Model
                         
     }
 
+    public function accepted_bid()
+    {
+        return $this->hasOne('App\Models\Bid')->where('status', 'accepted');
+                        
+    }
+
     /**
      * Get all of the job's reviews.
      */
     public function reviews()
     {
         return $this->morphMany('App\Models\Review', 'reviewable');
+    }
+
+    /**
+     * Get all of the job's reviews.
+     */
+    public function payments()
+    {
+        return;
     }
 
 

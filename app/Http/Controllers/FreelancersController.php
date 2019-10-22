@@ -86,7 +86,8 @@ class FreelancersController extends Controller
         return response()->json($jobs);
     }
 
-
+    
+    
     /**
      * Bookmark Job.
      *
