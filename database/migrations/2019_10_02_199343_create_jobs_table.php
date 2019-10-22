@@ -15,6 +15,8 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('uuid');
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('profile_id')->unsigned()->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles');
             $table->bigInteger('industry_id')->nullable()->unsigned();

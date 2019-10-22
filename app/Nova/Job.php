@@ -75,7 +75,10 @@ class Job extends Resource
             ID::make( __('Id'),  'id')
             ->rules('required')
             ->sortable(),
-            BelongsTo::make('Profile')
+            BelongsTo::make('Hirer', 'owner', 'App\Nova\User')
+            ->searchable()
+            ->sortable(),  
+            BelongsTo::make('Freelancer', 'profile', 'App\Nova\Profile')
             ->searchable()
             ->sortable(),    
             Text::make( __('Title'),  'name')

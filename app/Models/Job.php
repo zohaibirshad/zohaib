@@ -27,6 +27,11 @@ class Job extends Model
         return $this->belongsTo('App\Models\Profile')->with('media');
     }
 
+    public function owner()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function industry()
     {
         return $this->belongsTo('App\Models\Industry', 'industry_id', 'id');

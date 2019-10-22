@@ -31,6 +31,7 @@ class Profile extends Model implements HasMedia
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+    
 
     public function country()
     {

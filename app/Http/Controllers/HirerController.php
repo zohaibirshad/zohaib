@@ -26,7 +26,8 @@ class HirerController extends Controller
      */
     public function not_assigned_jobs()
     {
-        $jobs = Job::where('status', 'not assigned')
+        $jobs = Job::where('user_id', Auth::user()->id)
+                    ->where('status', 'not assigned')
                     ->with('bids')
                     ->withCount('bids')
                     ->get();
@@ -42,7 +43,8 @@ class HirerController extends Controller
      */
     public function assigned_jobs()
     {
-        $jobs = Job::where('status', 'assigned')
+        $jobs = Job::where('user_id', Auth::user()->id)
+                    ->where('status', 'assigned')
                     ->with('milestones', 'accepted_bid')
                     ->withCount('milestones')
                     ->get();
@@ -58,7 +60,8 @@ class HirerController extends Controller
      */
     public function completed_jobs()
     {
-        $jobs = Job::where('status', 'completed')
+        $jobs = Job::where('user_id', Auth::user()->id)
+                    ->where('status', 'completed')
                     ->with('milestones', 'accepted_bid', 'payments')
                     ->withCount('milestones')
                     ->get();
@@ -131,5 +134,18 @@ class HirerController extends Controller
             'status' => "Changed",
             'message' => "Milestone Status was changed successfully"
         ]);
+    }
+
+
+    /**
+     * Review a hirer.
+     *
+     * @param  string  $profile_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function review_freelancer(Request $request, $profile_uuid)
+    {
+        
     }
 }
