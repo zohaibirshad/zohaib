@@ -14,7 +14,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountriesTableSeeder::class,
             RolesTableSeeder::class,
-            UsersTableSeeder::class
+            UsersTableSeeder::class,
+            BlogTagsTableSeeder::class,
+            BlogCategoriesTableSeeder::class,
+            BlogPostsTableSeeder::class,
         ]);
     }
 }

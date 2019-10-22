@@ -17,8 +17,9 @@ class CreateBlogPosts extends Migration
             $table->BigInteger('user_id')->index()->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title')->nullable();
-            $table->string('featured')->nullable();
-            $table->bigInteger('count')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('featured')->default("no")->nullable();
+            $table->bigInteger('count')->default(0)->nullable();
             $table->text('body')->nullable();
             $table->softDeletes();
             $table->timestamps();

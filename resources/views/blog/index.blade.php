@@ -13,74 +13,23 @@
 			<div class="col-xl-12">
 				<div class="blog-carousel">
 
-					<a href="{{ route('blog.show', 1) }}" class="blog-compact-item-container">
+					@forelse($featured_posts as $post)
+					<a href="{{ route('blog.show', $post->slug) }}" class="blog-compact-item-container">
 						<div class="blog-compact-item">
 							<img src="{{ asset('assets/images/blog-04a.jpg') }}" alt="">
-							<span class="blog-item-tag">Tips</span>
+							<span class="blog-item-tag">{{ $post->categories[0]->name }}</span>
 							<div class="blog-compact-item-content">
 								<ul class="blog-post-tags">
-									<li>20 May 2019</li>
+									<li>{{ $post->created_at }}</li>
 								</ul>
-								<h3>5 Myths That Prevent Job Seekers from Overcoming Failure</h3>
-								<p>Distinctively reengineer revolutionary meta-services and premium architectures intuitive opportunities.</p>
+								<h3>{{ $post->title }}</h3>
+								<p>{{ $post->body }}</p>
 							</div>
 						</div>
 					</a>
-
-					<a href="{{ route('blog.show', 1) }}" class="blog-compact-item-container">
-						<div class="blog-compact-item">
-							<img src="{{ asset('assets/images/blog-05a.jpg') }}" alt="">
-							<span class="blog-item-tag">Recruiting</span>
-							<div class="blog-compact-item-content">
-								<ul class="blog-post-tags">
-									<li>28 April 2019</li>
-								</ul>
-								<h3>12 Dog-Friendly Companies Hiring Now</h3>
-								<p>Compellingly embrace empowered e-business after user friendly intellectual capital. Interactively front-end.</p>
-							</div>
-						</div>
-					</a>
-
-					<a href="{{ route('blog.show', 1) }}" class="blog-compact-item-container">
-						<div class="blog-compact-item">
-							<img src="{{ asset('assets/images/blog-03a.jpg') }}" alt="">
-							<span class="blog-item-tag">Marketing</span>
-							<div class="blog-compact-item-content">
-								<ul class="blog-post-tags">
-									<li>10 June 2019</li>
-								</ul>
-								<h3>11 Tips to Help You Get New Clients Through Cold Calling</h3>
-								<p>Compellingly embrace empowered e-business after user friendly intellectual capital. Interactively front-end.</p>
-							</div>
-						</div>
-					</a>
-					<a href="{{ route('blog.show', 1) }}" class="blog-compact-item-container">
-						<div class="blog-compact-item">
-							<img src="{{ asset('assets/images/blog-06a.jpg') }}" alt="">
-							<span class="blog-item-tag">Recruiting</span>
-							<div class="blog-compact-item-content">
-								<ul class="blog-post-tags">
-									<li>9 June 2019</li>
-								</ul>
-								<h3>Follow Up On Job Application With This Template</h3>
-								<p>Appropriately empower dynamic leadership skills after business portals. Globally myocardinate interactive.</p>
-							</div>
-						</div>
-					</a>
-
-					<a href="{{ route('blog.show', 1) }}" class="blog-compact-item-container">
-						<div class="blog-compact-item">
-							<img src="{{ asset('assets/images/blog-07a.jpg') }}" alt="">
-							<span class="blog-item-tag">Recruiting</span>
-							<div class="blog-compact-item-content">
-								<ul class="blog-post-tags">
-									<li>3 June 2019</li>
-								</ul>
-								<h3>What It Really Takes to Make $100k Before You Turn 30</h3>
-								<p>Appropriately empower dynamic leadership skills after business portals. Globally myocardinate interactive.</p>
-							</div>
-						</div>
-					</a>
+					@empty
+					<h3>NO FEATURED POST AVAILABLE</h3>
+					@endforelse
 
 				</div>
 
@@ -103,92 +52,31 @@
 				</div>
 
 				<!-- Blog Post -->
-				<a href="{{ route('blog.show', 1) }}" class="blog-post">
-					<!-- Blog Post Thumbnail -->
-					<div class="blog-post-thumbnail">
-						<div class="blog-post-thumbnail-inner">
-							<span class="blog-item-tag">Tips</span>
-							<img src="{{ asset('assets/images/blog-01a.jpg') }}" alt="">
+				@forelse ($blog_posts as $post)
+					<a href="{{ route('blog.show', $post->slug) }}" class="blog-post">
+						<!-- Blog Post Thumbnail -->
+						<div class="blog-post-thumbnail">
+							<div class="blog-post-thumbnail-inner">
+								<span class="blog-item-tag">{{ $post->categories[0]->name }}</span>
+								<img src="{{ asset('assets/images/blog-01a.jpg') }}" alt="">
+							</div>
 						</div>
-					</div>
-					<!-- Blog Post Content -->
-					<div class="blog-post-content">
-						<span class="blog-post-date">22 July 2019</span>
-						<h3>16 Ridiculously Easy Ways to Find & Keep a Remote Job</h3>
-						<p>Efficiently myocardinate market-driven innovation via open-source alignments. Dramatically engage high-payoff infomediaries rather than. </p>
-					</div>
-					<!-- Icon -->
-					<div class="entry-icon"></div>
-				</a>
-				
-				<!-- Blog Post -->
-				<a href="{{ route('blog.show', 1) }}" class="blog-post">
-					<!-- Blog Post Thumbnail -->
-					<div class="blog-post-thumbnail">
-						<div class="blog-post-thumbnail-inner">
-							<span class="blog-item-tag">Recruiting</span>
-							<img src="{{ asset('assets/images/blog-02a.jpg') }}" alt="">
+						<!-- Blog Post Content -->
+						<div class="blog-post-content">
+							<span class="blog-post-date">{{ $post->created_at }}</span>
+							<h3>{{ $post->title }}</h3>
+							<p>{{ $post->body }}</p>
 						</div>
-					</div>
-					<!-- Blog Post Content -->
-					<div class="blog-post-content">
-						<span class="blog-post-date">29 June 2019</span>
-						<h3>How to "Woo" a Recruiter and Land Your Dream Job</h3>
-						<p>Efficiently myocardinate market-driven innovation via open-source alignments. Dramatically engage high-payoff infomediaries rather than. </p>
-					</div>
-				</a>
-
-				<!-- Blog Post -->
-				<a href="{{ route('blog.show', 1) }}" class="blog-post">
-					<!-- Blog Post Thumbnail -->
-					<div class="blog-post-thumbnail">
-						<div class="blog-post-thumbnail-inner">
-							<span class="blog-item-tag">Marketing</span>
-							<img src="{{ asset('assets/images/blog-03a.jpg') }}" alt="">
-						</div>
-					</div>
-					<!-- Blog Post Content -->
-					<div class="blog-post-content">
-						<span class="blog-post-date">10 June 2019</span>
-						<h3>11 Tips to Help You Get New Clients Through Cold Calling</h3>
-						<p>Efficiently myocardinate market-driven innovation via open-source alignments. Dramatically engage high-payoff infomediaries rather than. </p>
-					</div>
-				</a>
-
-				<!-- Blog Post -->
-				<a href="{{ route('blog.show', 1) }}" class="blog-post">
-					<!-- Blog Post Thumbnail -->
-					<div class="blog-post-thumbnail">
-						<div class="blog-post-thumbnail-inner">
-							<span class="blog-item-tag">Tips</span>
-							<img src="{{ asset('assets/images/blog-04a.jpg') }}" alt="">
-						</div>
-					</div>
-					<!-- Blog Post Content -->
-					<div class="blog-post-content">
-						<span class="blog-post-date">5 June 2019</span>
-						<h3>5 Myths That Prevent Job Seekers from Overcoming Failure</h3>
-						<p>Efficiently myocardinate market-driven innovation via open-source alignments. Dramatically engage high-payoff infomediaries rather than. </p>
-					</div>
-				</a>
+						<!-- Icon -->
+						<div class="entry-icon"></div>
+					</a>
+				@empty
+					<h3>NO POST AVAILABLE</h3>
+				@endforelse
 
 				<!-- Pagination -->
 				<div class="clearfix"></div>
-				<div class="row">
-					<div class="col-md-12">
-						<!-- Pagination -->
-						<div class="pagination-container margin-top-10 margin-bottom-20">
-							<nav class="pagination">
-								<ul>
-									<li><a href="#" class="current-page ripple-effect">1</a></li>
-									<li><a href="#" class="ripple-effect">2</a></li>
-									<li><a href="#" class="ripple-effect">3</a></li>
-									<li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
+				{{ $blog_posts->onEachSide(1)->links('vendor.pagination.default') }}
 				<!-- Pagination / End -->
 
 			</div>
@@ -196,15 +84,6 @@
 
 			<div class="col-xl-4 col-lg-4 content-left-offset">
 				<div class="sidebar-container margin-top-65">
-					
-					{{-- <!-- Location -->
-					<div class="sidebar-widget margin-bottom-40">
-						<div class="input-with-icon">
-							<input id="autocomplete-input" type="text" placeholder="Search">
-							<i class="icon-material-outline-search"></i>
-						</div>
-					</div> --}}
-
 					<!-- Widget -->
 					<div class="sidebar-widget">
 
@@ -212,36 +91,20 @@
 						<ul class="widget-tabs">
 
 							<!-- Post #1 -->
-							<li>
-								<a href="{{ route('blog.show', 1) }}" class="widget-content active">
-									<img src="{{ asset('assets/images/blog-02a.jpg') }}" alt="">
-									<div class="widget-text">
-										<h5>How to "Woo" a Recruiter and Land Your Dream Job</h5>
-										<span>29 June 2019</span>
-									</div>
-								</a>
-							</li>
+							@forelse ($trending_posts as $post)
+								<li>
+									<a href="{{ route('blog.show', $post->slug) }}" class="widget-content active">
+										<img src="{{ asset('assets/images/blog-02a.jpg') }}" alt="">
+										<div class="widget-text">
+											<h5>{{ $post->title }}</h5>
+											<span>{{ $post->created_at }}</span>
+										</div>
+									</a>
+								</li>	
+							@empty
+								
+							@endforelse
 
-							<!-- Post #2 -->
-							<li>
-								<a href="{{ route('blog.show', 1) }}" class="widget-content">
-									<img src="{{ asset('assets/images/blog-07a.jpg') }}" alt="">
-									<div class="widget-text">
-										<h5>What It Really Takes to Make $100k Before You Turn 30</h5>
-										<span>3 June 2019</span>
-									</div>
-								</a>
-							</li>
-							<!-- Post #3 -->
-							<li>
-								<a href="{{ route('blog.show', 1) }}" class="widget-content">
-									<img src="{{ asset('assets/images/blog-04a.jpg') }}" alt="">
-									<div class="widget-text">
-										<h5>5 Myths That Prevent Job Seekers from Overcoming Failure</h5>
-										<span>5 June 2019</span>
-									</div>
-								</a>
-							</li>
 						</ul>
 
 					</div>
@@ -250,13 +113,10 @@
 					<!-- Widget -->
 					<div class="sidebar-widget">
 						<h3>Categories</h3>
-						<div class="task-tags">
-							<a href="#"><span>Tips</span></a>
-							<a href="#"><span>Marketing</span></a>
-							<a href="#"><span>Recruitment</span></a>
-							<a href="#"><span>salary</span></a>
-							<a href="#"><span>income</span></a>
-							<a href="#"><span>application</span></a>
+						<div class="task-tags text-capitalize">
+							@foreach ($categories as $category)
+								<a href="/blog?category={{ $category->slug }}"><span>{{ $category->name }}</span></a>
+							@endforeach
 						</div>
 					</div>
 
@@ -264,14 +124,10 @@
 					<!-- Widget -->
 					<div class="sidebar-widget">
 						<h3>Tags</h3>
-						<div class="task-tags">
-							<a href="#"><span>employer</span></a>
-							<a href="#"><span>recruiting</span></a>
-							<a href="#"><span>work</span></a>
-							<a href="#"><span>salary</span></a>
-							<a href="#"><span>tips</span></a>
-							<a href="#"><span>income</span></a>
-							<a href="#"><span>application</span></a>
+						<div class="task-tags text-lowercase">
+							@foreach ($tags as $tag)
+								<a href="/blog?tag={{ $tag->slug }}"><span>{{ $tag->name }}</span></a>
+							@endforeach
 						</div>
 					</div>
 

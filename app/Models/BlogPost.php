@@ -7,6 +7,7 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 
 class BlogPost extends Model implements HasMedia
@@ -22,6 +23,11 @@ class BlogPost extends Model implements HasMedia
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
+    public function getCreatedAtAttribute()
+    {
+        return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
+    }
 
     public function registerMediaCollections()
     {
@@ -39,7 +45,7 @@ class BlogPost extends Model implements HasMedia
         return $this->belongsToMany('App\Models\BlogTag');
     }
 
-    public function categtories()
+    public function categories()
     {
         return $this->belongsToMany('App\Models\BlogCategory');
     }
