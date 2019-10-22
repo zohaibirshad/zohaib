@@ -14,7 +14,7 @@
 				<div class="blog-carousel">
 
 					@forelse($featured_posts as $post)
-					<a href="{{ route('blog.show', $post->slug) }}" class="blog-compact-item-container">
+					<a href="blog/{{ $post->slug }}" class="blog-compact-item-container">
 						<div class="blog-compact-item">
 							<img src="{{ asset('assets/images/blog-04a.jpg') }}" alt="">
 							<span class="blog-item-tag">{{ $post->categories[0]->name }}</span>
