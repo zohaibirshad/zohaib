@@ -31,8 +31,8 @@ class BlogController extends Controller
                 });
             })
             ->paginate(4);
-            $blog_posts->appends(['category' => $category]);
-            $blog_posts->appends(['tag' => $tag]);
+        $blog_posts->appends(['category' => $category]);
+        $blog_posts->appends(['tag' => $tag]);
 
         $featured_posts = BlogPost::where('featured', 'yes')->with('categories', 'tags')->latest()->limit(5)->get();
 
@@ -74,65 +74,6 @@ class BlogController extends Controller
 
         return view('blog.show', compact(
             'post',
-            'trending_posts',
-            'categories',
-            'tags'
-        ));
-    }
-
-
-    /**
-     * show a specified blog category posts.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function category($id)
-    {
-        $trending_posts = BlogPost::with('categories', 'tags')->orderBy('count', 'desc')->latest()->paginate(4);
-
-        $categories = BlogCategory::limit(10)->get();
-
-        $tags = BlogTag::limit(15)->get();
-
-        $blog_posts = BlogPost::whereHas('categories', function (Builder $query) use ($id) {
-            $query->where('id', $id);
-        })
-            ->with('categories', 'tags')
-            ->latest()
-            ->paginate(4);
-
-        return view('blog.category', compact(
-            'blog_post',
-            'trending_posts',
-            'categories',
-            'tags'
-        ));
-    }
-
-    /**
-     * show a specified blog tag posts.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function tag($id)
-    {
-        $trending_posts = BlogPost::with('categories', 'tags')->orderBy('count', 'desc')->latest()->paginate(4);
-
-        $categories = BlogCategory::limit(10)->get();
-
-        $tags = BlogTag::limit(15)->get();
-
-        $blog_posts = BlogPost::whereHas('tags', function (Builder $query) use ($id) {
-            $query->where('id', $id);
-        })
-            ->with('categories', 'tags')
-            ->latest()
-            ->paginate(4);
-
-        return view('blog.category', compact(
-            'blog_post',
             'trending_posts',
             'categories',
             'tags'
