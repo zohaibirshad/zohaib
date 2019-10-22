@@ -62,7 +62,6 @@ class BlogController extends Controller
     public function show($id)
     {
         $post = BlogPost::where('id', $id)
-            ->orWhere('slug', $id)
             ->with('categories', 'tags')
             ->first();
 

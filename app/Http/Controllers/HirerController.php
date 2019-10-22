@@ -146,6 +146,24 @@ class HirerController extends Controller
      */
     public function review_freelancer(Request $request, $profile_uuid)
     {
-        
+        $validateData = $request->validate([
+            'rating' => 'required',
+            'body' => 'nullable',
+        ]);
+
+        $profile = Profile::where('uuid', $profile_uuid)->first();
+
+        $profile->reviews()->create([
+            'user_id' => Auth::user()->id,
+            'rating' => $request->rating,
+            'body' => $request->body
+        ]);
+
+        return response()->json([
+            'status' => "Saved",
+            'message' => "Review was saved successfully"
+        ]);
+
+
     }
 }

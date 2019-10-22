@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
 
 
 class Review extends Resource
@@ -69,6 +70,10 @@ class Review extends Resource
         return [
             ID::make( __('Id'),  'id')
             ->rules('required')
+            ->sortable(),
+
+            BelongsTo::make('User')
+            ->searchable()
             ->sortable(),
 
             Rating::make('Rating')->min(0)->max(5)->increment(0.5)->hideRating(),

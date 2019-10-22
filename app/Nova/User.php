@@ -75,6 +75,7 @@ class User extends Resource
             
             HasOne::make('Profile'),
             HasMany::make('Jobs'),
+            HasMany::make('Reviews'),
 
             MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
             MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),

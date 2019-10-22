@@ -96,7 +96,9 @@ class FreelancersController extends Controller
      */
     public function bookmark_job(Request $request, $job_uuid)
     {
-        //
+        $validateData = $request->validate([
+
+        ]);
     }
 
      /**
@@ -131,7 +133,23 @@ class FreelancersController extends Controller
      */
     public function review_hirer(Request $request, $job_uuid)
     {
-        //
+        $validateData = $request->validate([
+            'rating' => 'required',
+            'body' => 'nullable',
+        ]);
+
+        $job = Job::where('uuid', $job_uuid)->first();
+
+        $job->reviews()->create([
+            'user_id' => Auth::user()->id,
+            'rating' => $request->rating,
+            'body' => $request->body
+        ]);
+
+        return response()->json([
+            'status' => "Saved",
+            'message' => "Review was saved successfully"
+        ]);
     }
 
     /**

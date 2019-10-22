@@ -55,4 +55,9 @@ class User extends Authenticatable implements Auditable
     {
         return $this->hasMany('App\Models\Job');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
 }
