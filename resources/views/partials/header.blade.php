@@ -15,22 +15,24 @@
 				<!-- Main Navigation -->
 				<nav id="navigation">
 					<ul id="responsive">
-
+						@guest
 						<li>
 							<a href="{{ route('how-it-works') }}" class="{{ (request()->is('how-it-works')) ? 'current' : '' }}">
 							How it works
 							</a>
 						</li>
 						<li>
+							<a href="{{ route('pricing') }}" class="{{ (request()->is('pricing')) ? 'current' : '' }}">
+							Pricing
+							</a>
+						</li>						
+						@endguest
+						<li>
 							<a href="{{ route('blog.index') }}" class="{{ (request()->is('blog')) ? 'current' : '' }}">
 							Blog
 							</a>
 						</li>
-						<li>
-							<a href="{{ route('pricing') }}" class="{{ (request()->is('pricing')) ? 'current' : '' }}">
-							Pricing
-							</a>
-						</li>
+						@auth
 						<li>
 							<a href="{{ route('freelancers.index') }}" class="{{ (request()->is('browse-freelancers')) ? 'current' : '' }}">
 								Browse Freelancers
@@ -41,8 +43,9 @@
 								Browse Jobs
 							</a>
 						</li>
+						@endauth
 						<li class="d-sm-block d-md-none">
-							<a href="#" class="{{ (request()->is('post-job')) ? 'current' : '' }}">
+							<a href="{{ route('post-job') }}" class="{{ (request()->is('post-job')) ? 'current' : '' }}">
 								Post a job
 							</a>
 						</li>
@@ -75,7 +78,7 @@
 			<!-- Right Side Content / End -->
 			<div class="right-side">
 
-				
+				@guest
 				<div class="header-widget hide-on-mobile">
 
 					<div class="header-notifications">
@@ -93,7 +96,10 @@
 					</div>
 
 				</div>
+				@endguest
 
+
+				@auth
 				<!-- User Menu -->
 				<div class="header-widget">
 
@@ -113,7 +119,7 @@
 								<div class="user-details">
 									<div class="user-avatar status-online"><img src="{{ asset('assets/images/user-avatar-small-01.jpg') }}" alt=""></div>
 									<div class="user-name">
-										Tom Smith <span>Freelancer</span>
+										{{ Auth::user()->name }} <span>Freelancer</span>
 									</div>
 								</div>
 								
@@ -129,7 +135,16 @@
 						<ul class="user-menu-small-nav">
 							<li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
 							<li><a href="{{ route('settings') }}"><i class="icon-material-outline-settings"></i> Settings</a></li>
-							<li><a href="#"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+							<li>
+								<a href="{{ route('logout') }}"  onclick="event.preventDefault();
+								document.getElementById('logout-form').submit();">
+									<i class="icon-material-outline-power-settings-new"></i> Logout
+								</a>
+
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            	    @csrf
+                                </form>
+							</li>
 						</ul>
 
 						</div>
@@ -137,6 +152,7 @@
 
 				</div>
 				<!-- User Menu / End -->
+				@endauth
 
 				<!-- Mobile Navigation Button -->
 				<span class="mmenu-trigger">

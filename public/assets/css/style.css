@@ -290,7 +290,6 @@ img { max-width: 100%; }
 	width: auto;
 	top: 50%;
 	position: relative;
-	margin-top: 35px;
 	transform: translate3d(0,-50%,0);
 }
 

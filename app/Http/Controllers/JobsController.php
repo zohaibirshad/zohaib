@@ -50,6 +50,7 @@ class JobsController extends Controller
             $skills = $request->skills;
             $sort = $request->sort;
             $city = $request->city;
+            $country = $request->country;
 
             $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
             ->when(!empty($keyWord), function ($query) use ($keyWord) {
