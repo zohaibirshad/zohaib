@@ -53,7 +53,7 @@
 
 				<!-- Blog Post -->
 				@forelse ($blog_posts as $post)
-					<a href="{{ route('blog.show', $post->slug) }}" class="blog-post">
+					<a href="blog/{{ $post->slug }}" class="blog-post">
 						<!-- Blog Post Thumbnail -->
 						<div class="blog-post-thumbnail">
 							<div class="blog-post-thumbnail-inner">
