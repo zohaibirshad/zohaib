@@ -93,7 +93,7 @@
 							<!-- Post #1 -->
 							@forelse ($trending_posts as $post)
 								<li>
-									<a href="{{ route('blog.show', $post->slug) }}" class="widget-content active">
+									<a href="blog/{{ $post->slug }}" class="widget-content active">
 										<img src="{{ asset('assets/images/blog-02a.jpg') }}" alt="">
 										<div class="widget-text">
 											<h5>{{ $post->title }}</h5>
