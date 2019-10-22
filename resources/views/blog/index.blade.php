@@ -115,7 +115,7 @@
 						<h3>Categories</h3>
 						<div class="task-tags text-capitalize">
 							@foreach ($categories as $category)
-								<a href="#"><span>{{ $category->name }}</span></a>
+								<a href="/blog?category={{ $category->slug }}"><span>{{ $category->name }}</span></a>
 							@endforeach
 						</div>
 					</div>
@@ -126,7 +126,7 @@
 						<h3>Tags</h3>
 						<div class="task-tags text-lowercase">
 							@foreach ($tags as $tag)
-								<a href="#"><span>{{ $tag->name }}</span></a>
+								<a href="/blog?tag={{ $tag->slug }}"><span>{{ $tag->name }}</span></a>
 							@endforeach
 						</div>
 					</div>

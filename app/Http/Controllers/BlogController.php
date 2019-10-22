@@ -14,9 +14,25 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $blog_posts = BlogPost::with('categories', 'tags')->latest()->paginate(4);
+        $category = $request->category;
+        $tag = $request->tag;
+
+        $blog_posts = BlogPost::with('categories', 'tags')->latest()
+            ->when(!empty($category), function ($query) use ($category) {
+                $query->whereHas('categories', function ($q) use ($category) {
+                    $q->where('id', $category)->orwhere('slug', $category);
+                });
+            })
+            ->when(!empty($tag), function ($query) use ($tag) {
+                $query->whereHas('tags', function ($q) use ($tag) {
+                    $q->where('id', $tag)->orwhere('slug', $tag);
+                });
+            })
+            ->paginate(4);
+            $blog_posts->appends(['category' => $category]);
+            $blog_posts->appends(['tag' => $tag]);
 
         $featured_posts = BlogPost::where('featured', 'yes')->with('categories', 'tags')->latest()->limit(5)->get();
 
@@ -46,7 +62,7 @@ class BlogController extends Controller
     public function show($id)
     {
         $post = BlogPost::where('id', $id)
-        ->orWhere('slug', $id)
+            ->orWhere('slug', $id)
             ->with('categories', 'tags')
             ->first();
 

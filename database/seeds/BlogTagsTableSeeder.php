@@ -14,16 +14,20 @@ class BlogTagsTableSeeder extends Seeder
     {
         $tags = [
             [
-                'name' => 'employment'
+                'name' => $name = 'employment',
+                'slug' => str_slug($name),
             ],
             [
-                'name' => 'marketing'
+                'name' => $name = 'marketing',
+                'slug' => str_slug($name),
             ],
             [
-                'name' => 'branding'
+                'name' => $name = 'branding',
+                'slug' => str_slug($name),
             ],
             [
-                'name' => 'design'
+                'name' => $name = 'design',
+                'slug' => str_slug($name),
             ],
         ];
 

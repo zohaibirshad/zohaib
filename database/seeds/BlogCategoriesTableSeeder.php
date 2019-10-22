@@ -14,16 +14,20 @@ class BlogCategoriesTableSeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Freelancing'
+                'name' => $name = 'Freelancing',
+                'slug' => str_slug($name),
             ],
             [
-                'name' => 'Entrepreneurship'
+                'name' => $name = 'Entrepreneurship',
+                'slug' => str_slug($name),
             ],
             [
-                'name' => 'Development'
+                'name' => $name = 'Development',
+                'slug' => str_slug($name),
             ],
             [
-                'name' => 'Design'
+                'name' => $name = 'Design',
+                'slug' => str_slug($name),
             ],
         ];
 

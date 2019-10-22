@@ -258,7 +258,7 @@
 					<h3>Tags</h3>
 					<div class="task-tags text-lowercase">
 						@foreach ($tags as $tag)
-							<a href="#"><span>{{ $tag->name }}</span></a>
+							<a href="/blog?tag={{ $tag->slug }}"><span>{{ $tag->name }}</span></a>
 						@endforeach
 					</div>
 				</div>
