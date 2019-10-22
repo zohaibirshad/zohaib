@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bid;
 use App\Models\Job;
+use App\Models\User;
 use App\Models\Skill;
 use App\Models\Country;
 use App\Models\Industry;
 use App\Models\JobBudget;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
@@ -19,7 +21,14 @@ class JobsController extends Controller
      */
     public function index(Request $request)
     {   
-        return view('jobs.index');
+        $totals_jobs = DB::table('jobs')
+                    ->selectRaw('count(*) as total')
+                    ->selectRaw("count(case when status = 'completed' then 1 end) as completed")
+                    ->first();
+
+        $total_freelancers = User::role('freelancer')->count();
+
+        return view('jobs.index', compact('totals_jobs', 'total_freelancers'));
     }
 
       /**
@@ -42,7 +51,7 @@ class JobsController extends Controller
             $sort = $request->sort;
             $city = $request->city;
 
-            $jobs = Job::with('industry', 'skills', 'job_budget', 'country', 'attachments')
+            $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
             ->when(!empty($keyWord), function ($query) use ($keyWord) {
                 $query->where('name', 'LIKE', "%$keyWord%");
             })
@@ -95,7 +104,7 @@ class JobsController extends Controller
                 if($sort == 'featured'){
                     $query->orwhere('featured', 'yes');
                 }
-                if($sort == 'max_fixed_budget'){
+                if($sort == 'highest_fixed_budget'){
                     $query->orderByDesc(
                             JobBudget::select('to', 'status')
                                 ->whereColumn('job_id', 'job.id')
@@ -104,7 +113,7 @@ class JobsController extends Controller
                                 ->limit(1)
                     );
                 }
-                if($sort == 'min_fixed_budget'){
+                if($sort == 'lowest_fixed_budget'){
                     $query->orderByDesc(
                             JobBudget::select('to', 'status')
                                 ->whereColumn('job_id', 'job.id')
@@ -113,7 +122,7 @@ class JobsController extends Controller
                                 ->limit(1)
                     );
                 }
-                if($sort == 'min_hour_budget'){
+                if($sort == 'lowest_hour_budget'){
                     $query->orderByDesc(
                             JobBudget::select('to', 'status')
                                 ->whereColumn('job_id', 'job.id')
@@ -122,7 +131,7 @@ class JobsController extends Controller
                                 ->limit(1)
                     );
                 }
-                if($sort == 'max_hour_budget'){
+                if($sort == 'highest_hour_budget'){
                     $query->orderByDesc(
                             JobBudget::select('to', 'status')
                                 ->whereColumn('job_id', 'job.id')
@@ -143,11 +152,11 @@ class JobsController extends Controller
             })->when(empty($sort), function ($query)  {
                     $query->latest();
             })
-            ->where('status', 0)
+            ->where('status', 'not assigned')
             ->paginate(20);
         }else{
-           $jobs = Job::with('industry', 'skills', 'job_budget', 'country', 'attachments')
-                                ->where('status', 0)
+           $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
+                                ->where('status', 'not assigned')
                                 ->latest()
                                 ->paginate(20);
         }
@@ -326,11 +335,6 @@ class JobsController extends Controller
 
         return view('jobs.show', compact('job', 'bids'));
     }
-
-    
-
-
-
 
 
 }
