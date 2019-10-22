@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class FreelancersController extends Controller
@@ -14,6 +15,75 @@ class FreelancersController extends Controller
     public function index()
     {
         return view('freelancers.index');
+    }
+
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function freelancers(Request $request)
+    {
+
+        if($request->has('search')){
+            $keyWord = $request->title;
+            $industry = $request->industry;
+            $skills = $request->skills;
+            $sort = $request->sort;
+            $city = $request->city;
+
+            $jobs = Profile::with('industry', 'skills', 'country', 'reviews', 'jobs', 'jobs_completion')
+            ->when(!empty($keyWord), function ($query) use ($keyWord) {
+                $query->where('name', 'LIKE', "%$keyWord%");
+            })
+            ->when(!empty($city), function ($query) use ($city) {
+                $query->where('city','LIKE', "%$city%");
+            })
+            ->when(!empty($skills), function ($query) use ($skills) {
+                $query->whereHas("skills", function($query) use ($skills) {
+                    if(!is_array($skills)){
+                        $query->where("id", $skills);
+                    }
+                    $query->whereIn("id", $skills);
+                });
+            })
+            ->when(!empty($industry), function ($query) use ($industry) {
+                $query->whereHas("industry", function($query) use ($industry) {
+                    $query->whereIn("id", $industry);
+                });
+            })
+            ->when(!empty($country), function ($query) use ($country) {
+                $query->whereHas("country", function($query) use ($country) {
+                    $query->whereIn("id", $country);
+                });
+            })
+            ->when(!empty($from_hour_price), function ($query) use ($from_hour_price) {
+                    $query->where('rate', '>=', $from_hour_price);
+            })
+            ->when(!empty($to_hour_price), function ($query) use ($to_hour_price) {
+                    $query->where('rate', '<=', $to_hour_price);
+            })
+            ->when(!empty($sort), function ($query) use ($sort) {
+
+                if($sort == 'high_hourly_rate'){
+                    return $query->orderBy('rate', 'desc');
+                }
+                if($sort == 'low_hourly_rate'){
+                    return $query->orderBy('rate', 'asc');
+                }
+               
+            })->when(empty($sort), function ($query)  {
+                    $query->latest();
+            })
+            ->paginate(20);
+        }else{
+           $jobs = Profile::with('industry', 'skills', 'country', 'reviews', 'jobs', 'jobs_completion')
+                                ->latest()
+                                ->paginate(20);
+        }
+        
+        return response()->json($jobs);
     }
 
 

@@ -67,6 +67,11 @@ class Profile extends Model implements HasMedia
         return $this->hasMany('App\Models\Job');
     }
 
+    public function jobs_completion()
+    {
+        return $this->jobs()->where('status', 'completed');
+    }
+
     /**
      * Get all of the user's reviews.
      */
