@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 
 Route::namespace("Auth")->group(function () {
@@ -39,58 +40,7 @@ Route::get('post-job', function () {
     return view('dashboard.post_job');
 })->name('post-job');
 
-Route::get('new-jobs', function () {
-    return view('dashboard.jobs.new_jobs');
-})->name('new-jobs');
 
-Route::get('ongoing-jobs', function () {
-    return view('dashboard.jobs.ongoing_jobs');
-})->name('ongoing-jobs');
-
-Route::get('invites', function () {
-    return view('dashboard.jobs.invites');
-})->name('invites');
-
-Route::get('bidders/{id}', function () {
-    return view('dashboard.bidders');
-})->name('bidders');
-
-Route::get('my-bids', function () {
-    return view('dashboard.my_bids');
-})->name('my-bids');
-
-Route::get('messages', function () {
-    return view('dashboard.messages');
-})->name('messages');
-
-Route::get('reviews', function () {
-    return view('dashboard.reviews');
-})->name('reviews');
-
-Route::get('bookmarks', function () {
-    return view('dashboard.bookmarks');
-})->name('bookmarks');
-
-Route::get('settings', function () {
-    return view('dashboard.settings');
-})->name('settings');
-
-Route::get('milestones/{id}', function () {
-    return view('dashboard.milestones');
-})->name('milestones');
-
-
-// Finances
-Route::get('add-funds', function () {
-    return view('dashboard.finances.add_funds');
-})->name('add-funds');
-
-Route::get('withdraw-funds', function () {
-    return view('dashboard.finances.withdraw_funds');
-})->name('withdraw-funds');
-
-
-Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
 // Jobs
 Route::get('browse-jobs', 'JobsController@index')->name('jobs.index');
@@ -117,3 +67,66 @@ Route::get('invoice', function () {
     return view('subscription.invoice');
 })->name('invoice');
 
+
+
+// DASHBOARD STUFF
+Route::group(['middleware' => ['auth']], function () {
+    // Freelancer Stuff
+    Route::group(['middleware' => ['role:freelancer']], function () {
+        Route::get('my-bids', function () {
+            return view('dashboard.my_bids');
+        })->name('my-bids');
+
+        Route::get('invites', function () {
+            return view('dashboard.jobs.invites');
+        })->name('invites');
+    });
+
+    // Hirer Stuff
+    Route::group(['middleware' => ['role:hirer']], function () {
+        Route::get('new-jobs', function () {
+            return view('dashboard.jobs.new_jobs');
+        })->name('new-jobs');
+
+        Route::get('bidders/{id}', function () {
+            return view('dashboard.bidders');
+        })->name('bidders');
+    });
+
+    Route::get('ongoing-jobs', function () {
+        return view('dashboard.jobs.ongoing_jobs');
+    })->name('ongoing-jobs');
+
+    // Both Freelancer and Hirer
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+    Route::get('messages', function () {
+        return view('dashboard.messages');
+    })->name('messages');
+
+    Route::get('reviews', function () {
+        return view('dashboard.reviews');
+    })->name('reviews');
+
+    Route::get('bookmarks', function () {
+        return view('dashboard.bookmarks');
+    })->name('bookmarks');
+
+    Route::get('settings', function () {
+        return view('dashboard.settings');
+    })->name('settings');
+
+    Route::get('milestones/{id}', function () {
+        return view('dashboard.milestones');
+    })->name('milestones');
+
+
+    // Finances
+    Route::get('add-funds', function () {
+        return view('dashboard.finances.add_funds');
+    })->name('add-funds');
+
+    Route::get('withdraw-funds', function () {
+        return view('dashboard.finances.withdraw_funds');
+    })->name('withdraw-funds');
+});

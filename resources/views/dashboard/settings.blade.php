@@ -64,6 +64,7 @@
         </div>
     </div>
 
+    @role('freelancer')
     <!-- Dashboard Box -->
     <div class="col-xl-12">
         <div class="dashboard-box">
@@ -174,6 +175,7 @@
             </div>
         </div>
     </div>
+    @endrole
 
     <!-- Dashboard Box -->
     <div class="col-xl-12">

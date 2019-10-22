@@ -19,11 +19,17 @@ class UsersTableSeeder extends Seeder
                 'email' => 'emrade95@gmail.com',
                 'email_verified_at' => now(),
             ],
+            [
+                'name' => 'Emmanuel Fache (Hirer)',
+                'password' => bcrypt('password'),
+                'email' => 'emradegh@gmail.com',
+                'email_verified_at' => now(),
+            ],
         ];
         
         foreach($users as $user){
             $user = User::create($user);
-            $user->assignRole('freelancer');
+            $user->id == 1 ? $user->assignRole('freelancer') : $user->assignRole('hirer');
         }
     }
 }
