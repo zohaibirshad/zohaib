@@ -19,8 +19,15 @@
 				<!-- Blog Post Thumbnail -->
 				<div class="blog-post-thumbnail">
 					<div class="blog-post-thumbnail-inner">
-						<span class="blog-item-tag">{{ $post->categories[0]->name }}</span>
-						<img src="{{ asset("assets/images/blog-04.jpg") }}" alt="">
+						@foreach($post->categories as $category)
+							<span class="blog-item-tag shadow">{{ $category['name'] }}</span>
+						@endforeach
+						@if(count($post->media) == 0)							
+							<img src="{{ asset("assets/images/blog-04.jpg") }}" alt="">
+						@endif
+						@if(count($post->media) > 1)
+							{{ $post->getFirstMedia() }}
+						@endif
 					</div>
 				</div>
 
@@ -29,11 +36,15 @@
 					<h3 class="margin-bottom-10">{{ $post->title }}</h3>
 
 					<div class="blog-post-info-list margin-bottom-20">
-						<a href="#" class="blog-post-info">{{ $post->created_at }}</a>
+						<a href="#" class="blog-post-info shadow">{{ $post->created_at }}</a>
 						{{-- <a href="#"  class="blog-post-info">5 Comments</a> --}}
 					</div>
 
 					<div>{!! $post->body !!}</div>
+					<p class="mt-3">Tags</p>
+					@foreach($post->tags as $tag)
+						<span class="blog-post-info shadow ">{{ $tag['name'] }}</span>
+					@endforeach
 
 					<!-- Share Buttons -->
 					<div class="share-buttons margin-top-25">

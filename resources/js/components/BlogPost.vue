@@ -4,18 +4,18 @@
             <a :href="slug(post.slug)" class="blog-post">
                 <!-- Blog Post Thumbnail -->
                 <div class="blog-post-thumbnail">
-                    <div class="blog-post-thumbnail-inner">
-                        <span v-for="cat in post.catgories" :key="cat.id" class="blog-item-tag">
+                    <div v-for="cat in post.categories" :key="cat.id" class="blog-post-thumbnail-inner">
+                        <span  class="blog-item-tag shadow-lg">
                             {{ cat.name }}
                         </span>
                         <img :src="image(post.media)" alt="">
-                    </div>
+                    </div> 
                 </div>
                 <!-- Blog Post Content -->
                 <div class="blog-post-content">
                     <span class="blog-post-date">{{ post.created_at }}</span>
                     <h3>{{ post.title }}</h3>
-                    <p>{{ post.body }}</p>
+                    <div class="" v-html="post.body.substr(0, 200) "></div>
                 </div>
                 <!-- Icon -->
                 <div class="entry-icon"></div>
@@ -64,3 +64,12 @@ export default {
 
 }
 </script>
+
+<style scoped> 
+    .pagination { 
+        justify-content: center!important; 
+    } 
+
+   
+</style>
+

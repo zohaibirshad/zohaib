@@ -29,15 +29,8 @@
 
                             <div class="col-xl-6">
                                 <div class="submit-field">
-                                    <h5>First Name</h5>
+                                    <h5>Full Name</h5>
                                     <input type="text" class="with-border" value="Tom">
-                                </div>
-                            </div>
-
-                            <div class="col-xl-6">
-                                <div class="submit-field">
-                                    <h5>Last Name</h5>
-                                    <input type="text" class="with-border" value="Smith">
                                 </div>
                             </div>
 

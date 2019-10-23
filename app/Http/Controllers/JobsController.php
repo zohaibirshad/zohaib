@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Bid;
 use App\Models\Job;
-use App\Models\User;
 use App\Models\Skill;
 use App\Models\Country;
 use App\Models\Industry;
 use App\Models\JobBudget;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
@@ -21,14 +19,8 @@ class JobsController extends Controller
      */
     public function index(Request $request)
     {   
-        $totals_jobs = DB::table('jobs')
-                    ->selectRaw('count(*) as total')
-                    ->selectRaw("count(case when status = 'completed' then 1 end) as completed")
-                    ->first();
 
-        $total_freelancers = User::role('freelancer')->count();
-
-        return view('jobs.index', compact('totals_jobs', 'total_freelancers'));
+        return view('jobs.index');
     }
 
       /**
@@ -255,6 +247,29 @@ class JobsController extends Controller
         }
         
         return $recent_jobs;
+    }
+
+    /**
+     * Get completed jobs.
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function completed_jobs($limit = NULL)
+    {
+
+        if($limit != NULL)
+        {
+            $completed_jobs = Job::where('status', 'completed')
+                                ->with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->limit($limit)->get();
+        }
+        elseif($limit == NULL)
+        {
+            $completed_jobs = Job::where('status', 'completed')
+                                ->with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->get();
+
+        }
+        
+        return $completed_jobs;
     }
 
     /**

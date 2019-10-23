@@ -86,6 +86,12 @@ class Profile extends Resource
             ->sortable(),
             Text::make( __('Professional Headline'),  'headline')
             ->rules('required'),
+            Select::make( __('Type'),  'type')
+            ->sortable()
+            ->options([
+                'freelancer' => 'Freelancer',
+                'hirer' => 'Hirer',
+            ])->displayUsingLabels(),
             BelongsToManyField::make('Job Categories', 'industries', 'App\Nova\Industry')->options(\App\Models\Industry::all())->nullable(),
             BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->options(\App\Models\Skill::all())->nullable(),
             BelongsToManyField::make('Attachments', 'attachments', 'App\Nova\ProfileAttachment')->options(\App\Models\Attachment::all())->nullable(),

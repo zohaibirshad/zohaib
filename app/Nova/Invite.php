@@ -4,9 +4,10 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
 
@@ -68,14 +69,24 @@ class Invite extends Resource
                 ID::make( __('Id'),  'id')
                 ->rules('required')
                 ->sortable(),
+                BelongsTo::make('User')
+                ->searchable()
+                ->sortable(),
                 BelongsTo::make('Profile')
                 ->searchable()
                 ->sortable(),
                 BelongsTo::make('Job')
                 ->searchable()
                 ->sortable(),
-                Trix::make( __('Message'),  'message')
+                Textarea::make( __('Message'),  'message')
                 ->sortable(),
+                Select::make( __('Status'),  'status')
+                ->sortable()
+                ->options([
+                    'pending' => 'pending',
+                    'accepted' => 'accepted',
+                    'rejected' => 'rejected',
+                ])->displayUsingLabels(),
                 HasMany::make('InviteAttachment'),
                 Notes::make('Notes','notes')->onlyOnDetail(),
             ];

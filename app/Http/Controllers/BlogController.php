@@ -14,26 +14,26 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $category = $request->category;
-        // $tag = $request->tag;
+        $category = $request->category;
+        $tag = $request->tag;
 
         $blog_posts = BlogPost::with('categories', 'tags')->latest()
-            // ->when(!empty($category), function ($query) use ($category) {
-            //     $query->whereHas('categories', function ($q) use ($category) {
-            //         $q->where('id', $category)
-            //         ->orwhere('slug', $category);
-            //     });
-            // })
-            // ->when(!empty($tag), function ($query) use ($tag) {
-            //     $query->whereHas('tags', function ($q) use ($tag) {
-            //         $q->where('id', $tag)->orwhere('slug', $tag);
-            //     });
-            // })
-            ->paginate(4);
-        // $blog_posts->appends(['category' => $category]);
-        // $blog_posts->appends(['tag' => $tag]);
+            ->when(!empty($category), function ($query) use ($category) {
+                $query->whereHas('categories', function ($q) use ($category) {
+                    $q->where('id', $category)
+                    ->orwhere('slug', $category);
+                });
+            })
+            ->when(!empty($tag), function ($query) use ($tag) {
+                $query->whereHas('tags', function ($q) use ($tag) {
+                    $q->where('id', $tag)->orwhere('slug', $tag);
+                });
+            })
+            ->paginate(5);
+        $blog_posts->appends(['category' => $category]);
+        $blog_posts->appends(['tag' => $tag]);
 
         $featured_posts = BlogPost::where('featured', 'yes')->with('categories', 'tags')->latest()->limit(5)->get();
 
@@ -60,10 +60,9 @@ class BlogController extends Controller
      */
     public function posts()
     {
-        $blog_posts = BlogPost::with(['categories', 'tags', 'media' => function($query){
-            $query->limit(1);
-        }])->latest()
-            ->paginate(4);
+        $blog_posts = BlogPost::with(['categories', 'tags', 'media'])
+            ->latest()
+            ->paginate(5);
 
         return response()->json($blog_posts);
     }

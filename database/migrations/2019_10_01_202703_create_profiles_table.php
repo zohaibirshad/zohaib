@@ -23,6 +23,7 @@ class CreateProfilesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();
+            $table->string('type')->nullable();
             $table->string('city')->nullable();
             $table->Integer('country_id')->index()->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('countries');            

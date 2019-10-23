@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\Invite;
 use Illuminate\Http\Request;
 
 class HirerController extends Controller
@@ -164,6 +165,34 @@ class HirerController extends Controller
             'message' => "Review was saved successfully"
         ]);
 
+
+    }
+
+      /**
+     * Send Invite.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function send_invite(Request $request)
+    {
+        $validateData = $request->validate([
+            'profile_id' => 'required',
+            'job_id' => 'required',
+            'message' => 'nullable'
+        ]);
+
+        $invite = new Invite;
+        $invite->job_id = $request->job_id;
+        $invite->profile_id = $request->profile_id;
+        $invite->message = $request->message;
+        $invite->status = 'pending';
+        $invite->save();
+
+        return response()->json([
+            'status' => "Saved",
+            'message' => "Invite was sent successfully"
+        ]);
 
     }
 }
