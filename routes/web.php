@@ -52,6 +52,7 @@ Route::resource('freelancers', 'FreelancersController')->except('index');
 
 // Blog
 Route::resource('blog', 'BlogController')->only('index', 'show');
+Route::get('posts', 'BlogController@posts');
 
 // Subscription
 Route::get('pricing', function () {

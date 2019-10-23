@@ -53,30 +53,15 @@
 
 				<!-- Blog Post -->
 				@forelse ($blog_posts as $post)
-					<a href="blog/{{ $post->slug }}" class="blog-post">
-						<!-- Blog Post Thumbnail -->
-						<div class="blog-post-thumbnail">
-							<div class="blog-post-thumbnail-inner">
-								<span class="blog-item-tag">{{ $post->categories[0]->name }}</span>
-								<img src="{{ asset('assets/images/blog-01a.jpg') }}" alt="">
-							</div>
-						</div>
-						<!-- Blog Post Content -->
-						<div class="blog-post-content">
-							<span class="blog-post-date">{{ $post->created_at }}</span>
-							<h3>{{ $post->title }}</h3>
-							<p>{{ $post->body }}</p>
-						</div>
-						<!-- Icon -->
-						<div class="entry-icon"></div>
-					</a>
+					<div id="app">
+						<blog-post></blog-post>
+					</div>
 				@empty
 					<h3>NO POST AVAILABLE</h3>
 				@endforelse
 
 				<!-- Pagination -->
-				<div class="clearfix"></div>
-				{{ $blog_posts->onEachSide(1)->links('vendor.pagination.default') }}
+
 				<!-- Pagination / End -->
 
 			</div>

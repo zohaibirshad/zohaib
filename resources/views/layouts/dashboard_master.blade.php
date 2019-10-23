@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Basic Page Needs
 ================================================== -->
 <title>{{ config('app.name', 'Yohli') }} - @yield('title')</title>
@@ -64,6 +65,7 @@
 
     <!-- Scripts
     ================================================== -->
+
     @include('partials.scripts')
 
 </body>

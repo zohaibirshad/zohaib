@@ -53,6 +53,24 @@ class BlogController extends Controller
     }
 
 
+       /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function posts()
+    {
+        $blog_posts = BlogPost::with(['categories', 'tags', 'media' => function($query){
+            $query->limit(1);
+        }])->latest()
+            ->paginate(4);
+
+        return response()->json($blog_posts);
+    }
+
+
+
+
     /**
      * Display the specified resource.
      *
