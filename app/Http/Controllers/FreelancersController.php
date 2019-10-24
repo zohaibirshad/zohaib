@@ -279,6 +279,7 @@ class FreelancersController extends Controller
             'delivery_time' => 'required',
             'delivery_type' => 'required',
             'rate_type' => 'required',
+            'description' => 'required'
         ]);
 
         $profile = Profile::where('user_id', Auth::user()->id)->first();
@@ -291,6 +292,7 @@ class FreelancersController extends Controller
         $bid->rate_type = $request->rate_type;
         $bid->delivery_type = $request->delivery_type;
         $bid->delivery_time = $request->delivery_time;
+        $bid->description = $request->description;
         $bid->status = 'pending';
         $bid->save();
 
