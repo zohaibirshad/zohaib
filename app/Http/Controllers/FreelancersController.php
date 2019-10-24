@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bid;
 use App\Models\Profile;
 use App\Models\Bookmark;
+use App\Models\Milestone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -168,7 +169,7 @@ class FreelancersController extends Controller
         ]);
 
         return response()->json([
-            'status' => "Saved",
+            'status' => "Success",
             'message' => "Review was saved successfully"
         ]);
     }
@@ -220,7 +221,7 @@ class FreelancersController extends Controller
         $bid->save();
 
         return response()->json([
-            'status' => "Accepted",
+            'status' => "Success",
             'message' => "Review was saved successfully"
         ]);
     }
@@ -242,7 +243,7 @@ class FreelancersController extends Controller
         $invite->save();
 
         return response()->json([
-            'status' => "Rejected",
+            'status' => "Success",
             'message' => "Invite was rejected successfully"
         ]);
     }
@@ -277,7 +278,7 @@ class FreelancersController extends Controller
         $bid->save();
 
         return response()->json([
-            'status' => "Bid",
+            'status' => "Success",
             'message' => "Bid was saved successfully"
         ]);
     }
@@ -307,7 +308,7 @@ class FreelancersController extends Controller
         $bid->save();
 
         return response()->json([
-            'status' => "Bid",
+            'status' => "Success",
             'message' => "Bid was updated successfully"
         ]);
     }
@@ -326,7 +327,7 @@ class FreelancersController extends Controller
         $bid->destroy($bid->id);
 
         return response()->json([
-            'status' => "Bid",
+            'status' => "Success",
             'message' => "Bid was deleted successfully"
         ]);
     }
@@ -340,7 +341,27 @@ class FreelancersController extends Controller
      */
     public function add_milestone(Request $request, $job_uuid)
     {
-        //
+        $validateData = $request->validate([
+            'heading' => 'required',
+            'activity' => 'required',
+            'cost' => 'required',
+            'status' => 'required',
+        ]);
+
+        $job = Job::where('uuid', $job_uuid)->first();
+
+        $milestone = new Milestone;
+        $milestone->job_id = $job->id;
+        $milestone->heading = $request->heading;
+        $milestone->activity = $request->activity;
+        $milestone->cost = $request->cost;
+        $milestone->status = $request->status;
+        $milestone->save();
+
+        return response()->json([
+            'status' => "Success",
+            'message' => "Milestone was saved successfully"
+        ]);
     }
 
      /**
@@ -352,7 +373,24 @@ class FreelancersController extends Controller
      */
     public function edit_milestone(Request $request, $mile_uuid)
     {
-        //
+        $validateData = $request->validate([
+            'heading' => 'required',
+            'activity' => 'required',
+            'cost' => 'required',
+            'status' => 'required',
+        ]);
+
+        $milestone = Milestone::where('uuid', $mile_uuid);
+        $milestone->heading = $request->heading;
+        $milestone->activity = $request->activity;
+        $milestone->cost = $request->cost;
+        $milestone->status = $request->status;
+        $milestone->save();
+
+        return response()->json([
+            'status' => "Success",
+            'message' => "Milestone was Updated successfully"
+        ]);
     }
 
 
@@ -365,6 +403,12 @@ class FreelancersController extends Controller
      */
     public function delete_milestone(Request $request, $mile_uuid)
     {
-        //
+        $milestone = Milestone::where('uuid', $mile_uuid)->first();
+        $milestone->destroy($milestone->id);
+
+        return response()->json([
+            'status' => "Success",
+            'message' => "Milestone was deleted successfully"
+        ]);
     }
 }

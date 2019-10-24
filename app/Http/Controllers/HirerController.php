@@ -108,7 +108,7 @@ class HirerController extends Controller
         $job->save();
 
         return response()->json([
-            'status' => "Assigned",
+            'status' => "Success",
             'message' => "Job was assigned successfully"
         ]);
     }
@@ -132,7 +132,7 @@ class HirerController extends Controller
         $milestone->save();
 
         return response()->json([
-            'status' => "Changed",
+            'status' => "Success",
             'message' => "Milestone Status was changed successfully"
         ]);
     }
@@ -161,7 +161,7 @@ class HirerController extends Controller
         ]);
 
         return response()->json([
-            'status' => "Saved",
+            'status' => "Success",
             'message' => "Review was saved successfully"
         ]);
 
@@ -190,9 +190,30 @@ class HirerController extends Controller
         $invite->save();
 
         return response()->json([
-            'status' => "Saved",
+            'status' => "Success",
             'message' => "Invite was sent successfully"
         ]);
 
+    }
+
+     /**
+     * Bookmark freelancer.
+     *
+     * @param  string  $profile_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function bookmark_freelancer($profile_uuid)
+    {
+        $profile = Profile::where('uuid', $job_uuid)->first();
+        $bookmark = new Bookmark;
+        $bookmark->user_id = Auth::user()->id;
+        $bookmark->profile_id = $profile->id;
+        $bookmark->save();
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => "Bookmarked Successfully"
+        ]);
     }
 }
