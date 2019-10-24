@@ -24,7 +24,7 @@ protected $casts = [
 
 public function registerMediaCollections()
 {
-    $this->addMediaCollection('industry');
+    $this->addMediaCollection('cover');
 
 }
 
@@ -33,9 +33,9 @@ public function profiles()
     return $this->belongsToMany('App\Models\Profile');
 }
 
-public function job()
+public function jobs()
 {
-    return $this->belongsTo('App\Models\Job');
+    return $this->hasMany('App\Models\Job');
 }
 
 

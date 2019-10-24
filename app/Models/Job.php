@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use App\Traits\Uuid;
 
 
-class Job extends Model
+class Job extends Model implements HasMedia
 {
-    use HasNotes, SoftDeletes, Uuid;
+    use HasMediaTrait, HasNotes, SoftDeletes, Uuid;
 
     /**
     * @var  string
@@ -21,6 +23,12 @@ class Job extends Model
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('project_files');
+
+    }
 
     public function profile()
     {
@@ -50,11 +58,6 @@ class Job extends Model
         return $this->belongsToMany('App\Models\Skill');
     }
 
-    public function attachments()
-    {
-        return $this->hasMany('App\Models\Attachment');
-    }
-
     public function bids()
     {
         return $this->hasMany('App\Models\Bid');
@@ -81,6 +84,12 @@ class Job extends Model
     public function payments()
     {
         return;
+    }
+
+    public function milestones()
+    {
+        return $this->hasMany('App\Models\Milestone');
+                        
     }
 
 
