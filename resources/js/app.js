@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('blog-post', require('./components/BlogPost.vue').default);
+Vue.component('browse-jobs', require('./components/BrowseJobsComponent.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 

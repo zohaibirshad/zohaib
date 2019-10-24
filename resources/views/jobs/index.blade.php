@@ -109,16 +109,6 @@
 						</div>
 					</div>
 					<div class="clearfix"></div>
-
-					{{-- <!-- More Skills -->
-					<div class="keywords-container margin-top-20">
-						<div class="keyword-input-container">
-							<input type="text" class="keyword-input" placeholder="add more skills"/>
-							<button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
-						</div>
-						<div class="keywords-list"><!-- keywords go here --></div>
-						<div class="clearfix"></div>
-					</div> --}}
 				</div>
 				<div class="clearfix"></div>
 
@@ -130,7 +120,7 @@
 
 			<div class="notify-box margin-top-15">
 				<div class="switch-container">
-					{{-- <label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label> --}}
+					
 				</div>
 
 				<div class="sort-by">
@@ -150,7 +140,7 @@
 			<!-- Tasks Container -->
 			<div class="tasks-list-container compact-list margin-top-35">
 				
-				<!-- Task -->
+				{{-- <!-- Task -->
 				<a href="{{ route('jobs.show', 1) }}" class="task-listing">
 
 					<!-- Job Listing Details -->
@@ -183,142 +173,17 @@
 							<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
 						</div>
 					</div>
-				</a>
+				</a> --}}
 
-				<!-- Task -->
-				<a href="{{ route('jobs.show', 1) }}" class="task-listing">
 
-					<!-- Job Listing Details -->
-					<div class="task-listing-details">
 
-						<!-- Details -->
-						<div class="task-listing-description">
-							<h3 class="task-listing-title">2000 Words English to German</h3>
-							<ul class="task-icons">
-								<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-								<li><i class="icon-material-outline-access-time"></i> 5 minutes ago</li>
-							</ul>
-							<p class="task-listing-text">Bring to the table win-win strategies to ensure domination and user generated content in real-time will have multiple touchpoints.</p>
-							<div class="task-tags">
-								<span>copywriting</span>
-								<span>translating</span>
-								<span>editing</span>
-							</div>
-						</div>
 
-					</div>
 
-					<div class="task-listing-bid">
-						<div class="task-listing-bid-inner">
-							<div class="task-offers">
-								<strong>$75</strong>
-								<span>Fixed Price</span>
-							</div>
-							<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-						</div>
-					</div>
-				</a>
+				<div id="app">
+					<browse-jobs></browse-jobs>
+				</div>
 
-				<!-- Task -->
-				<a href="{{ route('jobs.show', 1) }}" class="task-listing">
-
-					<!-- Job Listing Details -->
-					<div class="task-listing-details">
-
-						<!-- Details -->
-						<div class="task-listing-description">
-							<h3 class="task-listing-title">Fix Python Selenium Code</h3>
-							<ul class="task-icons">
-								<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-								<li><i class="icon-material-outline-access-time"></i> 30 minutes ago</li>
-							</ul>
-							<p class="task-listing-text">Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional.</p>
-							<div class="task-tags">
-								<span>Python</span>
-								<span>Flask</span>
-								<span>API Development</span>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="task-listing-bid">
-						<div class="task-listing-bid-inner">
-							<div class="task-offers">
-								<strong>$100 - $150</strong>
-								<span>Hourly Rate</span>
-							</div>
-							<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-						</div>
-					</div>
-				</a>
-
-				<!-- Task -->
-				<a href="{{ route('jobs.show', 1) }}" class="task-listing">
-
-					<!-- Job Listing Details -->
-					<div class="task-listing-details">
-
-						<!-- Details -->
-						<div class="task-listing-description">
-							<h3 class="task-listing-title">WordPress Theme Installation</h3>
-							<ul class="task-icons">
-								<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-								<li><i class="icon-material-outline-access-time"></i> 1 hour ago</li>
-							</ul>
-							<p class="task-listing-text">Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate customer service with robust ideas.</p>
-							<div class="task-tags">
-								<span>WordPress</span>
-								<span>Theme Installation</span>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="task-listing-bid">
-						<div class="task-listing-bid-inner">
-							<div class="task-offers">
-								<strong>$100</strong>
-								<span>Fixed Price</span>
-							</div>
-							<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-						</div>
-					</div>
-				</a>
-
-				<!-- Task -->
-				<a href="{{ route('jobs.show', 1) }}" class="task-listing">
-
-					<!-- Job Listing Details -->
-					<div class="task-listing-details">
-
-						<!-- Details -->
-						<div class="task-listing-description">
-							<h3 class="task-listing-title">PHP Core Website Fixes</h3>
-							<ul class="task-icons">
-								<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-								<li><i class="icon-material-outline-access-time"></i> 1 hour ago</li>
-							</ul>
-							<p class="task-listing-text">Objectively innovate empowered manufactured products whereas parallel platforms. Extensible testing procedures for reliable supply.</p>
-							<div class="task-tags">
-								<span>PHP</span>
-								<span>MySQL Administration</span>
-								<span>API Development</span>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="task-listing-bid">
-						<div class="task-listing-bid-inner">
-							<div class="task-offers">
-								<strong>$50 - $80</strong>
-								<span>Hourly Rate</span>
-							</div>
-							<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-						</div>
-					</div>
-				</a>		
+				
 
 			</div>
 			<!-- Tasks Container / End -->
