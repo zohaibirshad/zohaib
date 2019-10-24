@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\Invite;
+use App\Models\Milestone;
 use Illuminate\Http\Request;
 
 class HirerController extends Controller
@@ -16,7 +17,20 @@ class HirerController extends Controller
      */
     public function post_job(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'title' => 'required',
+            'industry_id' => 'required',
+            'currency_symbol' => 'required',
+            'job_budget_id' => 'nullable',
+            'budget_to' => 'nullable',
+            'budget_from' => 'nullable',
+            'type' => 'nullable',
+            'skills' => 'required',
+            'description' => 'required',
+            'documents' => 'nullable'
+        ]);
     }
 
      /**
@@ -71,7 +85,7 @@ class HirerController extends Controller
     }
 
      /**
-     * manage bids.
+     * manage bids for a job.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $job_uuid
@@ -84,6 +98,7 @@ class HirerController extends Controller
 
         return view('dashboard.jobs.bidders', compact('bids'));
     }
+    
 
 
      /**
@@ -113,6 +128,20 @@ class HirerController extends Controller
         ]);
     }
 
+    /**
+     * view milestones.
+     *
+     * @param  string  $job_uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function milestones($job_uuid)
+    {
+
+        $job = Job::where('uuid', $job_uuid)->with('milestones')->first();
+
+        return view('dashboard.milestones', compact('job'));
+    }
+
 
     /**
      * update milestone status.
@@ -139,7 +168,7 @@ class HirerController extends Controller
 
 
     /**
-     * Review a hirer.
+     * Review a freelancer.
      *
      * @param  string  $profile_uuid
      * @param  \Illuminate\Http\Request  $request
@@ -168,6 +197,22 @@ class HirerController extends Controller
 
     }
 
+
+    /**
+     * View All Reviews.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reviews()
+    {
+
+        $reviews = Review::where('user_id', Auth::user()->id)->get();
+
+        return view('dashboard.reviews',  compact('reviews'));
+
+
+    }
+
       /**
      * Send Invite.
      *
@@ -179,21 +224,42 @@ class HirerController extends Controller
         $validateData = $request->validate([
             'profile_id' => 'required',
             'job_id' => 'required',
-            'message' => 'nullable'
+            'message' => 'nullable',
+            'document' => 'nullable',
         ]);
 
         $invite = new Invite;
         $invite->job_id = $request->job_id;
+        $invite->user_id = Auth::user()->id;
         $invite->profile_id = $request->profile_id;
         $invite->message = $request->message;
         $invite->status = 'pending';
         $invite->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Invite was sent successfully"
-        ]);
+        $invite->addMultipleMediaFromRequest('file');
 
+        $fileAdders = $invite
+                        ->addMultipleMediaFromRequest($request->file('document'))
+                        ->each(function ($fileAdder) {
+                            $fileAdder->toMediaCollection('project_files');
+                        });
+
+        return view('freelancers.show')->with('status', "Invite successfully sent");
+
+    }
+
+    /**
+     * View all Invites.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function invites()
+    {
+        $invites = Invite::where('user_id', Auth::user()->id)
+                    ->with('job', 'profile')
+                    ->get();
+
+        return view('dashboard.jobs.invites', compact('invites'));
     }
 
      /**
@@ -215,5 +281,18 @@ class HirerController extends Controller
             'status' => 'Success',
             'message' => "Bookmarked Successfully"
         ]);
+    }
+
+
+     /**
+     * View Bookmarks.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bookmarks()
+    {
+        $bookmarks = Bookmark::where('user_id', Auth::user()->id)->get();
+
+        return view('dashboard.bookmarks', compact('bookmarks'));
     }
 }

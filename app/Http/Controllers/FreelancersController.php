@@ -89,6 +89,18 @@ class FreelancersController extends Controller
         
         return response()->json($jobs);
     }
+
+     /**
+     * View Bookmarks.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bookmarks()
+    {
+        $bookmarks = Bookmark::where('user_id', Auth::user()->id)->get();
+
+        return view('dashboard.bookmarks', compact('bookmarks'));
+    }
     
     
     /**
@@ -175,6 +187,21 @@ class FreelancersController extends Controller
     }
 
     /**
+     * View All Reviews.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reviews()
+    {
+
+        $reviews = Review::where('user_id', Auth::user()->id)->get();
+
+        return view('dashboard.reviews',  compact('reviews'));
+
+
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -187,43 +214,17 @@ class FreelancersController extends Controller
     }
 
     /**
-     * Accept Invite.
+     * View all Invites.
      *
-     * @param  string  $invite_uuid
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function accept_invite(Request $request, $invite_uuid)
+    public function invites()
     {
-        $validateData = $request->validate([
-            'rate' => 'required',
-            'delivery_time' => 'required',
-            'delivery_type' => 'required',
-            'rate_type' => 'required',
-        ]);
+        $invites = Invite::where('user_id', Auth::user()->id)
+                    ->with('job', 'profile')
+                    ->get();
 
-        $invite = Invite::where('uuid', $invite_uuid)->first();
-
-        $profile = Profile::where('user_id', Auth::user()->id)->first();
-
-        $invite->status = 'accepted';
-        $invite->profile_id = $profile->id;
-        $invite->save();
-
-        $bid = new Bid;
-        $bid->profile_id = $profile->id;
-        $bid->job_id = $invite->job_id;
-        $bid->rate = $request->rate;
-        $bid->rate_type = $request->rate_type;
-        $bid->delivery_type = $request->delivery_type;
-        $bid->delivery_time = $request->delivery_time;
-        $bid->status = 'pending';
-        $bid->save();
-
-        return response()->json([
-            'status' => "Success",
-            'message' => "Review was saved successfully"
-        ]);
+        return view('dashboard.jobs.invites', compact('invites'));
     }
 
     /**
@@ -249,13 +250,29 @@ class FreelancersController extends Controller
     }
 
     /**
+     * View all Invites.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bids()
+    {
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+
+        $invites = Bid::where('profile_id', $profile->id)
+                    ->with('job', 'profile')
+                    ->get();
+
+        return view('dashboard.my_bids', compact('invites'));
+    }
+
+    /**
      * Make a bid on a job
      *
      * @param  string  $job_uuid
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function bid(Request $request, $job_uuid)
+    public function make_bid(Request $request, $job_uuid)
     {
         $validateData = $request->validate([
             'rate' => 'required',
@@ -330,6 +347,20 @@ class FreelancersController extends Controller
             'status' => "Success",
             'message' => "Bid was deleted successfully"
         ]);
+    }
+
+    /**
+     * view milestones.
+     *
+     * @param  string  $job_uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function milestones($job_uuid)
+    {
+
+        $job = Job::where('uuid', $job_uuid)->with('milestones')->first();
+
+        return view('dashboard.milestones', compact('job'));
     }
 
     /**

@@ -127,8 +127,11 @@ class Job extends Resource
                 'no' => 'No',
                 'yes' => 'Yes',
             ]),
+            Files::make('Supporting Document', 'project_files')
+            ->customProperties([
+                'type' => 'project files',
+            ]),
             MorphMany::make('Reviews'),
-            HasMany::make('JobAttachment'),
             HasMany::make('Bid'),
             Notes::make('Notes','notes')->onlyOnDetail(),
 

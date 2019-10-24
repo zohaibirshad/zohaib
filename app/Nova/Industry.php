@@ -82,6 +82,7 @@ class Industry extends Resource
                 Textarea::make( __('Description'),  'description')
                 ->hideFromIndex()
                 ->sortable(),
+                HasMany::make('Job')
             ];
     }
 

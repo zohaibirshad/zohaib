@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 
 
 class Invite extends Resource
@@ -87,7 +88,10 @@ class Invite extends Resource
                     'accepted' => 'accepted',
                     'rejected' => 'rejected',
                 ])->displayUsingLabels(),
-                HasMany::make('InviteAttachment'),
+                Files::make('Supporting Document', 'project_files')
+                ->customProperties([
+                    'type' => 'project files',
+                ]),
                 Notes::make('Notes','notes')->onlyOnDetail(),
             ];
     }

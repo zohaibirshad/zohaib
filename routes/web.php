@@ -20,9 +20,7 @@ Route::namespace("Auth")->group(function () {
     Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
 });
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', 'ApplicationController@index')->name('home');
 
 // Route::get('login', function () {
 //     return view('auth.login');

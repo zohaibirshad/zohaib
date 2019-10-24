@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\MorphMany;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Benjacho\BelongsToManyField\BelongsToManyField;
 
@@ -72,8 +73,12 @@ class Profile extends Resource
     public function fields(Request $request)
     {
         return [
-            Images::make('Profile', 'profile')
-                ->withResponsiveImages(),
+            Images::make('Profile Picture', 'profile')
+                ->withResponsiveImages()->rules('required'),
+            Files::make('CV', 'cv')
+            ->customProperties([
+                'type' => 'cv',
+            ]),
             ID::make( __('Id'),  'id')
             ->rules('required')
             ->sortable(),
@@ -94,7 +99,6 @@ class Profile extends Resource
             ])->displayUsingLabels(),
             BelongsToManyField::make('Job Categories', 'industries', 'App\Nova\Industry')->options(\App\Models\Industry::all())->nullable(),
             BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->options(\App\Models\Skill::all())->nullable(),
-            BelongsToManyField::make('Attachments', 'attachments', 'App\Nova\ProfileAttachment')->options(\App\Models\Attachment::all())->nullable(),
             Trix::make( __('Description'),  'description')
             ->hideFromIndex()
             ->withFiles('public'),
@@ -116,7 +120,6 @@ class Profile extends Resource
             ])->displayUsingLabels(),
             Currency::make( __('Rate'),  'rate')
             ->sortable(),
-            HasMany::make('ProfileAttachment'),
 
             HasMany::make('Job'),
 

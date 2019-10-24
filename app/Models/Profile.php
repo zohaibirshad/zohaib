@@ -25,6 +25,8 @@ class Profile extends Model implements HasMedia
     {
         $this->addMediaCollection('profile');
 
+        $this->addMediaCollection('cv');
+
     }
 
     public function user()
@@ -46,11 +48,6 @@ class Profile extends Model implements HasMedia
     public function skills()
     {
         return $this->belongsToMany('App\Models\Skill');
-    }
-
-    public function attachments()
-    {
-        return $this->hasMany('App\Models\Attachment');
     }
 
     public function social_links()

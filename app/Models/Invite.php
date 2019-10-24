@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use DigitalCloud\ModelNotes\HasNotes;
 use App\Traits\Uuid;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Invite extends Model
+class Invite extends Model implements HasMedia
 {
-    use HasNotes, Uuid;
+    use HasMediaTrait, HasNotes, Uuid;
 
     /**
     * @var  string
@@ -19,6 +21,12 @@ class Invite extends Model
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('project_files');
+
+    }
 
     public function user()
     {
@@ -32,10 +40,5 @@ class Invite extends Model
     public function job()
     {
         return $this->belongsTo('App\Models\Job', 'job_id', 'id');
-    }
-
-    public function attachments()
-    {
-        return $this->hasMany('App\Models\Attachment');
     }
 }
