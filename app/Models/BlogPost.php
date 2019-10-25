@@ -16,16 +16,16 @@ class BlogPost extends Model implements HasMedia
     use HasMediaTrait, HasNotes, SoftDeletes;
 
     /**
-    * @var  string
-    */
+     * @var  string
+     */
     protected $table = 'blog_posts';
 
     protected $casts = [
-    'created_at' => 'datetime',
-    'updated_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-   
+
     /**
      * Boot function from laravel.
      */
@@ -50,9 +50,8 @@ class BlogPost extends Model implements HasMedia
     public function registerMediaCollections()
     {
         $this->addMediaCollection('featured');
-
     }
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
@@ -67,5 +66,4 @@ class BlogPost extends Model implements HasMedia
     {
         return $this->belongsToMany('App\Models\BlogCategory');
     }
-
 }

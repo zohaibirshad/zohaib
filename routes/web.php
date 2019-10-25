@@ -43,6 +43,9 @@ Route::get('post-job', function () {
 // Jobs
 Route::get('browse-jobs', 'JobsController@index')->name('jobs.index');
 Route::resource('jobs', 'JobsController')->except('index');
+Route::get('jobs-api', 'JobsController@jobs');
+Route::get('job-categories-api', 'JobsController@industries');
+Route::get('skills-api', 'JobsController@skills');
 
 // Freelancers
 Route::get('browse-freelancers', 'FreelancersController@index')->name('freelancers.index');

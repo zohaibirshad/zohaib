@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use App\Traits\Uuid;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 
 class Job extends Model implements HasMedia
@@ -15,19 +17,39 @@ class Job extends Model implements HasMedia
     use HasMediaTrait, HasNotes, SoftDeletes, Uuid;
 
     /**
-    * @var  string
-    */
+     * @var  string
+     */
     protected $table = 'jobs';
 
     protected $casts = [
-    'created_at' => 'datetime',
-    'updated_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
+
+    /**
+     * Boot function from laravel.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = (string) Str::slug($model->name);
+        });
+
+        static::updating(function ($model) {
+            $model->slug = (string) Str::slug($model->name);
+        });
+    }
+
+    public function getCreatedAtAttribute()
+    {
+        return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
+    }
 
     public function registerMediaCollections()
     {
         $this->addMediaCollection('project_files');
-
     }
 
     public function profile()
@@ -61,13 +83,11 @@ class Job extends Model implements HasMedia
     public function bids()
     {
         return $this->hasMany('App\Models\Bid');
-                        
     }
 
     public function accepted_bid()
     {
         return $this->hasOne('App\Models\Bid')->where('status', 'accepted');
-                        
     }
 
     /**
@@ -89,8 +109,5 @@ class Job extends Model implements HasMedia
     public function milestones()
     {
         return $this->hasMany('App\Models\Milestone');
-                        
     }
-
-
 }

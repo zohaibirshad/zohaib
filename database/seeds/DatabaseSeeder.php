@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
             BlogTagsTableSeeder::class,
             BlogCategoriesTableSeeder::class,
             BlogPostsTableSeeder::class,
+            IndustriesTableSeeder::class,
+            SkillsTableSeeder::class,
+            JobBudgetsTableSeeder::class,
+            JobsTableSeeder::class,
         ]);
     }
 }

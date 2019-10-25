@@ -1953,9 +1953,143 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      jobs: {},
+      categories: {},
+      skills: {},
+      selectedCategory: "",
+      title: ""
+    };
+  },
   mounted: function mounted() {
     this.getResults();
+    this.getCategories();
+    this.getSkills();
   },
   methods: {
     slug: function slug(_slug) {
@@ -1965,9 +2099,42 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get("jobs/?page=" + page).then(function (response) {
+      axios.get("jobs-api/?page=" + page).then(function (response) {
         _this.jobs = response.data;
       });
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      axios.get("job-categories-api").then(function (response) {
+        _this2.categories = response.data;
+      });
+    },
+    getSkills: function getSkills() {
+      var _this3 = this;
+
+      axios.get("skills-api").then(function (response) {
+        _this3.skills = response.data;
+      });
+    },
+    truncate: function truncate(text) {
+      return text.substring(0, 130) + "...";
+    },
+    budgetType: function budgetType(budget) {
+      if (budget.type == "fixed") {
+        return "Fixed Price";
+      } else {
+        return "Hourly Rate";
+      }
+    },
+    budget: function budget(_budget) {
+      var currency = "$";
+
+      if (_budget.from == _budget.to) {
+        return currency + _budget.to;
+      } else {
+        return "".concat(currency).concat(_budget.from, " - ").concat(currency).concat(_budget.to);
+      }
     }
   }
 });
@@ -23535,9 +23702,324 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xl-3 col-lg-4" }, [
+        _c("div", { staticClass: "sidebar-container" }, [
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Search")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "keywords-container" }, [
+              _c("div", { staticClass: "keyword-input-container" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.title,
+                      expression: "title"
+                    }
+                  ],
+                  staticClass: "keyword-input",
+                  attrs: { type: "text", placeholder: "e.g. job title" },
+                  domProps: { value: _vm.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.title = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "keywords-list" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Category")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedCategory,
+                    expression: "selectedCategory"
+                  }
+                ],
+                staticClass: "selectpicker default",
+                attrs: { "data-size": "7", title: "All Categories" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedCategory = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.categories, function(category) {
+                return _c(
+                  "option",
+                  { key: category.id, domProps: { value: category.id } },
+                  [_vm._v(_vm._s(category.name))]
+                )
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Skills")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tags-container" },
+              _vm._l(_vm.skills, function(skill) {
+                return _c("div", { key: skill.id, staticClass: "tag" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox", id: "tag-" + skill.id }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "tag-" + skill.id } }, [
+                    _vm._v(_vm._s(skill.name))
+                  ])
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "clearfix" })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-xl-9 col-lg-8 content-left-offset" },
+        [
+          _c("h3", { staticClass: "page-title" }, [_vm._v("Search Results")]),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "tasks-list-container compact-list margin-top-35" },
+            [
+              _c(
+                "div",
+                _vm._l(_vm.jobs.data, function(job) {
+                  return _c(
+                    "a",
+                    {
+                      key: job.id,
+                      staticClass: "task-listing",
+                      attrs: { href: _vm.slug(job.slug) }
+                    },
+                    [
+                      _c("div", { staticClass: "task-listing-details" }, [
+                        _c("div", { staticClass: "task-listing-description" }, [
+                          _c("h3", { staticClass: "task-listing-title" }, [
+                            _vm._v(_vm._s(job.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("ul", { staticClass: "task-icons" }, [
+                            _c("li", [
+                              _c("i", {
+                                staticClass: "icon-material-outline-location-on"
+                              }),
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(job.city) +
+                                  "\n                  "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c("i", {
+                                staticClass: "icon-material-outline-access-time"
+                              }),
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(job.created_at) +
+                                  "\n                  "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "task-listing-text" }, [
+                            _vm._v(_vm._s(_vm.truncate(job.description)))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "task-tags" },
+                            _vm._l(job.skills, function(skill) {
+                              return _c(
+                                "span",
+                                { key: skill.id, staticClass: "mr-1" },
+                                [_vm._v(_vm._s(skill.name))]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "task-listing-bid" }, [
+                        _c("div", { staticClass: "task-listing-bid-inner" }, [
+                          _c("div", { staticClass: "task-offers" }, [
+                            _c("strong", [
+                              _vm._v(_vm._s(_vm.budget(job.job_budget)))
+                            ]),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(_vm._s(_vm.budgetType(job.job_budget)))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(4, true)
+                        ])
+                      ])
+                    ]
+                  )
+                }),
+                0
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" }),
+          _vm._v(" "),
+          _c("pagination", {
+            attrs: { data: _vm.jobs },
+            on: { "pagination-change-page": _vm.getResults }
+          })
+        ],
+        1
+      )
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "keyword-input-button ripple-effect" }, [
+      _c("i", { staticClass: "icon-feather-search" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "sidebar-widget" }, [
+      _c("h3", [_vm._v("Fixed Price")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "margin-top-55" }),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "range-slider",
+        attrs: {
+          type: "text",
+          value: "",
+          "data-slider-currency": "$",
+          "data-slider-min": "10",
+          "data-slider-max": "2500",
+          "data-slider-step": "25",
+          "data-slider-value": "[10,2500]"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "sidebar-widget" }, [
+      _c("h3", [_vm._v("Hourly Rate")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "margin-top-55" }),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "range-slider",
+        attrs: {
+          type: "text",
+          value: "",
+          "data-slider-currency": "$",
+          "data-slider-min": "10",
+          "data-slider-max": "150",
+          "data-slider-step": "5",
+          "data-slider-value": "[10,200]"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "notify-box margin-top-15" }, [
+      _c("div", { staticClass: "switch-container" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "sort-by" }, [
+        _c("span", [_vm._v("Sort by:")]),
+        _vm._v(" "),
+        _c("select", { staticClass: "selectpicker hide-tick" }, [
+          _c("option", [_vm._v("Relevance")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Newest")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Oldest")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Lowest Price")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Highest Price")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Most Bids")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Fewest Bids")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      { staticClass: "button button-sliding-icon ripple-effect" },
+      [
+        _vm._v("\n                  Bid Now\n                  "),
+        _c("i", { staticClass: "icon-material-outline-arrow-right-alt" })
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -35949,8 +36431,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
