@@ -31,6 +31,8 @@ class HirerController extends Controller
             'description' => 'required',
             'documents' => 'nullable'
         ]);
+
+        
     }
 
      /**
