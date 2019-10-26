@@ -24,7 +24,7 @@ class HirerController extends Controller
             'currency_code' => 'required',
             'job_budget_id' => 'nullable',
             'budget_to' => 'nullable',
-            'budget_from'-667=> 'nullable',
+            'budget_from'=> 'nullable',
             'budget_type' => 'nullable',
             'skills' => 'required',
             'description' => 'required',
