@@ -17,6 +17,10 @@
   font-size: 12px !important;
   padding: 4px 8px !important;
 }
+.tooltip {
+  z-index: 70;
+  opacity: 1;
+}
 
 ul li ul{
   list-style-type: circle !important;

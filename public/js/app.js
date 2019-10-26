@@ -2076,6 +2076,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -23774,14 +23775,18 @@ var render = function() {
                   }
                 }
               },
-              _vm._l(_vm.categories, function(category) {
-                return _c(
-                  "option",
-                  { key: category.id, domProps: { value: category.id } },
-                  [_vm._v(_vm._s(category.name))]
-                )
-              }),
-              0
+              [
+                _c("option", { attrs: { value: "0" } }, [_vm._v("Hero")]),
+                _vm._v(" "),
+                _vm._l(_vm.categories, function(category) {
+                  return _c(
+                    "option",
+                    { key: category.id, domProps: { value: category.id } },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                })
+              ],
+              2
             )
           ]),
           _vm._v(" "),
