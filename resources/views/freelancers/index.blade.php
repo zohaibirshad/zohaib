@@ -40,7 +40,7 @@
 
 				<!-- Category -->
 				<div class="sidebar-widget">
-					<h3>Category</h3>
+					<h3>Category</h3> 
 					<select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="All Categories" >
 						<option>Admin Support</option>
 						<option>Customer Service</option>

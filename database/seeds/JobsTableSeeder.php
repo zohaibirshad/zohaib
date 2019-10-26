@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Job;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class JobsTableSeeder extends Seeder
@@ -15,6 +16,7 @@ class JobsTableSeeder extends Seeder
         $jobs = [
             [
                 'user_id' => 1,
+                'uuid' => Str::uuid(),
                 'industry_id' => 1,
                 'country_id' => 80,
                 'job_budget_id' => 1,
@@ -31,6 +33,7 @@ class JobsTableSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
+                'uuid' => Str::uuid(),
                 'industry_id' => 5,
                 'country_id' => 80,
                 'job_budget_id' => 2,

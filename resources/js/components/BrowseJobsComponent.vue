@@ -101,7 +101,7 @@
 
           <div class="sort-by">
             <span>Sort by:</span>
-            <select class="selectpicker hide-tick">
+            <select class="selectpicker hide-tick"> 
               <option>Relevance</option>
               <option>Newest</option>
               <option>Oldest</option>

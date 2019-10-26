@@ -18,21 +18,26 @@ class HirerController extends Controller
     public function post_job(Request $request)
     {
         $validateData = $request->validate([
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
-            'title' => 'required',
             'industry_id' => 'required',
-            'currency_symbol' => 'required',
+            'currency_code' => 'required',
             'job_budget_id' => 'nullable',
             'budget_to' => 'nullable',
-            'budget_from' => 'nullable',
-            'type' => 'nullable',
+            'budget_from'-667=> 'nullable',
+            'budget_type' => 'nullable',
             'skills' => 'required',
             'description' => 'required',
             'documents' => 'nullable'
         ]);
 
-        
+        $job = new Job;
+        $job->name = $request->name;
+        $job->job_budget_id = $request->job_budget_id;
+        $job->country_id = $request->currency_code;
+        $job->description = $request->description;
+  
+
     }
 
      /**
