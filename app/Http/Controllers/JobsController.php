@@ -238,11 +238,11 @@ class JobsController extends Controller
 
         if($limit != NULL)
         {
-            $recent_jobs = Job::with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->limit($limit)->get();
+            $recent_jobs = Job::with('industry', 'skills', 'job_budget', 'country')->latest()->limit($limit)->get();
         }
         elseif($limit == NULL)
         {
-            $recent_jobs = Job::with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->get();
+            $recent_jobs = Job::with('industry', 'skills', 'job_budget', 'country')->latest()->get();
 
         }
         
@@ -260,12 +260,12 @@ class JobsController extends Controller
         if($limit != NULL)
         {
             $completed_jobs = Job::where('status', 'completed')
-                                ->with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->limit($limit)->get();
+                                ->with('industry', 'skills', 'job_budget', 'country')->latest()->limit($limit)->get();
         }
         elseif($limit == NULL)
         {
             $completed_jobs = Job::where('status', 'completed')
-                                ->with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->get();
+                                ->with('industry', 'skills', 'job_budget', 'country')->latest()->get();
 
         }
         
@@ -281,11 +281,11 @@ class JobsController extends Controller
     {
         if($limit != NULL)
         {
-            $recent_jobs = Job::where('featured', 'yes')->with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->limit($limit)->get();
+            $recent_jobs = Job::where('featured', 'yes')->with('industry', 'skills', 'job_budget', 'country')->latest()->limit($limit)->get();
         }
         elseif($limit == NULL)
         {
-            $recent_jobs = Job::where('featured', 'yes')->with('industry', 'skills', 'job_budget', 'country', 'attachments')->latest()->get();
+            $recent_jobs = Job::where('featured', 'yes')->with('industry', 'skills', 'job_budget', 'country')->latest()->get();
 
         }
         
@@ -342,7 +342,7 @@ class JobsController extends Controller
     public function show($id)
     {
         $job = Job::where('id', $id)
-                ->with(['industry', 'skills', 'job_budget', 'country', 'attachments', 'bids'])
+                ->with(['industry', 'skills', 'job_budget', 'country', 'bids'])
                 ->first();
 
         $bids = Bid::where('job_id', $id)

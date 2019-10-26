@@ -5865,7 +5865,6 @@ a.close.disabled {
   line-break: auto;
   font-size: 0.7875rem;
   word-wrap: break-word;
-  opacity: 0;
 }
 
 .tooltip.show {
