@@ -34,7 +34,6 @@
               title="All Categories"
               v-model="selectedCategory"
             >
-            <option value="0">Hero</option>
               <option 
                 v-for="category in categories"
                 :key="category.id"
