@@ -5846,7 +5846,7 @@ a.close.disabled {
 
 .tooltip {
   position: absolute;
-  z-index: 1070;
+  z-index: 70;
   display: block;
   margin: 0;
   font-family: "Nunito", sans-serif;
