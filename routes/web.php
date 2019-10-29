@@ -90,9 +90,9 @@ Route::group(['middleware' => ['auth']], function () {
         })->name('bidders');
     });
 
-    Route::get('ongoing-jobs', function () {
-        return view('dashboard.jobs.ongoing_jobs');
-    })->name('ongoing-jobs');
+    Route::get('ongoing-jobs', 'JobsController@ongoing_jobs')->name('ongoing-jobs');
+
+    Route::get('completed-jobs', 'JobsController@completed_jobs_')->name('completed-jobs');
 
     // Both Freelancer and Hirer
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
@@ -111,9 +111,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('settings', 'DashboardController@settings')->name('settings');
 
-    Route::get('milestones/{id}', function () {
-        return view('dashboard.milestones');
-    })->name('milestones');
+    Route::get('milestones/{id}', 'DashboardController@milestones')->name('milestones');
 
 
     // Finances

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard_master')
 @section('title', 'Milestones')
 @section('subtitle')
-Milestones for <a href="#">Food Delivery Mobile Application</a>
+Milestones for <a href="{{ $job->slug }}">{{ $job->name }}</a>
 @endsection
 
 @section('content')
@@ -10,29 +10,51 @@ Milestones for <a href="#">Food Delivery Mobile Application</a>
     <div class="col-xl-12">
         <div class="dashboard-box margin-top-0">
             <!-- Headline -->
-            <div class="headline">
-                <h3><i class="icon-material-outline-access-time"></i> </h3>
+            <div class="headline">               
+                @if(sizeof($milestones) == 0)
+                <p class="text-center text-muted">NO MILESTONES FOR THIS JOB</p>
+                @else
+                <h3><i class="icon-material-outline-access-time"></i></h3>
+                @endif
             </div>
     
+            @if(sizeof($milestones) > 0)
             <div class="content pb-1">
+                
                 <ul class="timeline">
-                    <li class="event done">
-                        <h3>UI Design 
+                    @forelse ($milestones as $milestone)
+                    <li class="event {{ $milestone->status == 'done' ? 'done' : 'notdone'}}">
+                        <h3>UI Design
+                            @if($milestone->status == 'done') 
                             <i class="icon-material-outline-check-circle text-success"></i>
+                            @role('hirer')
                             <span class="float-right">
                                 <a href="#small-dialog-1"  class="popup-with-zoom-anim button btn-xs">
                                     Release Payment
                                 </a>
                             </span>
+                            @endrole
+                            @endif
+
+                            @if($milestone->status == 'not done') 
+                            @role('freelancer')
+                            <span class="float-right">
+                                <a href="#"  class="button btn-xs">
+                                    <i class="icon-material-outline-check-circle"></i> Mark as Completed
+                                </a>
+                            </span>
+                            @endrole
+                            @endif
                         </h3>
-                        <p>$600</p>
+                        <p>${{ $milestone->cost }}</p>
                     </li>
-                    <li class="event notdone">
-                        <h3>API Development</h3>
-                        <p>$300</p>    
-                    </li>
+                    @empty
+                    <p class="text-center text-muted py-3">NO MILESTONES FOR THIS JOB</p>
+                    @endforelse
                 </ul>
+               
             </div>
+            @endif
 
         </div>
     </div>

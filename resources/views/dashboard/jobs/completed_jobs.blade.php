@@ -1,5 +1,5 @@
 @extends('layouts.dashboard_master')
-@section('title', 'Ongoing Jobs')
+@section('title', 'Completed Jobs')
 
 @section('content')
 <div class="row">
@@ -14,7 +14,8 @@
 
             <div class="content">
                 <ul class="dashboard-box-list">
-                    @forelse ($jobs as $job)
+                    <li>
+                        @forelse ($jobs as $job)
                     <li>
                             <!-- Job Listing -->
                             <div class="job-listing width-adjustment">
@@ -50,8 +51,11 @@
                             @endrole
                         </li>  
                     @empty
-                    <p class="text-center text-muted py-3">YOU HAVE NO ONGOING JOBS</p> 
+                    <p class="text-center text-muted py-3">YOU HAVE NO COMPLETED JOBS</p> 
                     @endforelse
+                    </li>
+
+                    
                 </ul>
             </div>
         </div>

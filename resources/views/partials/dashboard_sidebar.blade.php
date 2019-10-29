@@ -32,25 +32,25 @@
 						</ul>
 						
 						<ul data-submenu-title="Organize and Manage">
-							<li class="{{ (request()->is('new-jobs') || request()->is('ongoing-jobs') || request()->is('bidders') || request()->is('my-bids') || request()->is('invites')) ? 'active-submenu' : '' }}"><a href="#"><i class="icon-material-outline-assignment"></i> Jobs</a>
+							<li class="{{ (request()->is('new-jobs') || request()->is('ongoing-jobs') || request()->is('completed-jobs')|| request()->is('bidders') || request()->is('my-bids') || request()->is('invites')) ? 'active-submenu' : '' }}"><a href="#"><i class="icon-material-outline-assignment"></i> Jobs</a>
 								<ul>
 									@role('hirer')
-									<li><a href="{{ route('new-jobs') }}">New Jobs <span class="nav-tag">1</span></a></li>
+									<li><a href="{{ route('new-jobs') }}">New Jobs <span class="nav-tag">0</span></a></li>
 									{{-- New and Unassigned Jobs just posted by Hirer --}}
 									@endrole
 
-									<li><a href="{{ route('ongoing-jobs') }}">Ongoing Jobs <span class="nav-tag">4</span></a></li>
+									<li><a href="{{ route('ongoing-jobs') }}">Ongoing Jobs <span class="nav-tag">{{ $ongoing_jobs_count ?? 0 }}</span></a></li>
 									{{-- Assigned Jobs being worked on by Freelancer --}}
-									<li><a href="#">Completed Jobs <span class="nav-tag">7</span></a></li>
+									<li><a href="{{ route('completed-jobs') }}">Completed Jobs <span class="nav-tag">0</span></a></li>
 									{{-- Past Jobs posted by Hireer or Completed by Freelance --}}
 									
 									@role('freelancer')
-									<li><a href="{{ route('my-bids') }}">My Active Bids <span class="nav-tag">4</span></a></li>
+									<li><a href="{{ route('my-bids') }}">My Active Bids <span class="nav-tag">0</span></a></li>
 									{{-- Active Jobs bidded on by Freelancer --}}
 									@endrole
 
 									@role('freelancer')
-									<li><a href="{{ route('invites') }}">Job Invites <span class="nav-tag">1</span></a></li>
+									<li><a href="{{ route('invites') }}">Job Invites <span class="nav-tag">0</span></a></li>
 									@endrole
 								</ul>	
 							</li>
