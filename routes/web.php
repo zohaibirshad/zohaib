@@ -81,9 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Hirer Stuff
     Route::group(['middleware' => ['role:hirer']], function () {
-        Route::get('new-jobs', function () {
-            return view('dashboard.jobs.new_jobs');
-        })->name('new-jobs');
+        Route::get('new-jobs', 'HirerController@not_assigned_jobs')->name('new-jobs');
 
         Route::get('bidders/{id}', function () {
             return view('dashboard.bidders');
