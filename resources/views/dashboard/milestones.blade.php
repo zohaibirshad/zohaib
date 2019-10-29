@@ -1,7 +1,7 @@
 @extends('layouts.dashboard_master')
 @section('title', 'Milestones')
 @section('subtitle')
-Milestones for <a href="{{ $job->slug }}">{{ $job->name }}</a>
+Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 @endsection
 
 @section('content')

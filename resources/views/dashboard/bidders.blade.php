@@ -1,7 +1,7 @@
 @extends('layouts.dashboard_master')
 @section('title', 'Bidders')
 @section('subtitle')
-Bids for <a href="#">Food Delivery Mobile Application</a>
+Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 @endsection
 
 @section('content')

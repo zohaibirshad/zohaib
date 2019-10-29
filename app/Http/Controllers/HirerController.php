@@ -51,8 +51,8 @@ class HirerController extends Controller
     {
         $jobs = Job::where('user_id', Auth::user()->id)
                     ->where('status', 'not assigned')
-                    ->with('bids')
-                    ->withCount('bids')
+                    ->with('bids', 'milestones')
+                    ->withCount('bids', 'milestones')
                     ->get();
 
         return view('dashboard.jobs.new_jobs', compact('jobs'));
@@ -211,7 +211,7 @@ class HirerController extends Controller
         $invite->status = 'pending';
         $invite->save();
 
-        $invite->addMultipleMediaFromRequest('file');
+        $invite->addMultipleMediaFromRequest($request->file);
 
         $fileAdders = $invite
                         ->addMultipleMediaFromRequest($request->file('document'))
@@ -246,7 +246,7 @@ class HirerController extends Controller
      */
     public function bookmark_freelancer($profile_uuid)
     {
-        $profile = Profile::where('uuid', $job_uuid)->first();
+        $profile = Profile::where('uuid', $profile_uuid)->first();
         $bookmark = new Bookmark;
         $bookmark->user_id = Auth::user()->id;
         $bookmark->profile_id = $profile->id;
