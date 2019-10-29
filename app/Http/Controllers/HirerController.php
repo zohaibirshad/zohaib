@@ -6,6 +6,7 @@ use App\Models\Job;
 use App\Models\Invite;
 use App\Models\Milestone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HirerController extends Controller
 {
@@ -50,46 +51,13 @@ class HirerController extends Controller
     {
         $jobs = Job::where('user_id', Auth::user()->id)
                     ->where('status', 'not assigned')
-                    ->with('bids')
-                    ->withCount('bids')
+                    ->with('bids', 'milestones')
+                    ->withCount('bids', 'milestones')
                     ->get();
 
         return view('dashboard.jobs.new_jobs', compact('jobs'));
     }
 
-     /**
-     * recent assigned jobs jobs.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function assigned_jobs()
-    {
-        $jobs = Job::where('user_id', Auth::user()->id)
-                    ->where('status', 'assigned')
-                    ->with('milestones', 'accepted_bid')
-                    ->withCount('milestones')
-                    ->get();
-
-        return view('dashboard.jobs.ongoing_jobs', compact('jobs'));
-    }
-
-    /**
-     * recent assigned jobs jobs.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function completed_jobs()
-    {
-        $jobs = Job::where('user_id', Auth::user()->id)
-                    ->where('status', 'completed')
-                    ->with('milestones', 'accepted_bid', 'payments')
-                    ->withCount('milestones')
-                    ->get();
-
-        return view('dashboard.jobs.completed_jobs', compact('jobs'));
-    }
 
      /**
      * manage bids for a job.
@@ -243,7 +211,7 @@ class HirerController extends Controller
         $invite->status = 'pending';
         $invite->save();
 
-        $invite->addMultipleMediaFromRequest('file');
+        $invite->addMultipleMediaFromRequest($request->file);
 
         $fileAdders = $invite
                         ->addMultipleMediaFromRequest($request->file('document'))
@@ -278,7 +246,7 @@ class HirerController extends Controller
      */
     public function bookmark_freelancer($profile_uuid)
     {
-        $profile = Profile::where('uuid', $job_uuid)->first();
+        $profile = Profile::where('uuid', $profile_uuid)->first();
         $bookmark = new Bookmark;
         $bookmark->user_id = Auth::user()->id;
         $bookmark->profile_id = $profile->id;

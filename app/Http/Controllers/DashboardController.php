@@ -57,4 +57,16 @@ class DashboardController extends Controller
 
         return view('dashboard.milestones', compact('milestones', 'job'));
     }
+
+    public function bidders(Request $request, $slug)
+    {
+        $user = Auth::user();
+        $job = Job::where('slug', $slug)->first();
+
+        if(empty($job)){
+            abort(404);
+        }
+
+        return view('dashboard.bidders', compact('job'));
+    }
 }

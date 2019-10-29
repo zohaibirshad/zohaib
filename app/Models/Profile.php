@@ -37,7 +37,7 @@ class Profile extends Model implements HasMedia
 
     public function country()
     {
-        return $this->hasOne('App\Models\Country', 'country_id', 'id');
+        return $this->belongsTo('App\Models\Country');
     }
 
     public function industries()
