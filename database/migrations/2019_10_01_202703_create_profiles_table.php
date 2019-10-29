@@ -29,6 +29,7 @@ class CreateProfilesTable extends Migration
             $table->foreign('country_id')->references('id')->on('countries');            
             $table->string('verified')->default(0)->nullable();
             $table->decimal('rate', 13, 2)->nullable();
+            $table->string('featured')->nullable();
             $table->json('options')->nullable();
             $table->softDeletes();
             $table->timestamps();
