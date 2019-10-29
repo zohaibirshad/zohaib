@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bid;
 use App\Models\Profile;
 use App\Models\Bookmark;
+use App\Models\Invite;
 use App\Models\Milestone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -258,11 +259,11 @@ class FreelancersController extends Controller
     {
         $profile = Profile::where('user_id', Auth::user()->id)->first();
 
-        $invites = Bid::where('profile_id', $profile->id)
+        $bids = Bid::where('profile_id', $profile->id)
                     ->with('job', 'profile')
                     ->get();
 
-        return view('dashboard.my_bids', compact('invites'));
+        return view('dashboard.my_bids', compact('bids'));
     }
 
     /**

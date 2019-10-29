@@ -14,110 +14,38 @@
 
             <div class="content">
                 <ul class="dashboard-box-list">
+                    @forelse ($bids as $bid)
                     <li>
-                        <!-- Job Listing -->
-                        <div class="job-listing width-adjustment">
-
-                            <!-- Job Listing Details -->
-                            <div class="job-listing-details">
-
-                                <!-- Details -->
-                                <div class="job-listing-description">
-                                    <h3 class="job-listing-title"><a href="#">WordPress Guru Needed</a></h3>
+                            <!-- Job Listing -->
+                            <div class="job-listing width-adjustment">
+    
+                                <!-- Job Listing Details -->
+                                <div class="job-listing-details">
+    
+                                    <!-- Details -->
+                                    <div class="job-listing-description">
+                                        <h3 class="job-listing-title"><a href="{{ route('jobs.show', $bid->job->slug) }}">{{ $bid->job->name }}</a></h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Task Details -->
-                        <ul class="dashboard-task-info">
-                            <li><strong>$40</strong><span>Hourly Rate</span></li>
-                            <li><strong>2 Days</strong><span>Delivery Time</span></li>
-                        </ul>
-
-                        <!-- Buttons -->
-                        <div class="buttons-to-right always-visible">
-                            <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                            <a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <!-- Job Listing -->
-                        <div class="job-listing width-adjustment">
-
-                            <!-- Job Listing Details -->
-                            <div class="job-listing-details">
-
-                                <!-- Details -->
-                                <div class="job-listing-description">
-                                    <h3 class="job-listing-title"><a href="#">Build me a website in Angular JS</a></h3>
-                                </div>
+                            
+                            <!-- Task Details -->
+                            <ul class="dashboard-task-info">
+                                <li><strong>${{ $bid->rate }}</strong><span>{{ $bid->rate_type }}</span></li>
+                                <li><strong>{{ $bid->delivery_time }} {{ $bid->delivery_type }}</strong><span>Delivery Time</span></li>
+                            </ul>
+    
+                           
+        
+                            <!-- Buttons -->
+                            <div class="buttons-to-right always-visible">
+                                <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                <a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                             </div>
-                        </div>
-                        
-                        <!-- Task Details -->
-                        <ul class="dashboard-task-info">
-                            <li><strong>$2,550</strong><span>Fixed price</span></li>
-                            <li><strong>14 Days</strong><span>Delivery Time</span></li>
-                        </ul>
-
-                        <!-- Buttons -->
-                        <div class="buttons-to-right always-visible">
-                            <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                            <a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <!-- Job Listing -->
-                        <div class="job-listing width-adjustment">
-
-                            <!-- Job Listing Details -->
-                            <div class="job-listing-details">
-
-                                <!-- Details -->
-                                <div class="job-listing-description">
-                                    <h3 class="job-listing-title"><a href="#">Android and iOS React Appe</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Task Details -->
-                        <ul class="dashboard-task-info">
-                            <li><strong>$3,000</strong><span>Fixed Price</span></li>
-                            <li><strong>21 Days</strong><span>Delivery Time</span></li>
-                        </ul>
-
-                        <!-- Buttons -->
-                        <div class="buttons-to-right always-visible">
-                            <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                            <a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <!-- Job Listing -->
-                        <div class="job-listing width-adjustment">
-
-                            <!-- Job Listing Details -->
-                            <div class="job-listing-details">
-
-                                <!-- Details -->
-                                <div class="job-listing-description">
-                                    <h3 class="job-listing-title"><a href="#">Write Simple Python Script</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Task Details -->
-                        <ul class="dashboard-task-info">
-                            <li><strong>$30</strong><span>Hourly Rate</span></li>
-                            <li><strong>1 Day</strong><span>Delivery Time</span></li>
-                        </ul>
-
-                        <!-- Buttons -->
-                        <div class="buttons-to-right always-visible">
-                            <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                            <a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                        </div>
-                    </li>
+                        </li> 
+                    @empty
+                        <p class="text-center text-muted py-3">YOU HAVE NO BIDS CURRENTLY</p>
+                    @endforelse
 
                 </ul>
             </div>

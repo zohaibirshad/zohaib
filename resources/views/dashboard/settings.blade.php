@@ -30,7 +30,7 @@
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Full Name</h5>
-                                    <input type="text" class="with-border" value="Tom">
+                                    <input type="text" class="with-border" value="{{ $user->name }}">
                                 </div>
                             </div>
 
@@ -38,14 +38,14 @@
                                 <!-- Account Type -->
                                 <div class="submit-field">
                                     <h5>Phone</h5>
-                                    <input type="text" class="with-border" value="123 456 789">
+                                    <input type="text" class="with-border" value="{{ $user->phone }}">
                                 </div>
                             </div>
 
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Email</h5>
-                                    <input type="text" class="with-border" value="tom@example.com">
+                                    <input type="text" class="with-border" value="{{ $user->email }}">
                                 </div>
                             </div>
 
@@ -149,8 +149,9 @@
                             <div class="submit-field">
                                 <h5>Country</h5>
                                 <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true">
-                                    <option value="GH">Ghana</option>
-                                    <option value="US" selected>United States</option>                                   
+                                    @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option> 
+                                    @endforeach                                 
                                 </select>
                             </div>
                         </div>

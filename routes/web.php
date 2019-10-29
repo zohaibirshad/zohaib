@@ -75,13 +75,8 @@ Route::get('invoice', function () {
 Route::group(['middleware' => ['auth']], function () {
     // Freelancer Stuff
     Route::group(['middleware' => ['role:freelancer']], function () {
-        Route::get('my-bids', function () {
-            return view('dashboard.my_bids');
-        })->name('my-bids');
-
-        Route::get('invites', function () {
-            return view('dashboard.jobs.invites');
-        })->name('invites');
+        Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
+        Route::get('invites', 'FreelancersController@invites')->name('invites');
     });
 
     // Hirer Stuff
@@ -114,9 +109,7 @@ Route::group(['middleware' => ['auth']], function () {
         return view('dashboard.bookmarks');
     })->name('bookmarks');
 
-    Route::get('settings', function () {
-        return view('dashboard.settings');
-    })->name('settings');
+    Route::get('settings', 'DashboardController@settings')->name('settings');
 
     Route::get('milestones/{id}', function () {
         return view('dashboard.milestones');

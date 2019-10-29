@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -24,5 +26,12 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard.dashboard');
+    }
+
+    public function settings(Request $request)
+    {
+        $user = Auth::user();
+        $countries = Country::get();
+        return view('dashboard.settings', compact('countries', 'user'));
     }
 }
