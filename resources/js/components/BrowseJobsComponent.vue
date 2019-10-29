@@ -28,8 +28,8 @@
           <!-- Category -->
           <div class="sidebar-widget">
             <h3>Category</h3>
-            <select
-              class="selectpicker default"
+            <!-- class="selectpicker default" -->
+            <select              
               data-size="7"
               title="All Categories"
               v-model="selectedCategory"

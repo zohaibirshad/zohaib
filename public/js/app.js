@@ -23756,7 +23756,6 @@ var render = function() {
                     expression: "selectedCategory"
                   }
                 ],
-                staticClass: "selectpicker default",
                 attrs: { "data-size": "7", title: "All Categories" },
                 on: {
                   change: function($event) {
@@ -36431,8 +36430,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
