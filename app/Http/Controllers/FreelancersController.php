@@ -445,4 +445,42 @@ class FreelancersController extends Controller
             'message' => "Milestone was deleted successfully"
         ]);
     }
+
+         /**
+     * recent assigned jobs jobs.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function assigned_jobs()
+    {
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+   
+        $jobs = Job::where('profile_id',  $profile->id)
+                    ->where('status', 'assigned')
+                    ->with('milestones', 'accepted_bid')
+                    ->withCount('milestones')
+                    ->get();
+
+        return view('dashboard.jobs.ongoing_jobs', compact('jobs'));
+    }
+
+    /**
+     * recent assigned jobs jobs.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function completed_jobs()
+    {
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+   
+        $jobs = Job::where('profile_id',  $profile->id)
+                    ->where('status', 'completed')
+                    ->with('milestones', 'accepted_bid', 'payments')
+                    ->withCount('milestones')
+                    ->get();
+
+        return view('dashboard.jobs.completed_jobs', compact('jobs'));
+    }
 }
