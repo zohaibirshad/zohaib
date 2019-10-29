@@ -12,11 +12,11 @@
 					<div class="left-side">
 						<div class="header-image freelancer-avatar"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></div>
 						<div class="header-details">
-							<h3>James Olson <span>iOS Expert + Node Dev</span></h3>
+							<h3>{{ $freelancer->name ?? null }} <span>{{ $freelancer->headline }}</span></h3>
 							<ul>
 								<li><div class="star-rating" data-rating="5.0"></div></li>
-								<li><img class="flag" src="{{ asset('assets/images/flags/us.svg') }}" alt=""> USA</li>
-								<li><div class="verified-badge-with-title">Verified</div></li>
+								<li><img class="flag" src="{{ asset('assets/images/flags/<?=$freelancer->country->code?>.svg') }}" alt=""> {{ $freelancer->country->name }}</li>
+								<li><div class="verified-badge-with-title">{{ $freelancer->verified == 1 ? "Verified" : "Nt Verfified" }}</div></li>
 							</ul>
 						</div>
 					</div>
@@ -37,9 +37,11 @@
                 <!-- Page Content -->
                 <div class="single-page-section">
                     <h3 class="margin-bottom-25">About Me</h3>
-                    <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+                    <div>
+                        <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
     
                     <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+                    </div>
                 </div>
     
                 <!-- Boxed List -->

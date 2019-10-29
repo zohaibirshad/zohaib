@@ -149,11 +149,13 @@ class FreelancersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $freelancer = Profile::where('user_id', Auth::user()->id)
-                               ->with('industry', 'skills', 'country', 'reviews', 'jobs', 'jobs_completion', 'attachments', 'social_links' )
+
+        $freelancer = Profile::where('user_id', $id)
+                               ->with('skills', 'country', 'reviews', 'jobs', 'jobs_completion', 'social_links' )
                                ->first();
+                        return $freelancer;
         return view('freelancers.show', compact('freelancer'));
     }
 
