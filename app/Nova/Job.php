@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\MorphMany;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Benjacho\BelongsToManyField\BelongsToManyField;
 
 
@@ -89,7 +90,6 @@ class Job extends Resource
             ->searchable()
             ->sortable(),
             BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->options(\App\Models\Skill::all())->nullable(),
-            BelongsToManyField::make('Attachments', 'attachments', 'App\Nova\ProfileAttachment')->options(\App\Models\Attachment::all())->nullable(),
             BelongsTo::make('Select Budget', 'job_budget', 'App\Nova\Job')
             ->searchable()
             ->sortable(),
