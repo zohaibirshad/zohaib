@@ -2064,18 +2064,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2094,6 +2082,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     slug: function slug(_slug) {
       return "jobs/" + _slug;
+    },
+    onCategorySelected: function onCategorySelected(event) {
+      console.log(event.target.value);
     },
     getResults: function getResults() {
       var _this = this;
@@ -23776,7 +23767,15 @@ var render = function() {
               _vm._l(_vm.categories, function(category) {
                 return _c(
                   "option",
-                  { key: category.id, domProps: { value: category.id } },
+                  {
+                    key: category.id,
+                    domProps: { value: category.id },
+                    on: {
+                      change: function($event) {
+                        return _vm.onCategorySelected($event)
+                      }
+                    }
+                  },
                   [_vm._v(_vm._s(category.name))]
                 )
               }),
@@ -23936,7 +23935,23 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "sidebar-widget" }, [
-      _c("h3", [_vm._v("Fixed Price")]),
+      _c("h3", [_vm._v("Budget Type")]),
+      _vm._v(" "),
+      _c("select", { staticClass: "selectpicker default" }, [
+        _c("option", [_vm._v("All")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Fixed Price")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("Hour Rate")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "sidebar-widget" }, [
+      _c("h3", [_vm._v("Budget Price")]),
       _vm._v(" "),
       _c("div", { staticClass: "margin-top-55" }),
       _vm._v(" "),
@@ -23950,29 +23965,6 @@ var staticRenderFns = [
           "data-slider-max": "2500",
           "data-slider-step": "25",
           "data-slider-value": "[10,2500]"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sidebar-widget" }, [
-      _c("h3", [_vm._v("Hourly Rate")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "margin-top-55" }),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "range-slider",
-        attrs: {
-          type: "text",
-          value: "",
-          "data-slider-currency": "$",
-          "data-slider-min": "10",
-          "data-slider-max": "150",
-          "data-slider-step": "5",
-          "data-slider-value": "[10,200]"
         }
       })
     ])

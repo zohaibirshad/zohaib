@@ -14,9 +14,11 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</
                 @if(sizeof($milestones) == 0)
                 <p class="text-center text-muted">NO MILESTONES FOR THIS JOB</p>
                 @else
-                <h3><i class="icon-material-outline-access-time"></i></h3>
+                <h3><i class="icon-material-outline-access-time"></i> 40% Completed</h3>
                 @endif
             </div>
+            {{-- approved, completed, paid --}}
+            {{-- approved, completed, paid --}}
     
             @if(sizeof($milestones) > 0)
             <div class="content pb-1">
@@ -30,7 +32,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</
                             @role('hirer')
                             <span class="float-right">
                                 <a href="#small-dialog-1"  class="popup-with-zoom-anim button btn-xs">
-                                    Release Payment
+                                    Modify
                                 </a>
                             </span>
                             @endrole

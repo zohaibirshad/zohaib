@@ -289,9 +289,9 @@ class JobsController extends Controller
     public function job_categories($limit = NULL)
     {
         if ($limit != NULL) {
-            $job_categories = Industry::where('featured', 'yes')->with('media')->latest()->limit($limit)->withCount('jobs')->get();
+            $job_categories = Industry::where('featured', 'yes')->orderBy('name', 'asc')->with('media')->latest()->limit($limit)->withCount('jobs')->get();
         } elseif ($limit == NULL) {
-            $job_categories = Industry::where('featured', 'yes')->with('media')->latest()->withCount('jobs')->get();
+            $job_categories = Industry::where('featured', 'yes')->orderBy('name', 'asc')->with('media')->latest()->withCount('jobs')->get();
         }
 
         return $job_categories;
