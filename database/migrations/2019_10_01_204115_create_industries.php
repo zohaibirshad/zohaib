@@ -14,7 +14,8 @@ class CreateIndustries extends Migration
     {
         Schema::create('industries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('title');
+            $table->string('slug')->nullable();
             $table->string('description')->nullable();
             $table->string('featured')->nullable();
             $table->softDeletes();

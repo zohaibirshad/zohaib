@@ -66,7 +66,8 @@ class JobBudget extends Resource
                 ID::make( __('Id'),  'id')
                     ->rules('required')
                     ->sortable(),
-
+                Text::make( __('Name'),  'name')
+                    ->sortable(),
                 Text::make( __('From'),  'from')
                     ->sortable(),
                 Text::make( __('To'),  'to')

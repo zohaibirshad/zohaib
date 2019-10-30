@@ -20,7 +20,7 @@
 				<div class="blog-post-thumbnail">
 					<div class="blog-post-thumbnail-inner">
 						@foreach($post->categories as $category)
-							<span class="blog-item-tag shadow">{{ $category['name'] }}</span>
+							<span class="blog-item-tag shadow">{{ $category['title'] }}</span>
 						@endforeach
 						@if(count($post->media) == 0)							
 							<img src="{{ asset("assets/images/blog-04.jpg") }}" alt="">
@@ -43,7 +43,7 @@
 					<div>{!! $post->body !!}</div>
 					<p class="mt-3">Tags</p>
 					@foreach($post->tags as $tag)
-						<span class="blog-post-info shadow ">{{ $tag['name'] }}</span>
+						<span class="blog-post-info shadow ">{{ $tag['title'] }}</span>
 					@endforeach
 
 					<!-- Share Buttons -->
@@ -269,7 +269,7 @@
 					<h3>Tags</h3>
 					<div class="task-tags text-lowercase">
 						@foreach ($tags as $tag)
-							<a href="/blog?tag={{ $tag->slug }}"><span>{{ $tag->name }}</span></a>
+							<a href="/blog?tag={{ $tag->slug }}"><span>{{ $tag->title }}</span></a>
 						@endforeach
 					</div>
 				</div>

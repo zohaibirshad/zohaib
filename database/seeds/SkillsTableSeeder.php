@@ -14,37 +14,37 @@ class SkillsTableSeeder extends Seeder
     {
         $skills = [
             [
-                'name' => 'Android',
+                'title' => 'Android',
             ],
             [
-                'name' => 'iOS',
+                'title' => 'iOS',
             ],
             [
-                'name' => 'copywriting',
+                'title' => 'copywriting',
             ],
             [
-                'name' => 'translating',
+                'title' => 'translating',
             ],
             [
-                'name' => 'editing',
+                'title' => 'editing',
             ],
             [
-                'name' => 'frontend',
+                'title' => 'frontend',
             ],
             [ 
-                'name' => 'angualar',
+                'title' => 'angualar',
             ],
             [
-                'name' => 'vue',
+                'title' => 'vue',
             ],
             [
-                'name' => 'web apps',
+                'title' => 'web apps',
             ],
             [
-                'name' => 'design',
+                'title' => 'design',
             ],
             [
-                'name' => 'wordpress',
+                'title' => 'wordpress',
             ],
         ];
 

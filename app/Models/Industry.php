@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Slug;
 
 
 class Industry extends Model implements HasMedia
 {
-    use HasMediaTrait, SoftDeletes;
+    use HasMediaTrait, SoftDeletes, Slug;
 
 /**
 * @var  string

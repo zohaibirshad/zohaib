@@ -1866,21 +1866,114 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       // Our data object that holds the Laravel paginator data
-      posts: {}
+      posts: {},
+      categories: {},
+      tags: {},
+      featured: {},
+      trending: {},
+      search: {
+        category: '',
+        tag: ''
+      }
     };
   },
-  mounted: function mounted() {
-    // Fetch initial results
-    this.getResults();
-  },
   methods: {
+    toggleCategorySearch: function toggleCategorySearch(slug) {
+      this.$set(this.search, 'category', slug);
+      this.search.tag = '';
+      this.getResults();
+    },
+    toggleTagSearch: function toggleTagSearch(slug) {
+      this.$set(this.search, 'tag', slug);
+      this.search.category = '';
+      this.getResults();
+    },
     image: function image(media) {
       if (media.length > 0) {
-        return media[0].id + '/' + media[0].file_name;
+        return media[0].id + '/' + media[0].file_title;
       }
 
       return 'assets/images/blog-01a.jpg';
@@ -1893,10 +1986,31 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('posts/?page=' + page).then(function (response) {
+      var params = this.search;
+      axios.get('posts/?page=' + page, {
+        params: params
+      }).then(function (response) {
         _this.posts = response.data;
       });
     }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    // Fetch initial results
+    this.getResults();
+    axios.get('posts/tags').then(function (response) {
+      _this2.tags = response.data;
+    });
+    axios.get('posts/categories/').then(function (response) {
+      _this2.categories = response.data;
+    });
+    axios.get('posts/trending').then(function (response) {
+      _this2.trending = response.data;
+    });
+    axios.get('posts/featured').then(function (response) {
+      _this2.featured = response.data;
+    });
   }
 });
 
@@ -23609,69 +23723,216 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm._l(_vm.posts.data, function(post) {
-        return _c("div", { key: post.id }, [
+  return _c("div", [
+    _c("div", { staticClass: "section gray" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
           _c(
-            "a",
-            { staticClass: "blog-post", attrs: { href: _vm.slug(post.slug) } },
+            "div",
+            { staticClass: "col-xl-8 col-lg-8" },
             [
-              _c(
-                "div",
-                { staticClass: "blog-post-thumbnail" },
-                _vm._l(post.categories, function(cat) {
-                  return _c(
-                    "div",
-                    { key: cat.id, staticClass: "blog-post-thumbnail-inner" },
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._l(_vm.posts.data, function(post) {
+                return _c("div", { key: post.id }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "blog-post",
+                      attrs: { href: _vm.slug(post.slug) }
+                    },
                     [
-                      _c("span", { staticClass: "blog-item-tag shadow-lg" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(cat.name) +
-                            "\n                    "
-                        )
+                      _c(
+                        "div",
+                        { staticClass: "blog-post-thumbnail" },
+                        _vm._l(post.categories, function(cat) {
+                          return _c(
+                            "div",
+                            {
+                              key: cat.id,
+                              staticClass: "blog-post-thumbnail-inner"
+                            },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "blog-item-tag shadow-lg" },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(cat.title) +
+                                      "\n                                    "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("img", {
+                                attrs: { src: _vm.image(post.media), alt: "" }
+                              })
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "blog-post-content" }, [
+                        _c("span", { staticClass: "blog-post-date" }, [
+                          _vm._v(_vm._s(post.created_at))
+                        ]),
+                        _vm._v(" "),
+                        _c("h3", [_vm._v(_vm._s(post.title))]),
+                        _vm._v(" "),
+                        _c("div", {
+                          domProps: {
+                            innerHTML: _vm._s(post.body.substr(0, 200))
+                          }
+                        })
                       ]),
                       _vm._v(" "),
-                      _c("img", {
-                        attrs: { src: _vm.image(post.media), alt: "" }
-                      })
+                      _c("div", { staticClass: "entry-icon" })
                     ]
                   )
-                }),
-                0
-              ),
+                ])
+              }),
               _vm._v(" "),
-              _c("div", { staticClass: "blog-post-content" }, [
-                _c("span", { staticClass: "blog-post-date" }, [
-                  _vm._v(_vm._s(post.created_at))
-                ]),
+              _c("div", { staticClass: "clearfix" }),
+              _vm._v(" "),
+              _c("pagination", {
+                attrs: { data: _vm.posts },
+                on: { "pagination-change-page": _vm.getResults }
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-xl-4 col-lg-4 content-left-offset" }, [
+            _c("div", { staticClass: "sidebar-container margin-top-65" }, [
+              _c("div", { staticClass: "sidebar-widget" }, [
+                _c("h3", [_vm._v("Trending Posts")]),
                 _vm._v(" "),
-                _c("h3", [_vm._v(_vm._s(post.title))]),
-                _vm._v(" "),
-                _c("div", {
-                  domProps: { innerHTML: _vm._s(post.body.substr(0, 200)) }
-                })
+                _c(
+                  "ul",
+                  { staticClass: "widget-tabs" },
+                  _vm._l(_vm.trending, function(post) {
+                    return _c("div", { key: post.id }, [
+                      _c("li", [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "widget-content active",
+                            attrs: { href: _vm.slug(post.slug) }
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "assets/images/blog-02a.jpg",
+                                alt: ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "widget-text" }, [
+                              _c("h5", [_vm._v(_vm._s(post.title))]),
+                              _vm._v(" "),
+                              _c("span", [_vm._v(_vm._s(post.created_at))])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "entry-icon" })
-            ]
-          )
+              _c("div", { staticClass: "sidebar-widget" }, [
+                _c("h3", [_vm._v("Categories")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "task-tags text-capitalize" },
+                  _vm._l(_vm.categories, function(category) {
+                    return _c(
+                      "div",
+                      { key: category.id, staticClass: "inline m-2" },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "cursor-pointer",
+                            on: {
+                              click: function($event) {
+                                return _vm.toggleCategorySearch(category.slug)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(category.title) +
+                                "\n                                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "sidebar-widget" }, [
+                _c("h3", [_vm._v("Tags")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "task-tags text-lowercase" },
+                  _vm._l(_vm.tags, function(tag) {
+                    return _c(
+                      "div",
+                      { key: tag.id, staticClass: "inline m-2" },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "cursor-pointer",
+                            on: {
+                              click: function($event) {
+                                return _vm.toggleTagSearch(tag.slug)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(tag.title) +
+                                "\n                                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
         ])
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "clearfix" }),
-      _vm._v(" "),
-      _c("pagination", {
-        attrs: { data: _vm.posts },
-        on: { "pagination-change-page": _vm.getResults }
-      })
-    ],
-    2
-  )
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "section-headline margin-top-60 margin-bottom-35" },
+      [_c("h4", [_vm._v("Recent Posts")])]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -23776,7 +24037,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v(_vm._s(category.name))]
+                  [_vm._v(_vm._s(category.title))]
                 )
               }),
               0
@@ -23800,7 +24061,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("label", { attrs: { for: "tag-" + skill.id } }, [
-                    _vm._v(_vm._s(skill.name))
+                    _vm._v(_vm._s(skill.title))
                   ])
                 ])
               }),
@@ -23840,7 +24101,7 @@ var render = function() {
                       _c("div", { staticClass: "task-listing-details" }, [
                         _c("div", { staticClass: "task-listing-description" }, [
                           _c("h3", { staticClass: "task-listing-title" }, [
-                            _vm._v(_vm._s(job.name))
+                            _vm._v(_vm._s(job.title))
                           ]),
                           _vm._v(" "),
                           _c("ul", { staticClass: "task-icons" }, [
@@ -23878,7 +24139,7 @@ var render = function() {
                               return _c(
                                 "span",
                                 { key: skill.id, staticClass: "mr-1" },
-                                [_vm._v(_vm._s(skill.name))]
+                                [_vm._v(_vm._s(skill.title))]
                               )
                             }),
                             0
@@ -36422,8 +36683,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

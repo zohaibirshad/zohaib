@@ -20,8 +20,8 @@ class JobsTableSeeder extends Seeder
                 'industry_id' => 1,
                 'country_id' => 80,
                 'job_budget_id' => 1,
-                'name' => $name = 'Food Delivery Mobile Application',
-                'slug' => str_slug($name),
+                'title' => $title = 'Food Delivery Mobile Application',
+                'slug' => str_slug($title),
                 'description' => 'Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
 
                             <br>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.
@@ -37,8 +37,8 @@ class JobsTableSeeder extends Seeder
                 'industry_id' => 5,
                 'country_id' => 80,
                 'job_budget_id' => 2,
-                'name' => $name = '2000 Words English to German',
-                'slug' => str_slug($name),
+                'title' => $title = '2000 Words English to German',
+                'slug' => str_slug($title),
                 'description' => 'Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
 
                             <br>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.

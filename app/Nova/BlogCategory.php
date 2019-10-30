@@ -22,7 +22,7 @@ class BlogCategory extends Resource
      *
      * @var  string
      */
-    public static $title = 'name';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -30,7 +30,7 @@ class BlogCategory extends Resource
      * @var  array
      */
     public static $search = [
-        'id', 'name'
+        'id', 'title'
     ];
 
     /**
@@ -65,7 +65,7 @@ class BlogCategory extends Resource
                 ID::make( __('Id'),  'id')
                 ->rules('required')
                 ->sortable(),
-                Text::make( __('Name'),  'name')
+                Text::make( __('Title'),  'title')
                 ->rules('required')
                 ->sortable(),
             ];

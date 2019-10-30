@@ -31,15 +31,14 @@ class JobsController extends Controller
      */
     public function jobs(Request $request)
     {
-
         if ($request->has('search')) {
             $keyWord = $request->title;
             $industry = $request->industry;
             $location = $request->location;
-            $to_fixed_price = $request->to_fixed_price;
-            $from_fixed_price = $request->from_fixed_price;
-            $to_hour_price = $request->to_hour_price;
-            $from_hour_price = $request->from_hour_price;
+            $max_fixed_price = $request->max_fixed_price;
+            $min_fixed_price = $request->min_fixed_price;
+            $max_hour_price = $request->max_hour_price;
+            $min_hour_price = $request->min_hour_price;
             $skills = $request->skills;
             $sort = $request->sort;
             $city = $request->city;
@@ -47,7 +46,7 @@ class JobsController extends Controller
 
             $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
                 ->when(!empty($keyWord), function ($query) use ($keyWord) {
-                    $query->where('name', 'LIKE', "%$keyWord%");
+                    $query->where('title', 'LIKE', "%$keyWord%");
                 })
                 ->when(!empty($city), function ($query) use ($city) {
                     $query->where('city', 'LIKE', "%$city%");
@@ -62,6 +61,9 @@ class JobsController extends Controller
                 })
                 ->when(!empty($industry), function ($query) use ($industry) {
                     $query->whereHas("industry", function ($query) use ($industry) {
+                        if (!is_array($industry)) {
+                            $query->where("id", $industry);
+                        }
                         $query->whereIn("id", $industry);
                     });
                 })
@@ -70,29 +72,21 @@ class JobsController extends Controller
                         $query->whereIn("id", $country);
                     });
                 })
-                ->when(!empty($from_fixed_price), function ($query) use ($from_fixed_price) {
-                    $query->whereHas("job_budget", function ($query) use ($from_fixed_price) {
-                        $query->where('to', '>=', $from_fixed_price);
-                        $query->where('status', 'fixed');
-                    });
+                ->when(!empty($min_fixed_price), function ($query) use ($min_fixed_price) {
+                        $query->where('max_budget', '>=', $min_fixed_price);
+                        $query->where('budget_type', 'fixed');
                 })
-                ->when(!empty($to_fixed_price), function ($query) use ($to_fixed_price) {
-                    $query->whereHas("job_budget", function ($query) use ($to_fixed_price) {
-                        $query->where('from', '<=', $to_fixed_price);
-                        $query->where('status', 'fixed');
-                    });
+                ->when(!empty($max_fixed_price), function ($query) use ($max_fixed_price) {
+                        $query->where('min_budget', '<=', $max_fixed_price);
+                        $query->where('budget_type', 'fixed');
                 })
-                ->when(!empty($from_hour_price), function ($query) use ($from_hour_price) {
-                    $query->whereHas("job_budget", function ($query) use ($from_hour_price) {
-                        $query->where('to', '>=', $from_hour_price);
-                        $query->where('status', 'hour');
-                    });
+                ->when(!empty($min_hour_price), function ($query) use ($min_hour_price) {
+                        $query->where('max_budget', '>=', $min_hour_price);
+                        $query->where('budget_type', 'hour');
                 })
-                ->when(!empty($to_hour_price), function ($query) use ($to_hour_price) {
-                    $query->whereHas("job_budget", function ($query) use ($to_hour_price) {
-                        $query->where('from', '<=', $to_hour_price);
-                        $query->where('status', 'hour');
-                    });
+                ->when(!empty($max_hour_price), function ($query) use ($max_hour_price) {
+                        $query->where('min_budget', '<=', $max_hour_price);
+                        $query->where('budget_type', 'hour');
                 })
                 ->when(!empty($sort), function ($query) use ($sort) {
                     if ($sort == 'featured') {
@@ -289,9 +283,9 @@ class JobsController extends Controller
     public function job_categories($limit = NULL)
     {
         if ($limit != NULL) {
-            $job_categories = Industry::where('featured', 'yes')->orderBy('name', 'asc')->with('media')->latest()->limit($limit)->withCount('jobs')->get();
+            $job_categories = Industry::where('featured', 'yes')->orderBy('title', 'asc')->with('media')->latest()->limit($limit)->withCount('jobs')->get();
         } elseif ($limit == NULL) {
-            $job_categories = Industry::where('featured', 'yes')->orderBy('name', 'asc')->with('media')->latest()->withCount('jobs')->get();
+            $job_categories = Industry::where('featured', 'yes')->orderBy('title', 'asc')->with('media')->latest()->withCount('jobs')->get();
         }
 
         return $job_categories;

@@ -33,7 +33,7 @@ class Job extends Resource
      *
      * @var  string
      */
-    public static $title = 'name';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -41,7 +41,7 @@ class Job extends Resource
      * @var  array
      */
     public static $search = [
-        'id', 'name'
+        'id', 'title'
     ];
 
     /**
@@ -82,17 +82,24 @@ class Job extends Resource
             BelongsTo::make('Freelancer', 'profile', 'App\Nova\Profile')
             ->searchable()
             ->sortable(),    
-            Text::make( __('Title'),  'name')
+            Text::make( __('Title'),  'title')
             ->sortable(),       
             Trix::make( __('Description'),  'description')
             ->withFiles('public'), 
+            Select::make( __('Budget Type'),  'budget_type')
+            ->sortable()
+            ->options([
+                'fixed' => 'Fixed',
+                'hour' => 'Hour',
+            ]),
+            Text::make( __('Max Budget'),  'max_budget')
+            ->sortable(), 
+            Text::make( __('Min Budget'),  'min_budget')
+            ->sortable(), 
             BelongsTo::make('Industry')
             ->searchable()
             ->sortable(),
             BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->options(\App\Models\Skill::all())->nullable(),
-            BelongsTo::make('Select Budget', 'job_budget', 'App\Nova\Job')
-            ->searchable()
-            ->sortable(),
             Select::make( __('Status'),  'status')
             ->sortable()
             ->options([

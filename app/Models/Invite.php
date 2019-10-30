@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use DigitalCloud\ModelNotes\HasNotes;
 use App\Traits\Uuid;
+use DigitalCloud\ModelNotes\HasNotes;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
@@ -21,6 +21,7 @@ class Invite extends Model implements HasMedia
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
     ];
+
 
     public function registerMediaCollections()
     {

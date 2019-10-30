@@ -22,7 +22,7 @@ class Skill extends Resource
      *
      * @var  string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -30,7 +30,7 @@ class Skill extends Resource
      * @var  array
      */
     public static $search = [
-        'id', 'name'
+        'id', 'title'
     ];
 
     /**
@@ -66,7 +66,7 @@ class Skill extends Resource
                 ->rules('required')
                 ->sortable(),
 
-                Text::make( __('Name'),  'name')
+                Text::make( __('Title'),  'title')
                 ->rules('required')
                 ->sortable(),
 

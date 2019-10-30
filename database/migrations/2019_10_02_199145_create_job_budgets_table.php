@@ -14,6 +14,7 @@ class CreateJobBudgetsTable extends Migration
     {
         Schema::create('job_budgets', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
             $table->string('from')->nullable();
             $table->string('to')->nullable();
             $table->string('type')->nullable();

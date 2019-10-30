@@ -35,7 +35,7 @@
                 :key="category.id"
                 :value="category.id"
                 @change="onCategorySelected($event)"
-              >{{ category.name }}</option>
+              >{{ category.title }}</option>
             </select>
           </div>
 
@@ -73,7 +73,7 @@
             <div class="tags-container">
               <div class="tag" v-for="skill in skills" :key="skill.id">
                 <input type="checkbox" :id="`tag-${skill.id}`" />
-                <label :for="`tag-${skill.id}`">{{ skill.name }}</label>
+                <label :for="`tag-${skill.id}`">{{ skill.title }}</label>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -107,7 +107,7 @@
             <a v-for="job in jobs.data" :key="job.id" :href="slug(job.slug)" class="task-listing">
               <div class="task-listing-details">
                 <div class="task-listing-description">
-                  <h3 class="task-listing-title">{{ job.name }}</h3>
+                  <h3 class="task-listing-title">{{ job.title }}</h3>
                   <ul class="task-icons">
                     <li>
                       <i class="icon-material-outline-location-on"></i>
@@ -120,7 +120,7 @@
                   </ul>
                   <p class="task-listing-text">{{ truncate(job.description) }}</p>
                   <div class="task-tags">
-                    <span v-for="skill in job.skills" :key="skill.id" class="mr-1">{{ skill.name }}</span>
+                    <span v-for="skill in job.skills" :key="skill.id" class="mr-1">{{ skill.title }}</span>
                   </div>
                 </div>
               </div>

@@ -54,6 +54,10 @@ Route::resource('freelancers', 'FreelancersController')->except('index');
 // Blog
 Route::resource('blog', 'BlogController')->only('index', 'show');
 Route::get('posts', 'BlogController@posts');
+Route::get('posts/tags', 'BlogController@tags');
+Route::get('posts/categories', 'BlogController@categories');
+Route::get('posts/featured', 'BlogController@featured_posts');
+Route::get('posts/trending', 'BlogController@trending_posts');
 
 // Subscription
 Route::get('pricing', function () {

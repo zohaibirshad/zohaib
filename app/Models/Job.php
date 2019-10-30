@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use DigitalCloud\ModelNotes\HasNotes;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use App\Traits\Uuid;
 use Carbon\Carbon;
+use App\Traits\Uuid;
 use Illuminate\Support\Str;
-
+use DigitalCloud\ModelNotes\HasNotes;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Job extends Model implements HasMedia
 {
@@ -34,13 +33,14 @@ class Job extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($model) {
-            $model->slug = (string) Str::slug($model->name);
+            $model->slug = (string) Str::slug($model->title ." ". $model->id);
         });
 
         static::updating(function ($model) {
-            $model->slug = (string) Str::slug($model->name);
+            $model->slug = (string) Str::slug($model->title ." ". $model->id);
         });
     }
+
 
     public function getCreatedAtAttribute()
     {

@@ -25,7 +25,10 @@ class CreateJobsTable extends Migration
             $table->foreign('country_id')->references('id')->on('countries');
             $table->integer('job_budget_id')->unsigned()->nullable();
             $table->foreign('job_budget_id')->references('id')->on('job_budgets');
-            $table->string('name')->nullable();
+            $table->string('title')->nullable();
+            $table->decimal('min_budget', 13, 2)->nullable();
+            $table->decimal('max_budget', 13, 2)->nullable();
+            $table->string('budget_type')->nullable();
             $table->string('slug')->nullable();
             $table->string('status')->nullable();
             $table->string('city')->nullable();

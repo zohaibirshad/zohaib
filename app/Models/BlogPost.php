@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
+use App\Traits\Slug;
 use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class BlogPost extends Model implements HasMedia
 {
-    use HasMediaTrait, HasNotes, SoftDeletes;
+    use HasMediaTrait, HasNotes, SoftDeletes, Slug;
 
     /**
      * @var  string
@@ -25,22 +25,6 @@ class BlogPost extends Model implements HasMedia
         'updated_at' => 'datetime',
     ];
 
-
-    /**
-     * Boot function from laravel.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->slug = (string) Str::slug($model->title);
-        });
-
-        static::updating(function ($model) {
-            $model->slug = (string) Str::slug($model->title);
-        });
-    }
 
     public function getCreatedAtAttribute()
     {

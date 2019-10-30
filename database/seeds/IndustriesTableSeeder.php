@@ -14,39 +14,39 @@ class IndustriesTableSeeder extends Seeder
     {
         $industries = [
             [
-                'name' => 'Admin Support',
+                'title' => 'Admin Support',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'Customer Service',
+                'title' => 'Customer Service',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'Data Analytics',
+                'title' => 'Data Analytics',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'Graphics Design',
+                'title' => 'Graphics Design',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'Software Development',
+                'title' => 'Software Development',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'IT & Networking',
+                'title' => 'IT & Networking',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'Writing',
+                'title' => 'Writing',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'Translation',
+                'title' => 'Translation',
                 'featured' => 'yes',
             ],
             [
-                'name' => 'Sales & Marketing',
+                'title' => 'Sales & Marketing',
                 'featured' => 'yes',
             ],
         ];
