@@ -29,22 +29,28 @@
           <div class="sidebar-widget">
             <h3>Category</h3>
             <!-- class="selectpicker default" -->
-            <select              
-              data-size="7"
-              title="All Categories"
-              v-model="selectedCategory"
-            >
-              <option 
+            <select data-size="7" title="All Categories" v-model="selectedCategory">
+              <option
                 v-for="category in categories"
                 :key="category.id"
                 :value="category.id"
+                @change="onCategorySelected($event)"
               >{{ category.name }}</option>
+            </select>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3>Budget Type</h3>
+            <select class="selectpicker default">
+              <option>All</option>
+              <option>Fixed Price</option>
+              <option>Hour Rate</option>
             </select>
           </div>
 
           <!-- Budget -->
           <div class="sidebar-widget">
-            <h3>Fixed Price</h3>
+            <h3>Budget Price</h3>
             <div class="margin-top-55"></div>
 
             <!-- Range Slider -->
@@ -57,24 +63,6 @@
               data-slider-max="2500"
               data-slider-step="25"
               data-slider-value="[10,2500]"
-            />
-          </div>
-
-          <!-- Hourly Rate -->
-          <div class="sidebar-widget">
-            <h3>Hourly Rate</h3>
-            <div class="margin-top-55"></div>
-
-            <!-- Range Slider -->
-            <input
-              class="range-slider"
-              type="text"
-              value
-              data-slider-currency="$"
-              data-slider-min="10"
-              data-slider-max="150"
-              data-slider-step="5"
-              data-slider-value="[10,200]"
             />
           </div>
 
@@ -101,7 +89,7 @@
 
           <div class="sort-by">
             <span>Sort by:</span>
-            <select class="selectpicker hide-tick"> 
+            <select class="selectpicker hide-tick">
               <option>Relevance</option>
               <option>Newest</option>
               <option>Oldest</option>
@@ -184,6 +172,10 @@ export default {
   methods: {
     slug(slug) {
       return "jobs/" + slug;
+    },
+
+    onCategorySelected(event) {
+      console.log(event.target.value);
     },
 
     getResults(page = 1) {

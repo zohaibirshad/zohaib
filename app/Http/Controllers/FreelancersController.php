@@ -155,7 +155,6 @@ class FreelancersController extends Controller
         $freelancer = Profile::where('user_id', $id)
                                ->with('skills', 'country', 'reviews', 'jobs', 'jobs_completion', 'social_links' )
                                ->first();
-                        return $freelancer;
         return view('freelancers.show', compact('freelancer'));
     }
 

@@ -11,14 +11,14 @@
 				<div class="single-page-header-inner">
 					<div class="left-side">
 						<div class="header-image freelancer-avatar"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></div>
-						<div class="header-details">
+						{{-- <div class="header-details">
 							<h3>{{ $freelancer->name ?? null }} <span>{{ $freelancer->headline }}</span></h3>
 							<ul>
 								<li><div class="star-rating" data-rating="5.0"></div></li>
-								<li><img class="flag" src="{{ asset('assets/images/flags/<?=$freelancer->country->code?>.svg') }}" alt=""> {{ $freelancer->country->name }}</li>
+								<li><img class="flag" src="{{ asset('assets/images/flags/.svg') }}" alt=""> {{ $freelancer->country->name }}</li>
 								<li><div class="verified-badge-with-title">{{ $freelancer->verified == 1 ? "Verified" : "Nt Verfified" }}</div></li>
 							</ul>
-						</div>
+						</div> --}}
 					</div>
 				</div>
 			</div>

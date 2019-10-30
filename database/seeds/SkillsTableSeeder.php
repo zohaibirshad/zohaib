@@ -29,7 +29,7 @@ class SkillsTableSeeder extends Seeder
                 'name' => 'editing',
             ],
             [
-                'name' => 'fronend',
+                'name' => 'frontend',
             ],
             [ 
                 'name' => 'angualar',

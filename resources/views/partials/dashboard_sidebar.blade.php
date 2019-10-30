@@ -49,9 +49,9 @@
 									{{-- Active Jobs bidded on by Freelancer --}}
 									@endrole
 
-									@role('freelancer')
+									{{-- @role('freelancer') --}}
 									<li><a href="{{ route('invites') }}">Job Invites <span class="nav-tag">0</span></a></li>
-									@endrole
+									{{-- @endrole --}}
 								</ul>	
 							</li>
 
