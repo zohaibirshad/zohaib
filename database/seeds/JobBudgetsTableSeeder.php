@@ -14,18 +14,18 @@ class JobBudgetsTableSeeder extends Seeder
     {
         $budgets = [
             [
-                'name' => 'Meduim Project',
-                'from' => '1000',
-                'to' => '2000',
-                'type' => 'fixed',
-            ],
-            [
                 'name' => 'Small Project',
                 'from' => '75',
                 'to' => '200',
                 'type' => 'fixed',
             ],
-        ]; 
+            [
+                'name' => 'Meduim Project',
+                'from' => '1000',
+                'to' => '2000',
+                'type' => 'fixed',
+            ],
+        ];
 
         foreach ($budgets as $budget) {
             JobBudget::create($budget);

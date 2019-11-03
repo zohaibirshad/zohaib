@@ -30,6 +30,9 @@ class JobsTableSeeder extends Seeder
                 'duration' => '6',
                 'featured' => 'yes',
                 'status' => 'not assigned',
+                'budget_type' => 'fixed',
+                'min_budget' => 1000,
+                'max_budget' => 2000,
             ],
             [
                 'user_id' => 1,
@@ -47,6 +50,9 @@ class JobsTableSeeder extends Seeder
                 'duration' => '2',
                 'featured' => 'yes',
                 'status' => 'not assigned',
+                'budget_type' => 'hourly',
+                'min_budget' => 75,
+                'max_budget' => 200,
             ],
 
         ];

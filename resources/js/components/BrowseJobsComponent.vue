@@ -14,12 +14,9 @@
                   placeholder="e.g. job title"
                   v-model="search.title"
                 />
-                <button class="keyword-input-button ripple-effect">
+                <button class="keyword-input-button ripple-effect" @click="getResults()">
                   <i class="icon-feather-search"></i>
                 </button>
-              </div>
-              <div class="keywords-list">
-                <!-- keywords go here -->
               </div>
               <div class="clearfix"></div>
             </div>
@@ -33,7 +30,7 @@
               data-size="7"
               title="All Categories"
               v-model="search.industry"
-              @change="onCategorySelected($event)"
+              @change="getResults()"
             >
               <option
                 v-for="category in categories"
@@ -48,7 +45,7 @@
             <select class="selectpicker default">
               <option>All</option>
               <option>Fixed Price</option>
-              <option>Hour Rate</option>
+              <option>Hourly Rate</option>
             </select>
           </div>
 
@@ -76,7 +73,13 @@
 
             <div class="tags-container">
               <div class="tag" v-for="skill in skills" :key="skill.id">
-                <input type="checkbox" :id="`tag-${skill.id}`" />
+                <input
+                  type="checkbox"
+                  :id="`tag-${skill.id}`"
+                  :value="skill.id"
+                  v-model="search.skills"
+                  @change="getResults()"
+                />
                 <label :for="`tag-${skill.id}`">{{ skill.title }}</label>
               </div>
             </div>
@@ -93,14 +96,14 @@
 
           <div class="sort-by">
             <span>Sort by:</span>
-            <select class="selectpicker hide-tick">
-              <option>Relevance</option>
-              <option>Newest</option>
-              <option>Oldest</option>
-              <option>Lowest Price</option>
-              <option>Highest Price</option>
-              <option>Most Bids</option>
-              <option>Fewest Bids</option>
+            <select class="selectpicker hide-tick" v-model="search.sort" @change="getResults()">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="lowest_price">Lowest Price</option>
+              <option value="higest_price">Highest Price</option>
+              <option value="most_bids">Most Bids</option>
+              <option value="fewest_bids">Fewest Bids</option>
+              <option value="yes">Featured</option>
             </select>
           </div>
         </div>
@@ -143,14 +146,12 @@
               </div>
             </a>
 
-
             <div v-if="!hasData" class="py-5">
               <p class="text-center py-5">No results found</p>
             </div>
           </div>
 
           <div v-if="isLoading" class="py-5">
-            
             <loading></loading>
           </div>
         </div>
@@ -174,7 +175,9 @@ export default {
       skills: {},
       search: {
         industry: "",
-        title: ""
+        title: "",
+        skills: [],
+        sort: ""
       },
       hasData: false,
       isLoading: false
@@ -190,13 +193,6 @@ export default {
   methods: {
     slug(slug) {
       return "jobs/" + slug;
-    },
-
-    onCategorySelected(event) {
-      // console.log("category: ", event.target.value);
-      // console.log("category: ", this.search.category);
-
-      this.getResults();
     },
 
     getResults(page = 1) {

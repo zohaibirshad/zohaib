@@ -2192,6 +2192,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2200,7 +2201,9 @@ __webpack_require__.r(__webpack_exports__);
       skills: {},
       search: {
         industry: "",
-        title: ""
+        title: "",
+        skills: [],
+        sort: ""
       },
       hasData: false,
       isLoading: false
@@ -2214,11 +2217,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     slug: function slug(_slug) {
       return "jobs/" + _slug;
-    },
-    onCategorySelected: function onCategorySelected(event) {
-      // console.log("category: ", event.target.value);
-      // console.log("category: ", this.search.category);
-      this.getResults();
     },
     getResults: function getResults() {
       var _this = this;
@@ -2301,8 +2299,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log("Loading mounted.");
+  mounted: function mounted() {// console.log("Loading mounted.");
   }
 });
 
@@ -24096,10 +24093,19 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(0)
+                _c(
+                  "button",
+                  {
+                    staticClass: "keyword-input-button ripple-effect",
+                    on: {
+                      click: function($event) {
+                        return _vm.getResults()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "icon-feather-search" })]
+                )
               ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "keywords-list" }),
               _vm._v(" "),
               _c("div", { staticClass: "clearfix" })
             ])
@@ -24140,7 +24146,7 @@ var render = function() {
                       )
                     },
                     function($event) {
-                      return _vm.onCategorySelected($event)
+                      return _vm.getResults()
                     }
                   ]
                 }
@@ -24156,9 +24162,9 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "sidebar-widget" }, [
             _c("h3", [_vm._v("Skills")]),
@@ -24169,7 +24175,54 @@ var render = function() {
               _vm._l(_vm.skills, function(skill) {
                 return _c("div", { key: skill.id, staticClass: "tag" }, [
                   _c("input", {
-                    attrs: { type: "checkbox", id: "tag-" + skill.id }
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.search.skills,
+                        expression: "search.skills"
+                      }
+                    ],
+                    attrs: { type: "checkbox", id: "tag-" + skill.id },
+                    domProps: {
+                      value: skill.id,
+                      checked: Array.isArray(_vm.search.skills)
+                        ? _vm._i(_vm.search.skills, skill.id) > -1
+                        : _vm.search.skills
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$a = _vm.search.skills,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = skill.id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.search,
+                                  "skills",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.search,
+                                  "skills",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.search, "skills", $$c)
+                          }
+                        },
+                        function($event) {
+                          return _vm.getResults()
+                        }
+                      ]
+                    }
                   }),
                   _vm._v(" "),
                   _c("label", { attrs: { for: "tag-" + skill.id } }, [
@@ -24193,7 +24246,81 @@ var render = function() {
         [
           _c("h3", { staticClass: "page-title" }, [_vm._v("Search Results")]),
           _vm._v(" "),
-          _vm._m(3),
+          _c("div", { staticClass: "notify-box margin-top-15" }, [
+            _c("div", { staticClass: "switch-container" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "sort-by" }, [
+              _c("span", [_vm._v("Sort by:")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search.sort,
+                      expression: "search.sort"
+                    }
+                  ],
+                  staticClass: "selectpicker hide-tick",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.search,
+                          "sort",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.getResults()
+                      }
+                    ]
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "newest" } }, [
+                    _vm._v("Newest")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "oldest" } }, [
+                    _vm._v("Oldest")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "lowest_price" } }, [
+                    _vm._v("Lowest Price")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "higest_price" } }, [
+                    _vm._v("Highest Price")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "most_bids" } }, [
+                    _vm._v("Most Bids")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "fewest_bids" } }, [
+                    _vm._v("Fewest Bids")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "yes" } }, [
+                    _vm._v("Featured")
+                  ])
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -24292,7 +24419,7 @@ var render = function() {
                                     ])
                                   ]),
                                   _vm._v(" "),
-                                  _vm._m(4, true)
+                                  _vm._m(2, true)
                                 ]
                               )
                             ])
@@ -24335,14 +24462,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "keyword-input-button ripple-effect" }, [
-      _c("i", { staticClass: "icon-feather-search" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "sidebar-widget" }, [
       _c("h3", [_vm._v("Budget Type")]),
       _vm._v(" "),
@@ -24351,7 +24470,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("option", [_vm._v("Fixed Price")]),
         _vm._v(" "),
-        _c("option", [_vm._v("Hour Rate")])
+        _c("option", [_vm._v("Hourly Rate")])
       ])
     ])
   },
@@ -24376,34 +24495,6 @@ var staticRenderFns = [
           "data-slider-value": "[10,2500]"
         }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "notify-box margin-top-15" }, [
-      _c("div", { staticClass: "switch-container" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "sort-by" }, [
-        _c("span", [_vm._v("Sort by:")]),
-        _vm._v(" "),
-        _c("select", { staticClass: "selectpicker hide-tick" }, [
-          _c("option", [_vm._v("Relevance")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("Newest")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("Oldest")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("Lowest Price")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("Highest Price")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("Most Bids")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("Fewest Bids")])
-        ])
-      ])
     ])
   },
   function() {

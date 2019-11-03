@@ -20,7 +20,7 @@
 <script>
 export default {
   mounted() {
-    console.log("Loading mounted.");
+    // console.log("Loading mounted.");
   }
 };
 </script>

@@ -55,8 +55,9 @@ class JobsController extends Controller
                 $query->whereHas("skills", function ($query) use ($skills) {
                     if (!is_array($skills)) {
                         $query->where("id", $skills);
+                    } else {
+                        $query->whereIn("id", $skills);
                     }
-                    $query->whereIn("id", $skills);
                 });
             })
             ->when(!empty($industry), function ($query) use ($industry) {
@@ -93,50 +94,19 @@ class JobsController extends Controller
                 if ($sort == 'featured') {
                     $query->orwhere('featured', 'yes');
                 }
-                if ($sort == 'highest_fixed_budget') {
-                    $query->orderByDesc(
-                        JobBudget::select('to', 'status')
-                            ->whereColumn('job_id', 'job.id')
-                            ->where('status', 'fixed')
-                            ->orderBy('to', 'desc')
-                            ->limit(1)
-                    );
-                }
-                if ($sort == 'lowest_fixed_budget') {
-                    $query->orderByDesc(
-                        JobBudget::select('to', 'status')
-                            ->whereColumn('job_id', 'job.id')
-                            ->where('status', 'fixed')
-                            ->orderBy('to', 'asc')
-                            ->limit(1)
-                    );
-                }
-                if ($sort == 'lowest_hour_budget') {
-                    $query->orderByDesc(
-                        JobBudget::select('to', 'status')
-                            ->whereColumn('job_id', 'job.id')
-                            ->where('status', 'hour')
-                            ->orderBy('to', 'asc')
-                            ->limit(1)
-                    );
-                }
-                if ($sort == 'highest_hour_budget') {
-                    $query->orderByDesc(
-                        JobBudget::select('to', 'status')
-                            ->whereColumn('job_id', 'job.id')
-                            ->where('status', 'fixed')
-                            ->orderBy('to', 'desc')
-                            ->limit(1)
-                    );
-                }
-
-                if ($sort == 'highest_number_of_bids') {
+                if ($sort == 'most_bids') {
                     $query->withCount('bids');
                     $query->orderByDesc('bids_count');
                 }
-                if ($sort == 'lowest_number_of_bids') {
+                if ($sort == 'fewest_bids') {
                     $query->withCount('bids');
                     $query->orderByAsc('bids_count');
+                }
+                if ($sort == 'newest') {
+                    $query->latest();
+                }
+                if ($sort == 'oldest') {
+                    $query->oldest();
                 }
             })->when(empty($sort), function ($query) {
                 $query->latest();
@@ -295,9 +265,9 @@ class JobsController extends Controller
     public function job_skills($limit = NULL)
     {
         if ($limit != NULL) {
-            $job_skills = Skill::latest()->limit($limit)->withCount('jobs')->get();
+            $job_skills = Skill::orderBy("title", "asc")->limit($limit)->withCount('jobs')->get();
         } elseif ($limit == NULL) {
-            $job_skills = Skill::latest()->withCount('jobs')->get();
+            $job_skills = Skill::orderBy("title", "asc")->withCount('jobs')->get();
         }
 
         return $job_skills;
