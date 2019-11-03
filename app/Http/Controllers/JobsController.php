@@ -31,123 +31,119 @@ class JobsController extends Controller
      */
     public function jobs(Request $request)
     {
-        if ($request->has('search')) {
-            $keyWord = $request->title;
-            $industry = $request->industry;
-            $location = $request->location;
-            $max_fixed_price = $request->max_fixed_price;
-            $min_fixed_price = $request->min_fixed_price;
-            $max_hour_price = $request->max_hour_price;
-            $min_hour_price = $request->min_hour_price;
-            $skills = $request->skills;
-            $sort = $request->sort;
-            $city = $request->city;
-            $country = $request->country;
 
-            $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
-                ->when(!empty($keyWord), function ($query) use ($keyWord) {
-                    $query->where('title', 'LIKE', "%$keyWord%");
-                })
-                ->when(!empty($city), function ($query) use ($city) {
-                    $query->where('city', 'LIKE', "%$city%");
-                })
-                ->when(!empty($skills), function ($query) use ($skills) {
-                    $query->whereHas("skills", function ($query) use ($skills) {
-                        if (!is_array($skills)) {
-                            $query->where("id", $skills);
-                        }
-                        $query->whereIn("id", $skills);
-                    });
-                })
-                ->when(!empty($industry), function ($query) use ($industry) {
-                    $query->whereHas("industry", function ($query) use ($industry) {
-                        if (!is_array($industry)) {
-                            $query->where("id", $industry);
-                        }
+        $keyWord = $request->title;
+        $industry = $request->industry;
+        $location = $request->location;
+        $max_fixed_price = $request->max_fixed_price;
+        $min_fixed_price = $request->min_fixed_price;
+        $max_hour_price = $request->max_hour_price;
+        $min_hour_price = $request->min_hour_price;
+        $skills = $request->skills;
+        $sort = $request->sort;
+        $city = $request->city;
+        $country = $request->country;
+
+        $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
+            ->when(!empty($keyWord), function ($query) use ($keyWord) {
+                $query->where('title', 'LIKE', "%$keyWord%");
+            })
+            ->when(!empty($city), function ($query) use ($city) {
+                $query->where('city', 'LIKE', "%$city%");
+            })
+            ->when(!empty($skills), function ($query) use ($skills) {
+                $query->whereHas("skills", function ($query) use ($skills) {
+                    if (!is_array($skills)) {
+                        $query->where("id", $skills);
+                    }
+                    $query->whereIn("id", $skills);
+                });
+            })
+            ->when(!empty($industry), function ($query) use ($industry) {
+                $query->whereHas("industry", function ($query) use ($industry) {
+                    if (!is_array($industry)) {
+                        $query->where("id", $industry);
+                    } else {
                         $query->whereIn("id", $industry);
-                    });
-                })
-                ->when(!empty($country), function ($query) use ($country) {
-                    $query->whereHas("country", function ($query) use ($country) {
-                        $query->whereIn("id", $country);
-                    });
-                })
-                ->when(!empty($min_fixed_price), function ($query) use ($min_fixed_price) {
-                        $query->where('max_budget', '>=', $min_fixed_price);
-                        $query->where('budget_type', 'fixed');
-                })
-                ->when(!empty($max_fixed_price), function ($query) use ($max_fixed_price) {
-                        $query->where('min_budget', '<=', $max_fixed_price);
-                        $query->where('budget_type', 'fixed');
-                })
-                ->when(!empty($min_hour_price), function ($query) use ($min_hour_price) {
-                        $query->where('max_budget', '>=', $min_hour_price);
-                        $query->where('budget_type', 'hour');
-                })
-                ->when(!empty($max_hour_price), function ($query) use ($max_hour_price) {
-                        $query->where('min_budget', '<=', $max_hour_price);
-                        $query->where('budget_type', 'hour');
-                })
-                ->when(!empty($sort), function ($query) use ($sort) {
-                    if ($sort == 'featured') {
-                        $query->orwhere('featured', 'yes');
                     }
-                    if ($sort == 'highest_fixed_budget') {
-                        $query->orderByDesc(
-                            JobBudget::select('to', 'status')
-                                ->whereColumn('job_id', 'job.id')
-                                ->where('status', 'fixed')
-                                ->orderBy('to', 'desc')
-                                ->limit(1)
-                        );
-                    }
-                    if ($sort == 'lowest_fixed_budget') {
-                        $query->orderByDesc(
-                            JobBudget::select('to', 'status')
-                                ->whereColumn('job_id', 'job.id')
-                                ->where('status', 'fixed')
-                                ->orderBy('to', 'asc')
-                                ->limit(1)
-                        );
-                    }
-                    if ($sort == 'lowest_hour_budget') {
-                        $query->orderByDesc(
-                            JobBudget::select('to', 'status')
-                                ->whereColumn('job_id', 'job.id')
-                                ->where('status', 'hour')
-                                ->orderBy('to', 'asc')
-                                ->limit(1)
-                        );
-                    }
-                    if ($sort == 'highest_hour_budget') {
-                        $query->orderByDesc(
-                            JobBudget::select('to', 'status')
-                                ->whereColumn('job_id', 'job.id')
-                                ->where('status', 'fixed')
-                                ->orderBy('to', 'desc')
-                                ->limit(1)
-                        );
-                    }
+                });
+            })
+            ->when(!empty($country), function ($query) use ($country) {
+                $query->whereHas("country", function ($query) use ($country) {
+                    $query->whereIn("id", $country);
+                });
+            })
+            ->when(!empty($min_fixed_price), function ($query) use ($min_fixed_price) {
+                $query->where('max_budget', '>=', $min_fixed_price);
+                $query->where('budget_type', 'fixed');
+            })
+            ->when(!empty($max_fixed_price), function ($query) use ($max_fixed_price) {
+                $query->where('min_budget', '<=', $max_fixed_price);
+                $query->where('budget_type', 'fixed');
+            })
+            ->when(!empty($min_hour_price), function ($query) use ($min_hour_price) {
+                $query->where('max_budget', '>=', $min_hour_price);
+                $query->where('budget_type', 'hour');
+            })
+            ->when(!empty($max_hour_price), function ($query) use ($max_hour_price) {
+                $query->where('min_budget', '<=', $max_hour_price);
+                $query->where('budget_type', 'hour');
+            })
+            ->when(!empty($sort), function ($query) use ($sort) {
+                if ($sort == 'featured') {
+                    $query->orwhere('featured', 'yes');
+                }
+                if ($sort == 'highest_fixed_budget') {
+                    $query->orderByDesc(
+                        JobBudget::select('to', 'status')
+                            ->whereColumn('job_id', 'job.id')
+                            ->where('status', 'fixed')
+                            ->orderBy('to', 'desc')
+                            ->limit(1)
+                    );
+                }
+                if ($sort == 'lowest_fixed_budget') {
+                    $query->orderByDesc(
+                        JobBudget::select('to', 'status')
+                            ->whereColumn('job_id', 'job.id')
+                            ->where('status', 'fixed')
+                            ->orderBy('to', 'asc')
+                            ->limit(1)
+                    );
+                }
+                if ($sort == 'lowest_hour_budget') {
+                    $query->orderByDesc(
+                        JobBudget::select('to', 'status')
+                            ->whereColumn('job_id', 'job.id')
+                            ->where('status', 'hour')
+                            ->orderBy('to', 'asc')
+                            ->limit(1)
+                    );
+                }
+                if ($sort == 'highest_hour_budget') {
+                    $query->orderByDesc(
+                        JobBudget::select('to', 'status')
+                            ->whereColumn('job_id', 'job.id')
+                            ->where('status', 'fixed')
+                            ->orderBy('to', 'desc')
+                            ->limit(1)
+                    );
+                }
 
-                    if ($sort == 'highest_number_of_bids') {
-                        $query->withCount('bids');
-                        $query->orderByDesc('bids_count');
-                    }
-                    if ($sort == 'lowest_number_of_bids') {
-                        $query->withCount('bids');
-                        $query->orderByAsc('bids_count');
-                    }
-                })->when(empty($sort), function ($query) {
-                    $query->latest();
-                })
-                ->where('status', 'not assigned')
-                ->paginate(20);
-        } else {
-            $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
-                ->where('status', 'not assigned')
-                ->latest()
-                ->paginate(20);
-        }
+                if ($sort == 'highest_number_of_bids') {
+                    $query->withCount('bids');
+                    $query->orderByDesc('bids_count');
+                }
+                if ($sort == 'lowest_number_of_bids') {
+                    $query->withCount('bids');
+                    $query->orderByAsc('bids_count');
+                }
+            })->when(empty($sort), function ($query) {
+                $query->latest();
+            })
+            ->where('status', 'not assigned')
+            ->paginate(20);
+
 
         return response()->json($jobs);
     }

@@ -17,7 +17,7 @@ class JobsTableSeeder extends Seeder
             [
                 'user_id' => 1,
                 'uuid' => Str::uuid(),
-                'industry_id' => 1,
+                'industry_id' => 5,
                 'country_id' => 80,
                 'job_budget_id' => 1,
                 'title' => $title = 'Food Delivery Mobile Application',
@@ -34,7 +34,7 @@ class JobsTableSeeder extends Seeder
             [
                 'user_id' => 1,
                 'uuid' => Str::uuid(),
-                'industry_id' => 5,
+                'industry_id' => 8,
                 'country_id' => 80,
                 'job_budget_id' => 2,
                 'title' => $title = '2000 Words English to German',

@@ -12,7 +12,7 @@
                   type="text"
                   class="keyword-input"
                   placeholder="e.g. job title"
-                  v-model="title"
+                  v-model="search.title"
                 />
                 <button class="keyword-input-button ripple-effect">
                   <i class="icon-feather-search"></i>
@@ -29,12 +29,16 @@
           <div class="sidebar-widget">
             <h3>Category</h3>
             <!-- class="selectpicker default" -->
-            <select data-size="7" title="All Categories" v-model="selectedCategory">
+            <select
+              data-size="7"
+              title="All Categories"
+              v-model="search.industry"
+              @change="onCategorySelected($event)"
+            >
               <option
                 v-for="category in categories"
                 :key="category.id"
                 :value="category.id"
-                @change="onCategorySelected($event)"
               >{{ category.title }}</option>
             </select>
           </div>
@@ -103,7 +107,7 @@
 
         <!-- Tasks Container -->
         <div class="tasks-list-container compact-list margin-top-35">
-          <div>
+          <div v-if="!isLoading">
             <a v-for="job in jobs.data" :key="job.id" :href="slug(job.slug)" class="task-listing">
               <div class="task-listing-details">
                 <div class="task-listing-description">
@@ -138,6 +142,16 @@
                 </div>
               </div>
             </a>
+
+
+            <div v-if="!hasData" class="py-5">
+              <p class="text-center py-5">No results found</p>
+            </div>
+          </div>
+
+          <div v-if="isLoading" class="py-5">
+            
+            <loading></loading>
           </div>
         </div>
         <!-- Tasks Container / End -->
@@ -158,8 +172,12 @@ export default {
       jobs: {},
       categories: {},
       skills: {},
-      selectedCategory: "",
-      title: ""
+      search: {
+        industry: "",
+        title: ""
+      },
+      hasData: false,
+      isLoading: false
     };
   },
 
@@ -175,13 +193,24 @@ export default {
     },
 
     onCategorySelected(event) {
-      console.log(event.target.value);
+      // console.log("category: ", event.target.value);
+      // console.log("category: ", this.search.category);
+
+      this.getResults();
     },
 
     getResults(page = 1) {
-      axios.get("jobs-api/?page=" + page).then(response => {
-        this.jobs = response.data;
-      });
+      this.isLoading = true;
+      let params = this.search;
+      axios
+        .get("jobs-api/?page=" + page, {
+          params
+        })
+        .then(response => {
+          this.isLoading = false;
+          this.jobs = response.data;
+          this.hasData = response.data.data.length == 0 ? false : true;
+        });
     },
 
     getCategories() {
