@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bid;
 use App\Models\Profile;
 use App\Models\Bookmark;
+use App\Models\Country;
 use App\Models\Invite;
 use App\Models\Milestone;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class FreelancersController extends Controller
     }
 
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,67 +32,59 @@ class FreelancersController extends Controller
     public function freelancers(Request $request)
     {
 
-        if($request->has('search')){
-            $keyWord = $request->title;
-            $industry = $request->industry;
-            $skills = $request->skills;
-            $sort = $request->sort;
-            $city = $request->city;
+        $keyword = $request->title;
+        $skills = $request->skills;
+        $sort = $request->sort;
+        $country = $request->country;
+        $minHourlyRate = $request->min_hourly_rate;
+        $maxHourlyRate = $request->max_hourly_rate;
 
-            $freelancer = Profile::where('type', 'freelancer')->with('industry', 'skills', 'country', 'reviews', 'jobs', 'jobs_completion')
-            ->when(!empty($keyWord), function ($query) use ($keyWord) {
-                $query->where('name', 'LIKE', "%$keyWord%");
-            })
-            ->when(!empty($city), function ($query) use ($city) {
-                $query->where('city','LIKE', "%$city%");
+
+        $freelancer = Profile::where('type', 'freelancer')->with('skills', 'country', 'reviews', 'jobs', 'jobs_completion')
+            ->when(!empty($keyword), function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', "%$keyword%");
             })
             ->when(!empty($skills), function ($query) use ($skills) {
-                $query->whereHas("skills", function($query) use ($skills) {
-                    if(!is_array($skills)){
+                $query->whereHas("skills", function ($query) use ($skills) {
+                    if (!is_array($skills)) {
                         $query->where("id", $skills);
+                    } else {
+                        $query->whereIn("id", $skills);
                     }
-                    $query->whereIn("id", $skills);
-                });
-            })
-            ->when(!empty($industry), function ($query) use ($industry) {
-                $query->whereHas("industry", function($query) use ($industry) {
-                    $query->whereIn("id", $industry);
                 });
             })
             ->when(!empty($country), function ($query) use ($country) {
-                $query->whereHas("country", function($query) use ($country) {
+                $query->whereHas("country", function ($query) use ($country) {
                     $query->whereIn("id", $country);
                 });
             })
-            ->when(!empty($from_hour_price), function ($query) use ($from_hour_price) {
-                    $query->where('rate', '>=', $from_hour_price);
-            })
-            ->when(!empty($to_hour_price), function ($query) use ($to_hour_price) {
-                    $query->where('rate', '<=', $to_hour_price);
+            ->when(!empty($minHourlyRate) && !empty($maxHourlyRate), function ($query) use ($minHourlyRate, $maxHourlyRate) {
+                $query->whereBetween('rate', [$minHourlyRate, $maxHourlyRate]);
             })
             ->when(!empty($sort), function ($query) use ($sort) {
 
-                if($sort == 'high_hourly_rate'){
+                if ($sort == 'high_hourly_rate') {
                     return $query->orderBy('rate', 'desc');
                 }
-                if($sort == 'low_hourly_rate'){
+                if ($sort == 'low_hourly_rate') {
                     return $query->orderBy('rate', 'asc');
                 }
-               
-            })->when(empty($sort), function ($query)  {
-                    $query->latest();
+            })->when(empty($sort), function ($query) {
+                $query->latest();
             })
             ->paginate(20);
-        }else{
-           $freelancer = Profile::where('type', 'freelancer')->with('industry', 'skills', 'country', 'reviews', 'jobs', 'jobs_completion')
-                                ->latest()
-                                ->paginate(20);
-        }
-        
-        return response()->json($jobs);
+
+        return response()->json($freelancer);
     }
 
-     /**
+    public function countries()
+    {
+        $countries = Country::get();
+
+        return response()->json($countries);
+    }
+
+    /**
      * View Bookmarks.
      *
      * @return \Illuminate\Http\Response
@@ -102,8 +95,8 @@ class FreelancersController extends Controller
 
         return view('dashboard.bookmarks', compact('bookmarks'));
     }
-    
-    
+
+
     /**
      * Bookmark Job.
      *
@@ -125,7 +118,7 @@ class FreelancersController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Delete Bookmark Job.
      *
      * @param  string  $id
@@ -153,8 +146,8 @@ class FreelancersController extends Controller
     {
 
         $freelancer = Profile::where('user_id', $id)
-                               ->with('skills', 'country', 'reviews', 'jobs', 'jobs_completion', 'social_links' )
-                               ->first();
+            ->with('skills', 'country', 'reviews', 'jobs', 'jobs_completion', 'social_links')
+            ->first();
         return view('freelancers.show', compact('freelancer'));
     }
 
@@ -199,8 +192,6 @@ class FreelancersController extends Controller
         $reviews = Review::where('user_id', Auth::user()->id)->get();
 
         return view('dashboard.reviews',  compact('reviews'));
-
-
     }
 
     /**
@@ -223,8 +214,8 @@ class FreelancersController extends Controller
     public function invites()
     {
         $invites = Invite::where('user_id', Auth::user()->id)
-                    ->with('job', 'profile')
-                    ->get();
+            ->with('job', 'profile')
+            ->get();
 
         return view('dashboard.jobs.invites', compact('invites'));
     }
@@ -261,8 +252,8 @@ class FreelancersController extends Controller
         $profile = Profile::where('user_id', Auth::user()->id)->first();
 
         $bids = Bid::where('profile_id', $profile->id)
-                    ->with('job', 'profile')
-                    ->get();
+            ->with('job', 'profile')
+            ->get();
 
         return view('dashboard.my_bids', compact('bids'));
     }
@@ -399,7 +390,7 @@ class FreelancersController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Edit a milestone
      *
      * @param  string  $mile_uuid
@@ -429,7 +420,7 @@ class FreelancersController extends Controller
     }
 
 
-     /**
+    /**
      * Delete a milestone
      *
      * @param  string  $mile_uuid

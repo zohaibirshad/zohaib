@@ -50,6 +50,8 @@ Route::get('skills-api', 'JobsController@skills');
 // Freelancers
 Route::get('browse-freelancers', 'FreelancersController@index')->name('freelancers.index');
 Route::resource('freelancers', 'FreelancersController')->except('index');
+Route::get('freelancers-api', 'FreelancersController@freelancers');
+Route::get('countries-api', 'FreelancersController@countries');
 
 // Blog
 Route::resource('blog', 'BlogController')->only('index', 'show');

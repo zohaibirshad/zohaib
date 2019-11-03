@@ -40,11 +40,6 @@ class Profile extends Model implements HasMedia
         return $this->belongsTo('App\Models\Country');
     }
 
-    public function industries()
-    {
-        return $this->belongsToMany('App\Models\Industry');
-    }
-
     public function skills()
     {
         return $this->belongsToMany('App\Models\Skill');

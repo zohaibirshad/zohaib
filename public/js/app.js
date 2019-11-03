@@ -2016,6 +2016,313 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BrowseFreelancersComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BrowseFreelancersComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      freelancers: {},
+      countries: {},
+      skills: {},
+      search: {
+        title: "",
+        skills: [],
+        sort: "",
+        min_hourly_rate: "",
+        max_hourly_rate: ""
+      },
+      slider: {
+        min: 1,
+        max: 250,
+        formatter: "",
+        tooltipMerge: true,
+        enableCross: false,
+        bgStyle: "",
+        processStyle: "",
+        tooltipStyle: "",
+        value: [1, 120]
+      },
+      hasData: false,
+      isLoading: false
+    };
+  },
+  created: function created() {
+    this.slider.formatter = function (value) {
+      return "$".concat(value);
+    };
+
+    this.slider.bgStyle = {
+      backgroundColor: "#fff",
+      boxShadow: "inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)"
+    };
+    this.slider.processStyle = {
+      backgroundColor: "#ea7c11"
+    };
+    this.slider.tooltipStyle = {
+      backgroundColor: "#000",
+      borderColor: "#000"
+    };
+  },
+  mounted: function mounted() {
+    this.getResults();
+    this.getCountries();
+    this.getSkills();
+  },
+  methods: {
+    uuid: function uuid(_uuid) {
+      return "freelancers/" + _uuid;
+    },
+    image: function image(media) {
+      if (media.length > 0) {
+        return media[0].id + "/" + media[0].file_title;
+      }
+
+      return "assets/images/user-avatar-big-01.jpg";
+    },
+    country: function country(_country) {
+      return "assets/images/flags/".concat(_country.code, ".svg");
+    },
+    sliderChange: function sliderChange($event) {
+      // Set budget price
+      this.setBudgetValues(); // Get result
+
+      this.getResults();
+    },
+    setBudgetValues: function setBudgetValues() {
+      this.search.min_hourly_rate = this.slider.value[0];
+      this.search.max_hourly_rate = this.slider.value[1];
+    },
+    getResults: function getResults() {
+      var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.isLoading = true;
+      var params = this.search;
+      axios.get("freelancers-api/?page=" + page, {
+        params: params
+      }).then(function (response) {
+        _this.isLoading = false;
+        _this.freelancers = response.data;
+        _this.hasData = response.data.data.length == 0 ? false : true;
+      });
+    },
+    getCountries: function getCountries() {
+      var _this2 = this;
+
+      axios.get("countries-api").then(function (response) {
+        _this2.countries = response.data;
+      });
+    },
+    getSkills: function getSkills() {
+      var _this3 = this;
+
+      axios.get("skills-api").then(function (response) {
+        _this3.skills = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BrowseJobsComponent.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BrowseJobsComponent.vue?vue&type=script&lang=js& ***!
@@ -24107,6 +24414,483 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xl-3 col-lg-4" }, [
+        _c("div", { staticClass: "sidebar-container" }, [
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Search")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "keywords-container" }, [
+              _c("div", { staticClass: "keyword-input-container" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search.title,
+                      expression: "search.title"
+                    }
+                  ],
+                  staticClass: "keyword-input",
+                  attrs: { type: "text", placeholder: "e.g. Freelancer name" },
+                  domProps: { value: _vm.search.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.search, "title", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "keyword-input-button ripple-effect",
+                    on: {
+                      click: function($event) {
+                        return _vm.getResults()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "icon-feather-search" })]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Country")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search.country,
+                    expression: "search.country"
+                  }
+                ],
+                staticClass: "selectpicker default",
+                attrs: { "data-size": "7" },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.search,
+                        "country",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    function($event) {
+                      return _vm.getResults()
+                    }
+                  ]
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("All Countries")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.countries, function(country) {
+                  return _c(
+                    "option",
+                    { key: country.id, domProps: { value: country.id } },
+                    [_vm._v(_vm._s(country.name))]
+                  )
+                })
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "sidebar-widget" },
+            [
+              _c("h3", [_vm._v("Hourly Rate")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "margin-top-55" }),
+              _vm._v(" "),
+              _c("range-slider", {
+                attrs: {
+                  "bg-style": _vm.slider.bgStyle,
+                  min: _vm.slider.min,
+                  max: _vm.slider.max,
+                  formatter: _vm.slider.formatter,
+                  "tooltip-merge": _vm.slider.tooltipMerge,
+                  "enable-cross": _vm.slider.enableCross,
+                  "process-style": _vm.slider.processStyle,
+                  "tooltip-style": _vm.slider.tooltipStyle,
+                  height: "3"
+                },
+                on: { "drag-end": _vm.sliderChange },
+                model: {
+                  value: _vm.slider.value,
+                  callback: function($$v) {
+                    _vm.$set(_vm.slider, "value", $$v)
+                  },
+                  expression: "slider.value"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Skills")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tags-container" },
+              _vm._l(_vm.skills, function(skill) {
+                return _c("div", { key: skill.id, staticClass: "tag" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.search.skills,
+                        expression: "search.skills"
+                      }
+                    ],
+                    attrs: { type: "checkbox", id: "tag-" + skill.id },
+                    domProps: {
+                      value: skill.id,
+                      checked: Array.isArray(_vm.search.skills)
+                        ? _vm._i(_vm.search.skills, skill.id) > -1
+                        : _vm.search.skills
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$a = _vm.search.skills,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = skill.id,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.search,
+                                  "skills",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.search,
+                                  "skills",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.search, "skills", $$c)
+                          }
+                        },
+                        function($event) {
+                          return _vm.getResults()
+                        }
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "tag-" + skill.id } }, [
+                    _vm._v(_vm._s(skill.title))
+                  ])
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "clearfix" })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-xl-9 col-lg-8 content-left-offset" },
+        [
+          _c("h3", { staticClass: "page-title" }, [_vm._v("Search Results")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "notify-box margin-top-15" }, [
+            _c("div", { staticClass: "switch-container" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "sort-by" }, [
+              _c("span", [_vm._v("Sort by:")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search.sort,
+                      expression: "search.sort"
+                    }
+                  ],
+                  staticClass: "selectpicker hide-tick",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.search,
+                          "sort",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.getResults()
+                      }
+                    ]
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "newest" } }, [
+                    _vm._v("Newest")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "oldest" } }, [
+                    _vm._v("Oldest")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "success" } }, [
+                    _vm._v("Success %")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "rating" } }, [
+                    _vm._v("Rating")
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          !_vm.isLoading
+            ? _c("div", [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "freelancers-container freelancers-list-layout compact-list margin-top-35"
+                  },
+                  _vm._l(_vm.freelancers.data, function(freelancer) {
+                    return _c(
+                      "div",
+                      { key: freelancer.id, staticClass: "freelancer" },
+                      [
+                        _c("div", { staticClass: "freelancer-overview" }, [
+                          _c(
+                            "div",
+                            { staticClass: "freelancer-overview-inner" },
+                            [
+                              _c("span", { staticClass: "bookmark-icon" }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "freelancer-avatar" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: _vm.uuid(freelancer.uuid) }
+                                  },
+                                  [
+                                    _c("img", {
+                                      attrs: {
+                                        src:
+                                          "assets/images/user-avatar-big-01.jpg",
+                                        alt: ""
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "freelancer-name" }, [
+                                _c("h4", [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { href: _vm.uuid(freelancer.uuid) }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(freelancer.name) +
+                                          "\n                      "
+                                      ),
+                                      _c("img", {
+                                        staticClass: "flag",
+                                        attrs: {
+                                          src: _vm.country(freelancer.country),
+                                          alt: "",
+                                          title: freelancer.country.name,
+                                          "data-tippy-placement": "top"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(_vm._s(freelancer.headline))
+                                ])
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "freelancer-details" }, [
+                          _c(
+                            "div",
+                            { staticClass: "freelancer-details-list" },
+                            [
+                              _c("ul", [
+                                _c("li", [
+                                  _vm._v(
+                                    "\n                    Location\n                    "
+                                  ),
+                                  _c("strong", [
+                                    _c("i", {
+                                      staticClass:
+                                        "icon-material-outline-location-on"
+                                    }),
+                                    _vm._v(
+                                      "\n                      " +
+                                        _vm._s(freelancer.country.name) +
+                                        "\n                    "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm._v(
+                                    "\n                    Rate\n                    "
+                                  ),
+                                  _c("strong", [
+                                    _vm._v(
+                                      "$" + _vm._s(freelancer.rate) + " / hr"
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(0, true)
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "button button-sliding-icon ripple-effect",
+                              attrs: { href: _vm.uuid(freelancer.uuid) }
+                            },
+                            [
+                              _vm._v(
+                                "\n                View Profile\n                "
+                              ),
+                              _c("i", {
+                                staticClass:
+                                  "icon-material-outline-arrow-right-alt"
+                              })
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                !_vm.hasData
+                  ? _c("div", { staticClass: "py-5" }, [
+                      _c("p", { staticClass: "text-center py-5" }, [
+                        _vm._v("No results found")
+                      ])
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isLoading
+            ? _c("div", { staticClass: "py-5" }, [_c("loading")], 1)
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" }),
+          _vm._v(" "),
+          _c("pagination", {
+            attrs: { data: _vm.freelancers },
+            on: { "pagination-change-page": _vm.getResults }
+          })
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _vm._v("\n                    Job Success\n                    "),
+      _c("strong", [_vm._v("95%")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BrowseJobsComponent.vue?vue&type=template&id=49e68242&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BrowseJobsComponent.vue?vue&type=template&id=49e68242& ***!
@@ -38244,6 +39028,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('blog-post', __webpack_require__(/*! ./components/BlogPost.vue */ "./resources/js/components/BlogPost.vue")["default"]);
 Vue.component('browse-jobs', __webpack_require__(/*! ./components/BrowseJobsComponent.vue */ "./resources/js/components/BrowseJobsComponent.vue")["default"]);
+Vue.component('browse-freelancers', __webpack_require__(/*! ./components/BrowseFreelancersComponent.vue */ "./resources/js/components/BrowseFreelancersComponent.vue")["default"]);
 Vue.component('loading', __webpack_require__(/*! ./components/LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue")["default"]);
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 Vue.component('range-slider', __webpack_require__(/*! vue-range-component */ "./node_modules/vue-range-component/dist/vue-range-slider.esm.js")["default"]);
@@ -38396,6 +39181,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BlogPost_vue_vue_type_template_id_bdf3a066_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BlogPost_vue_vue_type_template_id_bdf3a066_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/BrowseFreelancersComponent.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/BrowseFreelancersComponent.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BrowseFreelancersComponent_vue_vue_type_template_id_5878e73c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c& */ "./resources/js/components/BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c&");
+/* harmony import */ var _BrowseFreelancersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BrowseFreelancersComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/BrowseFreelancersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BrowseFreelancersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BrowseFreelancersComponent_vue_vue_type_template_id_5878e73c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BrowseFreelancersComponent_vue_vue_type_template_id_5878e73c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/BrowseFreelancersComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/BrowseFreelancersComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/BrowseFreelancersComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BrowseFreelancersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./BrowseFreelancersComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BrowseFreelancersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BrowseFreelancersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BrowseFreelancersComponent_vue_vue_type_template_id_5878e73c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BrowseFreelancersComponent.vue?vue&type=template&id=5878e73c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BrowseFreelancersComponent_vue_vue_type_template_id_5878e73c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BrowseFreelancersComponent_vue_vue_type_template_id_5878e73c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
