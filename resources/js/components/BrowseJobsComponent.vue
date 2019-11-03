@@ -26,12 +26,8 @@
           <div class="sidebar-widget">
             <h3>Category</h3>
             <!-- class="selectpicker default" -->
-            <select
-              data-size="7"
-              title="All Categories"
-              v-model="search.industry"
-              @change="getResults()"
-            >
+            <select data-size="7" v-model="search.industry" @change="getResults()">
+              <option value>All Categories</option>
               <option
                 v-for="category in categories"
                 :key="category.id"
@@ -42,8 +38,12 @@
 
           <div class="sidebar-widget">
             <h3>Budget Type</h3>
-            <select class="selectpicker default" title="All">
-              <!-- <option>All</option> -->
+            <select
+              class="selectpicker default"
+              v-model="search.budget_type"
+              @change="budgetChange()"
+            >
+              <option value>All</option>
               <option value="fixed">Fixed Price</option>
               <option value="hourly">Hourly Rate</option>
             </select>
@@ -54,17 +54,19 @@
             <h3>Budget Price</h3>
             <div class="margin-top-55"></div>
 
-            <!-- Range Slider -->
-            <input
-              class="range-slider"
-              type="text"
-              value
-              data-slider-currency="$"
-              data-slider-min="10"
-              data-slider-max="2500"
-              data-slider-step="25"
-              data-slider-value="[10,2500]"
-            />
+            <range-slider
+              v-model="slider.value"
+              :bg-style="slider.bgStyle"
+              :min="slider.min"
+              :max="slider.max"
+              :formatter="slider.formatter"
+              :tooltip-merge="slider.tooltipMerge"
+              :enable-cross="slider.enableCross"
+              :process-style="slider.processStyle"
+              :tooltip-style="slider.tooltipStyle"
+              height="3"
+              v-on:drag-end="sliderChange"
+            ></range-slider>
           </div>
 
           <!-- Tags -->
@@ -177,10 +179,39 @@ export default {
         industry: "",
         title: "",
         skills: [],
-        sort: ""
+        sort: "",
+        budget_type: "",
+        min_budget: "",
+        max_budget: ""
+      },
+      slider: {
+        min: 1,
+        max: 10000,
+        formatter: "",
+        tooltipMerge: true,
+        enableCross: false,
+        bgStyle: "",
+        processStyle: "",
+        tooltipStyle: "",
+        value: [1, 3800]
       },
       hasData: false,
       isLoading: false
+    };
+  },
+
+  created() {
+    this.slider.formatter = value => `$${value}`;
+    this.slider.bgStyle = {
+      backgroundColor: "#fff",
+      boxShadow: "inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)"
+    };
+    this.slider.processStyle = {
+      backgroundColor: "#ea7c11"
+    };
+    this.slider.tooltipStyle = {
+      backgroundColor: "#000",
+      borderColor: "#000"
     };
   },
 
@@ -193,6 +224,40 @@ export default {
   methods: {
     slug(slug) {
       return "jobs/" + slug;
+    },
+
+    sliderChange($event) {
+      // Set budget price
+      this.setBudgetValues();
+
+      // Get result
+      this.getResults();
+    },
+
+    budgetChange() {
+      // Toggle Slider
+      this.toggleSlider();
+
+      // Set budget price
+      this.setBudgetValues();
+
+      // Get result
+      this.getResults();
+    },
+
+    toggleSlider() {
+      if (this.search.budget_type == "hourly") {
+        this.slider.max = 120;
+        this.slider.value = [1, 42];
+      } else {
+        this.slider.max = 10000;
+        this.slider.value = [1, 3800];
+      }
+    },
+
+    setBudgetValues() {
+      this.search.min_budget = this.slider.value[0];
+      this.search.max_budget = this.slider.value[1];
     },
 
     getResults(page = 1) {

@@ -23,6 +23,7 @@ Vue.component('blog-post', require('./components/BlogPost.vue').default);
 Vue.component('browse-jobs', require('./components/BrowseJobsComponent.vue').default);
 Vue.component('loading', require('./components/LoadingComponent.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('range-slider', require('vue-range-component').default);
 
 
 /**

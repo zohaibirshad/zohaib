@@ -43,6 +43,10 @@ class JobsController extends Controller
         $sort = $request->sort;
         $city = $request->city;
         $country = $request->country;
+        $budgetType = $request->budget_type;
+        $minBudget = $request->min_budget;
+        $maxBudget = $request->max_budget;
+
 
         $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
             ->when(!empty($keyWord), function ($query) use ($keyWord) {
@@ -74,21 +78,12 @@ class JobsController extends Controller
                     $query->whereIn("id", $country);
                 });
             })
-            ->when(!empty($min_fixed_price), function ($query) use ($min_fixed_price) {
-                $query->where('max_budget', '>=', $min_fixed_price);
-                $query->where('budget_type', 'fixed');
+            ->when(!empty($budgetType), function ($query) use ($budgetType) {
+                $query->where('budget_type', $budgetType);
             })
-            ->when(!empty($max_fixed_price), function ($query) use ($max_fixed_price) {
-                $query->where('min_budget', '<=', $max_fixed_price);
-                $query->where('budget_type', 'fixed');
-            })
-            ->when(!empty($min_hour_price), function ($query) use ($min_hour_price) {
-                $query->where('max_budget', '>=', $min_hour_price);
-                $query->where('budget_type', 'hour');
-            })
-            ->when(!empty($max_hour_price), function ($query) use ($max_hour_price) {
-                $query->where('min_budget', '<=', $max_hour_price);
-                $query->where('budget_type', 'hour');
+            ->when(!empty($minBudget) && !empty($maxBudget), function ($query) use ($minBudget, $maxBudget) {
+                $query->where('max_budget', '>', $minBudget)
+                ->where('min_budget', '<', $maxBudget);
             })
             ->when(!empty($sort), function ($query) use ($sort) {
                 if ($sort == 'featured') {
