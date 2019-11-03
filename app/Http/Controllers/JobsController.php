@@ -108,6 +108,12 @@ class JobsController extends Controller
                 if ($sort == 'oldest') {
                     $query->oldest();
                 }
+                if ($sort == 'lowest_price') {
+                    $query->orderBy('min_budget', 'asc');
+                }
+                if ($sort == 'highest_price') {
+                    $query->orderBy('max_budget', 'asc');
+                }
             })->when(empty($sort), function ($query) {
                 $query->latest();
             })

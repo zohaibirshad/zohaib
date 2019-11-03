@@ -42,10 +42,10 @@
 
           <div class="sidebar-widget">
             <h3>Budget Type</h3>
-            <select class="selectpicker default">
-              <option>All</option>
-              <option>Fixed Price</option>
-              <option>Hourly Rate</option>
+            <select class="selectpicker default" title="All">
+              <!-- <option>All</option> -->
+              <option value="fixed">Fixed Price</option>
+              <option value="hourly">Hourly Rate</option>
             </select>
           </div>
 
@@ -135,8 +135,8 @@
               <div class="task-listing-bid">
                 <div class="task-listing-bid-inner">
                   <div class="task-offers">
-                    <strong>{{ budget(job.job_budget) }}</strong>
-                    <span>{{ budgetType(job.job_budget) }}</span>
+                    <strong>{{ budget(job) }}</strong>
+                    <span>{{ budgetType(job) }}</span>
                   </div>
                   <span class="button button-sliding-icon ripple-effect">
                     Bid Now
@@ -225,20 +225,20 @@ export default {
       return text.substring(0, 130) + "...";
     },
 
-    budgetType(budget) {
-      if (budget.type == "fixed") {
+    budgetType(job) {
+      if (job.budget_type == "fixed") {
         return "Fixed Price";
       } else {
         return "Hourly Rate";
       }
     },
 
-    budget(budget) {
+    budget(job) {
       let currency = "$";
-      if (budget.from == budget.to) {
-        return currency + budget.to;
+      if (job.min_budget == job.max_budget) {
+        return currency + job.min_budget;
       } else {
-        return `${currency}${budget.from} - ${currency}${budget.to}`;
+        return `${currency}${job.min_budget} - ${currency}${job.max_budget}`;
       }
     }
   }

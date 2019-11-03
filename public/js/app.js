@@ -2249,20 +2249,20 @@ __webpack_require__.r(__webpack_exports__);
     truncate: function truncate(text) {
       return text.substring(0, 130) + "...";
     },
-    budgetType: function budgetType(budget) {
-      if (budget.type == "fixed") {
+    budgetType: function budgetType(job) {
+      if (job.budget_type == "fixed") {
         return "Fixed Price";
       } else {
         return "Hourly Rate";
       }
     },
-    budget: function budget(_budget) {
+    budget: function budget(job) {
       var currency = "$";
 
-      if (_budget.from == _budget.to) {
-        return currency + _budget.to;
+      if (job.min_budget == job.max_budget) {
+        return currency + job.min_budget;
       } else {
-        return "".concat(currency).concat(_budget.from, " - ").concat(currency).concat(_budget.to);
+        return "".concat(currency).concat(job.min_budget, " - ").concat(currency).concat(job.max_budget);
       }
     }
   }
@@ -24409,13 +24409,11 @@ var render = function() {
                                 [
                                   _c("div", { staticClass: "task-offers" }, [
                                     _c("strong", [
-                                      _vm._v(_vm._s(_vm.budget(job.job_budget)))
+                                      _vm._v(_vm._s(_vm.budget(job)))
                                     ]),
                                     _vm._v(" "),
                                     _c("span", [
-                                      _vm._v(
-                                        _vm._s(_vm.budgetType(job.job_budget))
-                                      )
+                                      _vm._v(_vm._s(_vm.budgetType(job)))
                                     ])
                                   ]),
                                   _vm._v(" "),
@@ -24465,13 +24463,15 @@ var staticRenderFns = [
     return _c("div", { staticClass: "sidebar-widget" }, [
       _c("h3", [_vm._v("Budget Type")]),
       _vm._v(" "),
-      _c("select", { staticClass: "selectpicker default" }, [
-        _c("option", [_vm._v("All")]),
-        _vm._v(" "),
-        _c("option", [_vm._v("Fixed Price")]),
-        _vm._v(" "),
-        _c("option", [_vm._v("Hourly Rate")])
-      ])
+      _c(
+        "select",
+        { staticClass: "selectpicker default", attrs: { title: "All" } },
+        [
+          _c("option", { attrs: { value: "fixed" } }, [_vm._v("Fixed Price")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "hourly" } }, [_vm._v("Hourly Rate")])
+        ]
+      )
     ])
   },
   function() {
