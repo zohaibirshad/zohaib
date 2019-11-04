@@ -26,7 +26,12 @@
           <div class="sidebar-widget">
             <h3>Country</h3>
             <!-- class="selectpicker default" -->
-            <select data-size="7" v-model="search.country" @change="getResults()" class="selectpicker default">
+            <select
+              class="select-picker"
+              data-size="7"
+              v-model="search.country"
+              @change="getResults()"
+            >
               <option value>All Countries</option>
               <option
                 v-for="country in countries"
@@ -218,6 +223,13 @@ export default {
       isLoading: false
     };
   },
+  //   watch: {
+  //     countryOptions: function(newValues, oldValues) {
+  //       this.$nextTick(function() {
+  //         $(".select-picker").selectpicker("refresh");
+  //       });
+  //     }
+  //   },
 
   created() {
     this.slider.formatter = value => `$${value}`;
