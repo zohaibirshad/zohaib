@@ -55,7 +55,7 @@ class FreelancersController extends Controller
             })
             ->when(!empty($country), function ($query) use ($country) {
                 $query->whereHas("country", function ($query) use ($country) {
-                    $query->whereIn("id", $country);
+                    $query->where("id", $country);
                 });
             })
             ->when(!empty($minHourlyRate) && !empty($maxHourlyRate), function ($query) use ($minHourlyRate, $maxHourlyRate) {

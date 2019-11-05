@@ -25,9 +25,13 @@
           <!-- Category -->
           <div class="sidebar-widget">
             <h3>Category</h3>
-            <!-- class="selectpicker default" -->
-            <select data-size="7" v-model="search.industry" @change="getResults()">
-              <option value>All Categories</option>
+            <select
+              data-size="7"
+              class="selectpicker select-picker"
+              v-model="search.industry"
+              @change="getResults()"
+              multiple
+            >
               <option
                 v-for="category in categories"
                 :key="category.id"
@@ -213,6 +217,12 @@ export default {
       backgroundColor: "#000",
       borderColor: "#000"
     };
+  },
+
+  updated() {
+    $(this.$el)
+      .find(".select-picker")
+      .selectpicker("refresh");
   },
 
   mounted() {
