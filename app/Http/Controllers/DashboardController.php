@@ -39,7 +39,7 @@ class DashboardController extends Controller
         $countries = Country::get();
         $skills = Skill::orderBy('title', 'asc')->get();
 
-        return $user;
+        // return $user;
 
         return view('dashboard.settings', compact('countries', 'user', 'skills'));
     }

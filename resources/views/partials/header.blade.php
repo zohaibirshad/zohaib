@@ -110,7 +110,7 @@
 								@if (sizeof(Auth::user()->profile->media) == 0)
 									<img src="{{ asset('assets/images/user-avatar-small-01.jpg') }}" alt=""></div>
 								@else
-									<img src="{{ Auth::user()->profile->getLastMediaUrl('profile', 'thumb') }}" alt=""/> </div>
+									<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') }}" alt=""/> </div>
 								@endif								
 							</a>
 						</div>

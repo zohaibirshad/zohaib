@@ -80,6 +80,13 @@ class AccountController extends Controller
             $profile->save();
 
             if ($request->hasFile('picture')) {
+                // Check if media already exists
+                $media = $profile->getMedia('profile');
+                if (sizeof($media) != 0) {
+                    // Remove old image
+                    $media[0]->delete();
+                }
+                // Add New Image
                 $profile
                     ->addMediaFromRequest('picture')
                     ->toMediaCollection('profile');
