@@ -27,10 +27,11 @@
             <h3>Country</h3>
             <!-- class="selectpicker default" -->
             <select
-              class="select-picker"
+              class="selectpicker select-picker"
               data-size="7"
               v-model="search.country"
               @change="getResults()"
+              data-live-search="true"
             >
               <option value>All Countries</option>
               <option
@@ -199,11 +200,12 @@ export default {
   data() {
     return {
       freelancers: {},
-      countries: {},
+      countries: [],
       skills: {},
       search: {
         title: "",
         skills: [],
+        country: "",
         sort: "",
         min_hourly_rate: "",
         max_hourly_rate: ""
@@ -223,13 +225,11 @@ export default {
       isLoading: false
     };
   },
-  //   watch: {
-  //     countryOptions: function(newValues, oldValues) {
-  //       this.$nextTick(function() {
-  //         $(".select-picker").selectpicker("refresh");
-  //       });
-  //     }
-  //   },
+  updated() {
+    $(this.$el)
+      .find(".select-picker")
+      .selectpicker("refresh");
+  },
 
   created() {
     this.slider.formatter = value => `$${value}`;
@@ -250,6 +250,14 @@ export default {
     this.getResults();
     this.getCountries();
     this.getSkills();
+
+    const $selectpicker = $(this.$el).find(".select-picker");
+
+    $selectpicker
+      .selectpicker()
+      .on("changed.bs.select", () =>
+        this.$emit("changeWeek", this.options[$selectpicker.val()])
+      );
   },
 
   methods: {

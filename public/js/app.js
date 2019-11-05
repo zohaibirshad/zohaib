@@ -2221,15 +2221,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       freelancers: {},
-      countries: {},
+      countries: [],
       skills: {},
       search: {
         title: "",
         skills: [],
+        country: "",
         sort: "",
         min_hourly_rate: "",
         max_hourly_rate: ""
@@ -2249,13 +2251,9 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: false
     };
   },
-  //   watch: {
-  //     countryOptions: function(newValues, oldValues) {
-  //       this.$nextTick(function() {
-  //         $(".select-picker").selectpicker("refresh");
-  //       });
-  //     }
-  //   },
+  updated: function updated() {
+    $(this.$el).find(".select-picker").selectpicker("refresh");
+  },
   created: function created() {
     this.slider.formatter = function (value) {
       return "$".concat(value);
@@ -2274,9 +2272,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.getResults();
     this.getCountries();
     this.getSkills();
+    var $selectpicker = $(this.$el).find(".select-picker");
+    $selectpicker.selectpicker().on("changed.bs.select", function () {
+      return _this.$emit("changeWeek", _this.options[$selectpicker.val()]);
+    });
   },
   methods: {
     uuid: function uuid(_uuid) {
@@ -2303,7 +2307,7 @@ __webpack_require__.r(__webpack_exports__);
       this.search.max_hourly_rate = this.slider.value[1];
     },
     getResults: function getResults() {
-      var _this = this;
+      var _this2 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.isLoading = true;
@@ -2311,23 +2315,23 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("freelancers-api/?page=" + page, {
         params: params
       }).then(function (response) {
-        _this.isLoading = false;
-        _this.freelancers = response.data;
-        _this.hasData = response.data.data.length == 0 ? false : true;
+        _this2.isLoading = false;
+        _this2.freelancers = response.data;
+        _this2.hasData = response.data.data.length == 0 ? false : true;
       });
     },
     getCountries: function getCountries() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("countries-api").then(function (response) {
-        _this2.countries = response.data;
+        _this3.countries = response.data;
       });
     },
     getSkills: function getSkills() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("skills-api").then(function (response) {
-        _this3.skills = response.data;
+        _this4.skills = response.data;
       });
     }
   }
@@ -2344,6 +2348,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -2560,6 +2568,9 @@ __webpack_require__.r(__webpack_exports__);
       backgroundColor: "#000",
       borderColor: "#000"
     };
+  },
+  updated: function updated() {
+    $(this.$el).find(".select-picker").selectpicker("refresh");
   },
   mounted: function mounted() {
     this.getResults();
@@ -35114,8 +35125,8 @@ var render = function() {
                     expression: "search.country"
                   }
                 ],
-                staticClass: "select-picker",
-                attrs: { "data-size": "7" },
+                staticClass: "selectpicker select-picker",
+                attrs: { "data-size": "7", "data-live-search": "true" },
                 on: {
                   change: [
                     function($event) {
@@ -35591,7 +35602,8 @@ var render = function() {
                     expression: "search.industry"
                   }
                 ],
-                attrs: { "data-size": "7" },
+                staticClass: "selectpicker select-picker",
+                attrs: { "data-size": "7", multiple: "" },
                 on: {
                   change: [
                     function($event) {
@@ -35617,20 +35629,14 @@ var render = function() {
                   ]
                 }
               },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("All Categories")
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.categories, function(category) {
-                  return _c(
-                    "option",
-                    { key: category.id, domProps: { value: category.id } },
-                    [_vm._v(_vm._s(category.title))]
-                  )
-                })
-              ],
-              2
+              _vm._l(_vm.categories, function(category) {
+                return _c(
+                  "option",
+                  { key: category.id, domProps: { value: category.id } },
+                  [_vm._v(_vm._s(category.title))]
+                )
+              }),
+              0
             )
           ]),
           _vm._v(" "),
@@ -49638,6 +49644,8 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+window.JQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
