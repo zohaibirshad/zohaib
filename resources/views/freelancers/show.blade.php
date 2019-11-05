@@ -329,8 +329,9 @@
 
                     <div class="submit-field">
                         <select class="selectpicker" data-live-search="true" title="Choose Job">
-                            <option>Ecommerce Application</option>
-                            <option>React Native UI Template</option>
+                            @foreach ($jobs as $job)
+                            <option>{{ $job->title }}</option>
+                            @endforeach
                         </select>
                     </div>
 

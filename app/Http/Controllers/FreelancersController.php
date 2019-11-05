@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Models\Bookmark;
 use App\Models\Country;
 use App\Models\Invite;
+use App\Models\Job;
 use App\Models\Milestone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -148,10 +149,12 @@ class FreelancersController extends Controller
         $freelancer = Profile::with('skills', 'country', 'reviews', 'jobs', 'jobs_completion', 'social_links')
         ->find($id);
 
+        $jobs = Job::where('status', 'not assigned')->where('user_id', Auth::id())->get();
+
         if (empty($freelancer)) {
             abort(404);
         }
-        return view('freelancers.show', compact('freelancer'));
+        return view('freelancers.show', compact('freelancer', 'jobs'));
     }
 
 

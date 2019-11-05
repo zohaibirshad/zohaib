@@ -228,7 +228,7 @@ class HirerController extends Controller
         $invite->status = 'pending';
         $invite->save();
 
-        $invite->addMultipleMediaFromRequest($request->file);
+        $invite->addMultipleMediaFromRequest($request->documents);
 
         if ($request->hasFile('documents')) {
             $fileAdders = $invite
