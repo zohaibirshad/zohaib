@@ -2251,8 +2251,9 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: false
     };
   },
-  updated: function updated() {
-    $(this.$el).find(".select-picker").selectpicker("refresh");
+  updated: function updated() {// $(this.$el)
+    //   .find(".select-picker")
+    //   .selectpicker("refresh");
   },
   created: function created() {
     this.slider.formatter = function (value) {
@@ -2272,19 +2273,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     this.getResults();
     this.getCountries();
     this.getSkills();
-    var $selectpicker = $(this.$el).find(".select-picker");
-    $selectpicker.selectpicker().on("changed.bs.select", function () {
-      return _this.$emit("changeWeek", _this.options[$selectpicker.val()]);
-    });
   },
   methods: {
-    uuid: function uuid(_uuid) {
-      return "freelancers/" + _uuid;
+    link: function link(freelancer) {
+      return "freelancers/" + freelancer.id;
     },
     image: function image(media) {
       if (media.length > 0) {
@@ -2307,7 +2302,7 @@ __webpack_require__.r(__webpack_exports__);
       this.search.max_hourly_rate = this.slider.value[1];
     },
     getResults: function getResults() {
-      var _this2 = this;
+      var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.isLoading = true;
@@ -2315,23 +2310,27 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("freelancers-api/?page=" + page, {
         params: params
       }).then(function (response) {
-        _this2.isLoading = false;
-        _this2.freelancers = response.data;
-        _this2.hasData = response.data.data.length == 0 ? false : true;
+        _this.isLoading = false;
+        _this.freelancers = response.data;
+        _this.hasData = response.data.data.length == 0 ? false : true;
       });
     },
     getCountries: function getCountries() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.get("countries-api").then(function (response) {
-        _this3.countries = response.data;
+        _this2.countries = response.data;
+
+        _this2.$nextTick(function () {
+          $('.select-picker').selectpicker();
+        });
       });
     },
     getSkills: function getSkills() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get("skills-api").then(function (response) {
-        _this4.skills = response.data;
+        _this3.skills = response.data;
       });
     }
   }
@@ -2529,7 +2528,7 @@ __webpack_require__.r(__webpack_exports__);
       categories: {},
       skills: {},
       search: {
-        industry: "",
+        industry: [],
         title: "",
         skills: [],
         sort: "",
@@ -2568,9 +2567,6 @@ __webpack_require__.r(__webpack_exports__);
       backgroundColor: "#000",
       borderColor: "#000"
     };
-  },
-  updated: function updated() {
-    $(this.$el).find(".select-picker").selectpicker("refresh");
   },
   mounted: function mounted() {
     this.getResults();
@@ -2627,6 +2623,10 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("job-categories-api").then(function (response) {
         _this2.categories = response.data;
+
+        _this2.$nextTick(function () {
+          $('.select-picker').selectpicker();
+        });
       });
     },
     getSkills: function getSkills() {
@@ -35125,7 +35125,7 @@ var render = function() {
                     expression: "search.country"
                   }
                 ],
-                staticClass: "selectpicker select-picker",
+                staticClass: "select-picker",
                 attrs: { "data-size": "7", "data-live-search": "true" },
                 on: {
                   change: [
@@ -35369,9 +35369,7 @@ var render = function() {
                               _c("div", { staticClass: "freelancer-avatar" }, [
                                 _c(
                                   "a",
-                                  {
-                                    attrs: { href: _vm.uuid(freelancer.uuid) }
-                                  },
+                                  { attrs: { href: _vm.link(freelancer) } },
                                   [
                                     _c("img", {
                                       attrs: {
@@ -35388,9 +35386,7 @@ var render = function() {
                                 _c("h4", [
                                   _c(
                                     "a",
-                                    {
-                                      attrs: { href: _vm.uuid(freelancer.uuid) }
-                                    },
+                                    { attrs: { href: _vm.link(freelancer) } },
                                     [
                                       _vm._v(
                                         "\n                      " +
@@ -35462,7 +35458,7 @@ var render = function() {
                             {
                               staticClass:
                                 "button button-sliding-icon ripple-effect",
-                              attrs: { href: _vm.uuid(freelancer.uuid) }
+                              attrs: { href: _vm.link(freelancer) }
                             },
                             [
                               _vm._v(
@@ -35602,7 +35598,7 @@ var render = function() {
                     expression: "search.industry"
                   }
                 ],
-                staticClass: "selectpicker select-picker",
+                staticClass: "select-picker",
                 attrs: { "data-size": "7", multiple: "" },
                 on: {
                   change: [
@@ -49651,7 +49647,6 @@ window.JQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jq
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
  *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

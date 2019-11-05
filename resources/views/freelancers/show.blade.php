@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'James Olson')
+@section('title',  $freelancer->name ?? "")
 
 @section('content')
 <!-- Titlebar
@@ -12,11 +12,13 @@
 					<div class="left-side">
 						<div class="header-image freelancer-avatar"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></div>
 						<div class="header-details">
-							<h3>{{ $freelancer->name ?? null }} <span>{{ $freelancer->headline }}</span></h3>
+							<h3>{{ $freelancer->name ?? "" }} <span>{{ $freelancer->headline }}</span></h3>
 							<ul>
 								<li><div class="star-rating" data-rating="5.0"></div></li>
-								<li><img class="flag" src="{{ asset('assets/images/flags/<?=$freelancer->country->code?>.svg') }}" alt=""> {{ $freelancer->country->name }}</li>
-								<li><div class="verified-badge-with-title">{{ $freelancer->verified == 1 ? "Verified" : "Nt Verfified" }}</div></li>
+                                <li><img class="flag" src="{{ asset('assets/images/flags/'.$freelancer->country->code.'.svg') }}" alt=""> {{ $freelancer->country->name }}</li>
+                                @if($freelancer->verified == 1)
+                                <li><div class="verified-badge-with-title">Verified</div></li>
+                                @endif
 							</ul>
 						</div>
 					</div>
@@ -38,14 +40,12 @@
                 <div class="single-page-section">
                     <h3 class="margin-bottom-25">About Me</h3>
                     <div>
-                        <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
-    
-                    <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+                        {!! $freelancer->description !!}
                     </div>
                 </div>
     
                 <!-- Boxed List -->
-                <div class="boxed-list margin-bottom-60">
+                {{-- <div class="boxed-list margin-bottom-60">
                     <div class="boxed-list-headline">
                         <h3><i class="icon-material-outline-thumb-up"></i> Work History and Feedback</h3>
                     </div>
@@ -123,7 +123,7 @@
                     <div class="clearfix"></div>
                     <!-- Pagination / End -->
     
-                </div>
+                </div> --}}
                 <!-- Boxed List / End -->
                 
                 <!-- Boxed List -->
@@ -185,14 +185,16 @@
                     
                     <!-- Profile Overview -->
                     <div class="profile-overview">
-                        {{-- <div class="overview-item"><strong>$35</strong><span>Hourly Rate</span></div> --}}
-                        <div class="overview-item"><strong>53</strong><span>Jobs Done</span></div>
-                        <div class="overview-item"><strong>22</strong><span>Rehired</span></div>
+                        <div class="overview-item"><strong>${{ $freelancer->rate }}</strong><span>Hourly Rate</span></div>
+                        <div class="overview-item"><strong>{{ sizeof($freelancer->jobs_completion) }}</strong><span>Jobs Done</span></div>
+                        {{-- <div class="overview-item"><strong>22</strong><span>Rehired</span></div> --}}
                     </div>
     
                     <!-- Button -->
+                    @role('hirer')
                     <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Recruit Me <i class="icon-material-outline-arrow-right-alt"></i></a>
-    
+                    @endrole
+
                     <!-- Freelancer Indicators -->
                     <div class="sidebar-widget">
                         <div class="freelancer-indicators">
@@ -204,12 +206,12 @@
                                 <span>Job Success</span>
                             </div>
     
-                            <!-- Indicator -->
+                            {{-- <!-- Indicator -->
                             <div class="indicator">
                                 <strong>100%</strong>
                                 <div class="indicator-bar" data-indicator-percentage="100"><span></span></div>
                                 <span>Recommendation</span>
-                            </div>
+                            </div> --}}
                             
                             {{-- <!-- Indicator -->
                             <div class="indicator">
@@ -245,29 +247,27 @@
                     <div class="sidebar-widget">
                         <h3>Skills</h3>
                         <div class="task-tags">
-                            <span>iOS</span>
-                            <span>Android</span>
-                            <span>mobile apps</span>
-                            <span>design</span>
-                            <span>Python</span>
-                            <span>Flask</span>
-                            <span>PHP</span>
-                            <span>WordPress</span>
+                            @forelse ($freelancer->skills as $skill)
+                            <span>{{ $skill->title }}</span>
+                            @empty
+                               No Skills 
+                            @endforelse
                         </div>
                     </div>
     
                     <!-- Widget -->
-                    <div class="sidebar-widget">
+                    {{-- <div class="sidebar-widget">
                         <h3>Attachments</h3>
                         <div class="attachments-container">
                             <a href="#" class="attachment-box ripple-effect"><span>Cover Letter</span><i>PDF</i></a>
                             <a href="#" class="attachment-box ripple-effect"><span>Contract</span><i>DOCX</i></a>
                         </div>
-                    </div>
+                    </div> --}}
     
                     <!-- Sidebar Widget -->
                     <div class="sidebar-widget">
-                        <h3>Bookmark or Share</h3>
+                        {{-- <h3>Bookmark or Share</h3> --}}
+                        <h3>Bookmark</h3>
     
                         <!-- Bookmark Button -->
                         <button class="bookmark-button margin-bottom-25">
@@ -276,13 +276,13 @@
                             <span class="bookmarked-text">Bookmarked</span>
                         </button>
     
-                        <!-- Copy URL -->
+                        {{-- <!-- Copy URL -->
                         <div class="copy-url">
                             <input id="copy-url" type="text" value="" class="with-border">
                             <button class="copy-url-button ripple-effect" data-clipboard-target="#copy-url" title="Copy to Clipboard" data-tippy-placement="top"><i class="icon-material-outline-file-copy"></i></button>
-                        </div>
+                        </div> --}}
     
-                        <!-- Share Buttons -->
+                        {{-- <!-- Share Buttons -->
                         <div class="share-buttons margin-top-25">
                             <div class="share-buttons-trigger"><i class="icon-feather-share-2"></i></div>
                             <div class="share-buttons-content">
@@ -294,7 +294,7 @@
                                     <li><a href="#" data-button-color="#0077b5" title="Share on LinkedIn" data-tippy-placement="top"><i class="icon-brand-linkedin-in"></i></a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
     
                 </div>
@@ -321,7 +321,7 @@
 				
 				<!-- Welcome Text -->
 				<div class="welcome-text">
-					<h3>Discuss your project with James</h3>
+					<h3>Discuss your project with {{ $freelancer->name }}</h3>
 				</div>
 					
 				<!-- Form -->
@@ -346,41 +346,6 @@
 				
 				<!-- Button -->
 				<button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit">Recruit <i class="icon-material-outline-arrow-right-alt"></i></button>
-
-			</div>
-			<!-- Login -->
-			<div class="popup-tab-content" id="loginn">
-				
-				<!-- Welcome Text -->
-				<div class="welcome-text">
-					<h3>Discuss Your Project With Tom</h3>
-				</div>
-					
-				<!-- Form -->
-				<form method="post" id="make-an-offer-form">
-
-					<div class="input-with-icon-left">
-						<i class="icon-material-outline-account-circle"></i>
-						<input type="text" class="input-text with-border" name="name2" id="name2" placeholder="First and Last Name" required/>
-					</div>
-
-					<div class="input-with-icon-left">
-						<i class="icon-material-baseline-mail-outline"></i>
-						<input type="text" class="input-text with-border" name="emailaddress2" id="emailaddress2" placeholder="Email Address" required/>
-					</div>
-
-					<textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
-
-					<div class="uploadButton margin-top-25">
-						<input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload-cv" multiple/>
-						<label class="uploadButton-button" for="upload-cv">Add Attachments</label>
-						<span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 50 MB.</span>
-					</div>
-
-				</form>
-				
-				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="make-an-offer-form">Recruit Me <i class="icon-material-outline-arrow-right-alt"></i></button>
 
 			</div>
 

@@ -27,7 +27,7 @@
             <h3>Country</h3>
             <!-- class="selectpicker default" -->
             <select
-              class="selectpicker select-picker"
+              class="select-picker"
               data-size="7"
               v-model="search.country"
               @change="getResults()"
@@ -114,7 +114,7 @@
                   <!-- Avatar -->
                   <div class="freelancer-avatar">
                     <!-- <div class="verified-badge"></div> -->
-                    <a :href="uuid(freelancer.uuid)">
+                    <a :href="link(freelancer)">
                       <img src="assets/images/user-avatar-big-01.jpg" alt />
                     </a>
                   </div>
@@ -122,7 +122,7 @@
                   <!-- Name -->
                   <div class="freelancer-name">
                     <h4>
-                      <a :href="uuid(freelancer.uuid)">
+                      <a :href="link(freelancer)">
                         {{ freelancer.name }}
                         <img
                           class="flag"
@@ -167,7 +167,7 @@
                     </li>
                   </ul>
                 </div>
-                <a :href="uuid(freelancer.uuid)" class="button button-sliding-icon ripple-effect">
+                <a :href="link(freelancer)" class="button button-sliding-icon ripple-effect">
                   View Profile
                   <i class="icon-material-outline-arrow-right-alt"></i>
                 </a>
@@ -226,9 +226,9 @@ export default {
     };
   },
   updated() {
-    $(this.$el)
-      .find(".select-picker")
-      .selectpicker("refresh");
+    // $(this.$el)
+    //   .find(".select-picker")
+    //   .selectpicker("refresh");
   },
 
   created() {
@@ -250,19 +250,12 @@ export default {
     this.getResults();
     this.getCountries();
     this.getSkills();
-
-    const $selectpicker = $(this.$el).find(".select-picker");
-
-    $selectpicker
-      .selectpicker()
-      .on("changed.bs.select", () =>
-        this.$emit("changeWeek", this.options[$selectpicker.val()])
-      );
+    
   },
 
   methods: {
-    uuid(uuid) {
-      return "freelancers/" + uuid;
+    link(freelancer) {
+      return "freelancers/" + freelancer.id;
     },
 
     image(media) {
@@ -307,6 +300,7 @@ export default {
     getCountries() {
       axios.get("countries-api").then(response => {
         this.countries = response.data;
+        this.$nextTick(function(){ $('.select-picker').selectpicker(); });
       });
     },
 

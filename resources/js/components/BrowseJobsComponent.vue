@@ -27,7 +27,7 @@
             <h3>Category</h3>
             <select
               data-size="7"
-              class="selectpicker select-picker"
+              class="select-picker"
               v-model="search.industry"
               @change="getResults()"
               multiple
@@ -180,7 +180,7 @@ export default {
       categories: {},
       skills: {},
       search: {
-        industry: "",
+        industry: [],
         title: "",
         skills: [],
         sort: "",
@@ -217,12 +217,6 @@ export default {
       backgroundColor: "#000",
       borderColor: "#000"
     };
-  },
-
-  updated() {
-    $(this.$el)
-      .find(".select-picker")
-      .selectpicker("refresh");
   },
 
   mounted() {
@@ -287,6 +281,7 @@ export default {
     getCategories() {
       axios.get("job-categories-api").then(response => {
         this.categories = response.data;
+         this.$nextTick(function(){ $('.select-picker').selectpicker(); });
       });
     },
 

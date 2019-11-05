@@ -61,6 +61,10 @@ class UsersTableSeeder extends Seeder
             $profile->type = $user->id == 1 ? 'freelancer' : 'hirer';
             $profile->save();
 
+            if ($user->id == 1) {
+                $profile->skills()->attach([1, 2, 6, 7, 8, 9, 10, 11]);
+            }
+
             $user->id == 1 ? $user->assignRole('freelancer') : $user->assignRole('hirer');
         }
     }
