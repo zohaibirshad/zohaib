@@ -19,13 +19,13 @@ class HirerController extends Controller
     public function post_job(Request $request)
     {
         $validateData = $request->validate([
-            'name' => 'required',
+            'title' => 'required',
             'description' => 'required',
             'industry_id' => 'required',
-            'currency_code' => 'required',
+            'country_id' => 'required',
             'job_budget_id' => 'nullable',
-            'budget_to' => 'nullable',
-            'budget_from'=> 'nullable',
+            'max_budget' => 'nullable',
+            'min_budget'=> 'nullable',
             'budget_type' => 'nullable',
             'skills' => 'required',
             'description' => 'required',
@@ -33,11 +33,26 @@ class HirerController extends Controller
         ]);
 
         $job = new Job;
-        $job->name = $request->name;
-        $job->job_budget_id = $request->job_budget_id;
-        $job->country_id = $request->currency_code;
+        $job->title = $request->title;
+        $job->country_id = $request->country_id;
+        $job->max_budget = $request->max_budget;
+        $job->min_budget = $request->min_budget;
+        $job->budget_type = $request->budget_type;
         $job->description = $request->description;
-  
+        $job->industry_id = $request->industry_id;
+        $job->save();
+
+        $job->skills()->attach($request->skills);
+
+        $invite->addMultipleMediaFromRequest($request->file);
+
+        $fileAdders = $job
+                        ->addMultipleMediaFromRequest($request->file('document'))
+                        ->each(function ($fileAdder) {
+                            $fileAdder->toMediaCollection('project_files');
+                        });
+        
+        return response('new-jobs')->with('status', "Job created Succesfully");
 
     }
 
