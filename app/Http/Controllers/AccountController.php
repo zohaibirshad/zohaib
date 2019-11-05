@@ -22,7 +22,7 @@ class AccountController extends Controller
     public function update_password(Request $request)
     {
         $messages = [
-            'password.regex' => 'Password must contain at least one number and both uppercase and lowercase letters.'
+            'password.regex' => 'Password must contain at least one number, one symbol and both uppercase and lowercase letters.'
         ];
 
         Validator::make($request->all(), [
@@ -31,7 +31,7 @@ class AccountController extends Controller
                 Rule::unique('users', 'email')->ignore(Auth::id()),
             ],
             'current_password' => 'required|string|min:6',
-            'password' => 'required|min:6|confirmed|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/',
+            'password' => 'required|min:6|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/',
         ], $messages)->validate();
 
 
