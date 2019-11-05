@@ -33,7 +33,7 @@ class DashboardController extends Controller
 
     public function settings(Request $request)
     {
-        $user = Auth::user();
+        $user = Profile::where('user_id', Auth::id())->first();
         $countries = Country::get();
 
         return view('dashboard.settings', compact('countries', 'user'));

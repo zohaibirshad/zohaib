@@ -7,6 +7,7 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,10 +27,6 @@ class AccountController extends Controller
         ];
 
         Validator::make($request->all(), [
-            'email' =>  [
-                'nullable', 'email',
-                Rule::unique('users', 'email')->ignore(Auth::id()),
-            ],
             'current_password' => 'required|string|min:6',
             'password' => 'required|min:6|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/',
         ], $messages)->validate();
@@ -40,10 +37,56 @@ class AccountController extends Controller
             $user = User::find(Auth::id());
             $user->password = Hash::make($request->password);
             $user->save();
-            return redirect()->back()->with('success', 'User Account successfully updated');
+            return redirect()->back()->with('success', 'Password updated successfully');
         } else {
 
             return redirect()->back()->with('error', 'Current Password was incorrect');
+        }
+    }
+
+    public function update_basic_info(Request $request)
+    {
+
+        Validator::make($request->all(), [
+            'email' =>  [
+                'required', 'email',
+                Rule::unique('users', 'email')->ignore(Auth::id()),
+            ],
+            'name' => 'required|string|min:6',
+            'phone' => 'required|numeric',
+            'country_id' => 'required|numeric',
+        ], [])->validate();
+
+        try {
+            DB::beginTransaction();
+
+            $user = User::find(Auth::id());
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->name = $request->name;
+            $user->save();
+
+            $profile = Profile::find($user->profile->id);
+            $profile->name = $user->name;
+            $profile->email = $user->email;
+            $profile->phone = $user->phone;
+            $profile->country_id = $request->country_id;
+            
+            $profile->save();
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Profile updated successfully');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage(), [
+                "code" => $e->getCode(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+            ]);
+
+            // Rollback DB transactions is an error occurred
+            DB::rollback();
+
+            return redirect()->back()->with('error', 'Something went wrong');
         }
     }
 

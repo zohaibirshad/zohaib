@@ -14,7 +14,8 @@
 
             <div class="content with-padding padding-bottom-0">
 
-                <form>
+                <form method="post" action="/update_basic_info">
+                    @csrf
 
                 <div class="row">
 
@@ -32,7 +33,27 @@
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Full Name</h5>
-                                    <input type="text" class="with-border" value="{{ $user->name }}">
+                                    <input type="text" class="with-border" value="{{ $user->name }}" name="name">
+                                </div>
+                            </div>                            
+
+                            <div class="col-xl-6">
+                                <div class="submit-field">
+                                    <h5>Email</h5>
+                                    <input type="text" class="with-border" value="{{ $user->email }}" name="email">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="submit-field">
+                                    <h5>Country</h5>
+                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="country_id">
+                                        @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}" {{ $user->country_id == $country->id ? 'selected="selected"' : '' }}>
+                                            {{ $country->name }}
+                                        </option> 
+                                        @endforeach                                 
+                                    </select>
                                 </div>
                             </div>
 
@@ -40,16 +61,17 @@
                                 <!-- Account Type -->
                                 <div class="submit-field">
                                     <h5>Phone</h5>
-                                    <input type="text" class="with-border" value="{{ $user->phone }}">
+                                    <input type="text" class="with-border" value="{{ $user->phone }}" name="phone">
                                 </div>
                             </div>
 
-                            <div class="col-xl-6">
+
+                            <!-- Button -->
+                            <div class="col-xl-12">
                                 <div class="submit-field">
-                                    <h5>Email</h5>
-                                    <input type="text" class="with-border" value="{{ $user->email }}">
+                                    <button type="submit" class="button ripple-effect">Update Profile</button>
                                 </div>
-                            </div>
+                            </div>      
 
                         </div>
                     </div>
@@ -146,17 +168,6 @@
                             <div class="submit-field">
                                 <h5>Professional Headline</h5>
                                 <input type="text" class="with-border" value="iOS Expert + Node Dev">
-                            </div>
-                        </div>
-
-                        <div class="col-xl-6">
-                            <div class="submit-field">
-                                <h5>Country</h5>
-                                <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true">
-                                    @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option> 
-                                    @endforeach                                 
-                                </select>
                             </div>
                         </div>
 
