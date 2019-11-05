@@ -83,7 +83,7 @@ class JobsController extends Controller
             })
             ->when(!empty($minBudget) && !empty($maxBudget), function ($query) use ($minBudget, $maxBudget) {
                 $query->where('max_budget', '>', $minBudget)
-                ->where('min_budget', '<', $maxBudget);
+                    ->where('min_budget', '<', $maxBudget);
             })
             ->when(!empty($sort), function ($query) use ($sort) {
                 if ($sort == 'featured') {
@@ -282,13 +282,17 @@ class JobsController extends Controller
      */
     public function show($id)
     {
-        $job = Job::where('id', $id)
-            ->with(['industry', 'skills', 'job_budget', 'country', 'bids'])
+        $job = Job::where('slug', $id)
+            ->with(['owner', 'industry', 'skills', 'job_budget', 'country', 'bids'])
             ->first();
 
         $bids = Bid::where('job_id', $id)
             ->with('profile')
             ->get();
+
+        if (empty($job)) {
+            abort(404);
+        }
 
         return view('jobs.show', compact('job', 'bids'));
     }

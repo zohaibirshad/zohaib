@@ -59,7 +59,7 @@ class Job extends Model implements HasMedia
 
     public function owner()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Profile', 'user_id')->with('media');
     }
 
     public function industry()

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Food Delivery Mobile Application')
+@section('title', $job->title)
 
 @section('content')
 
@@ -13,20 +13,23 @@
 					<div class="left-side">
                         <div class="header-image"><a href="#"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a></div>
 						<div class="header-details">
-							<h3>Food Delivery Mobile Application</h3>
+							<h3>{{ $job->title }}</h3>
 							<h5>About the Employer</h5>
 							<ul>
-								<li><a href="#"><i class="icon-feather-user"></i> James Olson</a></li>
+								<li><a href="#"><i class="icon-feather-user"></i>{{$job->owner->name}}</a></li>
 								<li><div class="star-rating" data-rating="5.0"></div></li>
-								<li><img class="flag" src="{{ asset('assets/images/flags/gh.svg') }}" alt=""> Ghana</li>
-								<li><div class="verified-badge-with-title">Verified</div></li>
+								<li><img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->country->code.'.svg') }}" alt=""> Ghana</li>
+								
+								@if($job->owner->verified == 1)
+                                <li><div class="verified-badge-with-title">Verified</div></li>
+                                @endif
 							</ul>
 						</div>
 					</div>
 					<div class="right-side">
 						<div class="salary-box">
 							<div class="salary-type">Project Budget</div>
-							<div class="salary-amount">$2,500 - $4,500</div>
+							<div class="salary-amount">${{ $job->min_budget }}  - ${{ $job->max_budget }} </div>
 						</div>
 					</div>
 				</div>
@@ -49,29 +52,26 @@
 			<!-- Description -->
 			<div class="single-page-section">
 				<h3 class="margin-bottom-25">Project Description</h3>
-				<p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
-
-				<p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
-
-				<p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+				<div>
+					{!! $job->description !!}
+				</div>
 			</div>
 
-			<!-- Atachments -->
+			{{-- <!-- Atachments -->
 			<div class="single-page-section">
 				<h3>Attachments</h3>
 				<div class="attachments-container">
 					<a href="#" class="attachment-box ripple-effect"><span>Project Brief</span><i>PDF</i></a>
 				</div>
-			</div>
+			</div> --}}
 
 			<!-- Skills -->
 			<div class="single-page-section">
 				<h3>Skills Required</h3>
 				<div class="task-tags">
-					<span>iOS</span>
-					<span>Android</span>
-					<span>mobile apps</span>
-					<span>design</span>
+					@foreach ($job->skills as $skill)
+					<span>{{ $skill->title }}</span>
+					@endforeach
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -115,34 +115,6 @@
 							<!-- Avatar -->
 							<div class="bids-avatar">
 								<div class="freelancer-avatar">
-									<div class="verified-badge"></div>
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></a>
-								</div>
-							</div>
-							
-							<!-- Content -->
-							<div class="bids-content">
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">David Peterson <img class="flag" src="{{ asset('assets/images/flags/de.svg') }}" alt="" title="Germany" data-tippy-placement="top"></a></h4>
-									<div class="star-rating" data-rating="4.2"></div>
-								</div>
-							</div>
-							
-							<!-- Bid -->
-							<div class="bids-bid">
-								<div class="bid-rate">
-									<div class="rate">$2,200</div>
-									<span>in 14 days</span>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="bid">
-							<!-- Avatar -->
-							<div class="bids-avatar">
-								<div class="freelancer-avatar">
 									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
 								</div>
 							</div>
@@ -166,33 +138,6 @@
 							</div>
 						</div>
 					</li>
-					<li>
-						<div class="bid">
-							<!-- Avatar -->
-							<div class="bids-avatar">
-								<div class="freelancer-avatar">
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
-								</div>
-							</div>
-							
-							<!-- Content -->
-							<div class="bids-content">
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">Sebastiano Piccio <img class="flag" src="{{ asset('assets/images/flags/it.svg') }}" alt="" title="Italy" data-tippy-placement="top"></a></h4>
-									<div class="star-rating" data-rating="4.5"></div>
-								</div>
-							</div>
-							
-							<!-- Bid -->
-							<div class="bids-bid">
-								<div class="bid-rate">
-									<div class="rate">$3,400</div>
-									<span>In 10 days</span>
-								</div>
-							</div>
-						</div>
-					</li>
 				</ul>
 			</div>
 
@@ -203,8 +148,9 @@
 		<div class="col-xl-4 col-lg-4">
 			<div class="sidebar-container">
 
-				<div class="countdown green margin-bottom-35">6 days, 23 hours left</div>
+				{{-- <div class="countdown green margin-bottom-35">6 days, 23 hours left</div> --}}
 
+				@role('freelancer')
 				<div class="sidebar-widget">
 					<div class="bidding-widget">
 						<div class="bidding-headline"><h3>Bid on this job!</h3></div>
@@ -245,6 +191,7 @@
 						{{-- <div class="bidding-signup">Don't have an account? <a href="#sign-in-dialog" class="register-tab sign-in popup-with-zoom-anim">Sign Up</a></div> --}}
 					</div>
 				</div>
+				@endrole
 
 				<!-- Sidebar Widget -->
 				<div class="sidebar-widget">
