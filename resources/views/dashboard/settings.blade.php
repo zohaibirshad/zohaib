@@ -14,16 +14,19 @@
 
             <div class="content with-padding padding-bottom-0">
 
-                <form method="post" action="/update_basic_info">
+                <form method="post" action="/update_basic_info" enctype="multipart/form-data">
                     @csrf
 
                 <div class="row">
-
                     <div class="col-auto">
                         <div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
+                           @if (sizeof($user->media) == 0)
                             <img class="profile-pic" src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="" />
+                           @else
+                           <img class="profile-pic" src="{{ $user->getFirstMediaUrl('profile') }}" alt="" /> 
+                           @endif
                             <div class="upload-button"></div>
-                            <input class="file-upload" type="file" accept="image/*"/>
+                            <input class="file-upload" type="file" accept="image/*" name="picture"/>
                         </div>
                     </div>
 

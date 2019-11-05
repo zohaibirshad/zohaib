@@ -35,9 +35,11 @@ class DashboardController extends Controller
 
     public function settings(Request $request)
     {
-        $user = Profile::where('user_id', Auth::id())->first();
+        $user = Profile::where('user_id', Auth::id())->with('media')->first();
         $countries = Country::get();
         $skills = Skill::orderBy('title', 'asc')->get();
+
+        return $user;
 
         return view('dashboard.settings', compact('countries', 'user', 'skills'));
     }

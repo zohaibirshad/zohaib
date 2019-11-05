@@ -56,6 +56,7 @@ class AccountController extends Controller
             'name' => 'required|string|min:6',
             'phone' => 'required|numeric',
             'country_id' => 'required|numeric',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [])->validate();
 
         try {
@@ -77,6 +78,12 @@ class AccountController extends Controller
             $profile->country_id = $request->country_id;
 
             $profile->save();
+
+            if ($request->hasFile('picture')) {
+                $profile
+                    ->addMediaFromRequest('picture')
+                    ->toMediaCollection('profile');
+            }
 
             DB::commit();
             return redirect()->back()->with('success', 'Profile updated successfully');
