@@ -140,7 +140,7 @@
                                     <h5>Skills <i class="help-icon" data-tippy-placement="right" title="Add up to 10 skills"></i></h5>
 
                                     <!-- Skills List -->
-                                    <div class="keywords-container">
+                                    {{-- <div class="keywords-container">
                                         <div class="keyword-input-container">
                                             <input type="text" class="keyword-input with-border" placeholder="e.g. Angular, Laravel"/>
                                             <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
@@ -153,7 +153,7 @@
                                             <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Laravel</span></span>
                                         </div>
                                         <div class="clearfix"></div>
-                                    </div>
+                                    </div> --}}
                                     <select class="selectpicker" data-size="7" data-live-search="true" name="skills[]" multiple>
                                         @foreach ($skills as $skill)
                                             <option value="{{ $skill->id }}"
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-xl-4">
+                            <div class="col-xl-4">
                                 <div class="submit-field">
                                     <h5>Attachments</h5>
                                     
@@ -192,7 +192,7 @@
                                     </div>
 
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </li>
                     <li>
