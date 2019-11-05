@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Models\Job;
 use App\Models\Milestone;
 use App\Models\Profile;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,8 +36,9 @@ class DashboardController extends Controller
     {
         $user = Profile::where('user_id', Auth::id())->first();
         $countries = Country::get();
+        $skills = Skill::orderBy('title', 'asc')->get();
 
-        return view('dashboard.settings', compact('countries', 'user'));
+        return view('dashboard.settings', compact('countries', 'user', 'skills'));
     }
 
     public function milestones(Request $request, $slug)

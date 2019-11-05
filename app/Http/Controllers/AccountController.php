@@ -66,12 +66,48 @@ class AccountController extends Controller
             $user->name = $request->name;
             $user->save();
 
+            $user->syncRoles([$request->account_type]);
+
             $profile = Profile::find($user->profile->id);
             $profile->name = $user->name;
             $profile->email = $user->email;
             $profile->phone = $user->phone;
+            $profile->type = $request->account_type;
             $profile->country_id = $request->country_id;
-            
+
+            $profile->save();
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Profile updated successfully');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage(), [
+                "code" => $e->getCode(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+            ]);
+
+            // Rollback DB transactions is an error occurred
+            DB::rollback();
+
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+
+    public function update_freelancer_info(Request $request)
+    {
+
+        Validator::make($request->all(), [
+            'rate' => 'required',
+        ], [])->validate();
+
+        try {
+            DB::beginTransaction();
+
+            $profile = Profile::find(Auth::user()->profile->id);
+            $profile->rate = $request->rate;
+            $profile->headline = $request->headline;
+            $profile->description = $request->description;
+
             $profile->save();
 
             DB::commit();
