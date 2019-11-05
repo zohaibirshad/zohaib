@@ -42,13 +42,13 @@ class HirerController extends Controller
         $job->industry_id = $request->industry_id;
         $job->save();
 
-        $job->skills()->attach($request->skills);
+        $job->skills()->sync($request->skills);
 
         $job->addMultipleMediaFromRequest($request->documents);
 
         if ($request->hasFile('documents')) {
             $fileAdders = $job
-                ->addMultipleMediaFromRequest($request->file('document'))
+                ->addMultipleMediaFromRequest($request->file('documents'))
                 ->each(function ($fileAdder) {
                     $fileAdder->toMediaCollection('project_files');
             });

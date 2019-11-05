@@ -164,7 +164,7 @@ class AccountController extends Controller
         $profile->headline = $request->headline;
         $profile->save();
 
-        $profile->skills()->attach($request->skills);
+        $profile->skills()->sync($request->skills);
 
 
         if ($request->hasFile('picture')) {
@@ -177,7 +177,7 @@ class AccountController extends Controller
             $fileAdders = $profile
                 ->addMultipleMediaFromRequest($request->file('document'))
                 ->each(function ($fileAdder) {
-                    $fileAdder->toMediaCollection('project_files');
+                    $fileAdder->toMediaCollection('cv');
                 });
         }
 
