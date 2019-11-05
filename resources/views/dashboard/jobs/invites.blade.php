@@ -42,7 +42,14 @@
                             </div>
                         </li> 
                     @empty
-                    <p class="text-center text-muted py-3">YOU HAVE NO INVITE</p>
+                    <p class="text-center text-muted py-3">
+                        @role('hirer')
+                        YOU HAVE SENT NO INVITE
+                        @endrole
+                        @role('freelancer')
+                        YOU HAVE NO INVITE
+                        @endrole
+                    </p>
                     @endforelse
                 </ul>
             </div>

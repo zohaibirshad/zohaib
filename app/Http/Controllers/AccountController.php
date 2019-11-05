@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -107,6 +108,7 @@ class AccountController extends Controller
             $profile->rate = $request->rate;
             $profile->headline = $request->headline;
             $profile->description = $request->description;
+            $profile->skills()->sync($request->skills);
 
             $profile->save();
 

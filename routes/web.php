@@ -91,7 +91,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Freelancer Stuff
     Route::group(['middleware' => ['role:freelancer']], function () {
         Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
-        Route::get('invites', 'FreelancersController@invites')->name('invites');
     });
 
     // Hirer Stuff
@@ -104,9 +103,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('ongoing-jobs', 'JobsController@ongoing_jobs')->name('ongoing-jobs');
 
     Route::get('completed-jobs', 'JobsController@completed_jobs_')->name('completed-jobs');
+    
 
     // Both Freelancer and Hirer
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('invites', 'DashboardController@invites')->name('invites');
 
     Route::get('messages', function () {
         return view('dashboard.messages');

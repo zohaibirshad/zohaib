@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div> --}}
-                                    <select class="selectpicker" data-size="7" data-live-search="true" multiple>
+                                    <select class="selectpicker" data-size="7" data-live-search="true" name="skills[]" multiple>
                                         @foreach ($skills as $skill)
                                             <option value="{{ $skill->id }}"
                                                     {{ isset($user->skills) && in_array($skill->id, $user->skills()->pluck('id')->toArray()) ? 'selected' : '' }}
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-4">
+                            {{-- <div class="col-xl-4">
                                 <div class="submit-field">
                                     <h5>Attachments</h5>
                                     
@@ -192,7 +192,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </li>
                     <li>

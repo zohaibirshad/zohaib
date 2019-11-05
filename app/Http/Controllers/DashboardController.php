@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Invite;
 use App\Models\Job;
 use App\Models\Milestone;
 use App\Models\Profile;
@@ -39,6 +40,19 @@ class DashboardController extends Controller
         $skills = Skill::orderBy('title', 'asc')->get();
 
         return view('dashboard.settings', compact('countries', 'user', 'skills'));
+    }
+    
+    public function invites()
+    {
+        $user = Auth::user();
+        $freelancer = Profile::where('user_id', Auth::id())->first();
+
+        $invites = Invite::where('user_id', $user->id)
+        ->orwhere('profile_id', $freelancer->id)
+            ->with('job', 'profile')
+            ->get();
+
+        return view('dashboard.jobs.invites', compact('invites'));
     }
 
     public function milestones(Request $request, $slug)
