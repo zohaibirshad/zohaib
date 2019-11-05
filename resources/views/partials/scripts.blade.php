@@ -29,5 +29,4 @@ $('#snackbar-user-status label').click(function() {
     }); 
 }); 
 </script>
-
 @stack('custom-scripts')

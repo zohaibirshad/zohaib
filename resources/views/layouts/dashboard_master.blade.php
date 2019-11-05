@@ -41,6 +41,8 @@
                     <!-- Dashboard Headline -->
                     @include('partials.dashboard_headline')
 
+                    @include('partials.alert')
+
                     
                     @yield('content')
 

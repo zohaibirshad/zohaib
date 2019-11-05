@@ -25,6 +25,8 @@
         <div class="clearfix"></div>
         <!-- Header Container / End -->
 
+        @include('partials.alert')
+
         <!-- The title bar is not a compulsory field -->
         @yield('title_bar')
 

@@ -75,6 +75,9 @@ Route::get('invoice', function () {
 
 // DASHBOARD STUFF
 Route::group(['middleware' => ['auth']], function () {
+    // Profile Settings
+    Route::post('update_password', 'AccountController@update_password');
+
     // Freelancers
     Route::get('browse-freelancers', 'FreelancersController@index')->name('freelancers.index');
     Route::resource('freelancers', 'FreelancersController')->except('index');
