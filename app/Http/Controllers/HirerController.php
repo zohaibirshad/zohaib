@@ -44,13 +44,15 @@ class HirerController extends Controller
 
         $job->skills()->attach($request->skills);
 
-        $invite->addMultipleMediaFromRequest($request->file);
+        $job->addMultipleMediaFromRequest($request->documents);
 
-        $fileAdders = $job
-                        ->addMultipleMediaFromRequest($request->file('document'))
-                        ->each(function ($fileAdder) {
-                            $fileAdder->toMediaCollection('project_files');
-                        });
+        if ($request->hasFile('documents')) {
+            $fileAdders = $job
+                ->addMultipleMediaFromRequest($request->file('document'))
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection('project_files');
+            });
+        }
         
         return response('new-jobs')->with('status', "Job created Succesfully");
 
@@ -228,11 +230,14 @@ class HirerController extends Controller
 
         $invite->addMultipleMediaFromRequest($request->file);
 
-        $fileAdders = $invite
-                        ->addMultipleMediaFromRequest($request->file('document'))
-                        ->each(function ($fileAdder) {
-                            $fileAdder->toMediaCollection('project_files');
-                        });
+        if ($request->hasFile('documents')) {
+            $fileAdders = $invite
+                ->addMultipleMediaFromRequest($request->file('documents'))
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection('project_files');
+            });
+        }
+       
 
         return view('freelancers.show')->with('status', "Invite successfully sent");
 

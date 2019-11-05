@@ -194,17 +194,6 @@ class FreelancersController extends Controller
         return view('dashboard.reviews',  compact('reviews'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $profile_uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function update_profile(Request $request, $profile_uuid)
-    {
-        //
-    }
 
     /**
      * View all Invites.
