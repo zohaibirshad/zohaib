@@ -44,8 +44,6 @@ class HirerController extends Controller
 
         $job->skills()->sync($request->skills);
 
-        $job->addMultipleMediaFromRequest($request->documents);
-
         if ($request->hasFile('documents')) {
             $fileAdders = $job
                 ->addMultipleMediaFromRequest($request->file('documents'))
