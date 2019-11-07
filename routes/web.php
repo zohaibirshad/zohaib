@@ -34,16 +34,13 @@ Route::get('how-it-works', function () {
     return view('how_it_works');
 })->name('how-it-works');
 
-Route::get('post-job', function () {
-    return view('dashboard.post_job');
-})->name('post-job');
-
 
 
 // Jobs
 Route::get('jobs-api', 'JobsController@jobs');
 Route::get('job-categories-api', 'JobsController@industries');
 Route::get('skills-api', 'JobsController@skills');
+Route::get('post-job', 'JobsController@create')->name('post-job');
 
 // Freelancers
 Route::get('freelancers-api', 'FreelancersController@freelancers');

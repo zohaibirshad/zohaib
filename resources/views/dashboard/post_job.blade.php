@@ -14,18 +14,20 @@
 			</div>
 
 			<div class="content with-padding padding-bottom-10">
-				<form>
+				<form action="{{ route('jobs.store') }}" method="POST">
+					@csrf
 					<div class="row form-section" id="section-1">
 						<div class="col-xl-12">
 							<div class="submit-field">
 								<h5>Select a name for the job</h5>
-								<input type="text" class="with-border" placeholder="e.g. I need a blog" id="title">
+								<input type="text" name="title" class="with-border" placeholder="e.g. I need a blog" id="title">
 							</div>
 						</div>
 						<div class="col-xl-12">
 							<div class="submit-field">
 								<h5>Give a description of what the job entails</h5>
 								<textarea 
+								name="description"
 									cols="30" 
 									rows="5" 
 									class="with-border" 
@@ -54,18 +56,10 @@
 						<div class="col-xl-12">
 							<div class="submit-field">
 								<h5>Job Category</h5>
-								<select class="selectpicker with-border" data-size="7" title="Select Category" id="category">									
-									<option>Admin Support</option>
-									<option>Customer Service</option>
-									<option>Data Analytics</option>
-									<option>Design & Creative</option>
-									<option>Legal</option>
-									<option>Software Developing</option>
-									<option>IT & Networking</option>
-									<option>Web Developement</option>
-									<option>Writing</option>
-									<option>Translation</option>
-									<option>Sales & Marketing</option>
+								<select class="selectpicker with-border" data-size="7" title="Select Category" id="category" name="industry_id">									
+									@foreach ($categories as $category)
+									<option value="{{ $category->id }}">{{ $category->title }}</option>
+									@endforeach									
 								</select>
 							</div>
 						</div>
@@ -96,25 +90,40 @@
 									<div class="col-xl-3">
 										<select class="selectpicker with-border" id="currency">
 											<option>USD</option>
-											<option>GHS</option>
+											{{--  <option>GHS</option>
 											<option>EUR</option>
 											<option>CAD</option>
 											<option>INR</option>
 											<option>GBP</option>
 											<option>AUD</option>
 											<option>HKD</option>
-											<option>NZD</option>
+											<option>NZD</option>  --}}
 										</select>
 									</div>
 									<div class="col-xl-9">
-										<select class="selectpicker with-border" id="pricing">
-											<option>Micro project ($10 - 30 USD)</option>
-											<option>Simple project ($30 - 250 USD)</option>
-											<option>Very small project ($250 - 750 USD)</option>
-											<option>Customize  Budget</option>
+										<select class="selectpicker with-border" id="budget_type">								
+											@foreach ($budgetTypes as $budgetType)
+												<option value="{{ $budgetType->id }}">{{ $budgetType->name }} (${{ $budgetType->from }} - {{ $budgetType->to }} USD)</option>
+											@endforeach
+											<option value="custom">Customize  Budget</option>
 										</select>
-
-										{{-- On customize budget selected show min and max fields --}}
+										
+									</div>
+									<div class="col-xl-12 my-3 d-none animated fadeInDown" id="custom_budget_section">
+										<div class="row">
+											<div class="col-6">
+												<div class="submit-field">
+													<h5>Minimum Budget</h5>
+													<input type="number" name="min_budget" value="0" class="with-border" id="min_budget">
+												</div>														
+											</div>
+											<div class="col-6">
+												<div class="submit-field">
+													<h5>Maximum Budget</h5>
+													<input type="number" name="max_budget" value="0" class="with-border" id="max_budget">
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -159,6 +168,29 @@
 @push('custom-scripts')
     <script>
 		$(document).ready(function(){
+			// Dropdown
+			var budgetType = $('#budget_type');
+			budgetType.on("change", function(){
+				var selected = $(this).find(":selected").val();
+				var customBudgetSection = $('#custom_budget_section');
+
+
+				if(selected == 'custom'){
+					customBudgetSection.removeClass('d-none');
+				} else {
+					customBudgetSection.addClass('d-none');
+					// Set Min and Max Values
+					setMinMaxValues(selected);
+				}
+			});
+
+			function setMinMaxValues(selectedBudgetType){
+				var budgetTypes = {!! json_encode($budgetTypes) !!};
+				
+				var minBudget = $('#min_budget');
+				var maxBudget = $('#max_budget');
+				console.log(budgetTypes);
+			}
 
 			// Button
 			var nextBtn = $('.next-btn');
@@ -241,7 +273,6 @@
 					backgroundColor: '#383838'
 				});
 			}
-
 
 		});
 	</script>

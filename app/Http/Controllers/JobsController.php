@@ -342,4 +342,17 @@ class JobsController extends Controller
 
         return view('dashboard.jobs.completed_jobs', compact('jobs'));
     }
+
+    public function create()
+    {
+        $categories = Industry::get();
+        $budgetTypes = JobBudget::get();
+        return view('dashboard.post_job', compact('categories', 'budgetTypes'));
+    }
+
+    public function store(Request $request){
+        Validator::make($request->all(), [
+            'title' => 'required|string|min:6',
+        ], [])->validate();
+    }
 }

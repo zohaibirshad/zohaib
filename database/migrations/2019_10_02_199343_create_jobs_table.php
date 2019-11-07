@@ -21,8 +21,8 @@ class CreateJobsTable extends Migration
             $table->foreign('profile_id')->references('id')->on('profiles');
             $table->bigInteger('industry_id')->nullable()->unsigned();
             $table->foreign('industry_id')->references('id')->on('industries');
-            $table->integer('country_id')->unsigned()->nullable();
-            $table->foreign('country_id')->references('id')->on('countries');
+            // $table->integer('country_id')->unsigned()->nullable();
+            // $table->foreign('country_id')->references('id')->on('countries');
             $table->integer('job_budget_id')->unsigned()->nullable();
             $table->foreign('job_budget_id')->references('id')->on('job_budgets');
             $table->string('title')->nullable();

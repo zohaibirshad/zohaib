@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/settings';
+    protected $redirectTo = '/browse-jobs';
 
     /**
      * Create a new controller instance.
