@@ -107,7 +107,7 @@
 					<div class="header-notifications user-menu">
 						<div class="header-notifications-trigger">
 							<a href="#"><div class="user-avatar status-online">
-								@if (sizeof(Auth::user()->profile->media) == 0)
+								@if (sizeof(Auth::user()->profile->getMedia('profile')) == 0)
 									<img src="{{ asset('assets/images/user-avatar-small-01.jpg') }}" alt=""></div>
 								@else
 									<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') }}" alt=""/> </div>

@@ -11,7 +11,7 @@
 				<div class="single-page-header-inner">
 					<div class="left-side">
 						<div class="header-image freelancer-avatar">
-                            @if (sizeof($freelancer->media) == 0)
+                            @if (sizeof($freelancer->getMedia('profile')) == 0)
                              <img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
                             @else
                                 <img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> </div>

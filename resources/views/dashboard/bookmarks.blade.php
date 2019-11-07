@@ -76,7 +76,7 @@
 									<div class="verified-badge"></div>
 									@endif
 									<a href="{{ route('freelancers.show', $bookmark->freelancer->id) }}">
-									@if (sizeof($bookmark->freelancer->media) == 0)
+									@if (sizeof($bookmark->freelancer->getMedia('profile')) == 0)
 										<img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
 									@else
 										<img src="{{ $bookmark->freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/>

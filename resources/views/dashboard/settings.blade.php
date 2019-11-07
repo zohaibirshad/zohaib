@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-auto">
                         <div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
-                           @if (sizeof($user->media) == 0)
+                           @if (sizeof($user->getMedia('profile')) == 0)
                             <img class="profile-pic" src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="" />
                            @else
                            <img class="profile-pic" src="{{ $user->getFirstMediaUrl('profile') }}" alt="" /> 
@@ -120,7 +120,7 @@
             
 
             <div class="content">
-                <form method="post" action="/update_freelancer_info">
+                <form method="post" action="/update_freelancer_info" enctype="multipart/form-data">
                     @csrf
                     <ul class="fields-ul">
                     <li>
@@ -174,22 +174,19 @@
                                     
                                     <!-- Attachments -->
                                     <div class="attachments-container margin-top-0 margin-bottom-0">
-                                        <div class="attachment-box ripple-effect">
-                                            <span>Cover Letter</span>
-                                            <i>PDF</i>
-                                            <button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
-                                        </div>
-                                        <div class="attachment-box ripple-effect">
-                                            <span>Contract</span>
-                                            <i>DOCX</i>
-                                            <button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
-                                        </div>
+                                        @foreach ($user->getMedia('cv') as $file)
+                                            <div class="attachment-box ripple-effect">
+                                                <span class="text-capitalize">{{ $file->name }} </span>
+                                                <i class="text-uppercase">{{ $file->extension }}</i>
+                                                <button type="button" class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
+                                            </div> 
+                                        @endforeach
                                     </div>
                                     <div class="clearfix"></div>
                                     
                                     <!-- Upload Button -->
                                     <div class="uploadButton margin-top-0">
-                                        <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" multiple/>
+                                        <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" name="documents[]" multiple/>
                                         <label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
                                         <span class="uploadButton-file-name">Maximum file size: 10 MB</span>
                                     </div>

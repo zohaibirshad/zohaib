@@ -113,6 +113,9 @@ class AccountController extends Controller
 
         Validator::make($request->all(), [
             'rate' => 'required',
+            'headline' => 'required',
+            'description' => 'required',
+            'documents.*' => 'file|max:10240'
         ], [])->validate();
 
         try {
@@ -126,8 +129,17 @@ class AccountController extends Controller
 
             $profile->save();
 
+
+            if ($request->hasFile('documents')) {
+                $profile
+                    ->addMultipleMediaFromRequest(['documents'])
+                    ->each(function ($fileAdder) {
+                        $fileAdder->toMediaCollection('cv');
+                    });
+            }
+
             DB::commit();
-            return redirect()->back()->with('success', 'Profile updated successfully');
+            return back()->with('success', 'Profile updated successfully');
         } catch (\Exception $e) {
             Log::error($e->getMessage(), [
                 "code" => $e->getCode(),
