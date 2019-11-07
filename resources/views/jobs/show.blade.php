@@ -161,7 +161,7 @@
 
 							<!-- Price Slider -->
 							<div class="bidding-value">$<span id="biddingVal"></span></div>
-							<input class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="2500" data-slider-max="4500" data-slider-value="auto" data-slider-step="50" data-slider-tooltip="hide" />
+							<input class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="{{ $job->max_budget / 2 }}" data-slider-max="{{ $job->max_budget }}" data-slider-value="auto" data-slider-step="50" data-slider-tooltip="hide" />
 							
 							<!-- Headline -->
 							<span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
@@ -196,9 +196,7 @@
 				<!-- Sidebar Widget -->
 				<div class="sidebar-widget">
 					<h3>Bookmark or Share</h3>
-
-					<!-- Bookmark Button -->
-					<button class="bookmark-button margin-bottom-25">
+					<button class="bookmark-button margin-bottom-25 {{ $isBookmakedByUser == 1 ? 'bookmarked' : '' }}" onclick="bookmark({{ $job->id }})">
 						<span class="bookmark-icon"></span>
 						<span class="bookmark-text">Bookmark</span>
 						<span class="bookmarked-text">Bookmarked</span>
@@ -230,4 +228,23 @@
 
 	</div>
 </div>
+
+<script>
+	function bookmark(id){
+		axios.post('bookmarks-toggle-api', {
+			job_id: id,
+		})
+        .then(response => {
+            Snackbar.show({
+				text: response.data.message,
+				pos: 'bottom-center',
+				showAction: false,
+				actionText: "Dismiss",
+				duration: 3000,
+				textColor: '#fff',
+				backgroundColor: '#383838'
+			}); 
+        });
+	}
+</script>
 @endsection

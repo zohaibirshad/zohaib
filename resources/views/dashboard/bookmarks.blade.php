@@ -4,8 +4,9 @@
 @section('content')
 
 <!-- Row -->
-<div class="row">
+<div class="row" id="app">
 
+	@role('freelancer')
 	<!-- Dashboard Box -->
 	<div class="col-xl-12">
 		<div class="dashboard-box margin-top-0">
@@ -17,11 +18,42 @@
 
 			<div class="content">
 				<ul class="dashboard-box-list">
-                </ul>
+					@forelse ($bookmarks as $bookmark)
+					<li>
+						<!-- Overview -->
+						<div class="freelancer-overview">
+							<div class="freelancer-overview-inner">
+								<h4 class="font-weight-bold">
+									<a href="{{ route('jobs.show', $bookmark->job->slug) }}">{{ $bookmark->job->title ?? "" }} 
+									</a>
+								</h4>
+							</div>
+						</div>
+
+						<!-- Buttons -->
+						<div class="buttons-to-right">
+							<a href="{{ route("bookmarks.destroy", $bookmark->id) }}" onclick="event.preventDefault();
+									if(confirm('Are you sure you want to delete?')){document.getElementById('remove-form').submit();}" 
+									class="button red ripple-effect ico" title="Remove" data-tippy-placement="left">
+								<i class="icon-feather-trash-2"></i>
+							</a>
+
+							<form id="remove-form" method="post" action="{{ route("bookmarks.destroy", $bookmark->id) }}" style="display: none;">
+								@method("delete")
+                            	@csrf
+                            </form>
+						</div>
+					</li>
+					@empty
+						<p class="text-center text-muted py-5">Bookmarks Empty</p>
+					@endforelse
+				</ul>
 			</div>
 		</div>
 	</div>
+	@endrole
 
+	@role('hirer')
 	<!-- Dashboard Box -->
 	<div class="col-xl-12">
 		<div class="dashboard-box">
@@ -33,19 +65,28 @@
 
 			<div class="content">
 				<ul class="dashboard-box-list">
+					@forelse ($bookmarks as $bookmark)
 					<li>
 						<!-- Overview -->
 						<div class="freelancer-overview">
 							<div class="freelancer-overview-inner">
 								<!-- Avatar -->
 								<div class="freelancer-avatar">
+									@if($bookmark->freelancer->verified == 1)
 									<div class="verified-badge"></div>
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></a>
+									@endif
+									<a href="{{ route('freelancers.show', $bookmark->freelancer->id) }}">
+									@if (sizeof($bookmark->freelancer->media) == 0)
+										<img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+									@else
+										<img src="{{ $bookmark->freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> </div>
+									@endif
+									</a>
 								</div>
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="#">David Peterson <img class="flag" src="{{ asset('assets/images/flags/de.svg') }}" alt="" title="Germany" data-tippy-placement="top"></a></h4>
-									<span>iOS Expert + Node Dev</span>
+									<h4><a href="{{ route('freelancers.show', $bookmark->freelancer->id) }}">{{ $bookmark->freelancer->name ?? "" }} <img class="flag" src="{{ asset('assets/images/flags/'.$bookmark->freelancer->country->code.'.svg') }}" alt="" title="{{ $bookmark->freelancer->country->name }}" data-tippy-placement="top"></a></h4>
+									<span>{{ $bookmark->freelancer->headline ?? "" }}</span>
 									<!-- Rating -->
 									<div class="freelancer-rating">
 										<div class="star-rating" data-rating="4.2"></div>
@@ -56,38 +97,26 @@
 
 						<!-- Buttons -->
 						<div class="buttons-to-right">
-							<a href="#" class="button red ripple-effect ico" title="Remove" data-tippy-placement="left"><i class="icon-feather-trash-2"></i></a>
+							<a href="{{ route("bookmarks.destroy", $bookmark->id) }}" onclick="event.preventDefault();
+									document.getElementById('remove-form').submit();" 
+									class="button red ripple-effect ico" title="Remove" data-tippy-placement="left">
+								<i class="icon-feather-trash-2"></i>
+							</a>
+
+							<form id="remove-form" method="post" action="{{ route("bookmarks.destroy", $bookmark->id) }}" style="display: none;">
+								@method("delete")
+                            	@csrf
+                            </form>
 						</div>
 					</li>
-					<li>
-						<!-- Overview -->
-						<div class="freelancer-overview">
-							<div class="freelancer-overview-inner">
-								
-								<!-- Avatar -->
-								<div class="freelancer-avatar">
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></a>
-								</div>
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">Marcin Kowalski <img class="flag" src="{{ asset('assets/images/flags/pl.svg') }}" alt="" title="Poland" data-tippy-placement="top"></a></h4>
-									<span>Front-End Developer</span>
-									<!-- Rating -->
-									<div class="freelancer-rating">
-										<div class="star-rating" data-rating="4.7"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Buttons -->
-						<div class="buttons-to-right">
-							<a href="#" class="button red ripple-effect ico" title="Remove" data-tippy-placement="left"><i class="icon-feather-trash-2"></i></a>
-						</div>
-					</li>
+					@empty
+						<p class="text-center text-muted py-5">Bookmarks Empty</p>
+					@endforelse
 				</ul>
 			</div>
 		</div>
 	</div>
+	@endrole
 
 </div>
 <!-- Row / End -->

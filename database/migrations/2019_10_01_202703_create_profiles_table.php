@@ -27,7 +27,7 @@ class CreateProfilesTable extends Migration
             $table->string('city')->nullable();
             $table->Integer('country_id')->index()->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('countries');            
-            $table->string('verified')->default(0)->nullable();
+            $table->integer('verified')->default(0)->nullable();
             $table->decimal('rate', 13, 2)->nullable();
             $table->string('featured')->nullable();
             $table->json('options')->nullable();

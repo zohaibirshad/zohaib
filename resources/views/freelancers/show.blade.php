@@ -10,7 +10,13 @@
 			<div class="col-md-12">
 				<div class="single-page-header-inner">
 					<div class="left-side">
-						<div class="header-image freelancer-avatar"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></div>
+						<div class="header-image freelancer-avatar">
+                            @if (sizeof($freelancer->media) == 0)
+                             <img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+                            @else
+                                <img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> </div>
+                            @endif	
+                        </div>
 						<div class="header-details">
 							<h3>{{ $freelancer->name ?? "" }} <span>{{ $freelancer->headline }}</span></h3>
 							<ul>
@@ -270,7 +276,7 @@
                         <h3>Bookmark</h3>
     
                         <!-- Bookmark Button -->
-                        <button class="bookmark-button margin-bottom-25">
+                        <button class="bookmark-button margin-bottom-25 {{ $isBookmakedByUser == 1 ? 'bookmarked' : '' }}" onclick="bookmark({{ $freelancer->id }})">
                             <span class="bookmark-icon"></span>
                             <span class="bookmark-text">Bookmark</span>
                             <span class="bookmarked-text">Bookmarked</span>
@@ -354,4 +360,23 @@
 	</div>
 </div>
 <!-- Recruit Me Popup / End -->
+
+<script>
+        function bookmark(id){
+            axios.post('bookmarks-toggle-api', {
+                profile_id: id,
+            })
+            .then(response => {
+                Snackbar.show({
+                    text: response.data.message,
+                    pos: 'bottom-center',
+                    showAction: false,
+                    actionText: "Dismiss",
+                    duration: 3000,
+                    textColor: '#fff',
+                    backgroundColor: '#383838'
+                }); 
+            });
+        }
+    </script>
 @endsection

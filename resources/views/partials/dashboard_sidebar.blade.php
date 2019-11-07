@@ -23,8 +23,8 @@
 							<li class="{{ (request()->is('messages')) ? 'active' : '' }}">
 								<a href="{{ route('messages') }}"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a>
 							</li>
-							<li class="{{ (request()->is('bookmarks')) ? 'active' : '' }}">
-								<a href="{{ route('bookmarks') }}"><i class="icon-material-outline-star-border"></i> Bookmarks </a>
+							<li class="{{ (request()->is('bookmarks.index')) ? 'active' : '' }}">
+								<a href="{{ route('bookmarks.index') }}"><i class="icon-material-outline-star-border"></i> Bookmarks </a>
 							</li>
 							<li class="{{ (request()->is('reviews')) ? 'active' : '' }}">
 								<a href="{{ route('reviews') }}"><i class="icon-material-outline-rate-review"></i> Reviews</a>

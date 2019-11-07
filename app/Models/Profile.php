@@ -33,6 +33,10 @@ class Profile extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(100)
             ->height(100)->performOnCollections('profile');
+
+        $this->addMediaConversion('big')
+            ->width(300)
+            ->height(300)->performOnCollections('profile');
     }
 
     public function user()

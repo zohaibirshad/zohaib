@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bid;
+use App\Models\Bookmark;
 use App\Models\Job;
 use App\Models\Skill;
 use App\Models\Country;
@@ -294,7 +295,9 @@ class JobsController extends Controller
             abort(404);
         }
 
-        return view('jobs.show', compact('job', 'bids'));
+        $isBookmakedByUser = Bookmark::where(['job_id' => $job->id, 'user_id' => Auth::id()])->exists();
+
+        return view('jobs.show', compact('job', 'bids', 'isBookmakedByUser'));
     }
 
     public function ongoing_jobs()

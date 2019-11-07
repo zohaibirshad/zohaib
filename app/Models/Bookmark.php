@@ -22,9 +22,9 @@ class Bookmark extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    public function profile()
+    public function freelancer()
     {
-        return $this->belongsTo('App\Models\Profile');
+        return $this->belongsTo('App\Models\Profile', 'profile_id');
     }
     public function job()
     {

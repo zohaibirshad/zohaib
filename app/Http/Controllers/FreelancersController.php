@@ -154,7 +154,10 @@ class FreelancersController extends Controller
         if (empty($freelancer)) {
             abort(404);
         }
-        return view('freelancers.show', compact('freelancer', 'jobs'));
+
+        $isBookmakedByUser = Bookmark::where(['profile_id' => $freelancer->id, 'user_id' => Auth::id()])->exists();
+
+        return view('freelancers.show', compact('freelancer', 'jobs', 'isBookmakedByUser'));
     }
 
 

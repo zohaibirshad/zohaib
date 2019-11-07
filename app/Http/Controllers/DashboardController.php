@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
 use App\Models\Country;
 use App\Models\Invite;
 use App\Models\Job;

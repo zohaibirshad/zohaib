@@ -108,6 +108,9 @@ Route::group(['middleware' => ['auth']], function () {
     // Both Freelancer and Hirer
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('invites', 'DashboardController@invites')->name('invites');
+    Route::resource('bookmarks', 'BookmarksController')->only(['index', 'destroy']);
+    Route::post('jobs/bookmarks-toggle-api', 'BookmarksController@toggle_api');
+    Route::post('freelancers/bookmarks-toggle-api', 'BookmarksController@toggle_api');
 
     Route::get('messages', function () {
         return view('dashboard.messages');
@@ -116,10 +119,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('reviews', function () {
         return view('dashboard.reviews');
     })->name('reviews');
-
-    Route::get('bookmarks', function () {
-        return view('dashboard.bookmarks');
-    })->name('bookmarks');
 
     Route::get('settings', 'DashboardController@settings')->name('settings');
 

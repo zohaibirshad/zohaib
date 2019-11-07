@@ -41,7 +41,6 @@ class Job extends Model implements HasMedia
         });
     }
 
-
     public function getCreatedAtAttribute()
     {
         return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
