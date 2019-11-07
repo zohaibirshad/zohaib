@@ -9,6 +9,10 @@
   display: none !important;
 }
 
+.fit {
+  object-fit: cover !important;
+}
+
 .submit-field .zindex-high {
   overflow: visible;
 }

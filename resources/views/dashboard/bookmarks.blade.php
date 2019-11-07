@@ -79,7 +79,7 @@
 									@if (sizeof($bookmark->freelancer->media) == 0)
 										<img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
 									@else
-										<img src="{{ $bookmark->freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> </div>
+										<img src="{{ $bookmark->freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/>
 									@endif
 									</a>
 								</div>
