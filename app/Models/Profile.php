@@ -22,6 +22,8 @@ class Profile extends Model implements HasMedia
         'updated_at' => 'datetime',
     ];
 
+    protected $fillable = ['name', 'email', 'type'];
+
     public function registerMediaCollections()
     {
         $this->addMediaCollection('profile');

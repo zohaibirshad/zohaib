@@ -123,7 +123,7 @@
 
 								<!-- User Name / Avatar -->
 								<div class="user-details">
-									<div class="user-avatar status-online"><img src="{{ asset('assets/images/user-avatar-small-01.jpg') }}" alt=""></div>
+									<div class="user-avatar status-online"><img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') ?? asset('assets/images/user-avatar-small-01.jpg')  }}" alt=""/></div>
 									<div class="user-name">
 										{{ Auth::user()->name }} <span class="text-capitalize">{{ Auth::user()->profile->type }}</span>
 									</div>
