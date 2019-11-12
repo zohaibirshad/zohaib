@@ -153,42 +153,58 @@
 				@role('freelancer')
 				<div class="sidebar-widget">
 					<div class="bidding-widget">
-						<div class="bidding-headline"><h3>Bid on this job!</h3></div>
-						<div class="bidding-inner">
+						<div>@include('partials.alert')</div>
+						@if(!$hasPlacedBid)
+						<div>
+							<div class="bidding-headline"><h3>Bid on this job!</h3></div>
+							<div class="bidding-inner">
 
-							<!-- Headline -->
-							<span class="bidding-detail">Set your <strong>minimal rate</strong></span>
+								<!-- Headline -->
+								<span class="bidding-detail">Set your <strong>minimal rate</strong></span>
 
-							<!-- Price Slider -->
-							<div class="bidding-value">$<span id="biddingVal"></span></div>
-							<input class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="{{ $job->max_budget / 2 }}" data-slider-max="{{ $job->max_budget }}" data-slider-value="auto" data-slider-step="50" data-slider-tooltip="hide" />
-							
-							<!-- Headline -->
-							<span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
+								<form method="post" action="/make_bid/{{ $job->uuid }}">
+									@csrf
+									<!-- Price Slider -->
+									<div class="bidding-value">$<span id="biddingVal"></span></div>
+									<input class="bidding-slider" name="rate" type="text" value="{{  $job->min_budget }}" data-slider-handle="custom" data-slider-currency="$" data-slider-min="{{ $job->min_budget }}" data-slider-max="{{ $job->max_budget }}" data-slider-value="auto" data-slider-step="10" data-slider-tooltip="hide" />
+									
+									<!-- Headline -->
+									<span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
 
-							<!-- Fields -->
-							<div class="bidding-fields">
-								<div class="bidding-field">
-									<!-- Quantity Buttons -->
-									<div class="qtyButtons">
-										<div class="qtyDec"></div>
-										<input type="text" name="qtyInput" value="1">
-										<div class="qtyInc"></div>
+									<!-- Fields -->
+									<div class="bidding-fields">
+										<div class="bidding-field">
+											<!-- Quantity Buttons -->
+											<div class="qtyButtons">
+												<div class="qtyDec"></div>
+												<input type="text" name="delivery_time" value="1">
+												<div class="qtyInc"></div>
+											</div>
+										</div>
+										<div class="bidding-field">
+											<select class="selectpicker default" name="delivery_type">
+												<option value="days" selected>Days</option>
+												<option value="hours">Hours</option>
+											</select>
+										</div>
 									</div>
-								</div>
-								<div class="bidding-field">
-									<select class="selectpicker default">
-										<option selected>Days</option>
-										<option>Hours</option>
-									</select>
-								</div>
+
+									<!-- Button -->
+									<button type="submit" id="snackbar-place-bid" class="button ripple-effect move-on-hover full-width margin-top-30">
+										<span>Place a Bid</span>
+									</button>
+								</form>
 							</div>
-
-							<!-- Button -->
-							<button id="snackbar-place-bid" class="button ripple-effect move-on-hover full-width margin-top-30"><span>Place a Bid</span></button>
-
-						</div>
 						{{-- <div class="bidding-signup">Don't have an account? <a href="#sign-in-dialog" class="register-tab sign-in popup-with-zoom-anim">Sign Up</a></div> --}}
+						</div>
+						@else
+						<div class="notification primary">
+								<p class="text-center" >
+									You have already bid for this job
+								</p>
+								<a class="close" href="#"></a>
+							</div>
+						@endif
 					</div>
 				</div>
 				@endrole

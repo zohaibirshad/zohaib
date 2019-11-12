@@ -297,8 +297,9 @@ class JobsController extends Controller
         }
 
         $isBookmakedByUser = Bookmark::where(['job_id' => $job->id, 'user_id' => Auth::id()])->exists();
+        $hasPlacedBid = Bid::where(['job_id' => $job->id, 'profile_id' => Auth::id()])->exists();
 
-        return view('jobs.show', compact('job', 'bids', 'isBookmakedByUser'));
+        return view('jobs.show', compact('job', 'bids', 'isBookmakedByUser', 'hasPlacedBid'));
     }
 
     public function ongoing_jobs()
