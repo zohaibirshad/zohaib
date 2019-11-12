@@ -35915,7 +35915,7 @@ var render = function() {
                                       }),
                                       _vm._v(
                                         "\n                    " +
-                                          _vm._s(job.city) +
+                                          _vm._s(job.country.name) +
                                           "\n                  "
                                       )
                                     ]),
