@@ -135,13 +135,13 @@
                     </h4>
                     <span>{{ freelancer.headline }}</span>
                     <!-- Rating -->
-                    <!-- <div class="freelancer-rating" v-if="freelancer.rate != null">
-                      <div class="star-rating" data-rating="4.9"></div>
+                    <div class="freelancer-rating" v-if="freelancer.rating > 0">
+                      <div class="star-rating" :data-rating="freelancer.rating"></div>
                     </div>
                     <span
                       class="company-not-rated margin-bottom-5"
-                      v-if="freelancer.rate == null"
-                    >Minimum of 3 votes required</span>-->
+                      v-if="freelancer.rating == 0 || freelancer.rating == null"
+                    >Minimum of 1 vote required</span>
                   </div>
                 </div>
               </div>
@@ -163,7 +163,7 @@
                     </li>
                     <li>
                       Job Success
-                      <strong>95%</strong>
+                      <strong>{{ freelancer.completion_rate }}%</strong>
                     </li>
                   </ul>
                 </div>

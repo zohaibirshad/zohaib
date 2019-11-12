@@ -81,16 +81,17 @@ class Job extends Resource
             ->sortable(),  
             BelongsTo::make('Freelancer', 'profile', 'App\Nova\Profile')
             ->searchable()
+            ->nullable()
             ->sortable(),    
             Text::make( __('Title'),  'title')
             ->sortable(),       
-            Trix::make( __('Description'),  'description')
+            Textarea::make( __('Description'),  'description')
             ->withFiles('public'), 
             Select::make( __('Budget Type'),  'budget_type')
             ->sortable()
             ->options([
                 'fixed' => 'Fixed',
-                'hour' => 'Hour',
+                'hourly' => 'Hour',
             ]),
             Text::make( __('Max Budget'),  'max_budget')
             ->sortable(), 
@@ -99,7 +100,7 @@ class Job extends Resource
             BelongsTo::make('Industry')
             ->searchable()
             ->sortable(),
-            BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->options(\App\Models\Skill::all())->nullable(),
+            BelongsToManyField::make('Skills', 'skills', 'App\Nova\Skill')->optionsLabel('title')->nullable()->hideFromIndex(),
             Select::make( __('Status'),  'status')
             ->sortable()
             ->options([
@@ -139,7 +140,7 @@ class Job extends Resource
                 'type' => 'project files',
             ]),
             MorphMany::make('Reviews'),
-            HasMany::make('Bid'),
+            HasMany::make('Bids'),
             Notes::make('Notes','notes')->onlyOnDetail(),
 
             ];

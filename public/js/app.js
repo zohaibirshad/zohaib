@@ -2726,7 +2726,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".lds-spinner[data-v-8aebcde8] {\n  color: #ea7c11;\n  display: inline-block;\n  position: relative;\n  width: 64px;\n  height: 64px;\n}\n.lds-spinner div[data-v-8aebcde8] {\n  transform-origin: 32px 32px;\n  -webkit-animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n          animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n}\n.lds-spinner div[data-v-8aebcde8]:after {\n  content: \" \";\n  display: block;\n  position: absolute;\n  top: 3px;\n  left: 29px;\n  width: 5px;\n  height: 14px;\n  border-radius: 20%;\n  background: #ea7c11;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(1) {\n  transform: rotate(0deg);\n  -webkit-animation-delay: -1.1s;\n          animation-delay: -1.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(2) {\n  transform: rotate(30deg);\n  -webkit-animation-delay: -1s;\n          animation-delay: -1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(3) {\n  transform: rotate(60deg);\n  -webkit-animation-delay: -0.9s;\n          animation-delay: -0.9s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(4) {\n  transform: rotate(90deg);\n  -webkit-animation-delay: -0.8s;\n          animation-delay: -0.8s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(5) {\n  transform: rotate(120deg);\n  -webkit-animation-delay: -0.7s;\n          animation-delay: -0.7s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(6) {\n  transform: rotate(150deg);\n  -webkit-animation-delay: -0.6s;\n          animation-delay: -0.6s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(7) {\n  transform: rotate(180deg);\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(8) {\n  transform: rotate(210deg);\n  -webkit-animation-delay: -0.4s;\n          animation-delay: -0.4s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(9) {\n  transform: rotate(240deg);\n  -webkit-animation-delay: -0.3s;\n          animation-delay: -0.3s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(10) {\n  transform: rotate(270deg);\n  -webkit-animation-delay: -0.2s;\n          animation-delay: -0.2s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(11) {\n  transform: rotate(300deg);\n  -webkit-animation-delay: -0.1s;\n          animation-delay: -0.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(12) {\n  transform: rotate(330deg);\n  -webkit-animation-delay: 0s;\n          animation-delay: 0s;\n}\n@-webkit-keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\n@keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\r\n", ""]);
+exports.push([module.i, ".lds-spinner[data-v-8aebcde8] {\n  color: #ea7c11;\n  display: inline-block;\n  position: relative;\n  width: 64px;\n  height: 64px;\n}\n.lds-spinner div[data-v-8aebcde8] {\n  transform-origin: 32px 32px;\n  -webkit-animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n          animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n}\n.lds-spinner div[data-v-8aebcde8]:after {\n  content: \" \";\n  display: block;\n  position: absolute;\n  top: 3px;\n  left: 29px;\n  width: 5px;\n  height: 14px;\n  border-radius: 20%;\n  background: #ea7c11;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(1) {\n  transform: rotate(0deg);\n  -webkit-animation-delay: -1.1s;\n          animation-delay: -1.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(2) {\n  transform: rotate(30deg);\n  -webkit-animation-delay: -1s;\n          animation-delay: -1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(3) {\n  transform: rotate(60deg);\n  -webkit-animation-delay: -0.9s;\n          animation-delay: -0.9s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(4) {\n  transform: rotate(90deg);\n  -webkit-animation-delay: -0.8s;\n          animation-delay: -0.8s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(5) {\n  transform: rotate(120deg);\n  -webkit-animation-delay: -0.7s;\n          animation-delay: -0.7s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(6) {\n  transform: rotate(150deg);\n  -webkit-animation-delay: -0.6s;\n          animation-delay: -0.6s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(7) {\n  transform: rotate(180deg);\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(8) {\n  transform: rotate(210deg);\n  -webkit-animation-delay: -0.4s;\n          animation-delay: -0.4s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(9) {\n  transform: rotate(240deg);\n  -webkit-animation-delay: -0.3s;\n          animation-delay: -0.3s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(10) {\n  transform: rotate(270deg);\n  -webkit-animation-delay: -0.2s;\n          animation-delay: -0.2s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(11) {\n  transform: rotate(300deg);\n  -webkit-animation-delay: -0.1s;\n          animation-delay: -0.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(12) {\n  transform: rotate(330deg);\n  -webkit-animation-delay: 0s;\n          animation-delay: 0s;\n}\n@-webkit-keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\n@keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -34866,9 +34866,9 @@ var render = function() {
                                 { staticClass: "blog-item-tag shadow-lg" },
                                 [
                                   _vm._v(
-                                    "\r\n                                        " +
+                                    "\n                                        " +
                                       _vm._s(cat.title) +
-                                      "\r\n                                    "
+                                      "\n                                    "
                                   )
                                 ]
                               ),
@@ -34974,9 +34974,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\r\n                                        " +
+                              "\n                                        " +
                                 _vm._s(category.title) +
-                                "\r\n                                    "
+                                "\n                                    "
                             )
                           ]
                         )
@@ -35010,9 +35010,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\r\n                                        " +
+                              "\n                                        " +
                                 _vm._s(tag.title) +
-                                "\r\n                                    "
+                                "\n                                    "
                             )
                           ]
                         )
@@ -35408,7 +35408,34 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("span", [
                                   _vm._v(_vm._s(freelancer.headline))
-                                ])
+                                ]),
+                                _vm._v(" "),
+                                freelancer.rating > 0
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "freelancer-rating" },
+                                      [
+                                        _c("div", {
+                                          staticClass: "star-rating",
+                                          attrs: {
+                                            "data-rating": freelancer.rating
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                freelancer.rating == 0 ||
+                                freelancer.rating == null
+                                  ? _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "company-not-rated margin-bottom-5"
+                                      },
+                                      [_vm._v("Minimum of 1 vote required")]
+                                    )
+                                  : _vm._e()
                               ])
                             ]
                           )
@@ -35448,7 +35475,16 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(0, true)
+                                _c("li", [
+                                  _vm._v(
+                                    "\n                    Job Success\n                    "
+                                  ),
+                                  _c("strong", [
+                                    _vm._v(
+                                      _vm._s(freelancer.completion_rate) + "%"
+                                    )
+                                  ])
+                                ])
                               ])
                             ]
                           ),
@@ -35503,17 +35539,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _vm._v("\n                    Job Success\n                    "),
-      _c("strong", [_vm._v("95%")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -35915,7 +35941,11 @@ var render = function() {
                                       }),
                                       _vm._v(
                                         "\n                    " +
-                                          _vm._s(job.city) +
+                                          _vm._s(
+                                            job.country == "null"
+                                              ? "N/A"
+                                              : job.country.name
+                                          ) +
                                           "\n                  "
                                       )
                                     ]),
@@ -50060,8 +50090,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

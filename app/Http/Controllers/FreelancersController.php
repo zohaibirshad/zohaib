@@ -41,8 +41,8 @@ class FreelancersController extends Controller
         $maxHourlyRate = $request->max_hourly_rate;
 
 
-        $freelancer = Profile::where('type', 'freelancer')->with('skills', 'country', 'reviews', 'jobs', 'jobs_completion')
-            ->when(!empty($keyword), function ($query) use ($keyword) {
+        $freelancer = Profile::where('type', 'freelancer')->with('skills', 'country', 'reviews')
+            ->when(!empty($keyword), function ($query) use ($keyword) { 
                 $query->where('name', 'LIKE', "%$keyword%");
             })
             ->when(!empty($skills), function ($query) use ($skills) {
@@ -74,6 +74,8 @@ class FreelancersController extends Controller
                 $query->latest();
             })
             ->paginate(20);
+
+
 
         return response()->json($freelancer);
     }
@@ -146,10 +148,10 @@ class FreelancersController extends Controller
     public function show($id)
     {
 
-        $freelancer = Profile::with('skills', 'country', 'reviews', 'jobs', 'jobs_completion', 'social_links')
+        $freelancer = Profile::with('skills', 'country', 'reviews', 'jobs_completion', 'social_links')
         ->find($id);
 
-        $jobs = Job::where('status', 'not assigned')->where('user_id', Auth::id())->get();
+        $jobs = Job::where('status', 'completed')->where('profile_id', $id)->paginate(5);
 
         if (empty($freelancer)) {
             abort(404);

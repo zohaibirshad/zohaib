@@ -22,6 +22,64 @@ class Profile extends Model implements HasMedia
         'updated_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'completion_rate', 
+        'completion_time_rate', 
+        'completion_budget_rate', 
+        'rating'
+    ];
+
+    public function getCompletionRateAttribute()
+    {
+        $jobs_count = $this->jobs()->count();
+        $jobs_completed = $this->jobs_completion()->count();
+
+        if($jobs_count <= 0 ){
+            return 0;
+        }
+
+        $rate = ($jobs_completed /  $jobs_count) * 100;
+
+         return $rate;
+    }
+
+    public function getCompletionTimeRateAttribute()
+    {
+        $jobs_count = $this->jobs()->count();
+        $jobs_completed = $this->jobs_completion()->where('ontime', 'yes')->count();
+
+        if($jobs_count <= 0 ){
+            return 0;
+        }
+
+        $rate = ($jobs_completed /  $jobs_count) * 100;
+
+         return $rate;
+    }
+
+    public function getCompletionBudgetRateAttribute()
+    {
+        $jobs_count = $this->jobs()->count();
+        $jobs_completed = $this->jobs_completion()->where('onbudget', 'yes')->count();
+
+        if($jobs_count <= 0 ){
+            return 0;
+        }
+
+        $rate = ($jobs_completed /  $jobs_count) * 100;
+
+         return $rate;
+    }
+
+
+    public function getRatingAttribute()
+    {
+        $rating = $this->reviews()->average('rating');
+
+        return $rating;
+    }
+    
+
     protected $fillable = ['name', 'email', 'type'];
 
     public function registerMediaCollections()
@@ -80,6 +138,7 @@ class Profile extends Model implements HasMedia
     {
         return $this->jobs()->where('status', 'completed');
     }
+
 
     /**
      * Get all of the user's reviews.

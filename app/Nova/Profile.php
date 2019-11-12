@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
@@ -74,8 +75,8 @@ class Profile extends Resource
     {
         return [
             Images::make('Profile Picture', 'profile')
-                ->withResponsiveImages()->rules('required'),
-            Files::make('CV', 'cv')
+                ->withResponsiveImages(),
+            Files::make('Supporting Documents', 'cv')
             ->customProperties([
                 'type' => 'cv',
             ]),
@@ -97,8 +98,7 @@ class Profile extends Resource
                 'freelancer' => 'Freelancer',
                 'hirer' => 'Hirer',
             ])->displayUsingLabels(),
-            BelongsToManyField::make('Job Categories', 'industries', 'App\Nova\Industry')->options(\App\Models\Industry::all())->nullable(),
-            BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->options(\App\Models\Skill::all())->nullable(),
+            BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->optionsLabel('title')->nullable()->hideFromIndex(),
             Trix::make( __('Description'),  'description')
             ->hideFromIndex()
             ->withFiles('public'),
@@ -108,24 +108,25 @@ class Profile extends Resource
             ->sortable(),
             Text::make( __('Address'),  'address')
             ->sortable(),
-            Text::make( __('City'),  'city')
+            Place::make( __('City'),  'city')
+            ->onlyCities()
             ->sortable(),
             HasOne::make('Country')
             ->sortable(),
             Select::make( __('Verified'),  'verified')
             ->sortable()
             ->options([
-                'no' => 'No',
-                'yes' => 'Yes',
+                0 => 'No',
+                1 => 'Yes',
             ])->displayUsingLabels(),
             Currency::make( __('Rate'),  'rate')
             ->sortable(),
 
-            HasMany::make('Job'),
+            HasMany::make('Jobs'),
 
-            HasMany::make('SocialLink'),
+            HasMany::make('Social Links'),
 
-            HasMany::make('Bid'),
+            HasMany::make('Bids'),
 
             MorphMany::make('Reviews'),
 
