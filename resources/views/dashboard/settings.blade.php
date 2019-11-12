@@ -68,7 +68,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-6">
+                            {{-- <div class="col-xl-6">
 							 	<!-- Account Type -->
 							 	<div class="submit-field">
 							 		<h5>Account Type</h5>
@@ -83,7 +83,7 @@
 							 			</div>
 							 		</div>
 							 	</div>
-                             </div>
+                             </div> --}}
                              
                              <div class="col-xl-12">
                                 <hr>

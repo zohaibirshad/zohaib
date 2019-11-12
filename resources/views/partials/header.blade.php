@@ -123,19 +123,26 @@
 
 								<!-- User Name / Avatar -->
 								<div class="user-details">
-									<div class="user-avatar status-online"><img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') ?? asset('assets/images/user-avatar-small-01.jpg')  }}" alt=""/></div>
+									<div class="user-avatar status-online">
+										<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') ?? asset('assets/images/user-avatar-small-01.jpg')  }}" alt=""/>
+									</div>
 									<div class="user-name">
 										{{ Auth::user()->name }} <span class="text-capitalize">{{ Auth::user()->profile->type }}</span>
 									</div>
 								</div>
 								
 								<!-- User Status Switcher -->
-								<div class="status-switch" id="snackbar-user-status">
-									<label class="user-online current-status">Freelancer</label>
-									<label class="user-invisible">Hirer</label>
+								<div class="status-switch">
+									<label class="user-online {{ Auth::user()->profile->type == 'freelancer' ? 'current-status' : '' }}">Freelancer</label>
+									<label class="user-invisible {{ Auth::user()->profile->type == 'hirer' ? 'current-status' : '' }}">Hirer</label>
 									<!-- Status Indicator -->
 									<span class="status-indicator" aria-hidden="true"></span>
 								</div>
+
+								<form id="update_role_form" action="/update_role" method="POST" style="display: none;">
+									@csrf
+									<input type="hidden" name="account_type" id="update_role_account_type">
+                                </form>
 						</div>
 						
 						<ul class="user-menu-small-nav">

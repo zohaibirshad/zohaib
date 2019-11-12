@@ -25,7 +25,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/browse-jobs';
+    // protected $redirectTo = '/browse-jobs';
+    public function redirectTo()
+    {
+
+        if(auth()->user()->hasRole('freelancer')){
+            return '/browse-jobs';
+        } else {
+            return '/browse-freelancers';
+        }
+        
+    }
 
     /**
      * Create a new controller instance.
@@ -37,13 +47,13 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-     /**
+    /**
      * Redirect the user to the Provider authentication page.
      *
      * @return \Illuminate\Http\Response
      */
     public function redirectToProvider($provider)
-    { 
+    {
         return Socialite::driver($provider)->redirect();
     }
 
@@ -62,7 +72,7 @@ class LoginController extends Controller
         }
         // check if they're an existing user
         $existingUser = User::where('email', $user->email)->first();
-        if($existingUser){
+        if ($existingUser) {
             // log them in
             auth()->login($existingUser, true);
         } else {
@@ -76,6 +86,5 @@ class LoginController extends Controller
             auth()->login($newUser, true);
         }
         return redirect()->to('/settings');
-
     }
 }

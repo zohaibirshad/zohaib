@@ -28,5 +28,16 @@ $('#snackbar-user-status label').click(function() {
         backgroundColor: '#383838'
     }); 
 }); 
+$('.status-switch label.user-invisible').on('click', function(){
+    // Switch to hirer
+    $('#update_role_account_type').val('hirer');
+    $('#update_role_form').submit();
+});
+
+$('.status-switch label.user-online').on('click', function(){
+    // Switch to freelancer
+    $('#update_role_account_type').val('freelancer');
+    $('#update_role_form').submit();
+});
 </script>
 @stack('custom-scripts')

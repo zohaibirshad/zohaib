@@ -45,6 +45,17 @@ class AccountController extends Controller
         }
     }
 
+    public function update_role(Request $request){
+        $user = User::find(Auth::id()); 
+        $user->syncRoles([$request->account_type]); 
+
+        $profile = Profile::find($user->profile->id);
+        $profile->type = $request->account_type;
+        $profile->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully');
+    }
+
     public function update_basic_info(Request $request)
     {
 
@@ -68,13 +79,13 @@ class AccountController extends Controller
             $user->name = $request->name;
             $user->save();
 
-            $user->syncRoles([$request->account_type]);
+            // $user->syncRoles([$request->account_type]);
 
             $profile = Profile::find($user->profile->id);
             $profile->name = $user->name;
             $profile->email = $user->email;
             $profile->phone = $user->phone;
-            $profile->type = $request->account_type;
+            // $profile->type = $request->account_type;
             $profile->country_id = $request->country_id;
 
             $profile->save();

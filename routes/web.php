@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('update_password', 'AccountController@update_password');
     Route::post('update_basic_info', 'AccountController@update_basic_info');
     Route::post('update_freelancer_info', 'AccountController@update_freelancer_info');
+    Route::post('update_role', 'AccountController@update_role');
 
     // Freelancers
     Route::get('browse-freelancers', 'FreelancersController@index')->name('freelancers.index');
