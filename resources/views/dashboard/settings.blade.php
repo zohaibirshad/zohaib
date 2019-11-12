@@ -172,7 +172,7 @@
                                 <div class="submit-field">
                                     <h5>Attachments</h5>
                                     
-                                    <!-- Attachments -->
+                                    {{-- <!-- Attachments -->
                                     <div class="attachments-container margin-top-0 margin-bottom-0">
                                         @foreach ($user->getMedia('cv') as $file)
                                             <div class="attachment-box ripple-effect">
@@ -182,7 +182,7 @@
                                             </div> 
                                         @endforeach
                                     </div>
-                                    <div class="clearfix"></div>
+                                    <div class="clearfix"></div> --}}
                                     
                                     <!-- Upload Button -->
                                     <div class="uploadButton margin-top-0">
