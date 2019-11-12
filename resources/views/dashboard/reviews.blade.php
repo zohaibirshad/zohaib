@@ -90,6 +90,7 @@
 <!-- Row -->
 <div class="row">
 
+        @role('freelancer')
         <!-- Dashboard Box -->
         <div class="col-xl-6">
             <div class="dashboard-box margin-top-0">
@@ -176,7 +177,9 @@
             <!-- Pagination / End -->
 
         </div>
+        @endrole
 
+        @role('hirer')
         <!-- Dashboard Box -->
         <div class="col-xl-6">
             <div class="dashboard-box margin-top-0">
@@ -219,6 +222,7 @@
                 </div>
             </div>
         </div>
+        @endrole
 
 
     </div>
