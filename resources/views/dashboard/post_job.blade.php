@@ -3,6 +3,9 @@
 
 @section('content')
 <div class="row mb-5 pj-page margin-top-100 margin-bottom-100">
+		<div class="col-sm-12 col-md-6 offset-md-3">
+			@include('partials.alert')
+		</div>
 
 	<!-- Dashboard Box -->
 	<div class="col-sm-12 col-md-6 offset-md-3">
@@ -14,7 +17,7 @@
 			</div>
 
 			<div class="content with-padding padding-bottom-10">
-				<form action="{{ route('jobs.store') }}" method="POST">
+				<form action="{{ route('jobs.store') }}" method="POST" id="post_job_form">
 					@csrf
 					<div class="row form-section" id="section-1">
 						<div class="col-xl-12">
@@ -85,10 +88,41 @@
 					<div class="row d-none animated fadeInUp form-section" id="section-3">
 						<div class="col-xl-12">
 							<div class="submit-field">
+								<h5>Skills <i class="help-icon" data-tippy-placement="right" title="Enter up to 5 skills that best describe your project. Freelancers will use these skills to find projects they are most interested and experienced in."></i></h5>
+								{{-- <div class="keywords-container">
+									<div class="keyword-input-container">
+										<input id="skills" type="text" class="keyword-input with-border" placeholder="e.g. HTML, SQL, React, Java"/>
+										<button class="keyword-input-button ripple-effect" type="button"><i class="icon-material-outline-add"></i></button>
+									</div>
+									<div class="keywords-list"><!-- keywords go here --></div>
+									<div class="clearfix"></div>
+								</div> --}}
+								<select class="selectpicker with-border" name="skills[]" multiple data-live-search="true" id="skills">								
+									@foreach ($skills as $skill)
+										<option value="{{ $skill->id }}">{{ $skill->title }} </option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-xl-12">
+							<div class="submit-field">
+								<h5>Budget Type</h5>
+								<div class="row">
+									<div class="col-xl-12">
+										<select class="selectpicker with-border" id="pricing" name="budget_type">
+											<option value="fixed">Fixed Price</option>
+											<option value="hourly">Hourly Price</option>
+										</select>										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-12">
+							<div class="submit-field">
 								<h5>Estimated Budget</h5>
 								<div class="row">
 									<div class="col-xl-3">
-										<select class="selectpicker with-border" id="currency">
+										<select class="selectpicker with-border" id="currency" name="currency">
 											<option>USD</option>
 											{{--  <option>GHS</option>
 											<option>EUR</option>
@@ -101,7 +135,7 @@
 										</select>
 									</div>
 									<div class="col-xl-9">
-										<select class="selectpicker with-border" id="budget_type">								
+										<select class="selectpicker with-border" id="budget_type_price">								
 											@foreach ($budgetTypes as $budgetType)
 												<option value="{{ $budgetType->id }}">{{ $budgetType->name }} (${{ $budgetType->from }} - {{ $budgetType->to }} USD)</option>
 											@endforeach
@@ -129,19 +163,6 @@
 							</div>
 						</div>
 
-						<div class="col-xl-12">
-							<div class="submit-field">
-								<h5>Skills <span>(e.g. HTML, SQL, React, Java)</span>  <i class="help-icon" data-tippy-placement="right" title="Give a list of skills required to complete the job."></i></h5>
-								<div class="keywords-container">
-									<div class="keyword-input-container">
-										<input id="skills" type="text" class="keyword-input with-border" placeholder="e.g. HTML, SQL, React, Java"/>
-										<button class="keyword-input-button ripple-effect" type="button"><i class="icon-material-outline-add"></i></button>
-									</div>
-									<div class="keywords-list"><!-- keywords go here --></div>
-									<div class="clearfix"></div>
-								</div>
-							</div>
-						</div>
 
 						<div class="col-xl-12">
 							<div class="submit-field">
@@ -158,8 +179,8 @@
 		</div>
 	</div>
 
-	<div class="col-xl-12">
-		<button class="button ripple-effect big margin-top-30 d-none" id="submitBtn"><i class="icon-feather-plus"></i> Post a Job</button>
+	<div class="col-md-6 offset-md-3">
+		<button type="submit" class="button ripple-effect big margin-top-30 d-none" id="submitBtn"><i class="icon-feather-plus"></i> Post a Job</button>
 	</div>
 
 </div>
@@ -168,8 +189,10 @@
 @push('custom-scripts')
     <script>
 		$(document).ready(function(){
+			// Set minMax
+			setMinMaxValues(1);
 			// Dropdown
-			var budgetType = $('#budget_type');
+			var budgetType = $('#budget_type_price');
 			budgetType.on("change", function(){
 				var selected = $(this).find(":selected").val();
 				var customBudgetSection = $('#custom_budget_section');
@@ -189,7 +212,9 @@
 				
 				var minBudget = $('#min_budget');
 				var maxBudget = $('#max_budget');
-				console.log(budgetTypes);
+				var selected = $.grep(budgetTypes, function(e){ return e.id == selectedBudgetType; })[0];
+				minBudget.val(selected.from);
+				maxBudget.val(selected.to);
 			}
 
 			// Button
@@ -199,7 +224,7 @@
 				var csID = closestSection.attr('id');
 				var sectionId = csID.split("-")[1];
 
-				var _isValidSection = true;// isValidSection(sectionId);
+				var _isValidSection = isValidSection(sectionId); // true;// ;
 
 				if(_isValidSection){
 					// Hide BTN 
@@ -211,7 +236,16 @@
 			});
 
 			
-
+			// Listen for submit button click
+			var submitBtn = $('#submitBtn');
+			submitBtn.on("click", function(){
+				var skills = $('#skills').val();
+				if(isEmpty(skills)){
+					showError("Select one of more skills for the job!");
+				} else {
+					$('#post_job_form').submit();
+				}
+			});
 
 
 
@@ -222,32 +256,30 @@
 				// Fields
 				var title = $('#title').val();
 				var description = $('#description').val();
-				var type = $('#type').val();
+
 				var category = $('#category').val();
-				var location = $('.location-field').val();
-				var min = $('#min').val();
-				var category = $('#category').val();
+
+
 				var skills = $('#skills').val();
 
 				if(sectionId == 1){
-					if(isEmpty(title) || isEmpty(description)){
-						showError("The title and description fields are required!");
+					if(isEmpty(title)){
+						showError("The job name is required!");
 						return false;
-					} else {
+					} else if(!isValidLength(title, 6)){
+						showError("The job name should be at least 6 characters");
+					} else if(isEmpty(description)){
+						showError("The job description is required!");
+					} else if(!isValidLength(description, 6)){
+						showError("The job description should be at least 6 characters");
+					}
+					else {
 						return true;
 					}
 				} else if(sectionId == 2){
 
-					if(isEmpty(type) || isEmpty(category) || isEmpty(location)){
-						showError("The job type, category and location fields are required!");
-						return false;
-					} else {
-						return true;
-					}
-				}else if(sectionId == 3){
-					
-					if(isEmpty(min) || isEmpty(max) || isEmpty(skills)){
-						showError("The min, max and skills fields are required!");
+					if(isEmpty(category)){
+						showError("The job category is required!");
 						return false;
 					} else {
 						$('#submitBtn').removeClass('d-none');
@@ -262,10 +294,14 @@
 				return val.length == 0 ? true : false;
 			}
 
+			function isValidLength(field, length){
+				return field.length >= length ? true : false;
+			}
+
 			function showError(message){
 				Snackbar.show({
 					text: message,
-					pos: 'bottom-center',
+					pos: 'top-right',
 					showAction: false,
 					actionText: "Dismiss",
 					duration: 3000,

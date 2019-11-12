@@ -12,6 +12,7 @@ use App\Models\JobBudget;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class JobsController extends Controller
 {
@@ -347,12 +348,42 @@ class JobsController extends Controller
     {
         $categories = Industry::get();
         $budgetTypes = JobBudget::get();
-        return view('dashboard.post_job', compact('categories', 'budgetTypes'));
+        $skills = Skill::get();
+        return view('dashboard.post_job', compact('categories', 'budgetTypes', 'skills'));
     }
 
     public function store(Request $request){
         Validator::make($request->all(), [
             'title' => 'required|string|min:6',
+            'description' => 'required',
+            'industry_id' => 'required',
+            'budget_type' => 'required',
+            'min_budget' => 'required',
+            'max_budget' => 'required',
         ], [])->validate();
+
+        $job = new Job();
+        $job->title = $request->title;
+        $job->description = $request->description;
+        $job->industry_id = $request->industry_id;
+        $job->budget_type = $request->budget_type;
+        $job->min_budget = $request->min_budget;
+        $job->max_budget = $request->max_budget;
+        $job->user_id = Auth::id();
+        $job->status = 'not assigned';
+        $job->country_id = Auth::user()->profile->country_id;
+        $job->save();
+
+        $job->skills()->sync($request->skills);
+
+        if ($request->hasFile('documents')) {
+            $job
+                ->addMultipleMediaFromRequest($request->file('documents'))
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection('project_files');
+            });
+        }
+
+        return redirect()->back()->with('success', 'Job created successfully!');
     }
 }
