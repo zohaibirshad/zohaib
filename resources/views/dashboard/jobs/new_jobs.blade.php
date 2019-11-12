@@ -24,7 +24,7 @@
 
                             <!-- Details -->
                             <div class="job-listing-description">
-                                <h3 class="job-listing-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a></h3>
+                                <h3 class="job-listing-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
 
                                 <!-- Job Listing Footer -->
                                 {{-- <div class="job-listing-footer">
@@ -39,12 +39,12 @@
                     <!-- Task Details -->
                     <ul class="dashboard-task-info">
                         <li><strong>
-                            ${{ number_format($job->job_budget->from) }} 
-                            @if($job->job_budget->from != $job->job_budget->to) 
-                            - ${{ number_format($job->job_budget->to) }} 
+                            ${{ number_format($job->min_budget) }} 
+                            @if($job->min_budget != $job->max_budget) 
+                            - ${{ number_format($job->min_budget) }} 
                             @endif
                         </strong><span class="text-capitalize">
-                            {{ $job->job_budget->type }} Rate</span></li>
+                            {{ $job->budget_type }} Rate</span></li>
                     </ul>
 
                     <!-- Buttons -->

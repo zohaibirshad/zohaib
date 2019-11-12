@@ -77,6 +77,7 @@ class Milestone extends Resource
             ->sortable(),
             BelongsTo::make('Bid')
             ->searchable()
+            ->nullable()
             ->sortable(),
             Text::make( __('Heading'),  'heading')
             ->sortable(),

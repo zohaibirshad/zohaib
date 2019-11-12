@@ -24,7 +24,7 @@
     
                                     <!-- Details -->
                                     <div class="job-listing-description">
-                                        <h3 class="job-listing-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a> </h3>
+                                        <h3 class="job-listing-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a> </h3>
     
                                         <!-- Job Listing Footer -->
                                         {{-- <div class="job-listing-footer">

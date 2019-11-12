@@ -85,8 +85,7 @@ class Job extends Resource
             ->sortable(),    
             Text::make( __('Title'),  'title')
             ->sortable(),       
-            Textarea::make( __('Description'),  'description')
-            ->withFiles('public'), 
+            Textarea::make( __('Description'),  'description'), 
             Select::make( __('Budget Type'),  'budget_type')
             ->sortable()
             ->options([
@@ -141,6 +140,7 @@ class Job extends Resource
             ]),
             MorphMany::make('Reviews'),
             HasMany::make('Bids'),
+            HasMany::make('Milestones'),
             Notes::make('Notes','notes')->onlyOnDetail(),
 
             ];
