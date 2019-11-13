@@ -309,7 +309,7 @@ class FreelancersController extends Controller
         ]);
 
 
-        $bid = Bid::where('uuid', $bid_uuid)->first();
+        $bid = Bid::find($request->id);
         $bid->rate = $request->rate;
         $bid->delivery_type = $request->delivery_type;
         $bid->delivery_time = $request->delivery_time;

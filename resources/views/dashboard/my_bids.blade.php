@@ -75,15 +75,18 @@
 
 			<!-- Tab -->
 			<div class="popup-tab-content" id="tab">
-						
-					<!-- Bidding -->
-					<div class="bidding-widget">
+
+				<form method="post" action="/edit_bid/{{ $bid->uuid }}">
+					@csrf
+					<input type="hidden" name="id" id="bid_id">	
+				<!-- Bidding -->
+				<div class="bidding-widget">
 						<!-- Headline -->
 						<span class="bidding-detail">Set your <strong>minimal hourly rate</strong></span>
 
 						<!-- Price Slider -->
 						<div class="bidding-value">$<span id="biddingVal"></span></div>
-						<input id="bid_price" class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="10" data-slider-max="60" data-slider-value="40" data-slider-step="1" data-slider-tooltip="hide" />
+						<input name="rate" id="bid_price" class="bidding-slider" type="text" value="300" data-slider-handle="custom" data-slider-currency="$" data-slider-min="10" data-slider-max="1000" data-slider-value="90" data-slider-step="1" data-slider-tooltip="hide" />
 						
 						<!-- Headline -->
 						<span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
@@ -108,8 +111,8 @@
 				</div>
 				
 				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect" type="submit">Save Changes <i class="icon-material-outline-arrow-right-alt"></i></button>
-
+				<button type="submit" class="button full-width button-sliding-icon ripple-effect" type="submit">Save Changes <i class="icon-material-outline-arrow-right-alt"></i></button>
+				</form>
 			</div>
 
 		</div>
@@ -124,8 +127,8 @@
 		$('.edit_bid').click(function(){
 			var _bid = $(this).attr("data-bid");
 			var bid = JSON.parse(_bid);
-			var maxBudget = bid.job.max_budget;
-			var minBudget = bid.job.min_budget;
+			var maxBudget = parseFloat(bid.job.max_budget);
+			var minBudget = parseFloat(bid.job.min_budget);
 			var deliveryTime = bid.delivery_time;
 			var deliveryType = bid.delivery_type;
 			var rate = bid.rate;
@@ -133,17 +136,14 @@
 			// console.log(bid.job);
 			$('#delivery_type').val(deliveryType);
 			$('#delivery_time').val(deliveryTime);
-			//data-slider-min="10" data-slider-max="60" data-slider-value="40"
+			$('#bid_id').val(bid.id);
 
 			var bidPrice = $('#bid_price');
-			bidPrice.attr('data-slider-min', minBudget);
-			bidPrice.attr('data-slider-max', maxBudget);
-			bidPrice.attr('data-slider-value', rate);
-			bidPrice.val(rate);
-
-			$('.bidding-slider').slider();
-
-			console.log($('#bid_price').val());
+			bidPrice.val(parseInt(rate));
+			bidPrice.slider('setAttribute', 'min', minBudget);
+			bidPrice.slider('setAttribute', 'max', maxBudget);
+			$("#biddingVal").text(ThousandSeparator2(parseInt(rate)));
+			$("#biddingVal").text(ThousandSeparator2(parseInt($('.bidding-slider').val())));
 		});
 
 		function ThousandSeparator2(nStr) {
