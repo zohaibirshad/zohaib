@@ -309,10 +309,9 @@ class FreelancersController extends Controller
         $bid->profile_id = $profile->id;
         $bid->job_id = $job->id;
         $bid->rate = $request->rate;
-        // $bid->rate_type = $request->rate_type;
         $bid->delivery_type = $request->delivery_type;
         $bid->delivery_time = $request->delivery_time;
-        // $bid->description = $request->description;
+        $bid->description = $request->description;
         $bid->status = 'pending';
         $bid->save();
 
