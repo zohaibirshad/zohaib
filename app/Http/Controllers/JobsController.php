@@ -285,10 +285,10 @@ class JobsController extends Controller
     public function show($id)
     {
         $job = Job::where('slug', $id)
-            ->with(['owner', 'industry', 'skills', 'job_budget', 'country', 'bids'])
+            ->with(['owner', 'industry', 'skills', 'country', 'bids'])
             ->first();
 
-        $bids = Bid::where('job_id', $id)
+        $bids = Bid::where('job_id', $job->id)
             ->with('profile')
             ->get();
 

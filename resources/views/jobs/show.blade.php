@@ -11,14 +11,20 @@
 			<div class="col-md-12">
 				<div class="single-page-header-inner">
 					<div class="left-side">
-                        <div class="header-image"><a href="#"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a></div>
+						<div class="header-image freelancer-avatar">
+                            @if (sizeof($job->owner->getMedia('profile')) == 0)
+                             <img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+                            @else
+                                <img src="{{ $job->owner->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
+                            @endif	
+                        </div>
 						<div class="header-details">
 							<h3>{{ $job->title }}</h3>
 							<h5>About the Employer</h5>
 							<ul>
-								<li><a href="#"><i class="icon-feather-user"></i>{{$job->owner->name}}</a></li>
-								<li><div class="star-rating" data-rating="5.0"></div></li>
-								<li><img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->country->code.'.svg') }}" alt=""> Ghana</li>
+								<li><a href="#"><i class="icon-feather-user"></i>{{ $job->owner->name }}</a></li>
+								<li><div class="star-rating" data-rating="{{ $job->owner->rating ?? 0 }}"></div></li>
+								<li><img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->country->code.'.svg') }}" alt=""> {{ $job->owner->country->name }}</li>
 								
 								@if($job->owner->verified == 1)
                                 <li><div class="verified-badge-with-title">Verified</div></li>
@@ -57,13 +63,20 @@
 				</div>
 			</div>
 
-			{{-- <!-- Atachments -->
+			 <!-- Atachments -->
 			<div class="single-page-section">
 				<h3>Attachments</h3>
+				@foreach ($job->getMedia('project_files') as $file)
+				<li>
 				<div class="attachments-container">
-					<a href="#" class="attachment-box ripple-effect"><span>Project Brief</span><i>PDF</i></a>
+					<a href="storage/{{ $file->id }}/{{ $file->file_name }}" target="new" class="attachment-box ripple-effect cursor-pointer">
+						<span class="text-capitalize hover:text-white ">{{ $file->name }} </span>
+						<i class="text-uppercase hover:text-white">{{ $file->extension }}</i>
+					</a>
 				</div>
-			</div> --}}
+				@endforeach
+			
+			</div> 
 
 			<!-- Skills -->
 			<div class="single-page-section">
@@ -82,13 +95,18 @@
 					<h3><i class="icon-material-outline-group"></i> Current Bids</h3>
 				</div>
 				<ul class="boxed-list-ul">
+				@foreach($bids as $bid)
 					<li>
 						<div class="bid">
 							<!-- Avatar -->
 							<div class="bids-avatar">
 								<div class="freelancer-avatar">
 									<div class="verified-badge"></div>
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a>
+									@if (sizeof($bid->profile->getMedia('profile')) == 0)
+									<img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+									@else
+										<img src="{{ $bid->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
+									@endif	
 								</div>
 							</div>
 							
@@ -96,48 +114,21 @@
 							<div class="bids-content">
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="#">Tom Smith <img class="flag" src="{{ asset('assets/images/flags/gb.svg') }}" alt="" title="United Kingdom" data-tippy-placement="top"></a></h4>
-									<div class="star-rating" data-rating="4.9"></div>
+									<h4><a href="#"> {{ $bid->profile->name }} <img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->country->code.'.svg') }}"  title="{{ $job->owner->country->name }}" data-tippy-placement="top" alt=""> {{ $job->owner->country->name }} </a></h4>
+									<div class="star-rating" data-rating="{{ $bid->profile->rating ?? 0 }}"></div>
 								</div>
 							</div>
 							
 							<!-- Bid -->
 							<div class="bids-bid">
 								<div class="bid-rate">
-									<div class="rate">$4,400</div>
-									<span>in 7 days</span>
+									<div class="rate">${{ $bid->rate }}</div>
+									<span>in {{ $bid->delivery_time }} {{ $bid->delivery_type }}</span>
 								</div>
 							</div>
 						</div>
 					</li>
-					<li>
-						<div class="bid">
-							<!-- Avatar -->
-							<div class="bids-avatar">
-								<div class="freelancer-avatar">
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
-								</div>
-							</div>
-							
-							<!-- Content -->
-							<div class="bids-content">
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">Marcin Kowalski <img class="flag" src="{{ asset('assets/images/flags/pl.svg') }}" alt="" title="Poland" data-tippy-placement="top"></a></h4>
-									<span class="not-rated">Minimum of 3 votes required</span>
-
-								</div>
-							</div>
-							
-							<!-- Bid -->
-							<div class="bids-bid">
-								<div class="bid-rate">
-									<div class="rate">$3,800</div>
-									<span>In 20 days</span>
-								</div>
-							</div>
-						</div>
-					</li>
+				@endforeach
 				</ul>
 			</div>
 

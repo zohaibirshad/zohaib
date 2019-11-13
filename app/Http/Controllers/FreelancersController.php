@@ -171,7 +171,35 @@ class FreelancersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function review_hirer(Request $request, $job_uuid)
+    public function review_hirer(Request $request, $profile_uuid)
+    {
+        $validateData = $request->validate([
+            'rating' => 'required',
+            'body' => 'nullable',
+        ]);
+
+        $profile = Profile::where('uuid', $profile_uuid)->first();
+
+        $joprofileb->reviews()->create([
+            'user_id' => Auth::user()->id,
+            'rating' => $request->rating,
+            'body' => $request->body
+        ]);
+
+        return response()->json([
+            'status' => "Success",
+            'message' => "Review was saved successfully"
+        ]);
+    }
+
+    /**
+     * Review a Job.
+     *
+     * @param  string  $job_uuid
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function review_job(Request $request, $job_uuid)
     {
         $validateData = $request->validate([
             'rating' => 'required',
