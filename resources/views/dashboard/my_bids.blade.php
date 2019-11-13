@@ -76,7 +76,7 @@
 			<!-- Tab -->
 			<div class="popup-tab-content" id="tab">
 
-				<form method="post" action="/edit_bid/{{ $bid->uuid }}">
+				<form method="post" action="/edit_bid/{{ $bid->uuid ?? ''}}">
 					@csrf
 					<input type="hidden" name="id" id="bid_id">	
 				<!-- Bidding -->
