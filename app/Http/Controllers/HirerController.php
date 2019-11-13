@@ -212,32 +212,30 @@ class HirerController extends Controller
     public function send_invite(Request $request)
     {
         $validateData = $request->validate([
-            'profile_id' => 'required',
-            'job_id' => 'required',
+            'profile' => 'nullable',
+            'job' => 'required',
             'message' => 'nullable',
-            'document' => 'nullable',
+            'documents.*' => 'file|nullable',
         ]);
 
         $invite = new Invite;
-        $invite->job_id = $request->job_id;
+        $invite->job_id = $request->job;
         $invite->user_id = Auth::user()->id;
-        $invite->profile_id = $request->profile_id;
+        $invite->profile_id = $request->profile;
         $invite->message = $request->message;
         $invite->status = 'pending';
         $invite->save();
 
-        $invite->addMultipleMediaFromRequest($request->documents);
-
         if ($request->hasFile('documents')) {
             $fileAdders = $invite
-                ->addMultipleMediaFromRequest($request->file('documents'))
+                ->addMultipleMediaFromRequest(['documents'])
                 ->each(function ($fileAdder) {
                     $fileAdder->toMediaCollection('project_files');
             });
         }
        
 
-        return view('freelancers.show')->with('status', "Invite successfully sent");
+        return redirect()->back()->with('status', "Invite successfully sent");
 
     }
 

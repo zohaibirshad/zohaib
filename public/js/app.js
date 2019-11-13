@@ -2279,7 +2279,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     link: function link(freelancer) {
-      return "freelancers/" + freelancer.id;
+      return "freelancers/" + freelancer.uuid;
     },
     image: function image(media) {
       if (media.length > 0) {

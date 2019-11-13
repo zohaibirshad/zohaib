@@ -188,7 +188,7 @@
                                     <div class="uploadButton margin-top-0">
                                         <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" name="documents[]" multiple/>
                                         <label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
-                                        <span class="uploadButton-file-name">Maximum file size: 10 MB</span>
+                                        <span class="uploadButton-file-name">Maximum file size: 2 MB</span>
                                     </div>
 
                                 </div>

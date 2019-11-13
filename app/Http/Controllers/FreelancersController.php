@@ -145,13 +145,13 @@ class FreelancersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
 
         $freelancer = Profile::with('skills', 'country', 'reviews', 'jobs_completion', 'social_links')
-        ->find($id);
+        ->where('uuid', $uuid)->first();
 
-        $jobs = Job::where('status', 'completed')->where('profile_id', $id)->paginate(5);
+        $jobs = Job::where('status', 'completed')->where('profile_id', $freelancer->id)->paginate(5);
 
         if (empty($freelancer)) {
             abort(404);
@@ -234,13 +234,14 @@ class FreelancersController extends Controller
 
         $invite->status = 'rejected';
         $invite->profile_id = $profile->id;
-        $invite->save();
+        $invite->destroy( $invite->id);
 
         return response()->json([
             'status' => "Success",
             'message' => "Invite was rejected successfully"
         ]);
     }
+
 
     /**
      * View all Invites.
@@ -287,7 +288,7 @@ class FreelancersController extends Controller
         $bid->status = 'pending';
         $bid->save();
 
-        return back()->with('success', 'Bid Placed Successfully!');
+        return redirect()->back()->with('success', 'Bid Placed Successfully!');
 
         // return response()->json([
         //     'status' => "Success",
@@ -317,7 +318,7 @@ class FreelancersController extends Controller
         $bid->delivery_time = $request->delivery_time;
         $bid->save();
 
-        return back()->with('success', 'Bid Updated Successfully!');
+        return redirect()->back()->with('success', 'Bid Updated Successfully!');
 
         // return response()->json([
         //     'status' => "Success",

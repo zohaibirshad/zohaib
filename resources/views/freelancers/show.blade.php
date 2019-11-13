@@ -71,7 +71,7 @@
                                     <div class="detail-item"><i class="icon-material-outline-access-time"></i>On Time:  {{ strtoupper($job->ontime) }}</div>
                                     </div>
                                     <div class="item-description">
-                                        <p>{!! $job->description !!} </p>
+                                        <p>{!! str_limit($job->description, $limit = 250, $end = '...') !!} </p>
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +114,8 @@
     
                             <!-- Indicator -->
                             <div class="indicator">
-                                <strong>88%</strong>
-                                <div class="indicator-bar" data-indicator-percentage="88"><span></span></div>
+                                <strong>{{ $freelancer->completion_rate }}%</strong>
+                                <div class="indicator-bar" data-indicator-percentage="{{ $freelancer->completion_rate }}"><span></span></div>
                                 <span>Job Success</span>
                             </div>
     
@@ -129,14 +129,14 @@
                              <!-- Indicator -->
                             <div class="indicator">
                                 <strong>{{ $freelancer->completion_time_rate }}%</strong>
-                                <div class="indicator-bar" data-indicator-percentage="90"><span></span></div>
+                                <div class="indicator-bar" data-indicator-percentage="{{ $freelancer->completion_time_rate }}"><span></span></div>
                                 <span>On Time</span>
                             </div>	
                                                 
                             <!-- Indicator -->
                             <div class="indicator">
                                 <strong>{{ $freelancer->completion_budget_rate }}%</strong>
-                                <div class="indicator-bar" data-indicator-percentage="80"><span></span></div>
+                                <div class="indicator-bar" data-indicator-percentage="{{ $freelancer->completion_budget_rate }}"><span></span></div>
                                 <span>On Budget</span>
                             </div> 
                         </div>
@@ -189,11 +189,11 @@
                             <span class="bookmarked-text">Bookmarked</span>
                         </button>
     
-                        {{-- <!-- Copy URL -->
+                         <!-- Copy URL -->
                         <div class="copy-url">
                             <input id="copy-url" type="text" value="" class="with-border">
                             <button class="copy-url-button ripple-effect" data-clipboard-target="#copy-url" title="Copy to Clipboard" data-tippy-placement="top"><i class="icon-material-outline-file-copy"></i></button>
-                        </div> --}}
+                        </div> 
     
                         {{-- <!-- Share Buttons -->
                         <div class="share-buttons margin-top-25">
@@ -238,28 +238,29 @@
 				</div>
 					
 				<!-- Form -->
-				<form method="post">
-
+				<form method="post" action="{{ route('new-invite') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="submit-field">
-                        <select class="selectpicker" data-live-search="true" title="Choose Job">
+                        <select name="job" class="selectpicker" data-live-search="true" title="Choose Job" required>
                             @foreach ($jobs as $job)
-                            <option>{{ $job->title }}</option>
+                            <option value="{{ $job->id }}">{{ $job->title }}</option>
                             @endforeach
                         </select>
                     </div>
 
-					<textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
+					<textarea name="message" cols="10" placeholder="Message" class="with-border" required></textarea>
 
 					<div class="uploadButton margin-top-25">
-						<input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" multiple/>
+                        <input class="uploadButton-input" type="file" accept="image/*, application/pdf, application/docx, application/doc, application/csv" id="upload" name="documents[]" multiple/>
 						<label class="uploadButton-button ripple-effect" for="upload">Add Attachments</label>
-						<span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 50 MB.</span>
+						<span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 2 MB.</span>
 					</div>
 
-				</form>
-				
-				<!-- Button -->
+                    <input type="hidden" value="{{ $freelancer->id }}" name="profile"/>
 				<button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit">Recruit <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+				</form>
+				                
 
 			</div>
 

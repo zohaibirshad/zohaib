@@ -255,7 +255,7 @@ export default {
 
   methods: {
     link(freelancer) {
-      return "freelancers/" + freelancer.id;
+      return "freelancers/" + freelancer.uuid;
     },
 
     image(media) {

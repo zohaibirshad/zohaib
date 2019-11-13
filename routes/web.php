@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Freelancer Stuff
     Route::group(['middleware' => ['role:freelancer']], function () {
         Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
+        Route::get('reject-invite/{uuid}', 'FreelancersController@reject_invite')->name('reject.invite');
         Route::post('make_bid/{uuid}', 'FreelancersController@make_bid');
         Route::post('edit_bid/{uuid}', 'FreelancersController@edit_bid');
     });
@@ -96,7 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Hirer Stuff
     Route::group(['middleware' => ['role:hirer']], function () {
         Route::get('new-jobs', 'HirerController@not_assigned_jobs')->name('new-jobs');
-
+        Route::post('new-invite', 'HirerController@send_invite')->name('new-invite');
         Route::get('bidders/{id}', 'DashboardController@bidders')->name('bidders');
     });
 

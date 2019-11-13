@@ -126,7 +126,7 @@ class AccountController extends Controller
             'rate' => 'required',
             'headline' => 'required',
             'description' => 'required',
-            'documents.*' => 'file|max:10240'
+            'documents.*' => 'file|max:10240',
         ], [])->validate();
 
         try {
