@@ -271,8 +271,6 @@ class FreelancersController extends Controller
             'rate' => 'required',
             'delivery_time' => 'required',
             'delivery_type' => 'required',
-            'rate_type' => 'required',
-            'description' => 'required'
         ]);
 
         $profile = Profile::where('user_id', Auth::user()->id)->first();
@@ -282,17 +280,19 @@ class FreelancersController extends Controller
         $bid->profile_id = $profile->id;
         $bid->job_id = $job->id;
         $bid->rate = $request->rate;
-        $bid->rate_type = $request->rate_type;
+        // $bid->rate_type = $request->rate_type;
         $bid->delivery_type = $request->delivery_type;
         $bid->delivery_time = $request->delivery_time;
-        $bid->description = $request->description;
+        // $bid->description = $request->description;
         $bid->status = 'pending';
         $bid->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Bid was saved successfully"
-        ]);
+        return back()->with('success', 'Bid Placed Successfully!');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Bid was saved successfully"
+        // ]);
     }
 
     /**
@@ -308,21 +308,21 @@ class FreelancersController extends Controller
             'rate' => 'required',
             'delivery_time' => 'required',
             'delivery_type' => 'required',
-            'rate_type' => 'required',
         ]);
 
 
-        $bid = Bid::where('uuid', $bid_uuid)->first();
+        $bid = Bid::find($request->id);
         $bid->rate = $request->rate;
-        $bid->rate_type = $request->rate_type;
         $bid->delivery_type = $request->delivery_type;
         $bid->delivery_time = $request->delivery_time;
         $bid->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Bid was updated successfully"
-        ]);
+        return back()->with('success', 'Bid Updated Successfully!');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Bid was updated successfully"
+        // ]);
     }
 
 

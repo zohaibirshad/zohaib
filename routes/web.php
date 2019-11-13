@@ -89,6 +89,8 @@ Route::group(['middleware' => ['auth']], function () {
     // Freelancer Stuff
     Route::group(['middleware' => ['role:freelancer']], function () {
         Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
+        Route::post('make_bid/{uuid}', 'FreelancersController@make_bid');
+        Route::post('edit_bid/{uuid}', 'FreelancersController@edit_bid');
     });
 
     // Hirer Stuff
