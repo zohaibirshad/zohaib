@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
@@ -17,6 +18,8 @@ class Review extends Model
     'updated_at' => 'datetime',
     ];
 
+    protected $fillable = ['user_id', 'body', 'reviewable_id', 'reviewable_type', 'rating'];
+
 
      /**
      * Get the owning reviewable model.
@@ -29,6 +32,11 @@ class Review extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function getCreatedAtAttribute()
+    {
+        return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
     }
 
 

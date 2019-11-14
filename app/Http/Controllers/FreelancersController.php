@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Invite;
 use App\Models\Job;
 use App\Models\Milestone;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -180,7 +181,7 @@ class FreelancersController extends Controller
 
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
-        $joprofileb->reviews()->create([
+        $profile->reviews()->create([
             'user_id' => Auth::user()->id,
             'rating' => $request->rating,
             'body' => $request->body
@@ -214,10 +215,27 @@ class FreelancersController extends Controller
             'body' => $request->body
         ]);
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Review was saved successfully"
+        return redirect()->back()->with('success', 'Review Successful');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Review was saved successfully"
+        // ]);
+    }
+
+    public function edit_job_review(Request $request, $id)
+    {
+        $validateData = $request->validate([
+            'rating' => 'required',
+            'body' => 'nullable',
         ]);
+
+        $review = Review::find($id);
+        $review->rating = $request->rating;
+        $review->body = $request->body;
+        $review->save();
+
+        return redirect()->back()->with('success', 'Review updated');
     }
 
     /**
@@ -366,10 +384,12 @@ class FreelancersController extends Controller
         $bid = Bid::where('uuid', $bid_uuid)->first();
         $bid->destroy($bid->id);
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Bid was deleted successfully"
-        ]);
+        return redirect()->back()->with('success', 'Bid Deleted Successfully!');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Bid was deleted successfully"
+        // ]);
     }
 
     /**

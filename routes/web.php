@@ -92,6 +92,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('reject-invite/{uuid}', 'FreelancersController@reject_invite')->name('reject.invite');
         Route::post('make_bid/{uuid}', 'FreelancersController@make_bid');
         Route::post('edit_bid/{uuid}', 'FreelancersController@edit_bid');
+        Route::post('delete_bid/{uuid}', 'FreelancersController@delete_bid');
+        Route::post('review_job/{uuid}', 'FreelancersController@review_job');
     });
 
     // Hirer Stuff
@@ -112,14 +114,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('bookmarks', 'BookmarksController')->only(['index', 'destroy']);
     Route::post('jobs/bookmarks-toggle-api', 'BookmarksController@toggle_api');
     Route::post('freelancers/bookmarks-toggle-api', 'BookmarksController@toggle_api');
+    Route::get('reviews', 'ReviewsController@index')->name('reviews');
 
     Route::get('messages', function () {
         return view('dashboard.messages');
     })->name('messages');
-
-    Route::get('reviews', function () {
-        return view('dashboard.reviews');
-    })->name('reviews');
 
     Route::get('settings', 'DashboardController@settings')->name('settings');
 

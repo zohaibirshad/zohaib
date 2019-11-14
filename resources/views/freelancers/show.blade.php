@@ -15,8 +15,7 @@
                              <img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
                             @else
                                 <img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
-                            @endif	
-                            </div>
+                            @endif
                         </div>
 						<div class="header-details">
 							<h3>{{ $freelancer->name ?? "" }} <span>{{ $freelancer->headline }}</span></h3>

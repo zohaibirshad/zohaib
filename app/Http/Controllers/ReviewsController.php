@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,17 +17,18 @@ class ReviewsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // $reviews = Profile::where('user_id', Auth::id())->first();
+        // Get Jobs the User has Completed
+        if ($user->hasRole('freelancer')) {
+            $jobs = Job::where('profile_id', Auth::id())
+                ->with('reviews')
+                ->paginate(10);
+        } else {
+            $jobs = Job::where('user_id', Auth::id())
+                ->with('reviews')
+                ->paginate(10);
+        }
 
-        // if ($freelancer->type == 'hirer') {
-        //     $bookmarks = Bookmark::where('user_id', Auth::id())
-        //         ->with('freelancer')
-        //         ->get();
-        // } else {
-        //     $bookmarks = Bookmark::where('user_id', $user->id)
-        //         ->with('job')
-        //         ->get();
-        // }
+        return view('dashboard.reviews', compact('jobs'));
     }
 
     /**

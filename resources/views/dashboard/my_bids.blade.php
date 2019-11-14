@@ -40,7 +40,14 @@
                             <!-- Buttons -->
                             <div class="buttons-to-right always-visible">
                                 <a href="#small-dialog" data-bid="{{ $bid }}" class="edit_bid popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                <a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                <a href="/delete_bid/{{ $bid->uuid }}" onclick="event.preventDefault();
+								document.getElementById('delete_bid_form').submit();"  class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top">
+									<i class="icon-feather-trash-2"></i>
+								</a>
+
+								<form id="delete_bid_form" action="/delete_bid/{{ $bid->uuid }}" method="POST" style="display: none;">
+                            	    @csrf
+                                </form>
                             </div>
                         </li> 
                     @empty
