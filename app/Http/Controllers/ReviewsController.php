@@ -23,7 +23,7 @@ class ReviewsController extends Controller
                 ->with('reviews')
                 ->paginate(10);
         } else {
-            return $jobs = Job::where('user_id', Auth::id())
+            $jobs = Job::where('user_id', Auth::id())
                 ->with('profile', 'reviews')
                 ->paginate(10);
         }
