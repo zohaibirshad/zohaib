@@ -26,12 +26,7 @@
                                     <div class="job-listing-description">
                                         <h3 class="job-listing-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a> </h3>
     
-                                        <!-- Job Listing Footer -->
-                                        {{-- <div class="job-listing-footer">
-                                            <ul>
-                                                <li><i class="icon-material-outline-access-time"></i> 23 hours left</li>
-                                            </ul>
-                                        </div> --}}
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +40,11 @@
                             <!-- Buttons -->
                             @role('hirer')
                             <div class="buttons-to-right always-visible">
-                                <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect"><i class="icon-line-awesome-list-alt"></i> View Milestones <span class="button-info">3</span></a>
+                                <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect">
+                                    <i class="icon-line-awesome-list-alt"></i> 
+                                    View Milestones <span class="button-info">{{ $job->milestones_count }}
+                                    </span>
+                                </a>
                             </div>
                             @endrole
                         </li>  

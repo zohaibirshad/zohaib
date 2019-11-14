@@ -100,8 +100,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:hirer']], function () {
         Route::get('new-jobs', 'HirerController@not_assigned_jobs')->name('new-jobs');
         Route::post('new-invite', 'HirerController@send_invite')->name('new-invite');
-        Route::get('bidders/{id}', 'DashboardController@bidders')->name('bidders');
         Route::post('review_freelancer/{uuid}', 'HirerController@review_freelancer');
+        Route::get('bidders/{uuid}', 'HirerController@manage_bids')->name('bidders');
+        Route::post('bidders/accept_bid/{uuid}', 'HirerController@accept_bid');
     });
 
     Route::get('ongoing-jobs', 'JobsController@ongoing_jobs')->name('ongoing-jobs');

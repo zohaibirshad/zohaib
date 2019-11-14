@@ -26,12 +26,7 @@
                             <div class="job-listing-description">
                                 <h3 class="job-listing-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
 
-                                <!-- Job Listing Footer -->
-                                {{-- <div class="job-listing-footer">
-                                    <ul>
-                                        <li><i class="icon-material-outline-access-time"></i> 23 hours left</li>
-                                    </ul>
-                                </div> --}}
+                                
                             </div>
                         </div>
                     </div>
@@ -41,7 +36,7 @@
                         <li><strong>
                             ${{ number_format($job->min_budget) }} 
                             @if($job->min_budget != $job->max_budget) 
-                            - ${{ number_format($job->min_budget) }} 
+                            - ${{ number_format($job->max_budget) }} 
                             @endif
                         </strong><span class="text-capitalize">
                             {{ $job->budget_type }} Rate</span></li>
@@ -49,7 +44,7 @@
 
                     <!-- Buttons -->
                     <div class="buttons-to-right always-visible">
-                        <a href="{{ route('bidders', $job->slug) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">{{ $job->bids_count }}</span></a>
+                        <a href="{{ route('bidders', $job->uuid) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">{{ $job->bids_count }}</span></a>
                         {{-- <a href="#" class="button gray ripple-effect ico" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
                         <a href="#" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a> --}}
                     </div>
