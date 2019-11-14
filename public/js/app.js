@@ -2536,6 +2536,10 @@ __webpack_require__.r(__webpack_exports__);
         min_budget: "",
         max_budget: ""
       },
+      urlQueryParams: {
+        category: "",
+        search: ""
+      },
       slider: {
         min: 1,
         max: 10000,
@@ -2567,6 +2571,10 @@ __webpack_require__.r(__webpack_exports__);
       backgroundColor: "#000",
       borderColor: "#000"
     };
+    var uri = window.location.search.substring(1);
+    var params = new URLSearchParams(uri);
+    this.search.industry.push(params.get("category"));
+    this.search.title = params.get("search");
   },
   mounted: function mounted() {
     this.getResults();
