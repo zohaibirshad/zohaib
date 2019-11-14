@@ -75,7 +75,11 @@
                   v-model="search.skills"
                   @change="getResults()"
                 />
-                <label :for="`tag-${skill.id}`">{{ skill.title }}</label>
+                <label :for="`tag-${skill.id}`">
+                  {{
+                  skill.title
+                  }}
+                </label>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -126,9 +130,15 @@
                         {{ freelancer.name }}
                         <img
                           class="flag"
-                          :src="country(freelancer.country)"
+                          :src="
+                                                        country(
+                                                            freelancer.country
+                                                        )
+                                                    "
                           alt
-                          :title="freelancer.country.name"
+                          :title="
+                                                        freelancer.country.name
+                                                    "
                           data-tippy-placement="top"
                         />
                       </a>
@@ -140,7 +150,10 @@
                     </div>
                     <span
                       class="company-not-rated margin-bottom-5"
-                      v-if="freelancer.rating == 0 || freelancer.rating == null"
+                      v-if="
+                                                freelancer.rating == 0 ||
+                                                    freelancer.rating == null
+                                            "
                     >Minimum of 1 vote required</span>
                   </div>
                 </div>
@@ -159,11 +172,18 @@
                     </li>
                     <li>
                       Rate
-                      <strong>${{ freelancer.rate }} / hr</strong>
+                      <strong>
+                        ${{ freelancer.rate }} /
+                        hr
+                      </strong>
                     </li>
                     <li>
                       Job Success
-                      <strong>{{ freelancer.completion_rate }}%</strong>
+                      <strong>
+                        {{
+                        freelancer.completion_rate
+                        }}%
+                      </strong>
                     </li>
                   </ul>
                 </div>
@@ -225,11 +245,6 @@ export default {
       isLoading: false
     };
   },
-  updated() {
-    // $(this.$el)
-    //   .find(".select-picker")
-    //   .selectpicker("refresh");
-  },
 
   created() {
     this.slider.formatter = value => `$${value}`;
@@ -250,7 +265,6 @@ export default {
     this.getResults();
     this.getCountries();
     this.getSkills();
-    
   },
 
   methods: {
@@ -300,7 +314,9 @@ export default {
     getCountries() {
       axios.get("countries-api").then(response => {
         this.countries = response.data;
-        this.$nextTick(function(){ $('.select-picker').selectpicker(); });
+        this.$nextTick(function() {
+          $(".select-picker").selectpicker();
+        });
       });
     },
 

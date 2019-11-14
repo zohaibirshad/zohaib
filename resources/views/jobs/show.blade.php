@@ -180,6 +180,14 @@
 										</div>
 									</div>
 
+									<!-- Headline -->
+									<span class="bidding-detail margin-top-30">Description</strong></span>
+									<div class="bidding-fields">
+										<div class="bidding-field">
+											<textarea name="description"></textarea>
+										</div>
+									</div>
+
 									<!-- Button -->
 									<button type="submit" id="snackbar-place-bid" class="button ripple-effect move-on-hover full-width margin-top-30">
 										<span>Place a Bid</span>
