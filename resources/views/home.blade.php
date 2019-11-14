@@ -189,7 +189,7 @@
 
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="freelancers/{{ $freelancer->uuid  ?? '' }}">{{ $freelancer->name ?? '' }}<img class="flag" src="{{ asset('assets/images/flags/'.$freelancer->country->code  ?? ''.'.svg') }}" alt="{{ $freelancer->country->name  ?? '' }}" title="{{ $freelancer->country->name ?? '' }}" data-tippy-placement="top"></a></h4>
+									<h4><a href="freelancers/{{ $freelancer->uuid  ?? '' }}">{{ $freelancer->name ?? '' }}<img class="flag" src="{{ asset('assets/images/flags/'.$freelancer->country->code.'.svg') }}" alt="{{ $freelancer->country->name  ?? '' }}" title="{{ $freelancer->country->name ?? '' }}" data-tippy-placement="top"></a></h4>
 									<span>{{ str_limit($freelancer->headline , $limit = 35)  }}</span>
 								</div>
 
