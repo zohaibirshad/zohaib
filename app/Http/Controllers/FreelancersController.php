@@ -274,6 +274,7 @@ class FreelancersController extends Controller
     {
         $invites = Invite::where('user_id', Auth::user()->id)
             ->with('job', 'profile')
+            ->latest()
             ->get();
 
         return view('dashboard.jobs.invites', compact('invites'));
@@ -293,7 +294,47 @@ class FreelancersController extends Controller
 
         $invite->status = 'rejected';
         $invite->profile_id = $profile->id;
-        $invite->destroy( $invite->id);
+        $invite->save();
+
+        return response()->json([
+            'status' => "Success",
+            'message' => "Invite was rejected successfully"
+        ]);
+    }
+
+        /**
+     * Reject Invite.
+     *
+     * @param  string  $invite_uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function accept_invite(Request $request, $invite_uuid)
+    {
+        $validateData = $request->validate([
+            'rate' => 'required',
+            'delivery_time' => 'required',
+            'delivery_type' => 'required',
+            'description' => 'nullable',
+            'job' => 'required',
+        ]);
+
+        $invite = Invite::where('uuid', $invite_uuid)->first();
+
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+
+        $invite->status = 'accepted';
+        $invite->profile_id = $profile->id;
+        $invite->save();
+
+        $bid = new Bid;
+        $bid->profile_id = $profile->id;
+        $bid->job_id = $request->job;
+        $bid->rate = $request->rate;
+        $bid->delivery_type = $request->delivery_type;
+        $bid->delivery_time = $request->delivery_time;
+        $bid->description = $request->description;
+        $bid->status = 'pending';
+        $bid->save();
 
         return response()->json([
             'status' => "Success",
@@ -313,6 +354,7 @@ class FreelancersController extends Controller
 
         $bids = Bid::where('profile_id', $profile->id)
             ->with('job', 'profile')
+            ->latest()
             ->get();
 
         return view('dashboard.my_bids', compact('bids'));
@@ -331,6 +373,7 @@ class FreelancersController extends Controller
             'rate' => 'required',
             'delivery_time' => 'required',
             'delivery_type' => 'required',
+            'description' => 'nullable',
         ]);
 
         $profile = Profile::where('user_id', Auth::user()->id)->first();

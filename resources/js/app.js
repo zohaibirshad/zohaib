@@ -5,10 +5,7 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
-window.$ = require('jquery');
-window.JQuery = require('jquery');
 
 /**
  * The following block of code may be used to automatically register your

@@ -90,6 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:freelancer']], function () {
         Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
         Route::get('reject-invite/{uuid}', 'FreelancersController@reject_invite')->name('reject.invite');
+        Route::put('accept-invite/{uuid}', 'FreelancersController@accept_invite')->name('accept.invite');
         Route::post('make_bid/{uuid}', 'FreelancersController@make_bid');
         Route::post('edit_bid/{uuid}', 'FreelancersController@edit_bid');
         Route::post('delete_bid/{uuid}', 'FreelancersController@delete_bid');

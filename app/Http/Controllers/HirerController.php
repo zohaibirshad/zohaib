@@ -85,10 +85,8 @@ class HirerController extends Controller
      */
     public function manage_bids(Request $request, $job_uuid)
     {
-        $job = Job::where('slug', $job_uuid)->first();
+        $job = Job::where('uuid', $job_uuid)->first();
         $bids = Bid::where('job_id', $job->id)->with('profile')->get();
-
-       
 
         return view('dashboard.bidders', compact('bids', 'job'));
     }
