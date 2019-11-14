@@ -162,6 +162,18 @@ class HirerController extends Controller
         ]);
     }
 
+    public function release_payment_for_milestone(Request $request, $mile_uuid)
+    {
+
+        $milestone = Milestone::where('uuid', $mile_uuid)->first();
+        $milestone->is_paid = 1;
+        $milestone->save();
+
+        // Actually add the money to use account
+
+        return back()->with('success', 'Payment Released For Milestone');
+    }
+
 
     /**
      * Review a freelancer.

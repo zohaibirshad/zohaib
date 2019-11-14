@@ -103,6 +103,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('review_freelancer/{uuid}', 'HirerController@review_freelancer');
         Route::get('bidders/{uuid}', 'HirerController@manage_bids')->name('bidders');
         Route::post('bidders/accept_bid/{uuid}', 'HirerController@accept_bid');
+        Route::post('milestones/release_payment/{uuid}', 'HirerController@release_payment_for_milestone');
     });
 
     Route::get('ongoing-jobs', 'JobsController@ongoing_jobs')->name('ongoing-jobs');
