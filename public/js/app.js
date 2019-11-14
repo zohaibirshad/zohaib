@@ -2222,6 +2222,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2250,10 +2259,6 @@ __webpack_require__.r(__webpack_exports__);
       hasData: false,
       isLoading: false
     };
-  },
-  updated: function updated() {// $(this.$el)
-    //   .find(".select-picker")
-    //   .selectpicker("refresh");
   },
   created: function created() {
     this.slider.formatter = function (value) {
@@ -2286,7 +2291,7 @@ __webpack_require__.r(__webpack_exports__);
         return media[0].id + "/" + media[0].file_title;
       }
 
-      return "assets/images/user-avatar-big-01.jpg";
+      return "assets/images/user-avatar-placeholder.png";
     },
     country: function country(_country) {
       return "assets/images/flags/".concat(_country.code, ".svg");
@@ -2322,7 +2327,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.countries = response.data;
 
         _this2.$nextTick(function () {
-          $('.select-picker').selectpicker();
+          $(".select-picker").selectpicker();
         });
       });
     },
@@ -2522,6 +2527,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
   data: function data() {
     return {
       jobs: {},
@@ -39715,7 +39721,11 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("label", { attrs: { for: "tag-" + skill.id } }, [
-                    _vm._v(_vm._s(skill.title))
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(skill.title) +
+                        "\n              "
+                    )
                   ])
                 ])
               }),
@@ -39827,7 +39837,7 @@ var render = function() {
                                     _c("img", {
                                       attrs: {
                                         src:
-                                          "assets/images/user-avatar-big-01.jpg",
+                                          "assets/images/user-avatar-placeholder.png",
                                         alt: ""
                                       }
                                     })
@@ -39923,7 +39933,9 @@ var render = function() {
                                   ),
                                   _c("strong", [
                                     _vm._v(
-                                      "$" + _vm._s(freelancer.rate) + " / hr"
+                                      "\n                      $" +
+                                        _vm._s(freelancer.rate) +
+                                        " /\n                      hr\n                    "
                                     )
                                   ])
                                 ]),
@@ -39934,7 +39946,9 @@ var render = function() {
                                   ),
                                   _c("strong", [
                                     _vm._v(
-                                      _vm._s(freelancer.completion_rate) + "%"
+                                      "\n                      " +
+                                        _vm._s(freelancer.completion_rate) +
+                                        "%\n                    "
                                     )
                                   ])
                                 ])
@@ -40457,7 +40471,28 @@ var render = function() {
                                     ])
                                   ]),
                                   _vm._v(" "),
-                                  _vm._m(0, true)
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "button button-sliding-icon ripple-effect"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(
+                                            _vm.user.type == "freelancer"
+                                              ? "Bid Now"
+                                              : "View"
+                                          ) +
+                                          "\n                  "
+                                      ),
+                                      _c("i", {
+                                        staticClass:
+                                          "icon-material-outline-arrow-right-alt"
+                                      })
+                                    ]
+                                  )
                                 ]
                               )
                             ])
@@ -40495,21 +40530,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticClass: "button button-sliding-icon ripple-effect" },
-      [
-        _vm._v("\n                  Bid Now\n                  "),
-        _c("i", { staticClass: "icon-material-outline-arrow-right-alt" })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

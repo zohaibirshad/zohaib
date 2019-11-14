@@ -36,21 +36,27 @@
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Full Name</h5>
-                                    <input type="text" class="with-border" value="{{ $user->name }}" name="name">
+                                    <div class="input-with-icon-left">
+                                        <i class="icon-material-outline-account-circle"></i>
+                                        <input type="text" class="with-border" value="{{ $user->name }}" name="name">
+                                    </div>
                                 </div>
                             </div>                            
 
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Email</h5>
-                                    <input type="text" class="with-border" value="{{ $user->email }}" name="email">
+                                    <div class="input-with-icon-left">
+                                        <i class="icon-material-baseline-mail-outline"></i>
+                                        <input type="text" class="with-border" value="{{ $user->email }}" name="email">
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Country</h5>
-                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="country_id">
+                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="country_id" id="country">
                                         @foreach ($countries as $country)
                                         <option value="{{ $country->id }}" {{ $user->country_id == $country->id ? 'selected="selected"' : '' }}>
                                             {{ $country->name }}
@@ -64,7 +70,10 @@
                                 <!-- Account Type -->
                                 <div class="submit-field">
                                     <h5>Phone</h5>
-                                    <input type="text" class="with-border" value="{{ $user->phone }}" name="phone">
+                                    <div class="input-with-icon-left">
+                                        <i class="intl_num">+0</i>
+                                        <input type="text" class="with-border" value="{{ $user->phone }}" name="phone">
+                                    </div>                                    
                                 </div>
                             </div>
 
@@ -288,3 +297,22 @@
     </div> --}}
 </div>
 @endsection
+
+@push('custom-scripts')
+    <script>
+        $(document).ready(function(){
+            setCountryCallCode({{ $user->country_id }})
+            $('#country').change(function(){
+                var selected = $(this).find(":selected").val();
+
+                setCountryCallCode(selected);
+            });
+        });
+
+        function setCountryCallCode(selectedtCountryId){
+            var countries = {!! json_encode($countries) !!};
+            var selected = $.grep(countries, function(e){ return e.id == selectedtCountryId; })[0];
+            $('.intl_num').text(selected.dial_code);
+        }
+    </script>
+@endpush

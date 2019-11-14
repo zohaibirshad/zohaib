@@ -186,7 +186,7 @@
 									<div class="verified-badge"></div>
 									@endif
 									@if (sizeof($freelancer->getMedia('profile')) == 0)
-									<a href="freelancers/{{ $freelancer->uuid }}"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a>
+									<a href="freelancers/{{ $freelancer->uuid }}"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
 									@else
 									<a href="freelancers/{{ $freelancer->uuid }}"><img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/></a>
 									@endif

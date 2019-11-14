@@ -12,7 +12,7 @@
 					<div class="left-side">
 						<div class="header-image freelancer-avatar">
                             @if (sizeof($freelancer->getMedia('profile')) == 0)
-                             <img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+                             <img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
                             @else
                                 <img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
                             @endif
@@ -105,7 +105,7 @@
     
                     <!-- Button -->
                     @role('hirer')
-                    <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Recruit Me <i class="icon-material-outline-arrow-right-alt"></i></a>
+                    <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50 recruit" data-freelancer="{{ $freelancer }}">Recruit Me <i class="icon-material-outline-arrow-right-alt"></i></a>
                     @endrole
 
                     <!-- Freelancer Indicators -->
@@ -242,7 +242,7 @@
                     @csrf
                     <div class="submit-field">
                         <select name="job" class="selectpicker" data-live-search="true" title="Choose Job" required>
-                            @foreach ($jobs as $job)
+                            @foreach ($hirerJobs as $job)
                             <option value="{{ $job->id }}">{{ $job->title }}</option>
                             @endforeach
                         </select>
@@ -288,3 +288,19 @@
         }
     </script>
 @endsection
+
+@push('custom-scripts')
+    <script>
+        $(document).ready(function(){
+            $('.recruit').click(function(){
+                var _freelancer = $(this).attr("data-freelancer");
+                var freelancer = JSON.parse(_freelancer);
+                
+                // $('#bidPrice').text('$'+ThousandSeparator2(bid.rate));
+                // $('#acceptBidText').text('Accept Offer From '+bid.profile.name);
+                // $('#aProfileId').val(bid.profile.id);
+                // $('#acceptBidForm').attr('action', 'accept_bid/'+bid.uuid);
+            });
+        });
+    </script>
+@endpush

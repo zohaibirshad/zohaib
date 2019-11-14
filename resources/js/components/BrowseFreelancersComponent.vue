@@ -75,7 +75,11 @@
                   v-model="search.skills"
                   @change="getResults()"
                 />
-                <label :for="`tag-${skill.id}`">{{ skill.title }}</label>
+                <label :for="`tag-${skill.id}`">
+                  {{
+                  skill.title
+                  }}
+                </label>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -115,7 +119,7 @@
                   <div class="freelancer-avatar">
                     <!-- <div class="verified-badge"></div> -->
                     <a :href="link(freelancer)">
-                      <img src="assets/images/user-avatar-big-01.jpg" alt />
+                      <img src="assets/images/user-avatar-placeholder.png" alt />
                     </a>
                   </div>
 
@@ -126,8 +130,7 @@
                         {{ freelancer.name }}
                         <img
                           class="flag"
-                          :src="country(freelancer.country)"
-                          alt
+                          :src="country(freelancer.country)" alt
                           :title="freelancer.country.name"
                           data-tippy-placement="top"
                         />
@@ -140,8 +143,7 @@
                     </div>
                     <span
                       class="company-not-rated margin-bottom-5"
-                      v-if="freelancer.rating == 0 || freelancer.rating == null"
-                    >Minimum of 1 vote required</span>
+                      v-if="freelancer.rating == 0 || freelancer.rating == null">Minimum of 1 vote required</span>
                   </div>
                 </div>
               </div>
@@ -159,11 +161,18 @@
                     </li>
                     <li>
                       Rate
-                      <strong>${{ freelancer.rate }} / hr</strong>
+                      <strong>
+                        ${{ freelancer.rate }} /
+                        hr
+                      </strong>
                     </li>
                     <li>
                       Job Success
-                      <strong>{{ freelancer.completion_rate }}%</strong>
+                      <strong>
+                        {{
+                        freelancer.completion_rate
+                        }}%
+                      </strong>
                     </li>
                   </ul>
                 </div>
@@ -225,11 +234,6 @@ export default {
       isLoading: false
     };
   },
-  updated() {
-    // $(this.$el)
-    //   .find(".select-picker")
-    //   .selectpicker("refresh");
-  },
 
   created() {
     this.slider.formatter = value => `$${value}`;
@@ -250,7 +254,6 @@ export default {
     this.getResults();
     this.getCountries();
     this.getSkills();
-    
   },
 
   methods: {
@@ -263,7 +266,7 @@ export default {
         return media[0].id + "/" + media[0].file_title;
       }
 
-      return "assets/images/user-avatar-big-01.jpg";
+      return "assets/images/user-avatar-placeholder.png";
     },
 
     country(country) {
@@ -300,7 +303,9 @@ export default {
     getCountries() {
       axios.get("countries-api").then(response => {
         this.countries = response.data;
-        this.$nextTick(function(){ $('.select-picker').selectpicker(); });
+        this.$nextTick(function() {
+          $(".select-picker").selectpicker();
+        });
       });
     },
 

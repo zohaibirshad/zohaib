@@ -49,6 +49,7 @@
 								Post a job
 							</a>
 						</li>
+						@guest
 						<li class="d-sm-block d-md-none">
 							<a href="/login" class="{{ (request()->is('login')) ? 'current' : '' }}">
 								Log In
@@ -59,6 +60,7 @@
 								Register
 							</a>
 						</li>
+						@endguest
 						<li class="d-none d-sm-none d-md-block">
 							<a href="{{ route('post-job') }}" class="button button-sliding-icon ripple-effect" tabindex="0">
 								<span class="text-white">Post a Job</span> 
@@ -108,7 +110,7 @@
 						<div class="header-notifications-trigger">
 							<a href="#"><div class="user-avatar status-online">
 								@if (sizeof(Auth::user()->profile->getMedia('profile')) == 0)
-									<img src="{{ asset('assets/images/user-avatar-small-01.jpg') }}" alt=""></div>
+									<img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></div>
 								@else
 									<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') }}" alt=""/> </div>
 								@endif								
@@ -124,7 +126,11 @@
 								<!-- User Name / Avatar -->
 								<div class="user-details">
 									<div class="user-avatar status-online">
-										<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') ?? asset('assets/images/user-avatar-small-01.jpg')  }}" alt=""/>
+										@if (sizeof(Auth::user()->profile->getMedia('profile')) == 0)
+										<img src="{{ asset('assets/images/user-avatar-placeholder.png')  }}" alt=""/>
+										@else
+										<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb')  }}" alt=""/>
+										@endif	
 									</div>
 									<div class="user-name">
 										{{ Auth::user()->name }} <span class="text-capitalize">{{ Auth::user()->profile->type }}</span>

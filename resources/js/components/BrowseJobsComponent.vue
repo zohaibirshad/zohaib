@@ -145,7 +145,7 @@
                     <span>{{ budgetType(job) }}</span>
                   </div>
                   <span class="button button-sliding-icon ripple-effect">
-                    Bid Now
+                    {{ user.type == 'freelancer' ? 'Bid Now' : 'View' }}
                     <i class="icon-material-outline-arrow-right-alt"></i>
                   </span>
                 </div>
@@ -174,6 +174,7 @@
 
 <script>
 export default {
+  props : ['user'],
   data() {
     return {
       jobs: {},

@@ -10,7 +10,7 @@
 <!-- Page Content
 ================================================== -->
 <div id="app">
-	<browse-jobs></browse-jobs>
+	<browse-jobs :user="{{ Auth::user()->profile }}"></browse-jobs>
 </div>
 
 <script>

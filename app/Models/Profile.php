@@ -76,7 +76,7 @@ class Profile extends Model implements HasMedia
     {
         $rating = $this->reviews()->average('rating');
 
-        return $rating;
+        return number_format($rating, 1);
     }
     
 

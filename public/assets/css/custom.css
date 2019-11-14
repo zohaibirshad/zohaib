@@ -26,6 +26,11 @@
   opacity: 1;
 }
 
+.intl_num {
+  font-size: 14px !important;
+  font-style: normal !important;
+}
+
 ul li ul{
   list-style-type: circle !important;
 }
