@@ -168,7 +168,7 @@ class FreelancersController extends Controller
     /**
      * Review a hirer.
      *
-     * @param  string  $job_uuid
+     * @param  string  $profile_uuid
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -186,7 +186,6 @@ class FreelancersController extends Controller
             'rating' => $request->rating,
             'body' => $request->body
         ]);
-
         return response()->json([
             'status' => "Success",
             'message' => "Review was saved successfully"
