@@ -34,7 +34,7 @@
                             <!-- Task Details -->
                             <ul class="dashboard-task-info">
                                 <li><strong>{{ $job->milestones_count }}</strong><span>Milestones</span></li>
-                                <li><strong>$300</strong><span class="text-capitalize">Amount Paid</span></li>
+                                {{-- <li><strong>$300</strong><span class="text-capitalize">Amount Paid</span></li> --}}
                             </ul>
     
                             <!-- Buttons -->
