@@ -119,7 +119,7 @@
                   <div class="freelancer-avatar">
                     <!-- <div class="verified-badge"></div> -->
                     <a :href="link(freelancer)">
-                      <img src="assets/images/user-avatar-big-01.jpg" alt />
+                      <img src="assets/images/user-avatar-placeholder.png" alt />
                     </a>
                   </div>
 
@@ -130,15 +130,8 @@
                         {{ freelancer.name }}
                         <img
                           class="flag"
-                          :src="
-                                                        country(
-                                                            freelancer.country
-                                                        )
-                                                    "
-                          alt
-                          :title="
-                                                        freelancer.country.name
-                                                    "
+                          :src="country(freelancer.country)" alt
+                          :title="freelancer.country.name"
                           data-tippy-placement="top"
                         />
                       </a>
@@ -150,11 +143,7 @@
                     </div>
                     <span
                       class="company-not-rated margin-bottom-5"
-                      v-if="
-                                                freelancer.rating == 0 ||
-                                                    freelancer.rating == null
-                                            "
-                    >Minimum of 1 vote required</span>
+                      v-if="freelancer.rating == 0 || freelancer.rating == null">Minimum of 1 vote required</span>
                   </div>
                 </div>
               </div>
@@ -277,7 +266,7 @@ export default {
         return media[0].id + "/" + media[0].file_title;
       }
 
-      return "assets/images/user-avatar-big-01.jpg";
+      return "assets/images/user-avatar-placeholder.png";
     },
 
     country(country) {

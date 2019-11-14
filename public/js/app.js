@@ -2231,17 +2231,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2302,7 +2291,7 @@ __webpack_require__.r(__webpack_exports__);
         return media[0].id + "/" + media[0].file_title;
       }
 
-      return "assets/images/user-avatar-big-01.jpg";
+      return "assets/images/user-avatar-placeholder.png";
     },
     country: function country(_country) {
       return "assets/images/flags/".concat(_country.code, ".svg");
@@ -35403,7 +35392,7 @@ var render = function() {
                                     _c("img", {
                                       attrs: {
                                         src:
-                                          "assets/images/user-avatar-big-01.jpg",
+                                          "assets/images/user-avatar-placeholder.png",
                                         alt: ""
                                       }
                                     })
