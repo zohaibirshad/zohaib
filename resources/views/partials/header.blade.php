@@ -49,6 +49,7 @@
 								Post a job
 							</a>
 						</li>
+						@guest
 						<li class="d-sm-block d-md-none">
 							<a href="/login" class="{{ (request()->is('login')) ? 'current' : '' }}">
 								Log In
@@ -59,6 +60,7 @@
 								Register
 							</a>
 						</li>
+						@endguest
 						<li class="d-none d-sm-none d-md-block">
 							<a href="{{ route('post-job') }}" class="button button-sliding-icon ripple-effect" tabindex="0">
 								<span class="text-white">Post a Job</span> 
