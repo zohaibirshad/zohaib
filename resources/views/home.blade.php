@@ -43,15 +43,15 @@
 			<div class="col-md-12">
 				<ul class="intro-stats margin-top-45 hide-under-992px">
 					<li>
-						<strong class="counter">1,586</strong>
+						<strong class="counter">{{ $total_jobs->total }}</strong>
 						<span>Jobs Posted</span>
 					</li>
 					<li>
-						<strong class="counter">1,443</strong>
+						<strong class="counter">{{ $total_jobs->completed }}</strong>
 						<span>Jobs Completed</span>
 					</li>
 					<li>
-						<strong class="counter">1,232</strong>
+						<strong class="counter">{{ $total_freelancers }}</strong>
 						<span>Freelancers</span>
 					</li>
 				</ul>
@@ -72,87 +72,21 @@
 					<h3>Popular Categories</h3>
 				</div>
 			</div>
-
+			@foreach($job_categories as $category)
 			<div class="col-xl-3 col-md-6">
 				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-01.jpg') }}">
+				@if (sizeof($category->getMedia('profile')) == 0)
+					<a href="/browse-jobs" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-02.jpg') }}">
+                @else
+					<a href="/browse-jobs" class="photo-box small" data-background-image="{{ $category->getFirstMediaUrl('cover', 'big') }}">
+				@endif	
 					<div class="photo-box-content">
-						<h3>Web / Software Dev</h3>
-						<span>612</span>
+						<h3>{{ $category->title }}</h3>
+						<span>{{ $category->jobs_count }}</span>
 					</div>
 				</a>
 			</div>
-			
-			<div class="col-xl-3 col-md-6">
-				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-02.jpg') }}">
-					<div class="photo-box-content">
-						<h3>Data Science / Analitycs</h3>
-						<span>113</span>
-					</div>
-				</a>
-			</div>
-			
-			<div class="col-xl-3 col-md-6">
-				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-03.jpg') }}">
-					<div class="photo-box-content">
-						<h3>Accounting / Consulting</h3>
-						<span>186</span>
-					</div>
-				</a>
-			</div>
-
-			<div class="col-xl-3 col-md-6">
-				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-04.jpg') }}">
-					<div class="photo-box-content">
-						<h3>Writing & Translations</h3>
-						<span>298</span>
-					</div>
-				</a>
-			</div>
-
-			<div class="col-xl-3 col-md-6">
-				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-05.jpg') }}">
-					<div class="photo-box-content">
-						<h3>Sales & Marketing</h3>
-						<span>549</span>
-					</div>
-				</a>
-			</div>
-			
-			<div class="col-xl-3 col-md-6">
-				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-06.jpg') }}">
-					<div class="photo-box-content">
-						<h3>Graphics & Design</h3>
-						<span>873</span>
-					</div>
-				</a>
-			</div>
-			
-			<div class="col-xl-3 col-md-6">
-				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-07.jpg') }}">
-					<div class="photo-box-content">
-						<h3>Digital Marketing</h3>
-						<span>125</span>
-					</div>
-				</a>
-			</div>
-
-			<div class="col-xl-3 col-md-6">
-				<!-- Photo Box -->
-				<a href="#" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-08.jpg') }}">
-					<div class="photo-box-content">
-						<h3>Education & Training</h3>
-						<span>445</span>
-					</div>
-				</a>
-			</div>
-
+			@endforeach
 		</div>
 	</div>
 </div>
@@ -167,30 +101,29 @@
 				<!-- Section Headline -->
 				<div class="section-headline margin-top-0 margin-bottom-35">
 					<h3>Recent Jobs</h3>
-					<a href="#" class="headline-link">Browse All Jobs</a>
+					<a href="browse-jobs" class="headline-link">Browse All Jobs</a>
 				</div>
 				
 				<!-- Jobs Container -->
 				<div class="tasks-list-container compact-list margin-top-35">
-						
+				@foreach($recent_featured_jobs as $job)
 					<!-- Task -->
-					<a href="{{ route('jobs.show', 1) }}" class="task-listing">
+					<a href="jobs/{{ $job->slug }}" class="task-listing">
 
 						<!-- Job Listing Details -->
 						<div class="task-listing-details">
 
 							<!-- Details -->
 							<div class="task-listing-description">
-								<h3 class="task-listing-title">Food Delviery Mobile App</h3>
+								<h3 class="task-listing-title">{{ $job->title ?? '' }}</h3>
 								<ul class="task-icons">
-									<li><i class="icon-material-outline-location-on"></i> Accra</li>
-									<li><i class="icon-material-outline-access-time"></i> 2 minutes ago</li>
+									<li><i class="icon-material-outline-location-on"></i> {{ $job->country->name ?? ''  }}</li>
+									<li><i class="icon-material-outline-access-time"></i> {{ \Carbon\Carbon::parse($job->created_at)->diffForHumans() }}</li>
 								</ul>
 								<div class="task-tags margin-top-15">
-									<span>iOS</span>
-									<span>Android</span>
-									<span>mobile apps</span>
-									<span>design</span>
+								@foreach($job->skills as $skill)
+									<span>{{ $skill->title}}</span>
+								@endforeach
 								</div>
 							</div>
 
@@ -199,145 +132,15 @@
 						<div class="task-listing-bid">
 							<div class="task-listing-bid-inner">
 								<div class="task-offers">
-									<strong>$1,000 - $2,500</strong>
-									<span>Fixed Price</span>
+									<strong>${{ $job->min_budget }}  - ${{ $job->max_budget }} </strong>
+									<span>{{ strtoupper($job->budget_type) }}</span>
 								</div>
 								<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
 							</div>
 						</div>
 					</a>
-
-					<!-- Task -->
-					<a href="{{ route('jobs.show', 1) }}" class="task-listing">
-
-						<!-- Job Listing Details -->
-						<div class="task-listing-details">
-
-							<!-- Details -->
-							<div class="task-listing-description">
-								<h3 class="task-listing-title">2000 Words English to German</h3>
-								<ul class="task-icons">
-									<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-									<li><i class="icon-material-outline-access-time"></i> 5 minutes ago</li>
-								</ul>
-								<div class="task-tags margin-top-15">
-									<span>copywriting</span>
-									<span>translating</span>
-									<span>editing</span>
-								</div>
-							</div>
-
-						</div>
-
-						<div class="task-listing-bid">
-							<div class="task-listing-bid-inner">
-								<div class="task-offers">
-									<strong>$75</strong>
-									<span>Fixed Price</span>
-								</div>
-								<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-							</div>
-						</div>
-					</a>
-
-					<!-- Task -->
-					<a href="{{ route('jobs.show', 1) }}" class="task-listing">
-
-						<!-- Job Listing Details -->
-						<div class="task-listing-details">
-
-							<!-- Details -->
-							<div class="task-listing-description">
-								<h3 class="task-listing-title">Fix Python Selenium Code</h3>
-								<ul class="task-icons">
-									<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-									<li><i class="icon-material-outline-access-time"></i> 30 minutes ago</li>
-								</ul>
-								<div class="task-tags margin-top-15">
-									<span>Python</span>
-									<span>Flask</span>
-									<span>API Development</span>
-								</div>
-							</div>
-
-						</div>
-
-						<div class="task-listing-bid">
-							<div class="task-listing-bid-inner">
-								<div class="task-offers">
-									<strong>$100 - $150</strong>
-									<span>Hourly Rate</span>
-								</div>
-								<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-							</div>
-						</div>
-					</a>
-
-					<!-- Task -->
-					<a href="{{ route('jobs.show', 1) }}" class="task-listing">
-
-						<!-- Job Listing Details -->
-						<div class="task-listing-details">
-
-							<!-- Details -->
-							<div class="task-listing-description">
-								<h3 class="task-listing-title">WordPress Theme Installation</h3>
-								<ul class="task-icons">
-									<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-									<li><i class="icon-material-outline-access-time"></i> 1 hour ago</li>
-								</ul>
-								<div class="task-tags margin-top-15">
-									<span>WordPress</span>
-									<span>Theme Installation</span>
-								</div>
-							</div>
-
-						</div>
-
-						<div class="task-listing-bid">
-							<div class="task-listing-bid-inner">
-								<div class="task-offers">
-									<strong>$100</strong>
-									<span>Fixed Price</span>
-								</div>
-								<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-							</div>
-						</div>
-					</a>
-
-					<!-- Task -->
-					<a href="{{ route('jobs.show', 1) }}" class="task-listing">
-
-						<!-- Job Listing Details -->
-						<div class="task-listing-details">
-
-							<!-- Details -->
-							<div class="task-listing-description">
-								<h3 class="task-listing-title">PHP Core Website Fixes</h3>
-								<ul class="task-icons">
-									<li><i class="icon-material-outline-location-off"></i> Online Job</li>
-									<li><i class="icon-material-outline-access-time"></i> 1 hour ago</li>
-								</ul>
-								<div class="task-tags margin-top-15">
-									<span>PHP</span>
-									<span>MySQL Administration</span>
-									<span>API Development</span>
-								</div>
-							</div>
-
-						</div>
-
-						<div class="task-listing-bid">
-							<div class="task-listing-bid-inner">
-								<div class="task-offers">
-									<strong>$50 - $80</strong>
-									<span>Hourly Rate</span>
-								</div>
-								<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-							</div>
-						</div>
-					</a>		
-
+					@endforeach
+					<!-- Task -->	
 
 				</div>
 				<!-- Jobs Container / End -->
@@ -358,38 +161,41 @@
 				<!-- Section Headline -->
 				<div class="section-headline margin-top-0 margin-bottom-25">
 					<h3>Highest Rated Freelancers</h3>
-					<a href="#" class="headline-link">Browse All Freelancers</a>
+					<a href="browse-freelancers" class="headline-link">Browse All Freelancers</a>
 				</div>
 			</div>
 
 			<div class="col-xl-12">
 				<div class="default-slick-carousel freelancers-container freelancers-grid-layout">
-
+				@foreach($freelancers as $freelancer)
 					<!--Freelancer -->
 					<div class="freelancer">
-
 						<!-- Overview -->
 						<div class="freelancer-overview">
 							<div class="freelancer-overview-inner">
 								
-								<!-- Bookmark Icon -->
-								<span class="bookmark-icon"></span>
 								
 								<!-- Avatar -->
 								<div class="freelancer-avatar">
+									@if($freelancer->verified == 'yes')
 									<div class="verified-badge"></div>
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a>
+									@endif
+									@if (sizeof($freelancer->getMedia('profile')) == 0)
+									<a href="freelancers/{{ $freelancer->uuid }}"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a>
+									@else
+									<a href="freelancers/{{ $freelancer->uuid }}"><img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/></a>
+									@endif
 								</div>
 
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="#">Tom Smith <img class="flag" src="{{ asset('assets/images/flags/gb.svg') }}" alt="" title="United Kingdom" data-tippy-placement="top"></a></h4>
-									<span>UI/UX Designer</span>
+									<h4><a href="freelancers/{{ $freelancer->uuid }}">{{ $freelancer->name }}<img class="flag" src="{{ asset('assets/images/flags/'.$freelancer->country->code.'.svg') }}" alt="{{ $freelancer->country->name }}" title="{{ $freelancer->country->name }}" data-tippy-placement="top"></a></h4>
+									<span>{{ str_limit($freelancer->headline , $limit = 35)  }}</span>
 								</div>
 
 								<!-- Rating -->
 								<div class="freelancer-rating">
-									<div class="star-rating" data-rating="5.0"></div>
+									<div class="star-rating" data-rating="{{ $freelancer->rating ?? 0 }}"></div>
 								</div>
 							</div>
 						</div>
@@ -398,225 +204,16 @@
 						<div class="freelancer-details">
 							<div class="freelancer-details-list">
 								<ul>
-									<li>Location <strong><i class="icon-material-outline-location-on"></i> London</strong></li>
-									<li>Rate <strong>$60 / hr</strong></li>
-									<li>Job Success <strong>95%</strong></li>
+									<li>{{ $freelancer->country->name }} <strong><i class="icon-material-outline-location-on"></i> {{ $freelancer->city ?? 'N/A' }}</strong></li>
+									<li>Rate <strong>{{ $freelancer->rate }} / hr</strong></li>
+									<li>Job Success <strong>{{ $freelancer->completion_rate }}%</strong></li>
 								</ul>
 							</div>
-							<a href="#" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
+							<a href="freelancers/{{ $freelancer->uuid }}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
 						</div>
 					</div>
 					<!-- Freelancer / End -->
-
-					<!--Freelancer -->
-					<div class="freelancer">
-
-						<!-- Overview -->
-						<div class="freelancer-overview">
-							<div class="freelancer-overview-inner">
-								
-								<!-- Bookmark Icon -->
-								<span class="bookmark-icon"></span>
-								
-								<!-- Avatar -->
-								<div class="freelancer-avatar">
-									<div class="verified-badge"></div>
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></a>
-								</div>
-
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">David Peterson <img class="flag" src="{{ asset('assets/images/flags/de.svg') }}" alt="" title="Germany" data-tippy-placement="top"></a></h4>
-									<span>iOS Expert + Node Dev</span>
-								</div>
-
-								<!-- Rating -->
-								<div class="freelancer-rating">
-									<div class="star-rating" data-rating="5.0"></div>
-								</div>
-							</div>
-						</div>
-						
-						<!-- Details -->
-						<div class="freelancer-details">
-							<div class="freelancer-details-list">
-								<ul>
-									<li>Location <strong><i class="icon-material-outline-location-on"></i> Berlin</strong></li>
-									<li>Rate <strong>$40 / hr</strong></li>
-									<li>Job Success <strong>88%</strong></li>
-								</ul>
-							</div>
-							<a href="#" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
-						</div>
-					</div>
-					<!-- Freelancer / End -->
-
-					<!--Freelancer -->
-					<div class="freelancer">
-
-						<!-- Overview -->
-						<div class="freelancer-overview">
-							<div class="freelancer-overview-inner">
-								<!-- Bookmark Icon -->
-								<span class="bookmark-icon"></span>
-								
-								<!-- Avatar -->
-								<div class="freelancer-avatar">
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
-								</div>
-
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">Marcin Kowalski <img class="flag" src="{{ asset('assets/images/images/flags/pl.svg') }}" alt="" title="Poland" data-tippy-placement="top"></a></h4>
-									<span>Front-End Developer</span>
-								</div>
-
-								<!-- Rating -->
-								<div class="freelancer-rating">
-									<div class="star-rating" data-rating="4.9"></div>
-								</div>
-							</div>
-						</div>
-						
-						<!-- Details -->
-						<div class="freelancer-details">
-							<div class="freelancer-details-list">
-								<ul>
-									<li>Location <strong><i class="icon-material-outline-location-on"></i> Warsaw</strong></li>
-									<li>Rate <strong>$50 / hr</strong></li>
-									<li>Job Success <strong>100%</strong></li>
-								</ul>
-							</div>
-							<a href="#" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
-						</div>
-					</div>
-					<!-- Freelancer / End -->
-
-					<!--Freelancer -->
-					<div class="freelancer">
-
-						<!-- Overview -->
-						<div class="freelancer-overview">
-								<div class="freelancer-overview-inner">
-								<!-- Bookmark Icon -->
-								<span class="bookmark-icon"></span>
-								
-								<!-- Avatar -->
-								<div class="freelancer-avatar">
-									<div class="verified-badge"></div>
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-big-03.jpg') }}" alt=""></a>
-								</div>
-
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">Sindy Forest <img class="flag" src="{{ asset('assets/images/flags/au.svgu') }}" alt="" title="Australia" data-tippy-placement="top"></a></h4>
-									<span>Magento Certified Developer</span>
-								</div>
-
-								<!-- Rating -->
-								<div class="freelancer-rating">
-									<div class="star-rating" data-rating="5.0"></div>
-								</div>
-							</div>
-						</div>
-						
-						<!-- Details -->
-						<div class="freelancer-details">
-							<div class="freelancer-details-list">
-								<ul>
-									<li>Location <strong><i class="icon-material-outline-location-on"></i> Brisbane</strong></li>
-									<li>Rate <strong>$70 / hr</strong></li>
-									<li>Job Success <strong>100%</strong></li>
-								</ul>
-							</div>
-							<a href="#" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
-						</div>
-					</div>
-					<!-- Freelancer / End -->
-					
-					<!--Freelancer -->
-					<div class="freelancer">
-
-						<!-- Overview -->
-						<div class="freelancer-overview">
-								<div class="freelancer-overview-inner">
-								<!-- Bookmark Icon -->
-								<span class="bookmark-icon"></span>
-								
-								<!-- Avatar -->
-								<div class="freelancer-avatar">
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
-								</div>
-
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">Sebastiano Piccio <img class="flag" src="{{ asset('assets/images/flags/it.svg') }}" alt="" title="Italy" data-tippy-placement="top"></a></h4>
-									<span>Laravel Dev</span>
-								</div>
-
-								<!-- Rating -->
-								<div class="freelancer-rating">
-									<div class="star-rating" data-rating="4.5"></div>
-								</div>
-							</div>
-						</div>
-						
-						<!-- Details -->
-						<div class="freelancer-details">
-							<div class="freelancer-details-list">
-								<ul>
-									<li>Location <strong><i class="icon-material-outline-location-on"></i> Milan</strong></li>
-									<li>Rate <strong>$80 / hr</strong></li>
-									<li>Job Success <strong>89%</strong></li>
-								</ul>
-							</div>
-							<a href="#" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
-						</div>
-					</div>
-					<!-- Freelancer / End -->
-								
-					<!--Freelancer -->
-					<div class="freelancer">
-
-						<!-- Overview -->
-						<div class="freelancer-overview">
-								<div class="freelancer-overview-inner">
-								<!-- Bookmark Icon -->
-								<span class="bookmark-icon"></span>
-								
-								<!-- Avatar -->
-								<div class="freelancer-avatar">
-									<a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
-								</div>
-
-								<!-- Name -->
-								<div class="freelancer-name">
-									<h4><a href="#">Gabriel Lagueux <img class="flag" src="{{ asset('assets/images/flags/fr.svg') }}" alt="" title="France" data-tippy-placement="top"></a></h4>
-									<span>WordPress Expert</span>
-								</div>
-
-								<!-- Rating -->
-								<div class="freelancer-rating">
-									<div class="star-rating" data-rating="5.0"></div>
-								</div>
-							</div>
-						</div>
-						
-						<!-- Details -->
-						<div class="freelancer-details">
-							<div class="freelancer-details-list">
-								<ul>
-									<li>Location <strong><i class="icon-material-outline-location-on"></i> Paris</strong></li>
-									<li>Rate <strong>$50 / hr</strong></li>
-									<li>Job Success <strong>100%</strong></li>
-								</ul>
-							</div>
-							<a href="#" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
-						</div>
-					</div>
-					<!-- Freelancer / End -->
-
-
+					@endforeach
 				</div>
 			</div>
 
