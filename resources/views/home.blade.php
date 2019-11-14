@@ -43,15 +43,15 @@
 			<div class="col-md-12">
 				<ul class="intro-stats margin-top-45 hide-under-992px">
 					<li>
-						<strong class="counter">{{ $total_jobs->total }}</strong>
+						<strong class="counter">{{ $total_jobs->total  ?? 0 }}</strong>
 						<span>Jobs Posted</span>
 					</li>
 					<li>
-						<strong class="counter">{{ $total_jobs->completed }}</strong>
+						<strong class="counter">{{ $total_jobs->completed  ?? 0 }}</strong>
 						<span>Jobs Completed</span>
 					</li>
 					<li>
-						<strong class="counter">{{ $total_freelancers }}</strong>
+						<strong class="counter">{{ $total_freelancers  ?? 0 }}</strong>
 						<span>Freelancers</span>
 					</li>
 				</ul>
@@ -81,8 +81,8 @@
 					<a href="/browse-jobs" class="photo-box small" data-background-image="{{ $category->getFirstMediaUrl('cover', 'big') }}">
 				@endif	
 					<div class="photo-box-content">
-						<h3>{{ $category->title }}</h3>
-						<span>{{ $category->jobs_count }}</span>
+						<h3>{{ $category->title  ?? '' }}</h3>
+						<span>{{ $category->jobs_count  ?? 0 }}</span>
 					</div>
 				</a>
 			</div>
@@ -122,7 +122,7 @@
 								</ul>
 								<div class="task-tags margin-top-15">
 								@foreach($job->skills as $skill)
-									<span>{{ $skill->title}}</span>
+									<span>{{ $skill->title  ?? ''}}</span>
 								@endforeach
 								</div>
 							</div>
@@ -132,8 +132,8 @@
 						<div class="task-listing-bid">
 							<div class="task-listing-bid-inner">
 								<div class="task-offers">
-									<strong>${{ $job->min_budget }}  - ${{ $job->max_budget }} </strong>
-									<span>{{ strtoupper($job->budget_type) }}</span>
+									<strong>${{ $job->min_budget  ?? 0 }}  - ${{ $job->max_budget  ?? 0 }} </strong>
+									<span>{{ strtoupper($job->budget_type  ?? '') }}</span>
 								</div>
 								<span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
 							</div>
@@ -189,7 +189,7 @@
 
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="freelancers/{{ $freelancer->uuid }}">{{ $freelancer->name }}<img class="flag" src="{{ asset('assets/images/flags/'.$freelancer->country->code.'.svg') }}" alt="{{ $freelancer->country->name }}" title="{{ $freelancer->country->name }}" data-tippy-placement="top"></a></h4>
+									<h4><a href="freelancers/{{ $freelancer->uuid  ?? '' }}">{{ $freelancer->name ?? '' }}<img class="flag" src="{{ asset('assets/images/flags/'.$freelancer->country->code.'.svg') }}" alt="{{ $freelancer->country->name  ?? '' }}" title="{{ $freelancer->country->name ?? '' }}" data-tippy-placement="top"></a></h4>
 									<span>{{ str_limit($freelancer->headline , $limit = 35)  }}</span>
 								</div>
 
@@ -204,9 +204,9 @@
 						<div class="freelancer-details">
 							<div class="freelancer-details-list">
 								<ul>
-									<li>{{ $freelancer->country->name }} <strong><i class="icon-material-outline-location-on"></i> {{ $freelancer->city ?? 'N/A' }}</strong></li>
-									<li>Rate <strong>{{ $freelancer->rate }} / hr</strong></li>
-									<li>Job Success <strong>{{ $freelancer->completion_rate }}%</strong></li>
+									<li>{{ $freelancer->country->name  ?? '' }} <strong><i class="icon-material-outline-location-on"></i> {{ $freelancer->city ?? 'N/A' }}</strong></li>
+									<li>Rate <strong>{{ $freelancer->rate  ?? '' }} / hr</strong></li>
+									<li>Job Success <strong>{{ $freelancer->completion_rate  ?? '' }}%</strong></li>
 								</ul>
 							</div>
 							<a href="freelancers/{{ $freelancer->uuid }}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
