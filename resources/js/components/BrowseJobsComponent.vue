@@ -188,6 +188,10 @@ export default {
         min_budget: "",
         max_budget: ""
       },
+      urlQueryParams: {
+        category: "",
+        search: "",
+      },
       slider: {
         min: 1,
         max: 10000,
@@ -217,6 +221,11 @@ export default {
       backgroundColor: "#000",
       borderColor: "#000"
     };
+    
+    let uri = window.location.search.substring(1); 
+    let params = new URLSearchParams(uri);
+    this.search.industry.push(params.get("category"));
+    this.search.title = params.get("search");
   },
 
   mounted() {

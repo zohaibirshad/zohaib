@@ -27,13 +27,18 @@
 					<!-- Search Field -->
 					<div class="intro-search-field">
 						<label for ="intro-keywords" class="field-title ripple-effect">What job you want?</label>
-						<input id="intro-keywords" type="text" placeholder="Job Title or Keywords">
+						<input id="intro-keywords" type="text" placeholder="Job Title or Keywords" class="searchJobs">
 					</div>
 
 					<!-- Button -->
 					<div class="intro-search-button">
-						<button class="button ripple-effect">Search</button>
+						<button class="button ripple-effect" id="searchBtn">Search</button>
 					</div>
+
+					{{-- <form id="search_form" action="/browse-jobs" method="get" style="display: none;">
+						<input type="hidden" name="search" id="searchBox">
+                        @csrf
+                    </form> --}}
 				</div>
 			</div>
 		</div>
@@ -76,9 +81,9 @@
 			<div class="col-xl-3 col-md-6">
 				<!-- Photo Box -->
 				@if (sizeof($category->getMedia('profile')) == 0)
-					<a href="/browse-jobs" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-02.jpg') }}">
+					<a href="/browse-jobs?category={{ $category->id }}" class="photo-box small" data-background-image="{{ asset('assets/images/job-category-02.jpg') }}">
                 @else
-					<a href="/browse-jobs" class="photo-box small" data-background-image="{{ $category->getFirstMediaUrl('cover', 'big') }}">
+					<a href="/browse-jobs?category={{ $category->id }}" class="photo-box small" data-background-image="{{ $category->getFirstMediaUrl('cover', 'big') }}">
 				@endif	
 					<div class="photo-box-content">
 						<h3>{{ $category->title  ?? '' }}</h3>
@@ -204,7 +209,7 @@
 						<div class="freelancer-details">
 							<div class="freelancer-details-list">
 								<ul>
-									<li>{{ $freelancer->country->name  ?? '' }} <strong><i class="icon-material-outline-location-on"></i> {{ $freelancer->city ?? 'N/A' }}</strong></li>
+									<li>Country <strong><i class="icon-material-outline-location-on"></i> {{ $freelancer->country->name  ?? '' }}</strong></li>
 									<li>Rate <strong>{{ $freelancer->rate  ?? '' }} / hr</strong></li>
 									<li>Job Success <strong>{{ $freelancer->completion_rate  ?? '' }}%</strong></li>
 								</ul>
@@ -223,3 +228,26 @@
 <!-- Highest Rated Freelancers / End-->
 @endrole
 @endsection
+
+@push('custom-scripts')
+    <script>
+		$(document).ready(function(){
+			$('#searchBtn').click(function(){
+				let input = $('.searchJobs').val();
+				if(input.length == 0){
+					Snackbar.show({
+						text: "Please type something first",
+						pos: 'top-right',
+						showAction: false,
+						actionText: "Dismiss",
+						duration: 3000,
+						textColor: '#fff',
+						backgroundColor: '#383838'
+					});
+				} else {
+					location.href = '/browse-jobs?search='+input;
+				}
+			});
+		});
+	</script>
+@endpush

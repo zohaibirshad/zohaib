@@ -175,17 +175,18 @@ class HirerController extends Controller
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
         $job = Job::find($request->job_id);
-        $job->ontime = $request->ontime == 'on' ? 1 : 0;
-        $job->onbudget = $request->onbudget == 'on' ? 1 : 0;
+        $job->ontime = $request->ontime == 'on' ? "yes" : "no";
+        $job->onbudget = $request->onbudget == 'on' ? "yes" : "no";
         $job->save();
 
         $profile->reviews()->create([
             'user_id' => Auth::user()->id,
             'rating' => $request->rating,
-            'body' => $request->body
+            'body' => $request->body,
+            'job_id' => $request->job_id,
         ]);
 
-        return redirect()->back()->with('success', 'Review Successful');
+        return back()->with('success', 'Review Successful');
 
         // return response()->json([
         //     'status' => "Success",

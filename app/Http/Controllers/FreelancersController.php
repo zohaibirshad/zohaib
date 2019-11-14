@@ -211,7 +211,8 @@ class FreelancersController extends Controller
         $job->reviews()->create([
             'user_id' => Auth::user()->id,
             'rating' => $request->rating,
-            'body' => $request->body
+            'body' => $request->body,
+            'job_id' => $request->job_id,
         ]);
 
         return redirect()->back()->with('success', 'Review Successful');

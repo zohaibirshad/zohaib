@@ -24,7 +24,7 @@ class ReviewsController extends Controller
                 ->paginate(10);
         } else {
             $jobs = Job::where('user_id', Auth::id())
-                ->with('reviews')
+                ->with('profile', 'reviews')
                 ->paginate(10);
         }
 

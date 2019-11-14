@@ -16,6 +16,8 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('job_id')->unsigned()->nullable();
+            $table->foreign('job_id')->references('id')->on('jobs');
             $table->text('body')->nullable();
             $table->bigInteger('reviewable_id')->nullable();
             $table->string('reviewable_type')->nullable();
