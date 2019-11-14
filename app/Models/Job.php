@@ -98,6 +98,12 @@ class Job extends Model implements HasMedia
         return $this->morphMany('App\Models\Review', 'reviewable');
     }
 
+    public function myReviews()
+    {
+        return $this->morphMany('App\Models\Review', 'reviewable')
+        ->where('user_id', auth()->user()->id);
+    }
+
     /**
      * Get all of the job's reviews.
      */

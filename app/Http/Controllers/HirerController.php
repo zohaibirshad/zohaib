@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\Invite;
 use App\Models\Milestone;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -173,16 +174,23 @@ class HirerController extends Controller
 
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
+        $job = Job::find($request->job_id);
+        $job->ontime = $request->ontime == 'on' ? 1 : 0;
+        $job->onbudget = $request->onbudget == 'on' ? 1 : 0;
+        $job->save();
+
         $profile->reviews()->create([
             'user_id' => Auth::user()->id,
             'rating' => $request->rating,
             'body' => $request->body
         ]);
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Review was saved successfully"
-        ]);
+        return redirect()->back()->with('success', 'Review Successful');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Review was saved successfully"
+        // ]);
 
 
     }

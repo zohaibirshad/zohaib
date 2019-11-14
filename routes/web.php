@@ -101,6 +101,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('new-jobs', 'HirerController@not_assigned_jobs')->name('new-jobs');
         Route::post('new-invite', 'HirerController@send_invite')->name('new-invite');
         Route::get('bidders/{id}', 'DashboardController@bidders')->name('bidders');
+        Route::post('review_freelancer/{uuid}', 'HirerController@review_freelancer');
     });
 
     Route::get('ongoing-jobs', 'JobsController@ongoing_jobs')->name('ongoing-jobs');

@@ -99,7 +99,7 @@
                             </div>
 
                             @if(sizeof($job->reviews) == 0)
-                            <a href="#small-dialog-2" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 leaveReview" data-job="{{ $job }}"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>
+                            <a href="#small-dialog-3" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 leaveReview2" data-job="{{ $job }}"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>
                             @else
                             {{-- <a href="#small-dialog-1" class="popup-with-zoom-anim button gray ripple-effect margin-top-5 margin-bottom-10 editReview" data-job="{{ $job }}"><i class="icon-feather-edit"></i> Edit Review</a> --}}
                             @endif
@@ -281,12 +281,38 @@
 				<!-- Welcome Text -->
 				<div class="welcome-text">
 					<h3>Leave a Review</h3>
-					<span>Rate <a href="" id="job_link"><span id="job_name"></span></a> </span>
+					<span>Rate <a href="" id="profile_link"></a> for the project <a href="" id="job_link2"></a> </span>
 				</div>
 					
 				<!-- Form -->
-				<form method="post" action="" id="leaveReviewForm">
+				<form method="post" action="" id="leaveReviewForm2">
                     @csrf
+
+                    <div class="feedback-yes-no">
+						<strong>Was this delivered on budget?</strong>
+						<div class="radio">
+							<input id="radio-1" name="onbudget" type="radio" required checked>
+							<label for="radio-1"><span class="radio-label"></span> Yes</label>
+						</div>
+
+						<div class="radio">
+							<input id="radio-2" name="onbudget" type="radio" required>
+							<label for="radio-2"><span class="radio-label"></span> No</label>
+						</div>
+					</div>
+
+					<div class="feedback-yes-no">
+						<strong>Was this delivered on time?</strong>
+						<div class="radio">
+							<input id="radio-3" name="ontime" type="radio" required checked>
+							<label for="radio-3"><span class="radio-label"></span> Yes</label>
+						</div>
+
+						<div class="radio">
+							<input id="radio-4" name="ontime" type="radio" required>
+							<label for="radio-4"><span class="radio-label"></span> No</label>
+						</div>
+					</div>
 
 					<div class="feedback-yes-no">
 						<strong>Your Rating</strong>
@@ -303,14 +329,15 @@
 							<label for="rating-radio-5" class="icon-material-outline-star"></label>
 						</div><div class="clearfix"></div>
                     </div>
-                    <input type="hidden" name="job_id" id="job_id">
+                    <input type="hidden" name="job_id" id="job_id2">
+                    <input type="hidden" name="user_id" id="user_id">
 
 					<textarea class="with-border" placeholder="Comment" name="body" cols="7" required></textarea>
 
 				</form>
 				
 				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="leaveReviewForm">Leave a Review <i class="icon-material-outline-arrow-right-alt"></i></button>
+				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="leaveReviewForm2">Leave a Review <i class="icon-material-outline-arrow-right-alt"></i></button>
 
 			</div>
 
@@ -329,12 +356,25 @@
                 var _job = $(this).attr("data-job");
                 var job = JSON.parse(_job);
 
-                console.log(job);
-
                 $('#leaveReviewForm').attr('action', 'review_job/' + job.uuid);
                 $('#job_link').attr('href', 'jobs/' + job.slug);
-                $('#job_name').text(job.title);
+                $('#job_link').text(job.title);
                 $('#job_id').val(job.id);
+            });
+
+            var leaveReview2 = $('.leaveReview2');
+            leaveReview2.click(function(){
+                var _job = $(this).attr("data-job");
+                var job = JSON.parse(_job);
+
+
+                $('#leaveReviewForm2').attr('action', 'review_freelancer/' + job.profile.uuid);
+                $('#job_link2').attr('href', 'jobs/' + job.slug);
+                $('#job_link2').text(job.title);
+                $('#profile_link').attr('href', 'freelancers/' + job.profile.uuid);
+                $('#profile_link').text(job.profile.name);
+                $('#user_id').val(job.profile.user_id);
+                $('#job_id2').val(job.id);
             });
         });
 </script>
