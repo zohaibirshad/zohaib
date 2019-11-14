@@ -38,7 +38,6 @@
                             </ul>
     
                             <!-- Buttons -->
-                            @role('hirer')
                             <div class="buttons-to-right always-visible">
                                 <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect">
                                     <i class="icon-line-awesome-list-alt"></i> 
@@ -46,7 +45,6 @@
                                     </span>
                                 </a>
                             </div>
-                            @endrole
                         </li>  
                     @empty
                     <p class="text-center text-muted py-3">YOU HAVE NO ONGOING JOBS</p> 

@@ -156,10 +156,12 @@ class HirerController extends Controller
         $milestone->status = $request->status;
         $milestone->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Milestone Status was changed successfully"
-        ]);
+        return back()->with('success', 'Payment Released For Milestone');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Milestone Status was changed successfully"
+        // ]);
     }
 
     public function release_payment_for_milestone(Request $request, $mile_uuid)

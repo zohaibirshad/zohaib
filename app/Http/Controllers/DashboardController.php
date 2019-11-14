@@ -69,16 +69,26 @@ class DashboardController extends Controller
             abort(404);
         }
 
-        $m = Milestone::where('job_id', $job->id)
-        ->with('profile')
-        ->where('user_id', $user->id)
-        ->orwhere('profile_id', $freelancer->id);
+        if($user->hasRole('hirer')){
+            $m = Milestone::where('job_id', $job->id)
+            ->with('profile')
+            ->where('user_id', $user->id);
 
-        $done = Milestone::where('job_id', $job->id)
-        ->where('status', 'done')
-        ->where('user_id', $user->id)
-        ->orwhere('profile_id', $freelancer->id)
-        ->count();
+            $done = Milestone::where('job_id', $job->id)
+            ->where('status', 'done')
+            ->where('user_id', $user->id)
+            ->count();
+        } else {
+            $m = Milestone::where('job_id', $job->id)
+            ->with('profile')
+            ->where('profile_id', $freelancer->id);
+
+            $done = Milestone::where('job_id', $job->id)
+            ->where('status', 'done')
+            ->where('profile_id', $freelancer->id)
+            ->count();
+        }
+
 
         $milestones = $m->get();
 

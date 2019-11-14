@@ -94,6 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('edit_bid/{uuid}', 'FreelancersController@edit_bid');
         Route::post('delete_bid/{uuid}', 'FreelancersController@delete_bid');
         Route::post('review_job/{uuid}', 'FreelancersController@review_job');
+        Route::post('milestones/update_milestone/{uuid}', 'FreelancersController@update_milestone');
     });
 
     // Hirer Stuff

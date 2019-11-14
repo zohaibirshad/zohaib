@@ -48,7 +48,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</
                             @if($milestone->status == 'not done') 
                             @role('freelancer')
                             <span class="float-right">
-                                <a href="#"  class="button btn-xs">
+                                <a href="#small-dialog-3"  class="popup-with-zoom-anim button btn-xs completedBtn" data-milestone="{{ $milestone }}">
                                     <i class="icon-material-outline-check-circle"></i> Mark as Completed
                                 </a>
                             </span>
@@ -143,6 +143,43 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</
 	</div>
 </div>
 <!-- Bid Acceptance Popup / End -->
+
+<!-- Bid Acceptance Popup
+================================================== -->
+<div id="small-dialog-3" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+	<!--Tabs -->
+	<div class="sign-in-form">
+
+		<ul class="popup-tabs-nav">
+			<li><a href="#tab1">Confirm Completion</a></li>
+		</ul>
+
+		<div class="popup-tabs-container">
+
+			<!-- Tab -->
+			<div class="popup-tab-content" id="tab">
+				
+				<!-- Welcome Text -->
+				<div class="welcome-text">
+					<h3>Are you sure you want to mark this as completed?</h3>
+
+				</div>
+
+                <!-- Button -->
+                <form action="" method="post" id="completionForm">
+                    @csrf
+                    <input type="hidden" name="status" value="done">
+                </form>
+
+				<button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="completionForm">Yes <i class="icon-material-outline-check-circle"></i></button>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- Bid Acceptance Popup / End -->
 @endsection
 
 @push('custom-scripts')
@@ -164,6 +201,12 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</
                 $('#releasePayment').text('Release Payment to '+ milestone.profile.name + ' for Milestone?');
                 $('#paymentCost').text('$'+ThousandSeparator(milestone.cost));
                 $('#releasePaymentForm').attr('action', 'release_payment/'+milestone.uuid);
+            });
+
+            $('.completedBtn').click(function(){
+                var _milestone = $(this).attr("data-milestone");
+                var milestone = JSON.parse(_milestone);
+                $('#completionForm').attr('action', 'update_milestone/'+milestone.uuid);
             });
 
             function ThousandSeparator(nStr) {
