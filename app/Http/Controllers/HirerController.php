@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bid;
 use App\Models\Job;
 use App\Models\Invite;
 use App\Models\Milestone;
@@ -84,10 +85,12 @@ class HirerController extends Controller
      */
     public function manage_bids(Request $request, $job_uuid)
     {
-        $job = Job::where('uuid', $job_uuid)->first();
+        $job = Job::where('slug', $job_uuid)->first();
         $bids = Bid::where('job_id', $job->id)->with('profile')->get();
 
-        return view('dashboard.jobs.bidders', compact('bids'));
+       
+
+        return view('dashboard.bidders', compact('bids', 'job'));
     }
     
 
@@ -102,21 +105,23 @@ class HirerController extends Controller
     public function accept_bid(Request $request, $bid_uuid)
     {
         $validateData = $request->validate([
-            'profile_id' => 'required'
+            'profile_id' => 'required',
         ]);
         $bid = Bid::where('uuid', $bid_uuid)->first();
         $bid->status = 'accepted';
         $bid->save();
 
-        $job = Job::where('id', $bid->id)->first();
+        $job = Job::where('id', $bid->job_id)->first();
         $job->status = 'assigned';
         $job->profile_id = $request->profile_id;
         $job->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Job was assigned successfully"
-        ]);
+        return back()->with('success', 'Bid Accepted Successfully');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Job was assigned successfully"
+        // ]);
     }
 
     /**
@@ -151,10 +156,24 @@ class HirerController extends Controller
         $milestone->status = $request->status;
         $milestone->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Milestone Status was changed successfully"
-        ]);
+        return back()->with('success', 'Payment Released For Milestone');
+
+        // return response()->json([
+        //     'status' => "Success",
+        //     'message' => "Milestone Status was changed successfully"
+        // ]);
+    }
+
+    public function release_payment_for_milestone(Request $request, $mile_uuid)
+    {
+
+        $milestone = Milestone::where('uuid', $mile_uuid)->first();
+        $milestone->is_paid = 1;
+        $milestone->save();
+
+        // Actually add the money to use account
+
+        return back()->with('success', 'Payment Released For Milestone');
     }
 
 

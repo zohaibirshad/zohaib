@@ -26,6 +26,7 @@ class CreateMilestonesTable extends Migration
             $table->string('heading')->nullable();
             $table->string('status')->nullable();
             $table->text('activity')->nullable();
+            $table->tinyInteger('is_paid')->default(0);
             $table->decimal('cost', 13,2)->nullable();
             $table->timestamps();
         });

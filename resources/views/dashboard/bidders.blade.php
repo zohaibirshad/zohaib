@@ -12,136 +12,84 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 
             <!-- Headline -->
             <div class="headline">
-                <h3><i class="icon-material-outline-supervisor-account"></i> 3 Bidders</h3>
-                <div class="sort-by">
+                <h3><i class="icon-material-outline-supervisor-account"></i> {{ sizeof($bids) }} Bidders 
+                    @if($job->status == 'assigned')
+                    <span class="badge badge-success">Job Assigned</span>
+                    @endif
+                </h3>
+                {{-- <div class="sort-by">
                     <select class="selectpicker hide-tick">
                         <option>Highest First</option>
                         <option>Lowest First</option>
                         <option>Fastest First</option>
                     </select>
-                </div>
+                </div> --}}
             </div>
 
             <div class="content">
                 <ul class="dashboard-box-list">
-                    <li>
+                    @forelse ($bids as $bid)
+                       <li>
                         <!-- Overview -->
                         <div class="freelancer-overview manage-candidates">
                             <div class="freelancer-overview-inner">
 
                                 <!-- Avatar -->
+                                
                                 <div class="freelancer-avatar">
+                                    @if($bid->profile->verified)
                                     <div class="verified-badge"></div>
-                                    <a href="#"><img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt=""></a>
+                                    @endif
+                                    @if (sizeof($bid->profile->getMedia('profile')) == 0)
+									<a href="freelancers/{{ $bid->profile->uuid }}"><img src="{{ asset('assets/images/user-avatar-big-01.jpg') }}" alt=""></a>
+									@else
+									<a href="freelancers/{{ $bid->profile->uuid }}"><img src="{{ $bid->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/></a>
+									@endif
                                 </div>
 
                                 <!-- Name -->
                                 <div class="freelancer-name">
-                                    <h4><a href="#">David Peterson <img class="flag" src="{{ asset('assets/images/flags/de.svg') }}" alt="" title="Germany" data-tippy-placement="top"></a></h4>
+                                    <h4>
+                                        <a href="freelancers/{{ $bid->profile->uuid }}">{{ $bid->profile->name }} 
+                                            <img class="flag" src="{{ asset('assets/images/flags/'.$bid->profile->country->code.'.svg') }}" alt="{{ $bid->profile->country->name }}">
+                                        </a>
+                                    </h4>
 
                                     <!-- Details -->
-                                    <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i> david@example.com</a></span>
+                                    <span class="freelancer-detail-item">
+                                        <a href="mailto:{{ $bid->profile->email }}"><i class="icon-feather-mail"></i> {{ $bid->profile->email }}</a></span>
 
                                     <!-- Rating -->
+
+                                    @if($bid->profile->rating == 0 || $bid->profile->rating == null)
+                                    <span class="company-not-rated">Minimum of 1 vote required</span>
+                                    @else
                                     <div class="freelancer-rating">
-                                        <div class="star-rating" data-rating="5.0"></div>
+                                        <div class="star-rating" data-rating="{{ $bid->profile->rating }}"></div>
                                     </div>
+                                    @endif
 
                                     <!-- Bid Details -->
                                     <ul class="dashboard-task-info bid-info">
-                                        <li><strong>$3,200</strong><span>Fixed Price</span></li>
-                                        <li><strong>14 Days</strong><span>Delivery Time</span></li>
+                                        <li><strong>${{ $bid->rate }}</strong><span class="text-capitalize">{{ $job->budget_type }} Rate</span></li>
+                                        <li><strong>{{ $bid->delivery_time }} {{ $bid->delivery_type }}</strong><span>Delivery Time</span></li>
                                     </ul>
 
                                     <!-- Buttons -->
+                                    @if($job->status != 'assigned')
                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-0">
-                                        <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect"><i class="icon-material-outline-check"></i> Accept Offer</a>
+                                        <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect acceptBids" data-bid="{{ $bid }}"><i class="icon-material-outline-check"></i> Accept Offer</a>
                                         <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-mail"></i> Send Message</a>
-                                        {{-- <a href="#" class="button gray ripple-effect ico" title="Remove Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a> --}}
+                                    @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <!-- Overview -->
-                        <div class="freelancer-overview manage-candidates">
-                            <div class="freelancer-overview-inner">
-
-                                <!-- Avatar -->
-                                <div class="freelancer-avatar">
-                                    <a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
-                                </div>
-
-                                <!-- Name -->
-                                <div class="freelancer-name">
-                                    <h4><a href="#">Oldrich Ćuk <img class="flag" src="{{ asset('assets/images/flags/sk.svg') }}" alt="" title="Slovakia" data-tippy-placement="top"></a></h4>
-
-                                    <!-- Details -->
-                                    <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i> oldrich@example.com</a></span>
-                                    <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> (+421) 123-456-789</span>
-
-
-                                    <!-- Rating -->
-                                    <br>
-                                    <span class="company-not-rated">Minimum of 3 votes required</span>
-
-                                    <!-- Bid Details -->
-                                    <ul class="dashboard-task-info bid-info">
-                                        <li><strong>$3,000</strong><span>Fixed Price</span></li>
-                                        <li><strong>14 Days</strong><span>Delivery Time</span></li>
-                                    </ul>
-
-                                    <!-- Buttons -->
-                                    <div class="buttons-to-right always-visible margin-top-25 margin-bottom-0">
-                                        <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect"><i class="icon-material-outline-check"></i> Accept Offer</a>
-                                        <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-mail"></i> Send Message</a>
-                                        {{-- <a href="#" class="button gray ripple-effect ico" title="Remove Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a> --}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <!-- Overview -->
-                        <div class="freelancer-overview manage-candidates">
-                            <div class="freelancer-overview-inner">
-
-                                <!-- Avatar -->
-                                <div class="freelancer-avatar">
-                                    <div class="verified-badge"></div>
-                                    <a href="#"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
-                                </div>
-
-                                <!-- Name -->
-                                <div class="freelancer-name">
-                                    <h4><a href="#">Kuba Adamczyk <img class="flag" src="{{ asset('assets/images/flags/pl.svg') }}" alt="" title="Poland" data-tippy-placement="top"></a></h4>
-
-                                    <!-- Details -->
-                                    <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i> kuba@example.com</a></span>
-                                    <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> (+48) 123-456-789</span>
-
-                                    <!-- Rating -->
-                                    <div class="freelancer-rating">
-                                        <div class="star-rating" data-rating="5.0"></div>
-                                    </div>
-
-                                    <!-- Bid Details -->
-                                    <ul class="dashboard-task-info bid-info">
-                                        <li><strong>$2,700</strong><span>Fixed Price</span></li>
-                                        <li><strong>30 Days</strong><span>Delivery Time</span></li>
-                                    </ul>
-
-                                    <!-- Buttons -->
-                                    <div class="buttons-to-right always-visible margin-top-25 margin-bottom-0">
-                                        <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect"><i class="icon-material-outline-check"></i> Accept Offer</a>
-                                        <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-mail"></i> Send Message</a>
-                                        {{-- <a href="#" class="button gray ripple-effect ico" title="Remove Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a> --}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    </li> 
+                    @empty
+                        
+                    @endforelse
+                   
 
                 </ul>
             </div>
@@ -168,22 +116,24 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 				
 				<!-- Welcome Text -->
 				<div class="welcome-text">
-					<h3>Accept Offer From David</h3>
-					<div class="bid-acceptance margin-top-15">
+					<h3 id="acceptBidText">Accept Offer From David</h3>
+					<div class="bid-acceptance margin-top-15" id="bidPrice">
 						$3200
 					</div>
 
 				</div>
 
-				<form id="terms">
-					<div class="radio">
+				<form id="acceptBidForm" action="" method="post">
+                    @csrf
+					{{-- <div class="radio">
 						<input id="radio-1" name="radio" type="radio" required>
-						<label for="radio-1"><span class="radio-label"></span>  I have read and agree to the Terms and Conditions</label>
-					</div>
+						<label for="radio-1"><span class="radio-label"></span>  I accept the bid</label>
+                    </div> --}}
+                    <input type="hidden" name="profile_id" id="aProfileId">
 				</form>
 
 				<!-- Button -->
-				<button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="terms">Accept <i class="icon-material-outline-arrow-right-alt"></i></button>
+				<button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="acceptBidForm">Accept <i class="icon-material-outline-arrow-right-alt"></i></button>
 
 			</div>
 
@@ -228,4 +178,30 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 	</div>
 </div>
 @endsection
+@push('custom-scripts')
+    <script>
+        $(document).ready(function(){
+            $('.acceptBids').click(function(){
+                var _bid = $(this).attr("data-bid");
+                var bid = JSON.parse(_bid);
+                
+                $('#bidPrice').text('$'+ThousandSeparator2(bid.rate));
+                $('#acceptBidText').text('Accept Offer From '+bid.profile.name);
+                $('#aProfileId').val(bid.profile.id);
+                $('#acceptBidForm').attr('action', 'accept_bid/'+bid.uuid);
+            });
+            function ThousandSeparator2(nStr) {
+                nStr += '';
+                var x = nStr.split('.');
+                var x1 = x[0];
+                var x2 = x.length > 1 ? '.' + x[1] : '';
+                var rgx = /(\d+)(\d{3})/;
+                while (rgx.test(x1)) {
+                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                }
+                return x1 + x2;
+            }
+        });
+    </script>
+@endpush
 

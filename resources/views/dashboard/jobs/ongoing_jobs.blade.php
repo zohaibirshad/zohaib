@@ -26,12 +26,7 @@
                                     <div class="job-listing-description">
                                         <h3 class="job-listing-title"><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a> </h3>
     
-                                        <!-- Job Listing Footer -->
-                                        {{-- <div class="job-listing-footer">
-                                            <ul>
-                                                <li><i class="icon-material-outline-access-time"></i> 23 hours left</li>
-                                            </ul>
-                                        </div> --}}
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -39,15 +34,17 @@
                             <!-- Task Details -->
                             <ul class="dashboard-task-info">
                                 <li><strong>{{ $job->milestones_count }}</strong><span>Milestones</span></li>
-                                <li><strong>$300</strong><span class="text-capitalize">Amount Paid</span></li>
+                                {{-- <li><strong>$300</strong><span class="text-capitalize">Amount Paid</span></li> --}}
                             </ul>
     
                             <!-- Buttons -->
-                            @role('hirer')
                             <div class="buttons-to-right always-visible">
-                                <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect"><i class="icon-line-awesome-list-alt"></i> View Milestones <span class="button-info">3</span></a>
+                                <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect">
+                                    <i class="icon-line-awesome-list-alt"></i> 
+                                    View Milestones <span class="button-info">{{ $job->milestones_count }}
+                                    </span>
+                                </a>
                             </div>
-                            @endrole
                         </li>  
                     @empty
                     <p class="text-center text-muted py-3">YOU HAVE NO ONGOING JOBS</p> 

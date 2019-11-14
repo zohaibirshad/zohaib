@@ -94,14 +94,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('edit_bid/{uuid}', 'FreelancersController@edit_bid');
         Route::post('delete_bid/{uuid}', 'FreelancersController@delete_bid');
         Route::post('review_job/{uuid}', 'FreelancersController@review_job');
+        Route::post('milestones/update_milestone/{uuid}', 'FreelancersController@update_milestone');
     });
 
     // Hirer Stuff
     Route::group(['middleware' => ['role:hirer']], function () {
         Route::get('new-jobs', 'HirerController@not_assigned_jobs')->name('new-jobs');
         Route::post('new-invite', 'HirerController@send_invite')->name('new-invite');
-        Route::get('bidders/{id}', 'DashboardController@bidders')->name('bidders');
         Route::post('review_freelancer/{uuid}', 'HirerController@review_freelancer');
+        Route::get('bidders/{uuid}', 'HirerController@manage_bids')->name('bidders');
+        Route::post('bidders/accept_bid/{uuid}', 'HirerController@accept_bid');
+        Route::post('milestones/release_payment/{uuid}', 'HirerController@release_payment_for_milestone');
     });
 
     Route::get('ongoing-jobs', 'JobsController@ongoing_jobs')->name('ongoing-jobs');

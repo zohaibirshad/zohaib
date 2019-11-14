@@ -69,12 +69,32 @@ class DashboardController extends Controller
             abort(404);
         }
 
-        $milestones =  Milestone::where('job_id', $job->id)
-        ->where('user_id', $user->id)
-        ->orwhere('profile_id', $freelancer->id)
-        ->get();
+        if($user->hasRole('hirer')){
+            $m = Milestone::where('job_id', $job->id)
+            ->with('profile')
+            ->where('user_id', $user->id);
 
-        return view('dashboard.milestones', compact('milestones', 'job'));
+            $done = Milestone::where('job_id', $job->id)
+            ->where('status', 'done')
+            ->where('user_id', $user->id)
+            ->count();
+        } else {
+            $m = Milestone::where('job_id', $job->id)
+            ->with('profile')
+            ->where('profile_id', $freelancer->id);
+
+            $done = Milestone::where('job_id', $job->id)
+            ->where('status', 'done')
+            ->where('profile_id', $freelancer->id)
+            ->count();
+        }
+
+
+        $milestones = $m->get();
+
+        $completion = ($done / $m->count()) * 100;
+
+        return view('dashboard.milestones', compact('milestones', 'job', 'completion'));
     }
 
     public function bidders(Request $request, $slug)

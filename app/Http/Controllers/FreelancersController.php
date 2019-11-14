@@ -238,6 +238,19 @@ class FreelancersController extends Controller
         return redirect()->back()->with('success', 'Review updated');
     }
 
+    public function update_milestone(Request $request, $mile_uuid)
+    {
+        $validateData = $request->validate([
+            'status' => 'required'
+        ]);
+
+        $milestone = Milestone::where('uuid', $mile_uuid)->first();
+        $milestone->status = $request->status;
+        $milestone->save();
+
+        return back()->with('success', 'Milestone Updated');
+    }
+
     /**
      * View All Reviews.
      *
