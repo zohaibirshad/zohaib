@@ -13,7 +13,7 @@
 					<div class="left-side">
 						<div class="header-image freelancer-avatar">
                             @if (sizeof($job->owner->getMedia('profile')) == 0)
-                             <img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+                             <img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
                             @else
                                 <img src="{{ $job->owner->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
                             @endif	
@@ -66,7 +66,7 @@
 			 <!-- Atachments -->
 			<div class="single-page-section">
 				<h3>Attachments</h3>
-				@foreach ($job->getMedia('project_files') as $file)
+				@forelse ($job->getMedia('project_files') as $file)
 				<li>
 				<div class="attachments-container">
 					<a href="storage/{{ $file->id }}/{{ $file->file_name }}" target="new" class="attachment-box ripple-effect cursor-pointer">
@@ -74,7 +74,9 @@
 						<i class="text-uppercase hover:text-white">{{ $file->extension }}</i>
 					</a>
 				</div>
-				@endforeach
+				@empty
+				None
+				@endforelse
 			
 			</div> 
 
@@ -103,7 +105,7 @@
 								<div class="freelancer-avatar">
 									<div class="verified-badge"></div>
 									@if (sizeof($bid->profile->getMedia('profile')) == 0)
-									<img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+									<img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
 									@else
 										<img src="{{ $bid->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
 									@endif	

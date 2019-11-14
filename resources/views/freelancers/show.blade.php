@@ -12,7 +12,7 @@
 					<div class="left-side">
 						<div class="header-image freelancer-avatar">
                             @if (sizeof($freelancer->getMedia('profile')) == 0)
-                             <img src="{{ asset('assets/images/user-avatar-big-02.jpg') }}" alt="">
+                             <img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
                             @else
                                 <img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
                             @endif
