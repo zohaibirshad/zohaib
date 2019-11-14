@@ -154,13 +154,15 @@ class FreelancersController extends Controller
 
         $jobs = Job::where('status', 'completed')->where('profile_id', $freelancer->id)->paginate(5);
 
+        $hirerJobs = Job::where('status', 'not assigned')->where('user_id', Auth::id())->get();
+
         if (empty($freelancer)) {
             abort(404);
         }
 
         $isBookmakedByUser = Bookmark::where(['profile_id' => $freelancer->id, 'user_id' => Auth::id()])->exists();
 
-        return view('freelancers.show', compact('freelancer', 'jobs', 'isBookmakedByUser'));
+        return view('freelancers.show', compact('freelancer', 'jobs', 'isBookmakedByUser', 'hirerJobs'));
     }
 
 
