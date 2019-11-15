@@ -50,5 +50,7 @@
 	<!-- Spacer -->
 
 </div>
+<script src="{{ asset('js/app.js') }}"></script>
+
 <!-- Section / End -->
 @endsection

@@ -47,19 +47,15 @@
             <h3>Hourly Rate</h3>
             <div class="margin-top-55"></div>
 
-            <range-slider
-              v-model="slider.value"
-              :bg-style="slider.bgStyle"
-              :min="slider.min"
-              :max="slider.max"
-              :formatter="slider.formatter"
-              :tooltip-merge="slider.tooltipMerge"
-              :enable-cross="slider.enableCross"
-              :process-style="slider.processStyle"
-              :tooltip-style="slider.tooltipStyle"
-              height="3"
-              v-on:drag-end="sliderChange"
-            ></range-slider>
+              <range-slider
+                v-model="slider.value"
+                :min="slider.min"
+                :max="slider.max"
+                :enable-cross=false
+                :process=true
+                tooltip="always"
+                v-on:drag-end="sliderChange"
+            />
           </div>
 
           <!-- Tags -->
@@ -138,12 +134,9 @@
                     </h4>
                     <span>{{ freelancer.headline }}</span>
                     <!-- Rating -->
-                    <div class="freelancer-rating" v-if="freelancer.rating > 0">
+                    <div class="freelancer-rating" >
                       <div class="star-rating" :data-rating="freelancer.rating"></div>
                     </div>
-                    <span
-                      class="company-not-rated margin-bottom-5"
-                      v-if="freelancer.rating == 0 || freelancer.rating == null">Minimum of 1 vote required</span>
                   </div>
                 </div>
               </div>
@@ -220,16 +213,10 @@ export default {
         max_hourly_rate: ""
       },
       slider: {
+        value: [1, 120],
         min: 1,
-        max: 250,
-        formatter: "",
-        tooltipMerge: true,
-        enableCross: false,
-        bgStyle: "",
-        processStyle: "",
-        tooltipStyle: "",
-        value: [1, 120]
-      },
+        max: 500,
+      },   
       hasData: false,
       isLoading: false
     };

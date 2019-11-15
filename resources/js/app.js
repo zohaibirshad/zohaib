@@ -22,7 +22,7 @@ Vue.component('browse-jobs', require('./components/BrowseJobsComponent.vue').def
 Vue.component('browse-freelancers', require('./components/BrowseFreelancersComponent.vue').default);
 Vue.component('loading', require('./components/LoadingComponent.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
-Vue.component('range-slider', require('vue-range-component').default);
+Vue.component('range-slider', require('vue-slider-component'));
 
 
 /**
@@ -31,6 +31,8 @@ Vue.component('range-slider', require('vue-range-component').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+const app = window.app = new Vue({
     el: '#app',
 });
+
+

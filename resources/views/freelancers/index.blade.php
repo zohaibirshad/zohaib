@@ -13,4 +13,7 @@
 	<browse-freelancers></browse-freelancers>
 </div>
 
+<script src="{{ asset('js/app.js') }}"></script>
+
+
 @endsection

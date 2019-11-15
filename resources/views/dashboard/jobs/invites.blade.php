@@ -136,6 +136,7 @@
 </div>
 <!-- Edit Bid Popup / End -->
 
+<script src="{{ asset('js/app.js') }}"></script>
 
 <script>
 
@@ -143,7 +144,6 @@
 var vm = new Vue({
     el: '#vue-app',
     data: {
-        invites: <?= json_encode($invites) ?>,
         invite: {},
         description: '',
         rate: 10,

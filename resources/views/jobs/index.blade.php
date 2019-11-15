@@ -13,9 +13,6 @@
 	<browse-jobs :user="{{ Auth::user()->profile }}"></browse-jobs>
 </div>
 
-<script>
+<script src="{{ asset('js/app.js') }}" ></script>
 
-
-
-</script>
 @endsection

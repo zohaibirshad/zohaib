@@ -32,7 +32,7 @@
 
 						<!-- Buttons -->
 						<div class="buttons-to-right">
-							<a href="{{ route("bookmarks.destroy", $bookmark->id) }}" onclick="event.preventDefault();
+							<a href="{{ route('bookmarks.destroy', $bookmark->id) }}" onclick="event.preventDefault();
 									if(confirm('Are you sure you want to delete?')){document.getElementById('remove-form').submit();}" 
 									class="button red ripple-effect ico" title="Remove" data-tippy-placement="left">
 								<i class="icon-feather-trash-2"></i>
@@ -96,8 +96,8 @@
 						</div>
 
 						<!-- Buttons -->
-						<div class="buttons-to-right">
-							<a href="{{ route("bookmarks.destroy", $bookmark->id) }}" onclick="event.preventDefault();
+						<!-- <div class="buttons-to-right">
+							<a href="{{ route('bookmarks.destroy', $bookmark->id) }}" onclick="event.preventDefault();
 									document.getElementById('remove-form').submit();" 
 									class="button red ripple-effect ico" title="Remove" data-tippy-placement="left">
 								<i class="icon-feather-trash-2"></i>
@@ -107,7 +107,7 @@
 								@method("delete")
                             	@csrf
                             </form>
-						</div>
+						</div> -->
 					</li>
 					@empty
 						<p class="text-center text-muted py-5">Bookmarks Empty</p>

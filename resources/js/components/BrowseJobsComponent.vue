@@ -27,7 +27,7 @@
             <h3>Category</h3>
             <select
               data-size="7"
-              class="select-picker"
+              class="select-picker z-200"
               v-model="search.industry"
               @change="getResults()"
               multiple
@@ -60,15 +60,11 @@
 
             <range-slider
               v-model="slider.value"
-              :bg-style="slider.bgStyle"
               :min="slider.min"
               :max="slider.max"
-              :formatter="slider.formatter"
-              :tooltip-merge="slider.tooltipMerge"
-              :enable-cross="slider.enableCross"
-              :process-style="slider.processStyle"
-              :tooltip-style="slider.tooltipStyle"
-              height="3"
+              :enable-cross=false
+              :process=true
+              tooltip="always"
               v-on:drag-end="sliderChange"
             ></range-slider>
           </div>
@@ -174,6 +170,7 @@
 
 <script>
 export default {
+  
   props : ['user'],
   data() {
     return {
@@ -194,16 +191,11 @@ export default {
         search: "",
       },
       slider: {
+        value: [1, 3800],
         min: 1,
-        max: 10000,
-        formatter: "",
-        tooltipMerge: true,
-        enableCross: false,
-        bgStyle: "",
-        processStyle: "",
-        tooltipStyle: "",
-        value: [1, 3800]
+        max: 25000,
       },
+      
       hasData: false,
       isLoading: false
     };
