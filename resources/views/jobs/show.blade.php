@@ -183,7 +183,7 @@
 									</div>
 
 									<!-- Headline -->
-									<span class="bidding-detail margin-top-30">Description</strong></span>
+									<span class="bidding-detail margin-top-30">Proposal</strong></span>
 									<div class="bidding-fields">
 										<div class="bidding-field">
 											<textarea name="description"></textarea>

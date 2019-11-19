@@ -293,6 +293,10 @@
 
     <div class="my-6 col-xl-12">
     <div id="test1" class="dashboard-box">
+        <!-- Headline -->
+        <div class="headline">
+            <h3><i class="icon-line-awesome-money"></i> Billing Information</h3>
+        </div>
         <div class="content with-padding col-xl-6">
                 <input placeholder="Card Holder Name" class="with-border" id="card-holder-name" type="text">
                 <!-- Stripe Elements Placeholder -->
