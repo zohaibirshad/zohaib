@@ -50,7 +50,7 @@ class User extends Authenticatable implements Auditable
 
     public function profile()
     {
-        return $this->hasOne('App\Models\Profile')->with('media');
+        return $this->hasOne('App\Models\Profile')->with('media', 'country');
     }
 
     public function jobs()

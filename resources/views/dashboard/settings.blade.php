@@ -290,6 +290,20 @@
             </div>
         </form>
     </div>
+
+    <div class="my-6 col-xl-12">
+    <div id="test1" class="dashboard-box">
+        <div class="content with-padding col-xl-6">
+                <input placeholder="Card Holder Name" class="with-border" id="card-holder-name" type="text">
+                <!-- Stripe Elements Placeholder -->
+                <div class="mt-4" id="card-element"></div>
+
+                <button  class="my-4 button ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
+                    Update Payment Method
+                </button>
+        </div>
+    </div>
+    </div>
     
     {{-- <!-- Button -->
     <div class="col-xl-12">
@@ -299,6 +313,39 @@
 @endsection
 
 @push('custom-scripts')
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        const stripe = Stripe('stripe-public-key');
+
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+
+        cardElement.mount('#card-element');
+
+        const cardHolderName = document.getElementById('card-holder-name');
+
+        const cardButton = document.getElementById('card-button');
+        const clientSecret = cardButton.dataset.secret;
+
+        cardButton.addEventListener('click', async (e) => {
+            const { setupIntent, error } = await stripe.handleCardSetup(
+                clientSecret, cardElement, {
+                    payment_method_data: {
+                        billing_details: { name: cardHolderName.value }
+                    }
+                }
+            );
+
+            if (error) {
+               console.log(error);
+               
+            } else {
+                console.log('suucess');
+                
+            }
+        });
+    </script>
     <script>
         $(document).ready(function(){
             setCountryCallCode({{ $user->country_id }})

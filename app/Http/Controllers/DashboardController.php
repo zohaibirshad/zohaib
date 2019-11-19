@@ -40,9 +40,9 @@ class DashboardController extends Controller
         $countries = Country::get();
         $skills = Skill::orderBy('title', 'asc')->get();
 
-        // return $user;
+        $intent = Auth::user()->createSetupIntent();
 
-        return view('dashboard.settings', compact('countries', 'user', 'skills'));
+        return view('dashboard.settings', compact('countries', 'user', 'skills', 'intent'));
     }
     
     public function invites()

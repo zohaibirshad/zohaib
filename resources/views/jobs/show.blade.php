@@ -12,10 +12,10 @@
 				<div class="single-page-header-inner">
 					<div class="left-side">
 						<div class="header-image freelancer-avatar">
-                            @if (sizeof($job->owner->getMedia('profile')) == 0)
+                            @if (sizeof($job->owner->profile->getMedia('profile')) == 0)
                              <img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
                             @else
-                                <img src="{{ $job->owner->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
+                                <img src="{{ $job->owner->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
                             @endif	
                         </div>
 						<div class="header-details">
@@ -24,7 +24,7 @@
 							<ul>
 								<li><a href="#"><i class="icon-feather-user"></i>{{ $job->owner->name }}</a></li>
 								<li><div class="star-rating" data-rating="{{ $job->owner->rating ?? 0 }}"></div></li>
-								<li><img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->country->code.'.svg') }}" alt=""> {{ $job->owner->country->name }}</li>
+								<li><img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->profile->country->code.'.svg') }}" alt=""> {{ $job->owner->profile->country->name }}</li>
 								
 								@if($job->owner->verified == 1)
                                 <li><div class="verified-badge-with-title">Verified</div></li>
@@ -116,7 +116,7 @@
 							<div class="bids-content">
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="#"> {{ $bid->profile->name }} <img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->country->code.'.svg') }}"  title="{{ $job->owner->country->name }}" data-tippy-placement="top" alt=""> {{ $job->owner->country->name }} </a></h4>
+									<h4><a href="#"> {{ $bid->profile->name }} <img class="flag" src="{{ asset('assets/images/flags/'.$job->owner->profile->country->code.'.svg') }}"  title="{{ $job->owner->profile->country->name }}" data-tippy-placement="top" alt=""> {{ $job->owner->profile->country->name ?? "N/A" }} </a></h4>
 									<div class="star-rating" data-rating="{{ $bid->profile->rating ?? 0 }}"></div>
 								</div>
 							</div>
