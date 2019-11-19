@@ -301,7 +301,10 @@
 @push('custom-scripts')
     <script>
         $(document).ready(function(){
-            setCountryCallCode({{ $user->country_id }})
+            var userCountryCode = "{{ $user->country_id }}";
+            if(userCountryCode != null || userCountryCode != undefined || userCountryCode != ""){
+                setCountryCallCode({{ $user->country_id }});
+            }
             $('#country').change(function(){
                 var selected = $(this).find(":selected").val();
 
