@@ -131,7 +131,7 @@
                   <div class="freelancer-avatar">
                     <!-- <div class="verified-badge"></div> -->
                     <a :href="link(freelancer)">
-                      <img src="assets/images/user-avatar-placeholder.png" alt />
+                      <img :src="image(freelancer)" alt />
                     </a>
                   </div>
 
@@ -264,9 +264,9 @@ export default {
       return "freelancers/" + freelancer.uuid;
     },
 
-    image(media) {
-      if (media.length > 0) {
-        return media[0].id + "/" + media[0].file_title;
+    image(freelancer) {
+      if (freelancer.photo != null || freelancer.photo != "") {
+        return freelancer.photo;
       }
 
       return "assets/images/user-avatar-placeholder.png";

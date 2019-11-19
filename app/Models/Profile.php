@@ -26,7 +26,7 @@ class Profile extends Model implements HasMedia
         'completion_rate', 
         'completion_time_rate', 
         'completion_budget_rate', 
-        'rating'
+        'rating', 'photo'
     ];
 
     public function getCompletionRateAttribute()
@@ -77,6 +77,11 @@ class Profile extends Model implements HasMedia
         $rating = $this->reviews()->average('rating');
 
         return number_format($rating, 1);
+    }
+
+    public function getPhotoAttribute()
+    {
+        return $this->getFirstMediaUrl('profile', 'big');
     }
     
 

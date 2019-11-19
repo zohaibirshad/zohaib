@@ -2289,9 +2289,9 @@ __webpack_require__.r(__webpack_exports__);
     link: function link(freelancer) {
       return "freelancers/" + freelancer.uuid;
     },
-    image: function image(media) {
-      if (media.length > 0) {
-        return media[0].id + "/" + media[0].file_title;
+    image: function image(freelancer) {
+      if (freelancer.photo != null || freelancer.photo != "") {
+        return freelancer.photo;
       }
 
       return "assets/images/user-avatar-placeholder.png";
@@ -7710,8 +7710,7 @@ var render = function() {
                                   [
                                     _c("img", {
                                       attrs: {
-                                        src:
-                                          "assets/images/user-avatar-placeholder.png",
+                                        src: _vm.image(freelancer),
                                         alt: ""
                                       }
                                     })
