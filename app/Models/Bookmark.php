@@ -26,6 +26,12 @@ class Bookmark extends Model
     {
         return $this->belongsTo('App\Models\Profile', 'profile_id');
     }
+
+    public function profile()
+    {
+        return $this->belongsTo('App\Models\Profile', 'profile_id');
+    }
+
     public function job()
     {
         return $this->belongsTo('App\Models\Job');

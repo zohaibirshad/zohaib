@@ -29,18 +29,19 @@
                             <div class="boxed-list-item">
                                 <!-- Content -->
                                 <div class="item-content">
-                                    <h4>{{ $job->title }}</h4>
-                                    @if(sizeof($job->reviews) == 0)
-                                    <span class="company-not-rated margin-bottom-5">Not Rated</span>
-                                    @else
-                                    <div class="item-details margin-top-10">
-                                        <div class="star-rating" data-rating="{{ $job->reviews[0]->rating }}"></div>
-                                        <div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->reviews[0]->created_at }}</div>
-                                    </div>
-                                    <div class="item-description">
-                                        <p>{{ $job->reviews[0]->body }}</p>
-                                    </div>
-                                    @endif
+								<h4>{{ $job->title }}</h4>
+								<p class="mt-2">{{ $job->owner->name }}</p>
+								@if(sizeof($job->reviews) == 0)
+								<span class="company-not-rated margin-bottom-5">Not Rated</span>
+								@else
+								<div class="item-details margin-top-10">
+									<div class="star-rating" data-rating="{{ $job->profile->rating }}"></div>
+									<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->reviews[0]->created_at }}</div>
+								</div>
+								<div class="item-description">
+									<p>{{ $job->reviews[0]->body }}</p>
+								</div>
+								@endif
                                 </div>
                             </div>
 
@@ -83,26 +84,34 @@
                             <div class="boxed-list-item">
                                 <!-- Content -->
                                 <div class="item-content">
-                                    <h4>{{ $job->title }}</h4>
-                                    @if(sizeof($job->reviews) == 0)
-                                    <span class="company-not-rated margin-bottom-5">Not Rated</span>
-                                    @else
-                                    <div class="item-details margin-top-10">
-                                        <div class="star-rating" data-rating="{{ $job->reviews[0]->rating }}"></div>
-                                        <div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->reviews[0]->created_at }}</div>
-                                    </div>
-                                    <div class="item-description">
-                                        <p>{{ $job->reviews[0]->body }}</p>
-                                    </div>
-                                    @endif
+								<h4><i  class="icon-feather-briefcase"></i> {{ $job->title ?? ''}}</h4>
+								@isset($job->profile)
+								<p class="mt-2"><i  class="icon-feather-user"></i> {{ $job->profile->name ?? ''}}</p>
+									@if(sizeof($job->profile->reviews) == 0)
+									<span class="company-not-rated margin-bottom-5">Not Rated</span>
+									@else
+									<div class="item-details margin-top-10">
+										<div class="star-rating" data-rating="{{ $job->profile->rating }}"></div>
+										<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->profile->reviews[0]->created_at ?? ''}}</div>
+									</div>
+									<div class="item-description">
+										<p>{{ $job->profile->reviews[0]->body ?? ''}}</p>
+									</div>
+									@endif
+								@endisset
                                 </div>
                             </div>
+							@if(!empty($job->profile))
+								@if(sizeof($job->profile->reviews) == 0)
+								<a href="#small-dialog-3" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 leaveReview2" data-job="{{ $job }}"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>
+								@else
+								{{-- <a href="#small-dialog-1" class="popup-with-zoom-anim button gray ripple-effect margin-top-5 margin-bottom-10 editReview" data-job="{{ $job }}"><i class="icon-feather-edit"></i> Edit Review</a> --}}
+								@endif
 
-                            @if(sizeof($job->reviews) == 0)
-                            <a href="#small-dialog-3" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 leaveReview2" data-job="{{ $job }}"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>
-                            @else
-                            {{-- <a href="#small-dialog-1" class="popup-with-zoom-anim button gray ripple-effect margin-top-5 margin-bottom-10 editReview" data-job="{{ $job }}"><i class="icon-feather-edit"></i> Edit Review</a> --}}
-                            @endif
+							@else
+							<a href="#small-dialog-3" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 leaveReview2" data-job="{{ $job }}"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>	
+							@endif
+							
                         </li> 
                         @empty
                             <p>No Reviews</p>
@@ -367,12 +376,14 @@
                 var _job = $(this).attr("data-job");
                 var job = JSON.parse(_job);
 
+				console.log(job);
+				
 
                 $('#leaveReviewForm2').attr('action', 'review_freelancer/' + job.profile.uuid);
                 $('#job_link2').attr('href', 'jobs/' + job.slug);
                 $('#job_link2').text(job.title);
                 $('#profile_link').attr('href', 'freelancers/' + job.profile.uuid);
-                $('#profile_link').text(job.profile.name);
+                $('#profile_name').text(job.profile.name);
                 $('#user_id').val(job.profile.user_id);
                 $('#job_id2').val(job.id);
             });

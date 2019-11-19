@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\MorphToMany;
+use KABBOUCHI\NovaImpersonate\Impersonate;
 use Coreproc\NovaAuditingUserFields\CreatedBy;
 use Coreproc\NovaAuditingUserFields\UpdatedBy;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
@@ -79,6 +80,10 @@ class User extends Resource
 
             MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
             MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+
+            Impersonate::make($this)->withMeta([
+			    'redirect_to' => '/settings'
+			]),
      
 
         ];

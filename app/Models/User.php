@@ -11,11 +11,13 @@ use DigitalCloud\ModelNotes\HasNotes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Cashier\Billable;
+
 
 
 class User extends Authenticatable implements Auditable
 {
-    use Notifiable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes;
+    use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes;
 
     protected $guard_name = 'web';
 
