@@ -38,19 +38,24 @@
 									<li><a href="{{ route('new-jobs') }}">New Jobs <span class="nav-tag">0</span></a></li>
 									{{-- New and Unassigned Jobs just posted by Hirer --}}
 									@endrole
-
-									<li><a href="{{ route('ongoing-jobs') }}">Ongoing Jobs <span class="nav-tag">{{ $ongoing_jobs_count ?? 0 }}</span></a></li>
+									<li>
+										<a href="{{ route('ongoing-jobs') }}">Ongoing Jobs 
+											{{--  <span class="nav-tag">
+												{{ $ongoing_jobs_count ?? 0 }}
+											</span>  --}}
+										</a>
+									</li>
 									{{-- Assigned Jobs being worked on by Freelancer --}}
-									<li><a href="{{ route('completed-jobs') }}">Completed Jobs <span class="nav-tag">0</span></a></li>
+									<li><a href="{{ route('completed-jobs') }}">Completed Jobs </a></li>
 									{{-- Past Jobs posted by Hireer or Completed by Freelance --}}
 									
 									@role('freelancer')
-									<li><a href="{{ route('my-bids') }}">My Active Bids <span class="nav-tag">0</span></a></li>
+									<li><a href="{{ route('my-bids') }}">My Active Bids </a></li>
 									{{-- Active Jobs bidded on by Freelancer --}}
 									@endrole
 
 									{{-- @role('freelancer') --}}
-									<li><a href="{{ route('invites') }}">Job Invites <span class="nav-tag">0</span></a></li>
+									<li><a href="{{ route('invites') }}">Job Invites </a></li>
 									{{-- @endrole --}}
 								</ul>	
 							</li>
