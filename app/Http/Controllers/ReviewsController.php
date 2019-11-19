@@ -19,14 +19,16 @@ class ReviewsController extends Controller
         $user = Auth::user();
         // Get Jobs the User has Completed
         if ($user->hasRole('freelancer')) {
-            $jobs = Job::where('profile_id', Auth::id())
-                ->with('reviews')
+            $jobs = Job::where('status', '!=', 'not assigned' )->where('profile_id', Auth::user()->profile->id)
+                ->with('profile', 'owner')
                 ->paginate(10);
         } else {
-            $jobs = Job::where('user_id', Auth::id())
+            $jobs = Job::where('status', '!=', 'not assigned' )->where('user_id', Auth::id())
                 ->with('profile', 'reviews')
                 ->paginate(10);
         }
+
+        // return $jobs;
 
         return view('dashboard.reviews', compact('jobs'));
     }

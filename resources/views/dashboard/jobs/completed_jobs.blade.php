@@ -40,7 +40,7 @@
                             <!-- Task Details -->
                             <ul class="dashboard-task-info">
                                 <li><strong>{{ $job->milestones_count }}</strong><span>Milestones</span></li>
-                                <li><strong>${{ number_format($job->job_budget->from) }} - ${{ number_format($job->job_budget->to) }}</strong><span class="text-capitalize">{{ $job->job_budget->type }} Rate</span></li>
+                                <li><strong>${{ number_format($job->min_budget) }} - ${{ number_format($job->max_budget) }}</strong><span class="text-capitalize">{{ $job->budget_type }} Rate</span></li>
                             </ul>
     
                             <!-- Buttons -->

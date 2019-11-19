@@ -91,8 +91,13 @@ class DashboardController extends Controller
 
 
         $milestones = $m->get();
+        $mCount = $m->count();
 
-        $completion = ($done / $m->count()) * 100;
+        $completion = 0;
+
+        if($mCount > 0){
+            $completion = ($done / $mCount ) * 100;
+        }
 
         return view('dashboard.milestones', compact('milestones', 'job', 'completion'));
     }

@@ -27,7 +27,7 @@
                     @endif
 					<div class="input-with-icon-left">
 						<i class="icon-material-baseline-mail-outline"></i>
-						<input type="text" class="input-text with-border" value="{{ old('name') }}" name="email" id="email" placeholder="Email Address" required/>
+						<input type="text" class="input-text with-border" value="{{ old('email') }}" name="email" id="email" placeholder="Email Address" required/>
 					</div>
                     @if ($errors->has('password'))
                         <span class="text-sm text-red-500">

@@ -25,6 +25,10 @@ class Job extends Model implements HasMedia
         'updated_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'rating'
+    ];
+
     /**
      * Boot function from laravel.
      */
@@ -52,14 +56,21 @@ class Job extends Model implements HasMedia
         $this->addMediaCollection('project_files');
     }
 
+    public function getRatingAttribute()
+    {
+        $rating = $this->reviews()->average('rating');
+
+        return number_format($rating, 1);
+    }
+
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile')->with('media');
+        return $this->belongsTo('App\Models\Profile')->with('media', 'reviews');
     }
 
     public function owner()
     {
-        return $this->belongsTo('App\Models\Profile', 'user_id')->with('media');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function industry()
