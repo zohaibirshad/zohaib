@@ -36,11 +36,6 @@ class JobsController extends Controller
 
         $keyWord = $request->title;
         $industry = $request->industry;
-        $location = $request->location;
-        $max_fixed_price = $request->max_fixed_price;
-        $min_fixed_price = $request->min_fixed_price;
-        $max_hour_price = $request->max_hour_price;
-        $min_hour_price = $request->min_hour_price;
         $skills = $request->skills;
         $sort = $request->sort;
         $city = $request->city;
@@ -83,9 +78,11 @@ class JobsController extends Controller
             ->when(!empty($budgetType), function ($query) use ($budgetType) {
                 $query->where('budget_type', $budgetType);
             })
-            ->when(!empty($minBudget) && !empty($maxBudget), function ($query) use ($minBudget, $maxBudget) {
-                $query->where('max_budget', '>', $minBudget)
-                    ->where('min_budget', '<', $maxBudget);
+            ->when(!empty($minBudget) , function ($query) use ($minBudget) {
+                $query->where('max_budget', '>=', $minBudget);
+            })
+            ->when(!empty($maxBudget), function ($query) use ($maxBudget) {
+                $query->where('min_budget', '<=', $maxBudget);
             })
             ->when(!empty($sort), function ($query) use ($sort) {
                 if ($sort == 'featured') {

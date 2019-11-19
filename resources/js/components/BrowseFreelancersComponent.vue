@@ -45,17 +45,33 @@
           <!-- Budget -->
           <div class="sidebar-widget">
             <h3>Hourly Rate</h3>
-            <div class="margin-top-55"></div>
+            <div class="margin-top-10"></div>
 
-              <range-slider
-                v-model="slider.value"
-                :min="slider.min"
-                :max="slider.max"
-                :enable-cross=false
-                :process=true
-                tooltip="always"
-                v-on:drag-end="sliderChange"
-            />
+            <div class="row">
+              <div class="col-6">
+                <div class="keywords-container">
+                  <div class="keyword-input-container">
+                    <input placeholder="Min" type="number" v-model="search.min_hourly_rate">
+                    <button class="keyword-input-button ripple-effect" @click="getResults()">
+                      <i class="icon-feather-search"></i>
+                    </button>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="keywords-container">
+                  <div class="keyword-input-container">
+                    <input placeholder="Max" type="number" v-model="search.max_hourly_rate">
+                    <button class="keyword-input-button ripple-effect" @click="getResults()">
+                      <i class="icon-feather-search"></i>
+                    </button>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+              
           </div>
 
           <!-- Tags -->
@@ -259,20 +275,7 @@ export default {
     country(country) {
       return `assets/images/flags/${country.code}.svg`;
     },
-
-    sliderChange($event) {
-      // Set budget price
-      this.setBudgetValues();
-
-      // Get result
-      this.getResults();
-    },
-
-    setBudgetValues() {
-      this.search.min_hourly_rate = this.slider.value[0];
-      this.search.max_hourly_rate = this.slider.value[1];
-    },
-
+    
     getResults(page = 1) {
       this.isLoading = true;
       let params = this.search;

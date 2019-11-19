@@ -2224,6 +2224,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2282,16 +2298,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     country: function country(_country) {
       return "assets/images/flags/".concat(_country.code, ".svg");
-    },
-    sliderChange: function sliderChange($event) {
-      // Set budget price
-      this.setBudgetValues(); // Get result
-
-      this.getResults();
-    },
-    setBudgetValues: function setBudgetValues() {
-      this.search.min_hourly_rate = this.slider.value[0];
-      this.search.max_hourly_rate = this.slider.value[1];
     },
     getResults: function getResults() {
       var _this = this;
@@ -2509,6 +2515,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -2524,10 +2546,6 @@ __webpack_require__.r(__webpack_exports__);
         budget_type: "",
         min_budget: "",
         max_budget: ""
-      },
-      urlQueryParams: {
-        category: "",
-        search: ""
       },
       slider: {
         value: [1, 3800],
@@ -2573,23 +2591,6 @@ __webpack_require__.r(__webpack_exports__);
       this.setBudgetValues(); // Get result
 
       this.getResults();
-    },
-    budgetChange: function budgetChange() {
-      // Toggle Slider
-      this.toggleSlider(); // Set budget price
-
-      this.setBudgetValues(); // Get result
-
-      this.getResults();
-    },
-    toggleSlider: function toggleSlider() {
-      if (this.search.budget_type == "hourly") {
-        this.slider.max = 120;
-        this.slider.value = [1, 42];
-      } else {
-        this.slider.max = 10000;
-        this.slider.value = [1, 3800];
-      }
     },
     setBudgetValues: function setBudgetValues() {
       this.search.min_budget = this.slider.value[0];
@@ -2717,7 +2718,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".lds-spinner[data-v-8aebcde8] {\n  color: #ea7c11;\n  display: inline-block;\n  position: relative;\n  width: 64px;\n  height: 64px;\n}\n.lds-spinner div[data-v-8aebcde8] {\n  transform-origin: 32px 32px;\n  -webkit-animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n          animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n}\n.lds-spinner div[data-v-8aebcde8]:after {\n  content: \" \";\n  display: block;\n  position: absolute;\n  top: 3px;\n  left: 29px;\n  width: 5px;\n  height: 14px;\n  border-radius: 20%;\n  background: #ea7c11;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(1) {\n  transform: rotate(0deg);\n  -webkit-animation-delay: -1.1s;\n          animation-delay: -1.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(2) {\n  transform: rotate(30deg);\n  -webkit-animation-delay: -1s;\n          animation-delay: -1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(3) {\n  transform: rotate(60deg);\n  -webkit-animation-delay: -0.9s;\n          animation-delay: -0.9s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(4) {\n  transform: rotate(90deg);\n  -webkit-animation-delay: -0.8s;\n          animation-delay: -0.8s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(5) {\n  transform: rotate(120deg);\n  -webkit-animation-delay: -0.7s;\n          animation-delay: -0.7s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(6) {\n  transform: rotate(150deg);\n  -webkit-animation-delay: -0.6s;\n          animation-delay: -0.6s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(7) {\n  transform: rotate(180deg);\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(8) {\n  transform: rotate(210deg);\n  -webkit-animation-delay: -0.4s;\n          animation-delay: -0.4s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(9) {\n  transform: rotate(240deg);\n  -webkit-animation-delay: -0.3s;\n          animation-delay: -0.3s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(10) {\n  transform: rotate(270deg);\n  -webkit-animation-delay: -0.2s;\n          animation-delay: -0.2s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(11) {\n  transform: rotate(300deg);\n  -webkit-animation-delay: -0.1s;\n          animation-delay: -0.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(12) {\n  transform: rotate(330deg);\n  -webkit-animation-delay: 0s;\n          animation-delay: 0s;\n}\n@-webkit-keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\n@keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\n", ""]);
+exports.push([module.i, ".lds-spinner[data-v-8aebcde8] {\n  color: #ea7c11;\n  display: inline-block;\n  position: relative;\n  width: 64px;\n  height: 64px;\n}\n.lds-spinner div[data-v-8aebcde8] {\n  transform-origin: 32px 32px;\n  -webkit-animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n          animation: lds-spinner-data-v-8aebcde8 1.2s linear infinite;\n}\n.lds-spinner div[data-v-8aebcde8]:after {\n  content: \" \";\n  display: block;\n  position: absolute;\n  top: 3px;\n  left: 29px;\n  width: 5px;\n  height: 14px;\n  border-radius: 20%;\n  background: #ea7c11;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(1) {\n  transform: rotate(0deg);\n  -webkit-animation-delay: -1.1s;\n          animation-delay: -1.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(2) {\n  transform: rotate(30deg);\n  -webkit-animation-delay: -1s;\n          animation-delay: -1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(3) {\n  transform: rotate(60deg);\n  -webkit-animation-delay: -0.9s;\n          animation-delay: -0.9s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(4) {\n  transform: rotate(90deg);\n  -webkit-animation-delay: -0.8s;\n          animation-delay: -0.8s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(5) {\n  transform: rotate(120deg);\n  -webkit-animation-delay: -0.7s;\n          animation-delay: -0.7s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(6) {\n  transform: rotate(150deg);\n  -webkit-animation-delay: -0.6s;\n          animation-delay: -0.6s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(7) {\n  transform: rotate(180deg);\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(8) {\n  transform: rotate(210deg);\n  -webkit-animation-delay: -0.4s;\n          animation-delay: -0.4s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(9) {\n  transform: rotate(240deg);\n  -webkit-animation-delay: -0.3s;\n          animation-delay: -0.3s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(10) {\n  transform: rotate(270deg);\n  -webkit-animation-delay: -0.2s;\n          animation-delay: -0.2s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(11) {\n  transform: rotate(300deg);\n  -webkit-animation-delay: -0.1s;\n          animation-delay: -0.1s;\n}\n.lds-spinner div[data-v-8aebcde8]:nth-child(12) {\n  transform: rotate(330deg);\n  -webkit-animation-delay: 0s;\n          animation-delay: 0s;\n}\n@-webkit-keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\n@keyframes lds-spinner-data-v-8aebcde8 {\n0% {\n    opacity: 1;\n}\n100% {\n    opacity: 0;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -7131,9 +7132,9 @@ var render = function() {
                                 { staticClass: "blog-item-tag shadow-lg" },
                                 [
                                   _vm._v(
-                                    "\n                                        " +
+                                    "\r\n                                        " +
                                       _vm._s(cat.title) +
-                                      "\n                                    "
+                                      "\r\n                                    "
                                   )
                                 ]
                               ),
@@ -7239,9 +7240,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                        " +
+                              "\r\n                                        " +
                                 _vm._s(category.title) +
-                                "\n                                    "
+                                "\r\n                                    "
                             )
                           ]
                         )
@@ -7275,9 +7276,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                        " +
+                              "\r\n                                        " +
                                 _vm._s(tag.title) +
-                                "\n                                    "
+                                "\r\n                                    "
                             )
                           ]
                         )
@@ -7434,34 +7435,105 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "sidebar-widget" },
-            [
-              _c("h3", [_vm._v("Hourly Rate")]),
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Hourly Rate")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "margin-top-10" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-6" }, [
+                _c("div", { staticClass: "keywords-container" }, [
+                  _c("div", { staticClass: "keyword-input-container" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search.min_hourly_rate,
+                          expression: "search.min_hourly_rate"
+                        }
+                      ],
+                      attrs: { placeholder: "Min", type: "number" },
+                      domProps: { value: _vm.search.min_hourly_rate },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.search,
+                            "min_hourly_rate",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "keyword-input-button ripple-effect",
+                        on: {
+                          click: function($event) {
+                            return _vm.getResults()
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "icon-feather-search" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ])
+              ]),
               _vm._v(" "),
-              _c("div", { staticClass: "margin-top-55" }),
-              _vm._v(" "),
-              _c("range-slider", {
-                attrs: {
-                  min: _vm.slider.min,
-                  max: _vm.slider.max,
-                  "enable-cross": false,
-                  process: true,
-                  tooltip: "always"
-                },
-                on: { "drag-end": _vm.sliderChange },
-                model: {
-                  value: _vm.slider.value,
-                  callback: function($$v) {
-                    _vm.$set(_vm.slider, "value", $$v)
-                  },
-                  expression: "slider.value"
-                }
-              })
-            ],
-            1
-          ),
+              _c("div", { staticClass: "col-6" }, [
+                _c("div", { staticClass: "keywords-container" }, [
+                  _c("div", { staticClass: "keyword-input-container" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search.max_hourly_rate,
+                          expression: "search.max_hourly_rate"
+                        }
+                      ],
+                      attrs: { placeholder: "Max", type: "number" },
+                      domProps: { value: _vm.search.max_hourly_rate },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.search,
+                            "max_hourly_rate",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "keyword-input-button ripple-effect",
+                        on: {
+                          click: function($event) {
+                            return _vm.getResults()
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "icon-feather-search" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ])
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "sidebar-widget" }, [
             _c("h3", [_vm._v("Skills")]),
@@ -7952,7 +8024,7 @@ var render = function() {
                       )
                     },
                     function($event) {
-                      return _vm.budgetChange()
+                      return _vm.getResults()
                     }
                   ]
                 }
@@ -7971,34 +8043,105 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "sidebar-widget" },
-            [
-              _c("h3", [_vm._v("Budget Price")]),
+          _c("div", { staticClass: "sidebar-widget" }, [
+            _c("h3", [_vm._v("Budget Price")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "margin-top-10" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-6" }, [
+                _c("div", { staticClass: "keywords-container" }, [
+                  _c("div", { staticClass: "keyword-input-container" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search.min_budget,
+                          expression: "search.min_budget"
+                        }
+                      ],
+                      attrs: { placeholder: "Min", type: "number" },
+                      domProps: { value: _vm.search.min_budget },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.search,
+                            "min_budget",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "keyword-input-button ripple-effect",
+                        on: {
+                          click: function($event) {
+                            return _vm.getResults()
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "icon-feather-search" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ])
+              ]),
               _vm._v(" "),
-              _c("div", { staticClass: "margin-top-55" }),
-              _vm._v(" "),
-              _c("range-slider", {
-                attrs: {
-                  min: _vm.slider.min,
-                  max: _vm.slider.max,
-                  "enable-cross": false,
-                  process: true,
-                  tooltip: "always"
-                },
-                on: { "drag-end": _vm.sliderChange },
-                model: {
-                  value: _vm.slider.value,
-                  callback: function($$v) {
-                    _vm.$set(_vm.slider, "value", $$v)
-                  },
-                  expression: "slider.value"
-                }
-              })
-            ],
-            1
-          ),
+              _c("div", { staticClass: "col-6" }, [
+                _c("div", { staticClass: "keywords-container" }, [
+                  _c("div", { staticClass: "keyword-input-container" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search.max_budget,
+                          expression: "search.max_budget"
+                        }
+                      ],
+                      attrs: { placeholder: "Max", type: "number" },
+                      domProps: { value: _vm.search.max_budget },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.search,
+                            "max_budget",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "keyword-input-button ripple-effect",
+                        on: {
+                          click: function($event) {
+                            return _vm.getResults()
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "icon-feather-search" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ])
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "sidebar-widget" }, [
             _c("h3", [_vm._v("Skills")]),
@@ -20933,8 +21076,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/emmanuel/laravel/yohli/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\DRIVE_C\laragon\www\yohli\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

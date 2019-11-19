@@ -60,8 +60,14 @@ class FreelancersController extends Controller
                     $query->where("id", $country);
                 });
             })
-            ->when(!empty($minHourlyRate) && !empty($maxHourlyRate), function ($query) use ($minHourlyRate, $maxHourlyRate) {
-                $query->whereBetween('rate', [$minHourlyRate, $maxHourlyRate]);
+            // ->when(!empty($minHourlyRate) && !empty($maxHourlyRate), function ($query) use ($minHourlyRate, $maxHourlyRate) {
+            //     $query->whereBetween('rate', [$minHourlyRate, $maxHourlyRate]);
+            // })
+            ->when(!empty($minHourlyRate), function ($query) use ($minHourlyRate) {
+                $query->where('rate', '>=', [$minHourlyRate]);
+            })
+            ->when(!empty($maxHourlyRate), function ($query) use ($maxHourlyRate) {
+                $query->where('rate', '<=', $maxHourlyRate);
             })
             ->when(!empty($sort), function ($query) use ($sort) {
 

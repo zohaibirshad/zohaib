@@ -45,7 +45,7 @@
             <select
               class="selectpicker default"
               v-model="search.budget_type"
-              @change="budgetChange()"
+              @change="getResults()"
             >
               <option value>All</option>
               <option value="fixed">Fixed Price</option>
@@ -56,17 +56,33 @@
           <!-- Budget -->
           <div class="sidebar-widget">
             <h3>Budget Price</h3>
-            <div class="margin-top-55"></div>
-
-            <range-slider
-              v-model="slider.value"
-              :min="slider.min"
-              :max="slider.max"
-              :enable-cross=false
-              :process=true
-              tooltip="always"
-              v-on:drag-end="sliderChange"
-            ></range-slider>
+            <div class="margin-top-10"></div>
+            
+            <div class="row">
+              <div class="col-6">
+                <div class="keywords-container">
+                  <div class="keyword-input-container">
+                    <input placeholder="Min" type="number" v-model="search.min_budget">
+                    <button class="keyword-input-button ripple-effect" @click="getResults()">
+                      <i class="icon-feather-search"></i>
+                    </button>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="keywords-container">
+                  <div class="keyword-input-container">
+                    <input placeholder="Max" type="number" v-model="search.max_budget">
+                    <button class="keyword-input-button ripple-effect" @click="getResults()">
+                      <i class="icon-feather-search"></i>
+                    </button>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            
           </div>
 
           <!-- Tags -->
@@ -186,10 +202,6 @@ export default {
         min_budget: "",
         max_budget: ""
       },
-      urlQueryParams: {
-        category: "",
-        search: "",
-      },
       slider: {
         value: [1, 3800],
         min: 1,
@@ -238,27 +250,6 @@ export default {
 
       // Get result
       this.getResults();
-    },
-
-    budgetChange() {
-      // Toggle Slider
-      this.toggleSlider();
-
-      // Set budget price
-      this.setBudgetValues();
-
-      // Get result
-      this.getResults();
-    },
-
-    toggleSlider() {
-      if (this.search.budget_type == "hourly") {
-        this.slider.max = 120;
-        this.slider.value = [1, 42];
-      } else {
-        this.slider.max = 10000;
-        this.slider.value = [1, 3800];
-      }
     },
 
     setBudgetValues() {
