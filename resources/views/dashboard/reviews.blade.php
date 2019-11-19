@@ -300,26 +300,26 @@
                     <div class="feedback-yes-no">
 						<strong>Was this delivered on budget?</strong>
 						<div class="radio">
-							<input id="radio-1" name="onbudget" type="radio" required checked>
-							<label for="radio-1"><span class="radio-label"></span> Yes</label>
+							<input id="onbudget-radio-1" name="onbudget" type="radio" required checked value="yes">
+							<label for="onbudget-radio-1"><span class="radio-label"></span> Yes</label>
 						</div>
 
 						<div class="radio">
-							<input id="radio-2" name="onbudget" type="radio" required>
-							<label for="radio-2"><span class="radio-label"></span> No</label>
+							<input id="onbudget-radio-2" name="onbudget" type="radio" required value="no">
+							<label for="onbudget-radio-2"><span class="radio-label"></span> No</label>
 						</div>
 					</div>
 
 					<div class="feedback-yes-no">
 						<strong>Was this delivered on time?</strong>
 						<div class="radio">
-							<input id="radio-3" name="ontime" type="radio" required checked>
-							<label for="radio-3"><span class="radio-label"></span> Yes</label>
+							<input id="ontime-radio-1" name="ontime" type="radio" required checked value="yes">
+							<label for="ontime-radio-1"><span class="radio-label"></span> Yes</label>
 						</div>
 
 						<div class="radio">
-							<input id="radio-4" name="ontime" type="radio" required>
-							<label for="radio-4"><span class="radio-label"></span> No</label>
+							<input id="ontime-radio-2" name="ontime" type="radio" required value="no">
+							<label for="ontime-radio-2"><span class="radio-label"></span> No</label>
 						</div>
 					</div>
 
@@ -375,8 +375,6 @@
             leaveReview2.click(function(){
                 var _job = $(this).attr("data-job");
                 var job = JSON.parse(_job);
-
-				console.log(job);
 				
 
                 $('#leaveReviewForm2').attr('action', 'review_freelancer/' + job.profile.uuid);

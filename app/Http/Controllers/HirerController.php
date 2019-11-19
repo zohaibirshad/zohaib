@@ -192,8 +192,8 @@ class HirerController extends Controller
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
         $job = Job::find($request->job_id);
-        $job->ontime = $request->ontime == 'on' ? "yes" : "no";
-        $job->onbudget = $request->onbudget == 'on' ? "yes" : "no";
+        $job->ontime = $request->ontime;
+        $job->onbudget = $request->onbudget;
         $job->save();
 
         $profile->reviews()->create([
