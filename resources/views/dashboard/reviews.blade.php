@@ -52,7 +52,7 @@
                             @endif
                         </li> 
                         @empty
-                            <p>No Reviews</p>
+                            <p class="text-center py-3">No Reviews</p>
                         @endforelse
                     </ul>
                 </div>
@@ -114,7 +114,7 @@
 							
                         </li> 
                         @empty
-                            <p>No Reviews</p>
+						<p class="text-center py-3">No Reviews</p>
                         @endforelse
                     </ul>
                 </div>
