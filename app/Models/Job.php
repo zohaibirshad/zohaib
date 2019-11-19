@@ -37,12 +37,12 @@ class Job extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($model) {
-            $model->slug = (string) Str::slug($model->title ." ". $model->user_id);
+            $model->slug = (string) Str::slug($model->title .'-'. time());
             $model->uuid = Str::uuid();
         });
 
         static::updating(function ($model) {
-            $model->slug = (string) Str::slug($model->title ." ". $model->user_id);
+            $model->slug = (string) Str::slug($model->title ."-". time());
         });
     }
 

@@ -15,11 +15,11 @@ trait Slug
         parent::boot();
 
         static::creating(function ($model) {
-            $model->slug = (string) Str::slug($model->title ." ". $model->id);
+            $model->slug = (string) Str::slug($model->title ."-". time());
         });
 
         static::updating(function ($model) {
-            $model->slug = (string) Str::slug($model->title ." ". $model->id);
+            $model->slug = (string) Str::slug($model->title ."-". time());
         });
     }
 }
