@@ -53,6 +53,8 @@ class AccountController extends Controller
         $profile->type = $request->account_type;
         $profile->save();
 
+        session(['role' => $request->account_type]);
+
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
 

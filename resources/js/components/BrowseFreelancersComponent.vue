@@ -31,7 +31,7 @@
               data-size="7"
               v-model="search.country"
               @change="getResults()"
-              data-live-search="true"
+              data-live-search="false"
             >
               <option value>All Countries</option>
               <option

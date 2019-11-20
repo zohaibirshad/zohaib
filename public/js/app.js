@@ -7392,7 +7392,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "select-picker",
-                attrs: { "data-size": "7", "data-live-search": "true" },
+                attrs: { "data-size": "7", "data-live-search": "false" },
                 on: {
                   change: [
                     function($event) {

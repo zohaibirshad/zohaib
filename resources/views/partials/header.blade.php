@@ -63,12 +63,14 @@
 							</a>
 						</li>
 						@endguest
+						@role('hirer')
 						<li class="d-none d-sm-none d-md-block">
 							<a href="{{ route('post-job') }}" class="button button-sliding-icon ripple-effect" tabindex="0">
 								<span class="text-white">Post a Job</span> 
 								<i class="icon-material-outline-add-circle-outline text-white"></i>
 							</a>
 						</li>
+						@endrole
 
 					</ul>
 				</nav>
