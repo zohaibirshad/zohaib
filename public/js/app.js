@@ -2297,7 +2297,7 @@ __webpack_require__.r(__webpack_exports__);
       return "assets/images/user-avatar-placeholder.png";
     },
     country: function country(_country) {
-      return "assets/images/flags/".concat(_country.code.toLowerCase, ".svg");
+      return "assets/images/flags/".concat(_country.code.toLowerCase(), ".svg");
     },
     getResults: function getResults() {
       var _this = this;

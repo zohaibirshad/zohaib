@@ -273,7 +273,7 @@ export default {
     },
 
     country(country) {
-      return `assets/images/flags/${country.code.toLowerCase}.svg`;
+      return `assets/images/flags/${country.code.toLowerCase()}.svg`;
     },
     
     getResults(page = 1) {
