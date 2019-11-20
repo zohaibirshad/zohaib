@@ -85,7 +85,7 @@
 								</div>
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="{{ route('freelancers.show', $bookmark->freelancer->id) }}">{{ $bookmark->freelancer->name ?? "" }} <img class="flag" src="{{ asset('assets/images/flags/'.$bookmark->freelancer->country->code.'.svg') }}" alt="" title="{{ $bookmark->freelancer->country->name }}" data-tippy-placement="top"></a></h4>
+									<h4><a href="{{ route('freelancers.show', $bookmark->freelancer->id) }}">{{ $bookmark->freelancer->name ?? "" }} <img class="flag" src="{{ asset('assets/images/flags/'. strtolower($bookmark->freelancer->country->code) .'.svg') }}" alt="" title="{{ $bookmark->freelancer->country->name }}" data-tippy-placement="top"></a></h4>
 									<span>{{ $bookmark->freelancer->headline ?? "" }}</span>
 									<!-- Rating -->
 									<div class="freelancer-rating">

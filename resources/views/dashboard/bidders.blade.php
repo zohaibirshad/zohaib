@@ -51,7 +51,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                                 <div class="freelancer-name">
                                     <h4>
                                         <a href="freelancers/{{ $bid->profile->uuid }}">{{ $bid->profile->name }} 
-                                            <img class="flag" src="{{ asset('assets/images/flags/'.$bid->profile->country->code.'.svg') }}" alt="{{ $bid->profile->country->name }}">
+                                            <img class="flag" src="{{ asset('assets/images/flags/'. strtolower($bid->profile->country->code).'.svg') }}" alt="{{ $bid->profile->country->name }}">
                                         </a>
                                     </h4>
 
