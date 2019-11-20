@@ -44,11 +44,13 @@
 							</a>
 						</li>
 						@endauth
+						@role('hirer')
 						<li class="d-sm-block d-md-none">
 							<a href="{{ route('post-job') }}" class="{{ (request()->is('post-job')) ? 'current' : '' }}">
 								Post a job
 							</a>
 						</li>
+						@endrole
 						@guest
 						<li class="d-sm-block d-md-none">
 							<a href="/login" class="{{ (request()->is('login')) ? 'current' : '' }}">
