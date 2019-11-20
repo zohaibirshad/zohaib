@@ -20,13 +20,13 @@
 							<a href="{{ route('how-it-works') }}" class="{{ (request()->is('how-it-works')) ? 'current' : '' }}">
 							How it works
 							</a>
-						</li>
+						</li>					
+						@endguest
 						<li>
 							<a href="{{ route('pricing') }}" class="{{ (request()->is('pricing')) ? 'current' : '' }}">
 							Pricing
 							</a>
-						</li>						
-						@endguest
+						</li>	
 						<li>
 							<a href="{{ route('blog.index') }}" class="{{ (request()->is('blog')) ? 'current' : '' }}">
 							Blog

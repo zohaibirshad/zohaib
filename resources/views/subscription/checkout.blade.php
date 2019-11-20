@@ -16,8 +16,9 @@
 			<h3>Billing Cycle</h3>
 
 			<!-- Billing Cycle Radios  -->
+			
 			<div class="billing-cycle margin-top-25">
-
+			
 				<!-- Radio -->
 				<div class="radio">
 					<input id="radio-5" name="radio-payment-type" type="radio" checked>
@@ -25,22 +26,21 @@
 						<span class="radio-label"></span>
 						Billed Monthly
 						<span class="billing-cycle-details">
-							<span class="regular-price-tag">$49.00 / month</span>
+							<span class="regular-price-tag">${{ $plan->price}} / month</span>
 						</span>
 					</label>
 				</div>
 			
 				<!-- Radio -->
-				<div class="radio">
+				<!-- <div class="radio">
 					<input id="radio-6" name="radio-payment-type" type="radio">
 					<label for="radio-6"><span class="radio-label"></span>
 						Billed Yearly
 						<span class="billing-cycle-details">
-							<span class="discounted-price-tag">$529.20 / year</span>
-							<span class="regular-price-tag line-through">588.00 / year</span>
+							<span class="discounted-price-tag">${{ $plan->price * 12 }} / year</span>
 						</span>
 					</label>
-				</div>
+				</div> -->
 			</div>
 			
 
@@ -125,9 +125,9 @@
 				</div>
 				<div class="boxed-widget-inner">
 					<ul>
-						<li>Standard Plan <span>$49.00</span></li>
-						<li>VAT (20%) <span>$9.80</span></li>
-						<li class="total-costs">Final Price <span>$58.80</span></li>
+						<li>{{ $plan->title }} Plan<span> ${{ $plan->price  }}</span></li>
+						<li>VAT <span>$0.00</span></li>
+						<li class="total-costs">Final Price <span>${{ $plan->price  }}</span></li>
 					</ul>
 				</div>
 			</div>

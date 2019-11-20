@@ -36,13 +36,16 @@ class DashboardController extends Controller
 
     public function settings(Request $request)
     {
+        $myUser = Auth::user();
         $user = Profile::where('user_id', Auth::id())->with('media')->first();
         $countries = Country::get();
         $skills = Skill::orderBy('title', 'asc')->get();
 
-        $intent = Auth::user()->createSetupIntent();
+        $payment_method = $myUser->defaultPaymentMethod();
 
-        return view('dashboard.settings', compact('countries', 'user', 'skills', 'intent'));
+        $intent = $myUser->createSetupIntent();
+
+        return view('dashboard.settings', compact('countries', 'user', 'skills', 'intent', 'payment_method'));
     }
     
     public function invites()

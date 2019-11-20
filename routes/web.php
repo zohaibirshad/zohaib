@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -34,7 +35,23 @@ Route::get('how-it-works', function () {
     return view('how_it_works');
 })->name('how-it-works');
 
+Route::post('billing/paymentmethod/update', function(Request $request){
 
+    $user = Auth::user();
+
+    // $user->createAsStripeCustomer();
+
+    if ($user->hasPaymentMethod()) {
+        $user->updateDefaultPaymentMethod($request->method);
+    }else {
+        $user->addPaymentMethod($request->method);
+    } 
+
+    return response()->json([
+        'message' => "Action Successful",
+        'data' => $user->defaultPaymentMethod()
+    ]);
+});
 
 // Jobs
 Route::get('jobs-api', 'JobsController@jobs');
@@ -56,14 +73,23 @@ Route::get('posts/trending', 'BlogController@trending_posts');
 
 // Subscription
 Route::get('pricing', function () {
-    return view('subscription.pricing');
+
+    $plans = App\Models\Plan::oldest()->get();
+    return view('subscription.pricing', compact('plans'));
+
 })->name('pricing');
-Route::get('checkout', function () {
-    return view('subscription.checkout');
+
+Route::get('checkout/{id}', function ($id) {
+    $plan = App\Models\Plan::find($id);
+
+    return view('subscription.checkout', compact('plan'));
+
 })->name('checkout');
+
 Route::get('order-confirmation', function () {
     return view('subscription.confirmation');
 })->name('confirmation');
+
 Route::get('invoice', function () {
     return view('subscription.invoice');
 })->name('invoice');

@@ -297,8 +297,11 @@
         <div class="headline">
             <h3><i class="icon-line-awesome-money"></i> Billing Information</h3>
         </div>
-        <div class="content with-padding col-xl-6">
-                <input placeholder="Card Holder Name" class="with-border" id="card-holder-name" type="text">
+        <div class="flex flex-row justify-center items-center">
+            <div id="spinner" style="display:none" class="spinner-border text-warning w-12 h-12 my-2"></div>
+        </div>
+        <div class="content with-padding col-xl-6" id="billing">
+                <input placeholder="Card Holder Name" value="{{ $user->name }}" class="with-border" id="card-holder-name" type="text">
                 <!-- Stripe Elements Placeholder -->
                 <div class="mt-4" id="card-element"></div>
 
@@ -317,39 +320,62 @@
 @endsection
 
 @push('custom-scripts')
-    <script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    const stripe = Stripe('pk_test_5dfSYbt8bR3wfq8YcleK1YSE00CyBMueNa');
 
-    <script>
-        const stripe = Stripe('stripe-public-key');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
 
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
 
-        cardElement.mount('#card-element');
+    const cardHolderName = document.getElementById('card-holder-name');
 
-        const cardHolderName = document.getElementById('card-holder-name');
+    const cardButton = document.getElementById('card-button');
+    const clientSecret = cardButton.dataset.secret;
+    
 
-        const cardButton = document.getElementById('card-button');
-        const clientSecret = cardButton.dataset.secret;
-
-        cardButton.addEventListener('click', async (e) => {
-            const { setupIntent, error } = await stripe.handleCardSetup(
-                clientSecret, cardElement, {
-                    payment_method_data: {
-                        billing_details: { name: cardHolderName.value }
-                    }
+    cardButton.addEventListener('click', async (e) => {
+        if(cardHolderName.value == ''){
+            return alert('Enter Card Holder Name')
+        }
+        $('#spinner').show()
+        $('#billing').hide()
+        const { setupIntent, error } = await stripe.handleCardSetup(
+            clientSecret, cardElement, {
+                payment_method_data: {
+                    billing_details: { name: cardHolderName.value }
                 }
-            );
-
-            if (error) {
-               console.log(error);
-               
-            } else {
-                console.log('suucess');
-                
             }
-        });
-    </script>
+        );
+
+        if (error) {
+            
+            $('#spinner').hide()
+            $('#billing').show()
+            console.log(error);
+            alert(error.message)
+            
+        } else {
+            $('#spinner').hide();
+            console.log(setupIntent);
+            axios.post('billing/paymentmethod/update',{
+                method: setupIntent.payment_method
+            }).then(function(r){
+                alert(r.data.message);
+                console.log(r);
+                $('#billing').show()
+                
+            }).catch(function(e){
+                console.log(e);
+                alert('Pls, try again')
+                $('#billing').show()
+                
+            })
+        }
+    });
+</script>
     <script>
         $(document).ready(function(){
             var userCountryCode = "{{ $user->country_id }}";
