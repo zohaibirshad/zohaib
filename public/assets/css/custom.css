@@ -35,6 +35,14 @@ ul li ul{
   list-style-type: circle !important;
 }
 
+.select2-container .select2-search--inline {
+  height: 40px !important;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+  margin-top: 0 !important;
+}
+
 
 /* -------------------------------------------------------------- */
 /* HOW IT WORKS PAGE */

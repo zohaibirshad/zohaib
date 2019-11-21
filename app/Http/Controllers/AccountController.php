@@ -51,7 +51,7 @@ class AccountController extends Controller
 
         if($request->account_type == 'freelancer'){
             if(!$profile->verified){
-                toastr()->error('Sorry, could not switch account because account hasn\'t been verified');
+                toastr()->error('Sorry, could not switch because your account hasn\'t been verified');
                 return back();
             }
         }

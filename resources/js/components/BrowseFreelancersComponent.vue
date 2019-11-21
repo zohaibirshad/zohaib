@@ -8,11 +8,7 @@
             <h3>Search</h3>
             <div class="keywords-container">
               <div class="keyword-input-container">
-                <input
-                  type="text"
-                  placeholder="e.g. Freelancer name"
-                  v-model="search.title"
-                />
+                <input type="text" placeholder="e.g. Freelancer name" v-model="search.title" />
                 <button class="keyword-input-button ripple-effect" @click="getResults()">
                   <i class="icon-feather-search"></i>
                 </button>
@@ -74,24 +70,16 @@
 
           <!-- Tags -->
           <div class="sidebar-widget">
+            <!-- class="skills-dropdown" -->
             <h3>Skills</h3>
-
-            <div class="tags-container">
-              <div class="tag" v-for="skill in skills" :key="skill.id">
-                <input
-                  type="checkbox"
-                  :id="`tag-${skill.id}`"
-                  :value="skill.id"
-                  v-model="search.skills"
-                  @change="getResults()"
-                />
-                <label :for="`tag-${skill.id}`">
-                  {{
-                  skill.title
-                  }}
-                </label>
-              </div>
-            </div>
+            <select
+              class="skills-dropdown"
+              multiple="multiple"
+              v-model="search.skills"
+              @change="change()"
+            >
+              <option v-for="skill in skills" :key="skill.id" :value="skill.title">{{ skill.title }}</option>
+            </select>
             <div class="clearfix"></div>
           </div>
           <div class="clearfix"></div>
@@ -227,28 +215,8 @@ export default {
         min_hourly_rate: "",
         max_hourly_rate: ""
       },
-      slider: {
-        value: [1, 120],
-        min: 1,
-        max: 500
-      },
       hasData: false,
       isLoading: false
-    };
-  },
-
-  created() {
-    this.slider.formatter = value => `$${value}`;
-    this.slider.bgStyle = {
-      backgroundColor: "#fff",
-      boxShadow: "inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)"
-    };
-    this.slider.processStyle = {
-      backgroundColor: "#ea7c11"
-    };
-    this.slider.tooltipStyle = {
-      backgroundColor: "#000",
-      borderColor: "#000"
     };
   },
 
@@ -258,9 +226,22 @@ export default {
     this.getSkills();
   },
 
+  watch: {
+    value: function(value) {
+      var select = $(this.$el).select2();
+      select.val(value).trigger("change");
+    }
+  },
+
   methods: {
     link(freelancer) {
       return "freelancers/" + freelancer.uuid;
+    },
+
+    skillChange(selected) {
+      this.search.skills = selected;
+
+      this.getResults();
     },
 
     image(freelancer) {
@@ -298,15 +279,28 @@ export default {
         this.countries = response.data;
         this.$nextTick(function() {
           $(".select-picker").selectpicker();
-          $('.select-picker').selectpicker('toggle');
-          $('.select-picker').selectpicker('toggle');
+          $(".select-picker").selectpicker("toggle");
+          $(".select-picker").selectpicker("toggle");
         });
       });
     },
 
     getSkills() {
+      var self = this;
       axios.get("skills-api").then(response => {
         this.skills = response.data;
+        this.$nextTick(function() {
+          $(".skills-dropdown")
+            .select2({
+              tags: true,
+              placeholder: "Choose Skills",
+              allowClear: true
+            })
+            .on("change", function(e) {
+              var selected = $(this).val();
+              self.skillChange(selected);
+            });
+        });
       });
     }
   }

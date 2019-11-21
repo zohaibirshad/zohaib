@@ -2227,18 +2227,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2253,30 +2241,8 @@ __webpack_require__.r(__webpack_exports__);
         min_hourly_rate: "",
         max_hourly_rate: ""
       },
-      slider: {
-        value: [1, 120],
-        min: 1,
-        max: 500
-      },
       hasData: false,
       isLoading: false
-    };
-  },
-  created: function created() {
-    this.slider.formatter = function (value) {
-      return "$".concat(value);
-    };
-
-    this.slider.bgStyle = {
-      backgroundColor: "#fff",
-      boxShadow: "inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)"
-    };
-    this.slider.processStyle = {
-      backgroundColor: "#ea7c11"
-    };
-    this.slider.tooltipStyle = {
-      backgroundColor: "#000",
-      borderColor: "#000"
     };
   },
   mounted: function mounted() {
@@ -2284,9 +2250,19 @@ __webpack_require__.r(__webpack_exports__);
     this.getCountries();
     this.getSkills();
   },
+  watch: {
+    value: function value(_value) {
+      var select = $(this.$el).select2();
+      select.val(_value).trigger("change");
+    }
+  },
   methods: {
     link: function link(freelancer) {
       return "freelancers/" + freelancer.uuid;
+    },
+    skillChange: function skillChange(selected) {
+      this.search.skills = selected;
+      this.getResults();
     },
     image: function image(freelancer) {
       if (freelancer.photo == null || freelancer.photo == "" || freelancer.photo == undefined) {
@@ -2320,16 +2296,28 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.$nextTick(function () {
           $(".select-picker").selectpicker();
-          $('.select-picker').selectpicker('toggle');
-          $('.select-picker').selectpicker('toggle');
+          $(".select-picker").selectpicker("toggle");
+          $(".select-picker").selectpicker("toggle");
         });
       });
     },
     getSkills: function getSkills() {
       var _this3 = this;
 
+      var self = this;
       axios.get("skills-api").then(function (response) {
         _this3.skills = response.data;
+
+        _this3.$nextTick(function () {
+          $(".skills-dropdown").select2({
+            tags: true,
+            placeholder: "Choose Skills",
+            allowClear: true
+          }).on("change", function (e) {
+            var selected = $(this).val();
+            self.skillChange(selected);
+          });
+        });
       });
     }
   }
@@ -7528,69 +7516,49 @@ var render = function() {
             _c("h3", [_vm._v("Skills")]),
             _vm._v(" "),
             _c(
-              "div",
-              { staticClass: "tags-container" },
-              _vm._l(_vm.skills, function(skill) {
-                return _c("div", { key: skill.id, staticClass: "tag" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.search.skills,
-                        expression: "search.skills"
-                      }
-                    ],
-                    attrs: { type: "checkbox", id: "tag-" + skill.id },
-                    domProps: {
-                      value: skill.id,
-                      checked: Array.isArray(_vm.search.skills)
-                        ? _vm._i(_vm.search.skills, skill.id) > -1
-                        : _vm.search.skills
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search.skills,
+                    expression: "search.skills"
+                  }
+                ],
+                staticClass: "skills-dropdown",
+                attrs: { multiple: "multiple" },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.search,
+                        "skills",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
                     },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$a = _vm.search.skills,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = skill.id,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                _vm.$set(
-                                  _vm.search,
-                                  "skills",
-                                  $$a.concat([$$v])
-                                )
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  _vm.search,
-                                  "skills",
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
-                            }
-                          } else {
-                            _vm.$set(_vm.search, "skills", $$c)
-                          }
-                        },
-                        function($event) {
-                          return _vm.getResults()
-                        }
-                      ]
+                    function($event) {
+                      return _vm.change()
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "tag-" + skill.id } }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(skill.title) +
-                        "\n              "
-                    )
-                  ])
-                ])
+                  ]
+                }
+              },
+              _vm._l(_vm.skills, function(skill) {
+                return _c(
+                  "option",
+                  { key: skill.id, domProps: { value: skill.title } },
+                  [_vm._v(_vm._s(skill.title))]
+                )
               }),
               0
             ),
