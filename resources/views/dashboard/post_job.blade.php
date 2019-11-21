@@ -79,18 +79,6 @@
 							</div>
 						</div>
 
-						{{-- <div class="col-xl-4">
-							<div class="submit-field">
-								<h5>Location</h5>
-								<div class="input-with-icon">
-									<div id="autocomplete-container">
-										<input id="autocomplete-input" class="with-border location-field" type="text" placeholder="Type Address">
-									</div>
-									<i class="icon-material-outline-location-on"></i>
-								</div>
-							</div>
-						</div> --}}
-
 						<div class="col-xl-12">
 							<button class="btn btn-outline-secondary next-btn" type="button">NEXT</button>
 						</div>
@@ -256,7 +244,9 @@
 				if(isEmpty(skills)){
 					showError("Select one of more skills for the job!");
 				} else {
-					$('#post_job_form').submit();
+					if(isValidSection(1) && isValidSection(2)){
+						$('#post_job_form').submit();
+					}
 				}
 			});
 
