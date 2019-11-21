@@ -63,7 +63,7 @@ class AccountController extends Controller
 
         session(['role' => $request->account_type]);
 
-        toastr()->success('Profile updated successfully');
+        toastr()->success('Your account type has been switched to '. ucfirst($request->account_type));
 
         return back();
     }
