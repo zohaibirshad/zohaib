@@ -360,6 +360,10 @@ class JobsController extends Controller
             'max_budget' => 'required',
         ], [])->validate();
 
+        if(!Auth::user()->hasRole('hirer')){
+            return back()->with('error', 'You are NOT authorised to post a job');
+        }
+
         $job = new Job();
         $job->title = $request->title;
         $job->description = $request->description;
@@ -382,6 +386,6 @@ class JobsController extends Controller
             });
         }
 
-        return redirect()->back()->with('success', 'Job created successfully!');
+        return back()->with('success', 'Job created successfully!');
     }
 }

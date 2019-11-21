@@ -47,15 +47,25 @@ class AccountController extends Controller
 
     public function update_role(Request $request){
         $user = User::find(Auth::id()); 
+        $profile = Profile::find($user->profile->id);
+
+        if($request->account_type == 'freelancer'){
+            if(!$profile->verified){
+                toastr()->error('Sorry, could not switch account because account hasn\'t been verified');
+                return back();
+            }
+        }
         $user->syncRoles([$request->account_type]); 
 
-        $profile = Profile::find($user->profile->id);
+       
         $profile->type = $request->account_type;
         $profile->save();
 
         session(['role' => $request->account_type]);
 
-        return redirect()->back()->with('success', 'Profile updated successfully');
+        toastr()->success('Profile updated successfully');
+
+        return back();
     }
 
     public function update_basic_info(Request $request)
@@ -106,7 +116,7 @@ class AccountController extends Controller
             }
 
             DB::commit();
-            return redirect()->back()->with('success', 'Profile updated successfully');
+            return back()->with('success', 'Profile updated successfully');
         } catch (\Exception $e) {
             Log::error($e->getMessage(), [
                 "code" => $e->getCode(),

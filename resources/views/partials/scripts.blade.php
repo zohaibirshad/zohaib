@@ -12,6 +12,8 @@
 <script src="{{ asset('assets/js/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script src="{{ asset('assets/js/my_custom.js') }}"></script>
+@toastr_js
+@toastr_render
 
 <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 <script>

@@ -1,9 +1,3 @@
-{{-- <script>
-  @if(Session::has('status'))
-    toastr.success("{{ Session::get('status') }}");
-  @endif
-</script> --}}
-
 @if (session('success'))
 <div class="notification success closeable">
         <p class="text-center" ><i class="icon-line-awesome-check-circle" style="font-size: 20px;"></i> {{ session('success') }}</p>

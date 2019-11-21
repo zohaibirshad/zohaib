@@ -2,6 +2,18 @@
 @section('title', 'Post a job')
 
 @section('content')
+@role('freelancer')
+<div class="row mb-5 pj-page margin-top-100 margin-bottom-100">
+	<div class="col-6 offset-3">
+		<div class="notification error">
+			<p class="text-center" ><i class="icon-line-awesome-exclamation-circle" style="font-size: 20px;"></i>
+				Sorry, you are NOT authorized to post a job.
+			</p>
+		</div>
+	</div>
+</div>
+@endrole
+@role('hirer')
 <div class="row mb-5 pj-page margin-top-100 margin-bottom-100">
 		<div class="col-sm-12 col-md-6 offset-md-3">
 			@include('partials.alert')
@@ -184,6 +196,7 @@
 	</div>
 
 </div>
+@endrole
 @endsection
 
 @push('custom-scripts')

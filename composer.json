@@ -37,7 +37,8 @@
         "spatie/laravel-schemaless-attributes": "^1.6",
         "spatie/nova-backup-tool": "^3.5",
         "torann/currency": "^1.0",
-        "vyuldashev/nova-permission": "^2.1"
+        "vyuldashev/nova-permission": "^2.1",
+        "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

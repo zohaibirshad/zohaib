@@ -27,6 +27,12 @@
 
         {{-- @include('partials.alert') --}}
 
+        {{-- <div class="row">
+            <div class="col-sm-12 col-md-6 offset-md-3">
+                @include('partials.alert')
+            </div>
+        </div> --}}
+
         <!-- The title bar is not a compulsory field -->
         @yield('title_bar')
 
