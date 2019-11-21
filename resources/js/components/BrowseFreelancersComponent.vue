@@ -10,7 +10,6 @@
               <div class="keyword-input-container">
                 <input
                   type="text"
-                  class="keyword-input"
                   placeholder="e.g. Freelancer name"
                   v-model="search.title"
                 />
@@ -31,7 +30,7 @@
               data-size="7"
               v-model="search.country"
               @change="getResults()"
-              data-live-search="false"
+              data-live-search="true"
             >
               <option value>All Countries</option>
               <option
@@ -51,7 +50,7 @@
               <div class="col-6">
                 <div class="keywords-container">
                   <div class="keyword-input-container">
-                    <input placeholder="Min" type="number" v-model="search.min_hourly_rate">
+                    <input placeholder="Min" type="number" v-model="search.min_hourly_rate" />
                     <button class="keyword-input-button ripple-effect" @click="getResults()">
                       <i class="icon-feather-search"></i>
                     </button>
@@ -62,7 +61,7 @@
               <div class="col-6">
                 <div class="keywords-container">
                   <div class="keyword-input-container">
-                    <input placeholder="Max" type="number" v-model="search.max_hourly_rate">
+                    <input placeholder="Max" type="number" v-model="search.max_hourly_rate" />
                     <button class="keyword-input-button ripple-effect" @click="getResults()">
                       <i class="icon-feather-search"></i>
                     </button>
@@ -71,7 +70,6 @@
                 </div>
               </div>
             </div>
-              
           </div>
 
           <!-- Tags -->
@@ -142,7 +140,8 @@
                         {{ freelancer.name }}
                         <img
                           class="flag"
-                          :src="country(freelancer.country)" alt
+                          :src="country(freelancer.country)"
+                          alt
                           :title="freelancer.country.name"
                           data-tippy-placement="top"
                         />
@@ -150,7 +149,7 @@
                     </h4>
                     <span>{{ freelancer.headline }}</span>
                     <!-- Rating -->
-                    <div class="freelancer-rating" >
+                    <div class="freelancer-rating">
                       <div class="star-rating" :data-rating="freelancer.rating"></div>
                     </div>
                   </div>
@@ -231,8 +230,8 @@ export default {
       slider: {
         value: [1, 120],
         min: 1,
-        max: 500,
-      },   
+        max: 500
+      },
       hasData: false,
       isLoading: false
     };
@@ -265,17 +264,21 @@ export default {
     },
 
     image(freelancer) {
-      if (freelancer.photo != null || freelancer.photo != "") {
+      if (
+        freelancer.photo == null ||
+        freelancer.photo == "" ||
+        freelancer.photo == undefined
+      ) {
+        return "assets/images/user-avatar-placeholder.png";
+      } else {
         return freelancer.photo;
       }
-
-      return "assets/images/user-avatar-placeholder.png";
     },
 
     country(country) {
       return `assets/images/flags/${country.code.toLowerCase()}.svg`;
     },
-    
+
     getResults(page = 1) {
       this.isLoading = true;
       let params = this.search;
@@ -295,6 +298,8 @@ export default {
         this.countries = response.data;
         this.$nextTick(function() {
           $(".select-picker").selectpicker();
+          $('.select-picker').selectpicker('toggle');
+          $('.select-picker').selectpicker('toggle');
         });
       });
     },

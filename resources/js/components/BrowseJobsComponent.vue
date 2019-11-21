@@ -10,7 +10,6 @@
               <div class="keyword-input-container">
                 <input
                   type="text"
-                  class="keyword-input"
                   placeholder="e.g. job title"
                   v-model="search.title"
                 />
@@ -242,19 +241,6 @@ export default {
   methods: {
     slug(slug) {
       return "jobs/" + slug;
-    },
-
-    sliderChange($event) {
-      // Set budget price
-      this.setBudgetValues();
-
-      // Get result
-      this.getResults();
-    },
-
-    setBudgetValues() {
-      this.search.min_budget = this.slider.value[0];
-      this.search.max_budget = this.slider.value[1];
     },
 
     getResults(page = 1) {
