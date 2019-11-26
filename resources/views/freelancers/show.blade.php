@@ -180,6 +180,8 @@
                     <!-- Sidebar Widget -->
                     <div class="sidebar-widget">
                         {{-- <h3>Bookmark or Share</h3> --}}
+                        @role('hirer')
+                        @if(Auth::id() != $freelancer->user_id)
                         <h3>Bookmark</h3>
     
                         <!-- Bookmark Button -->
@@ -188,8 +190,11 @@
                             <span class="bookmark-text">Bookmark</span>
                             <span class="bookmarked-text">Bookmarked</span>
                         </button>
+                        @endif
+                        @endrole
     
-                         <!-- Copy URL -->
+                        <!-- Copy URL -->
+                        <h3>Share</h3>
                         <div class="copy-url">
                             <input id="copy-url" type="text" value="" class="with-border">
                             <button class="copy-url-button ripple-effect" data-clipboard-target="#copy-url" title="Copy to Clipboard" data-tippy-placement="top"><i class="icon-material-outline-file-copy"></i></button>
