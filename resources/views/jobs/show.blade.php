@@ -141,8 +141,8 @@
 		<div class="col-xl-4 col-lg-4">
 			<div class="sidebar-container">
 
-				{{-- <div class="countdown green margin-bottom-35">6 days, 23 hours left</div> --}}
-
+				
+				@if($job->owner->id != Auth::id())
 				@role('freelancer')
 				<div class="sidebar-widget">
 					<div class="bidding-widget">
@@ -209,16 +209,24 @@
 					</div>
 				</div>
 				@endrole
+				@endif
 
-				<!-- Sidebar Widget -->
+				
 				<div class="sidebar-widget">
-					<h3>Bookmark or Share</h3>
+					<!-- Sidebar Widget -->
+					@if($job->owner->id != Auth::id())
+					@role('freelancer')
+					<h3>Bookmark</h3>
 					<button class="bookmark-button margin-bottom-25 {{ $isBookmakedByUser == 1 ? 'bookmarked' : '' }}" onclick="bookmark({{ $job->id }})">
 						<span class="bookmark-icon"></span>
 						<span class="bookmark-text">Bookmark</span>
 						<span class="bookmarked-text">Bookmarked</span>
 					</button>
+					
+					@endrole
+					@endif
 
+					<h3>Share</h3>
 					<!-- Copy URL -->
 					<div class="copy-url">
 						<input id="copy-url" type="text" value="" class="with-border">
@@ -226,7 +234,7 @@
 					</div>
 
 					<!-- Share Buttons -->
-					<div class="share-buttons margin-top-25">
+					{{--  <div class="share-buttons margin-top-25">
 						<div class="share-buttons-trigger"><i class="icon-feather-share-2"></i></div>
 						<div class="share-buttons-content">
 							<span>Interesting? <strong>Share It!</strong></span>
@@ -237,7 +245,7 @@
 								<li><a href="#" data-button-color="#0077b5" title="Share on LinkedIn" data-tippy-placement="top"><i class="icon-brand-linkedin-in"></i></a></li>
 							</ul>
 						</div>
-					</div>
+					</div>  --}}
 				</div>
 
 			</div>
