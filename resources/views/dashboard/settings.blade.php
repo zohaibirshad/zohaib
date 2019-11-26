@@ -379,7 +379,7 @@
     <script>
         $(document).ready(function(){
             var userCountryCode = "{{ $user->country_id }}";
-            if(userCountryCode != null || userCountryCode != undefined || userCountryCode != ""){
+            if(userCountryCode != ""){
                 setCountryCallCode({{ $user->country_id }});
             }
             $('#country').change(function(){
