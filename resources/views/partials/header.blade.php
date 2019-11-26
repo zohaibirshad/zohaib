@@ -15,13 +15,11 @@
 				<!-- Main Navigation -->
 				<nav id="navigation">
 					<ul id="responsive">
-						@guest
 						<li>
 							<a href="{{ route('how-it-works') }}" class="{{ (request()->is('how-it-works')) ? 'current' : '' }}">
 							How it works
 							</a>
-						</li>					
-						@endguest
+						</li>
 						<li>
 							<a href="{{ route('pricing') }}" class="{{ (request()->is('pricing')) ? 'current' : '' }}">
 							Pricing
