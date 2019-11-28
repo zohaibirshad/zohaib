@@ -20,12 +20,14 @@
 							How it works
 							</a>
 						</li>
+						@auth
 						<li>
 							<a href="{{ route('pricing') }}" class="{{ (request()->is('pricing')) ? 'current' : '' }}">
 							Pricing
 							</a>
 						</li>	
 						<li>
+						@endauth
 							<a href="{{ route('blog.index') }}" class="{{ (request()->is('blog')) ? 'current' : '' }}">
 							Blog
 							</a>
