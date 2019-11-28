@@ -48,8 +48,8 @@ Route::post('billing/paymentmethod/update', function(Request $request){
     } 
 
     return response()->json([
-        'message' => "Action Successful",
-        'data' => $user->defaultPaymentMethod()
+        'message' => "Payment Method Added Successful",
+        'data' => $user->defaultPaymentMethod()->id
     ]);
 });
 
@@ -82,16 +82,39 @@ Route::get('pricing', function () {
 Route::get('checkout/{id}', function ($id) {
     $plan = App\Models\Plan::find($id);
 
-    return view('subscription.checkout', compact('plan'));
+
+    $intent = Auth::user()->createSetupIntent();
+
+
+    return view('subscription.checkout', compact('plan', 'intent'));
 
 })->name('checkout');
 
-Route::get('order-confirmation', function () {
-    return view('subscription.confirmation');
+Route::post('order-confirmation', function (Request $request) {
+    $validateData = $request->validate([
+        'plan' => 'integer|required'
+    ]);
+    $plan = App\Models\Plan::find($request->plan);
+
+    $user = Auth::user();
+
+    $paymentMethod = $user->defaultPaymentMethod();
+
+    $user->newSubscription('bins', $plan->title)->create($paymentMethod->id);
+
+    return view('subscription.confirmation', compact('plan'));
 })->name('confirmation');
 
 Route::get('invoice', function () {
-    return view('subscription.invoice');
+
+    $user = Auth::user();
+
+    $invoice = $user->invoices()->latest()->first();
+
+    return $request->user()->downloadInvoice($invoice->id, [
+        'vendor' => 'Yohli',
+        'product' => 'Bids',
+    ]);
 })->name('invoice');
 
 

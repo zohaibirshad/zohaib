@@ -16,12 +16,13 @@
 			<h3>Billing Cycle</h3>
 
 			<!-- Billing Cycle Radios  -->
-			
+			<form name="checkout" action="../order-confirmation" method="POST">
+			@csrf
 			<div class="billing-cycle margin-top-25">
 			
 				<!-- Radio -->
 				<div class="radio">
-					<input id="radio-5" name="radio-payment-type" type="radio" checked>
+					<input id="radio-5" value="{{ $plan->id }}" name="plan" type="radio" checked>
 					<label for="radio-5">
 						<span class="radio-label"></span>
 						Billed Monthly
@@ -49,20 +50,21 @@
 
 			<!-- Payment Methods Accordion -->
 			<div class="payment margin-top-30">
-
+			@if(Auth::user()->hasPaymentMethod()) 
 				<div class="payment-tab payment-tab-active">
 					<div class="payment-tab-trigger">
 						<input checked id="paypal" name="cardType" type="radio" value="paypal">
-						<label for="paypal">PayPal</label>
-						<img class="payment-logo paypal" src="https://i.imgur.com/ApBxkXU.png" alt="">
+						<label for="paypal">Use Card on file</label>
+						<!-- <img class="payment-logo paypal" src="https://i.imgur.com/ApBxkXU.png" alt=""> -->
 					</div>
 
 					<div class="payment-tab-content">
-						<p>You will be redirected to PayPal to complete payment.</p>
+						<p>Use Card on file for subscription</p>
 					</div>
 				</div>
+			@endif
 
-
+				
 				<div class="payment-tab">
 					<div class="payment-tab-trigger">
 						<input type="radio" name="cardType" id="creditCart" value="creditCard">
@@ -73,36 +75,18 @@
 					<div class="payment-tab-content">
 						<div class="row payment-form-row">
 
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="card-label">
-									<input id="nameOnCard" name="nameOnCard" required type="text" placeholder="Cardholder Name">
+									<input id="card-holder-name" name="nameOnCard" value="{{ Auth::user()->name }}" required type="text" placeholder="Cardholder Name">
 								</div>
 							</div>
 
-							<div class="col-md-6">
-								<div class="card-label">
-									<input id="cardNumber" name="cardNumber" placeholder="Credit Card Number" required type="text">
-								</div>
-							</div>
+						 <!-- Stripe Elements Placeholder -->
+						 <div class="mt-5 col-md-12 text-2xl" id="card-element"></div>
 
-							<div class="col-md-4">
-								<div class="card-label">
-									<input id="expiryDate" placeholder="Expiry Month" required type="text">
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card-label">
-									<label for="expiryDate">Expiry Year</label>
-									<input id="expirynDate" placeholder="Expiry Year" required type="text">
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card-label">
-									<input id="cvv" required type="text" placeholder="CVV">
-								</div>
-							</div>
+						<button  class="my-5 mx-1 button bg-blue-500 ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
+							Add Payment Method
+						</button>
 
 						</div>
 					</div>
@@ -111,8 +95,9 @@
 			</div>
 			<!-- Payment Methods Accordion / End -->
 		
-			<a href="{{ route('confirmation') }}" class="button big ripple-effect margin-top-40 margin-bottom-65">Proceed Payment</a>
+			<button type="submit" class="button big ripple-effect margin-top-40 margin-bottom-65">Proceed Payment</botton>
 		</div>
+		
 
 
 		<!-- Summary -->
@@ -135,12 +120,71 @@
 
 			<!-- Checkbox -->
 			<div class="checkbox margin-top-30">
-				<input type="checkbox" id="two-step">
+				<input type="checkbox" id="two-step" required checked/>
 				<label for="two-step"><span class="checkbox-icon"></span>  I agree to the <a href="#">Terms and Conditions</a> and the <a href="#">Automatic Renewal Terms</a></label>
 			</div>
 		</div>
-
+		</form>
 	</div>
 </div>
 <!-- Container / End -->
 @endsection
+
+@push('custom-scripts')
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    const stripe = Stripe('pk_test_5dfSYbt8bR3wfq8YcleK1YSE00CyBMueNa');
+
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+
+    cardElement.mount('#card-element');
+
+    const cardHolderName = document.getElementById('card-holder-name');
+
+    const cardButton = document.getElementById('card-button');
+    const clientSecret = cardButton.dataset.secret;
+    
+
+    cardButton.addEventListener('click', async (e) => {
+        if(cardHolderName.value == ''){
+            return alert('Enter Card Holder Name')
+        }
+        $('#spinner').show()
+        $('#billing').hide()
+        const { setupIntent, error } = await stripe.handleCardSetup(
+            clientSecret, cardElement, {
+                payment_method_data: {
+                    billing_details: { name: cardHolderName.value }
+                }
+            }
+        );
+
+        if (error) {
+            
+            $('#spinner').hide()
+            $('#billing').show()
+            console.log(error);
+            alert(error.message)
+            
+        } else {
+            $('#spinner').hide();
+            console.log(setupIntent);
+            axios.post('../billing/paymentmethod/update',{
+                method: setupIntent.payment_method
+            }).then(function(r){
+                alert(r.data.message);
+                console.log(r);
+                $('#billing').show()
+                
+            }).catch(function(e){
+                console.log(e);
+                alert('Pls, try again')
+                $('#billing').show()
+                
+            })
+        }
+    });
+</script>
+@endpush
