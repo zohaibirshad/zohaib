@@ -76,7 +76,6 @@
               class="skills-dropdown"
               multiple="multiple"
               v-model="search.skills"
-              @change="change()"
             >
               <option v-for="skill in skills" :key="skill.id" :value="skill.title">{{ skill.title }}</option>
             </select>
@@ -224,13 +223,6 @@ export default {
     this.getResults();
     this.getCountries();
     this.getSkills();
-  },
-
-  watch: {
-    value: function(value) {
-      var select = $(this.$el).select2();
-      select.val(value).trigger("change");
-    }
   },
 
   methods: {

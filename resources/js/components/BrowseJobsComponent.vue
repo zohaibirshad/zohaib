@@ -88,18 +88,13 @@
           <div class="sidebar-widget">
             <h3>Skills</h3>
 
-            <div class="tags-container">
-              <div class="tag" v-for="skill in skills" :key="skill.id">
-                <input
-                  type="checkbox"
-                  :id="`tag-${skill.id}`"
-                  :value="skill.id"
-                  v-model="search.skills"
-                  @change="getResults()"
-                />
-                <label :for="`tag-${skill.id}`">{{ skill.title }}</label>
-              </div>
-            </div>
+             <select
+              class="skills-dropdown"
+              multiple="multiple"
+              v-model="search.skills"
+            >
+              <option v-for="skill in skills" :key="skill.id" :value="skill.title">{{ skill.title }}</option>
+            </select>
             <div class="clearfix"></div>
           </div>
           <div class="clearfix"></div>
@@ -243,6 +238,12 @@ export default {
       return "jobs/" + slug;
     },
 
+    skillChange(selected) {
+      this.search.skills = selected;
+
+      this.getResults();
+    },
+
     getResults(page = 1) {
       this.isLoading = true;
       let params = this.search;
@@ -289,6 +290,25 @@ export default {
       } else {
         return `${currency}${job.min_budget} - ${currency}${job.max_budget}`;
       }
+    },
+
+    getSkills() {
+      var self = this;
+      axios.get("skills-api").then(response => {
+        this.skills = response.data;
+        this.$nextTick(function() {
+          $(".skills-dropdown")
+            .select2({
+              tags: true,
+              placeholder: "Choose Skills",
+              allowClear: true
+            })
+            .on("change", function(e) {
+              var selected = $(this).val();
+              self.skillChange(selected);
+            });
+        });
+      });
     }
   }
 };

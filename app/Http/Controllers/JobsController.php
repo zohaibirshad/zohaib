@@ -55,9 +55,9 @@ class JobsController extends Controller
             ->when(!empty($skills), function ($query) use ($skills) {
                 $query->whereHas("skills", function ($query) use ($skills) {
                     if (!is_array($skills)) {
-                        $query->where("id", $skills);
+                        $query->where("title", $skills);
                     } else {
-                        $query->whereIn("id", $skills);
+                        $query->whereIn("title", $skills);
                     }
                 });
             })
