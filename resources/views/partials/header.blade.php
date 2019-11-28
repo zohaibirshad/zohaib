@@ -26,8 +26,9 @@
 							Pricing
 							</a>
 						</li>	
-						<li>
 						@endauth
+						<li>
+					
 							<a href="{{ route('blog.index') }}" class="{{ (request()->is('blog')) ? 'current' : '' }}">
 							Blog
 							</a>
