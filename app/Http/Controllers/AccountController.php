@@ -76,8 +76,9 @@ class AccountController extends Controller
                 'required', 'email',
                 Rule::unique('users', 'email')->ignore(Auth::id()),
             ],
-            'name' => 'required|string|min:6',
-            'phone' => 'required|numeric',
+            'first_name' => 'required|string|min:3',
+            'last_name' => 'required|string|min:3',
+            'phone' => ['required', 'numeric', Rule::unique('users', 'phone')->ignore(Auth::id())],
             'country_id' => 'required|numeric',
             'picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [])->validate();
@@ -88,16 +89,14 @@ class AccountController extends Controller
             $user = User::find(Auth::id());
             $user->email = $request->email;
             $user->phone = $request->phone;
-            $user->name = $request->name;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
             $user->save();
 
-            // $user->syncRoles([$request->account_type]);
-
             $profile = Profile::find($user->profile->id);
-            $profile->name = $user->name;
+            $profile->name = $user->first_name . " ". $user->last_name;
             $profile->email = $user->email;
             $profile->phone = $user->phone;
-            // $profile->type = $request->account_type;
             $profile->country_id = $request->country_id;
 
             $profile->save();
@@ -127,7 +126,7 @@ class AccountController extends Controller
             // Rollback DB transactions is an error occurred
             DB::rollback();
 
-            return redirect()->back()->with('error', 'Something went wrong');
+            return back()->with('error', 'Something went wrong')->withInput();
         }
     }
 

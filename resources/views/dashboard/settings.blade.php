@@ -35,10 +35,20 @@
 
                             <div class="col-xl-6">
                                 <div class="submit-field">
-                                    <h5>Full Name</h5>
+                                    <h5>First Name</h5>
                                     <div class="input-with-icon-left">
                                         <i class="icon-material-outline-account-circle"></i>
-                                        <input type="text" class="with-border" value="{{ $user->name }}" name="name">
+                                        <input type="text" class="with-border" value="{{ old('first_name', $user->user->first_name) }}" name="first_name">
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-6">
+                                <div class="submit-field">
+                                    <h5>Last Name</h5>
+                                    <div class="input-with-icon-left">
+                                        <i class="icon-material-outline-account-circle"></i>
+                                        <input type="text" class="with-border" value="{{ old('last_name', $user->user->last_name) }}" name="last_name" required>
                                     </div>
                                 </div>
                             </div>                            
@@ -48,7 +58,7 @@
                                     <h5>Email</h5>
                                     <div class="input-with-icon-left">
                                         <i class="icon-material-baseline-mail-outline"></i>
-                                        <input type="text" class="with-border" value="{{ $user->email }}" name="email">
+                                        <input type="text" class="with-border" value="{{ old('email', $user->email) }}" name="email" required>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +66,7 @@
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Country</h5>
-                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="country_id" id="country">
+                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="country_id" id="country" required>
                                         @foreach ($countries as $country)
                                         <option value="{{ $country->id }}" {{ $user->country_id == $country->id ? 'selected="selected"' : '' }}>
                                             {{ $country->name }}
@@ -72,7 +82,7 @@
                                     <h5>Phone</h5>
                                     <div class="input-with-icon-left">
                                         <i class="intl_num">+0</i>
-                                        <input type="text" class="with-border" value="{{ $user->phone }}" name="phone">
+                                        <input type="text" class="with-border" value="{{ old('phone', $user->phone) }}" name="phone" required>
                                     </div>                                    
                                 </div>
                             </div>
@@ -142,7 +152,7 @@
 
                                         <!-- Slider -->
                                         <div class="bidding-value margin-bottom-10">$<span id="biddingVal"></span></div>
-                                        <input class="bidding-slider" type="text" name="rate" value="{{ $user->rate }}" data-slider-handle="custom" data-slider-currency="$" data-slider-min="5" data-slider-max="150" data-slider-value="{{ $user->rate ?? 20 }}" data-slider-step="1" data-slider-tooltip="hide" />
+                                        <input class="bidding-slider" type="text" name="rate" value="{{ old('rate', $user->rate) }}" data-slider-handle="custom" data-slider-currency="$" data-slider-min="5" data-slider-max="150" data-slider-value="{{ $user->rate ?? 20 }}" data-slider-step="1" data-slider-tooltip="hide" />
                                     </div>
                                 </div>
                             </div>
@@ -151,21 +161,6 @@
                                 <div class="submit-field">
                                     <h5>Skills <i class="help-icon" data-tippy-placement="right" title="Add up to 10 skills"></i></h5>
 
-                                    <!-- Skills List -->
-                                    {{-- <div class="keywords-container">
-                                        <div class="keyword-input-container">
-                                            <input type="text" class="keyword-input with-border" placeholder="e.g. Angular, Laravel"/>
-                                            <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
-                                        </div>
-                                        <div class="keywords-list">
-                                            <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Angular</span></span>
-                                            <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Vue JS</span></span>
-                                            <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">iOS</span></span>
-                                            <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Android</span></span>
-                                            <span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Laravel</span></span>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div> --}}
                                     <select class="selectpicker" data-size="7" data-live-search="true" name="skills[]" multiple>
                                         @foreach ($skills as $skill)
                                             <option value="{{ $skill->id }}"
@@ -209,14 +204,14 @@
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Professional Headline</h5>
-                                    <input type="text" class="with-border" value="{{ $user->headline }}" name="headline">
+                                    <input type="text" class="with-border" value="{{ old('headline', $user->headline) }}" name="headline" >
                                 </div>
                             </div>
 
                             <div class="col-xl-12">
                                 <div class="submit-field">
                                     <h5>Introduce Yourself</h5>
-                                    <textarea cols="30" rows="5" class="with-border" name="description">{{ $user->description }}</textarea>
+                                    <textarea cols="30" rows="5" class="with-border" name="description">{{  old('description', $user->description) }}</textarea>
                                 </div>
                             </div>
 
