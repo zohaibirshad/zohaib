@@ -172,7 +172,7 @@ class AccountController extends Controller
             // Rollback DB transactions is an error occurred
             DB::rollback();
 
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error', 'Something went wrong')->withInput();
         }
     }
 
