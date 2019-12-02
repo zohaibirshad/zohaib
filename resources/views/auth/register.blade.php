@@ -43,7 +43,7 @@
                     @endif
 					<div class="input-with-icon-left">
 						<i class="icon-material-outline-person-pin"></i>
-						<input type="text" class="input-text with-border form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" value="{{ old('first_name') }}" name="first_name" id="name" placeholder="First Name"/>
+						<input type="text" class="input-text with-border form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" value="{{ old('first_name') }}" name="first_name" id="name" placeholder="First Name" required/>
                     </div>
                     
                     @if ($errors->has('name'))
@@ -65,7 +65,6 @@
 						<i class="icon-material-baseline-mail-outline"></i>
 						<input type="text" class="input-text with-border form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" name="email" id="email" placeholder="Email Address" required/>
 					</div>
-
                     @if ($errors->has('password'))
                     <span class="text-sm text-red-500">
                         <strong> {{ $errors->first('password') }}</strong>
@@ -80,6 +79,23 @@
 						<i class="icon-material-outline-lock"></i>
 						<input type="password" class="input-text with-border" name="password_confirmation" id="password-confirm" placeholder="Repeat Password" required/>
 					</div>
+
+					@if ($errors->has('country'))
+                    <span class="text-sm text-red-500">
+                        <strong> {{ $errors->first('country') }}</strong>
+                    </span>
+                    @endif
+					<select
+					class="select-picker pl-10"
+					data-size="7"
+					data-live-search="true"
+					required
+					>
+						<option value>All Countries</option>
+						@foreach($countries as $country)
+						<option value="{{ $country->id }}">{{ $country->name }}</option>
+						@endforeach
+					</select>
 				
 				<!-- Button -->
 				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="register-account-form">Register <i class="icon-material-outline-arrow-right-alt"></i></button>

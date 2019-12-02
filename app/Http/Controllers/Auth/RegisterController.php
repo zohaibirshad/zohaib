@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Country;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +43,17 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $countries = Country::all();
+        return view('auth.register', compact('countries'));
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -55,6 +67,8 @@ class RegisterController extends Controller
             'account-type' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'country' => ['required'],
+
         ]);
     }
 
@@ -77,6 +91,7 @@ class RegisterController extends Controller
             'name' => $data['first_name'] . " " . $data['last_name'],
             'email' => $data['email'],
             'type' => $data['account-type'],
+            'country_id' => $data['country'],
         ]);
 
         $role = Role::where('name', $data['account-type'])->first();
@@ -86,7 +101,7 @@ class RegisterController extends Controller
 
         $user->assignRole($data['account-type']);
 
-        // $user->createAsStripeCustomer();
+        $user->createAsStripeCustomer();
 
         return $user;
 
