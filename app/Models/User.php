@@ -54,7 +54,7 @@ class User extends Authenticatable implements Auditable
 
     public function getNameAttribute()
     {
-        return  $this->attribute['first_name'] . " " .  $this->attribute['last_name'];
+        return "{$this->first_name} {$this->last_name}";
     }
 
 

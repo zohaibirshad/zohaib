@@ -148,6 +148,7 @@
     
 
     cardButton.addEventListener('click', async (e) => {
+		e.preventDefault();
         if(cardHolderName.value == ''){
             return alert('Enter Card Holder Name')
         }

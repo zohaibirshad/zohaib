@@ -70,6 +70,8 @@ class Plan extends Resource
                 ->sortable(),
                 Text::make( __('Title'),  'title')
                 ->sortable(),
+                Text::make( __('Plan ID'),  'plan_id')
+                ->sortable(),
                 Textarea::make( __('Description'),  'description')
                 ->sortable(),
                 Number::make( __('Quantity'),  'quantity')
@@ -79,7 +81,7 @@ class Plan extends Resource
                 Number::make( __('Price'),  'price')
                 ->sortable()
                 ->min(0)
-                ->step(0.1),
+                ->step(0.01),
                 Select::make( __('Recommended'),  'recommended')
                 ->sortable()
                 ->options([

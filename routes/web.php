@@ -45,11 +45,12 @@ Route::post('billing/paymentmethod/update', function(Request $request){
         $user->updateDefaultPaymentMethod($request->method);
     }else {
         $user->addPaymentMethod($request->method);
+        $user->updateDefaultPaymentMethod($request->method);
     } 
 
     return response()->json([
         'message' => "Payment Method Added Successful",
-        'data' => $user->defaultPaymentMethod()->id
+        'data' => $user->defaultPaymentMethod()
     ]);
 });
 
@@ -100,7 +101,7 @@ Route::post('order-confirmation', function (Request $request) {
 
     $paymentMethod = $user->defaultPaymentMethod();
 
-    $user->newSubscription('bins', $plan->title)->create($paymentMethod->id);
+    $user->newSubscription('bins', $plan->plan_id)->create($paymentMethod->id);
 
     return view('subscription.confirmation', compact('plan'));
 })->name('confirmation');
@@ -109,9 +110,9 @@ Route::get('invoice', function () {
 
     $user = Auth::user();
 
-    $invoice = $user->invoices()->latest()->first();
+    $invoice = $user->invoices()->first();
 
-    return $request->user()->downloadInvoice($invoice->id, [
+    return Auth::user()->downloadInvoice($invoice->id, [
         'vendor' => 'Yohli',
         'product' => 'Bids',
     ]);
