@@ -193,7 +193,7 @@ class AccountController extends Controller
             'headline' => 'nullable|string',
             'city' => 'nullable|string',
             'region' => 'nullable|string',
-            'country' => 'nullable|string',
+            'country' => 'nullable',
             'rate' => 'nullable|string',
             'skills' => 'nullable',
             'picture' => 'nullable|file|image|mimes:jpeg,png,jpg|max:2048',

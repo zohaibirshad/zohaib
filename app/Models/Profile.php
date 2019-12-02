@@ -29,6 +29,10 @@ class Profile extends Model implements HasMedia
         'rating', 'photo'
     ];
 
+    protected $fillable = [
+        'name', 'email', 'country_id', 'type'
+    ];
+
     public function getCompletionRateAttribute()
     {
         $jobs_count = $this->jobs()->count();
@@ -84,9 +88,6 @@ class Profile extends Model implements HasMedia
         return $this->getFirstMediaUrl('profile', 'big');
     }
     
-
-    protected $fillable = ['name', 'email', 'type'];
-
     public function registerMediaCollections()
     {
         $this->addMediaCollection('profile');

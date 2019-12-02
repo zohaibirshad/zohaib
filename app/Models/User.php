@@ -47,6 +47,16 @@ class User extends Authenticatable implements Auditable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    protected $appends = [
+        'name'
+    ];
+
+    public function getNameAttribute()
+    {
+        return  $this->attribute['first_name'] . " " .  $this->attribute['last_name'];
+    }
+
 
     public function profile()
     {

@@ -111,7 +111,7 @@ class Profile extends Resource
             Place::make( __('City'),  'city')
             ->onlyCities()
             ->sortable(),
-            HasOne::make('Country')
+            BelongsTo::make('Country')
             ->sortable(),
             Select::make( __('Verified'),  'verified')
             ->sortable()

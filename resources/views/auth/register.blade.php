@@ -89,6 +89,7 @@
 					class="select-picker pl-10"
 					data-size="7"
 					data-live-search="true"
+					name="country"
 					required
 					>
 						<option value>All Countries</option>
