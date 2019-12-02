@@ -361,6 +361,7 @@ class FreelancersController extends Controller
         $profile = Profile::where('user_id', Auth::user()->id)->first();
 
         $bids = Bid::where('profile_id', $profile->id)
+            ->where('status', 'pending')
             ->with('job', 'profile')
             ->latest()
             ->get();
@@ -418,6 +419,7 @@ class FreelancersController extends Controller
             'rate' => 'required',
             'delivery_time' => 'required',
             'delivery_type' => 'required',
+            'description' => 'nullable',
         ]);
 
 
@@ -425,6 +427,7 @@ class FreelancersController extends Controller
         $bid->rate = $request->rate;
         $bid->delivery_type = $request->delivery_type;
         $bid->delivery_time = $request->delivery_time;
+        $bid->description = $request->description;
         $bid->save();
 
         return redirect()->back()->with('success', 'Bid Updated Successfully!');
