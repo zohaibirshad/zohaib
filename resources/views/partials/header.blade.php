@@ -138,7 +138,7 @@
 										@endif	
 									</div>
 									<div class="user-name">
-										{{ Auth::user()->name }} <span class="text-capitalize">{{ Auth::user()->profile->type }}</span>
+										{{ Auth::user()->fullname }} <span class="text-capitalize">{{ Auth::user()->profile->type }}</span>
 									</div>
 								</div>
 								

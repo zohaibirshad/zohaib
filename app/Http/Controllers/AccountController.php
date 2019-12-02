@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -132,13 +133,24 @@ class AccountController extends Controller
 
     public function update_freelancer_info(Request $request)
     {
-
         Validator::make($request->all(), [
             'rate' => 'required',
             'headline' => 'required',
             'description' => 'required',
             'documents.*' => 'file|max:10240',
         ], [])->validate();
+
+        $skills = [];
+
+        foreach ($request->skills as $index => $skill) {
+            if(is_numeric($skill)){
+                array_push($skills, $skill);
+            }  else {
+                $skillId = $this->createSkill($skill);
+                array_push($skills, $skillId);
+            }
+            
+        }
 
         try {
             DB::beginTransaction();
@@ -147,7 +159,7 @@ class AccountController extends Controller
             $profile->rate = $request->rate;
             $profile->headline = $request->headline;
             $profile->description = $request->description;
-            $profile->skills()->sync($request->skills);
+            $profile->skills()->sync($skills);
 
             $profile->save();
 
@@ -174,6 +186,13 @@ class AccountController extends Controller
 
             return redirect()->back()->with('error', 'Something went wrong')->withInput();
         }
+    }
+
+    private function createSkill($skillName){
+        $skill = new Skill();
+        $skill->title = $skillName;
+        $skill->save();
+        return $skill->id;
     }
 
     /**

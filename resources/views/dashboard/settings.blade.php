@@ -161,12 +161,18 @@
                                 <div class="submit-field">
                                     <h5>Skills <i class="help-icon" data-tippy-placement="right" title="Add up to 10 skills"></i></h5>
 
-                                    <select class="selectpicker" data-size="7" data-live-search="true" name="skills[]" multiple>
+                                    {{-- <select class="selectpicker" data-size="7" data-live-search="true" name="skills[]" multiple>
                                         @foreach ($skills as $skill)
                                             <option value="{{ $skill->id }}"
                                                     {{ isset($user->skills) && in_array($skill->id, $user->skills()->pluck('id')->toArray()) ? 'selected' : '' }}
                                                 >{{ $skill->title }}
                                             </option>
+                                        @endforeach
+                                    </select> --}}
+
+                                    <select class="skills-dropdown" multiple="multiple" name="skills[]">
+                                        @foreach ($skills as $skill)
+                                            <option value="{{ $skill->id }}" {{ isset($user->skills) && in_array($skill->id, $user->skills()->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $skill->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -373,6 +379,12 @@
 </script>
     <script>
         $(document).ready(function(){
+            $(".skills-dropdown").select2({
+              tags: true,
+              placeholder: "Choose Skills",
+              allowClear: true,
+              maximumSelectionLength: 10
+            });
             var userCountryCode = "{{ $user->country_id }}";
             if(userCountryCode != ""){
                 setCountryCallCode({{ $user->country_id }});

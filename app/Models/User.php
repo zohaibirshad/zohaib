@@ -72,4 +72,9 @@ class User extends Authenticatable implements Auditable
     {
         return $this->hasMany('App\Models\Review');
     }
+
+    public function getFullnameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }
