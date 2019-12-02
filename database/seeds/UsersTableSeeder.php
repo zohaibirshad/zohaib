@@ -15,27 +15,31 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Emmanuel Fache',
+                'first_name' => 'Emmanuel',
+                'last_name' => 'Fache',
                 'password' => bcrypt('password'),
                 'email' => 'emrade95@gmail.com',
                 'phone' => '0209436736',
                 'email_verified_at' => now(),
             ],
             [
-                'name' => 'Emmanuel Fache (Hirer)',
+                'first_name' => 'Emmanuel',
+                'last_name' => 'Fache',
                 'password' => bcrypt('password'),
                 'email' => 'emradegh@gmail.com',
                 'phone' => '0553699868',
                 'email_verified_at' => now(),
             ],
             [
-                'name' => 'Emmanuel Oduro',
+                'first_name' => 'Emmanuel',
+                'last_name' => 'Oduro',
                 'password' => bcrypt('decount'),
                 'email' => 'emmarthurson@gmail.com',
                 'email_verified_at' => now(),
             ],
             [
-                'name' => 'Emmanuel Oduro (Hirer)',
+                'first_name' => 'Emmanuel',
+                'last_name' => 'Oduro',
                 'password' => bcrypt('decount'),
                 'email' => 'emmanuel@jumeni.com',
                 'email_verified_at' => now(),
@@ -48,7 +52,7 @@ class UsersTableSeeder extends Seeder
 
             $profile = new Profile();
             $profile->user_id = $user->id;
-            $profile->name = $user->name;
+            $profile->name = $user->first_name . " " .$user->last_name;
             $profile->phone = $user->phone;
             $profile->email = $user->email;
             $profile->country_id = 80;
