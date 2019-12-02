@@ -130,7 +130,7 @@
                   <ul class="task-icons">
                     <li>
                       <i class="icon-material-outline-location-on"></i>
-                      {{ job.country == 'null' ? "N/A" :  job.country.name }}
+                      {{ job.country == null ? "N/A" :  job.country.name }}
                     </li>
                     <li>
                       <i class="icon-material-outline-access-time"></i>
