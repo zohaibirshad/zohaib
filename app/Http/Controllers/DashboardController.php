@@ -53,13 +53,21 @@ class DashboardController extends Controller
         $user = Auth::user();
         $freelancer = Profile::where('user_id', Auth::id())->first();
 
-        $invites = Invite::where('user_id', $user->id)
-        ->orwhere('profile_id', $freelancer->id)
+        if($user->hasRole('hirer')){
+            $invites = Invite::where('user_id', $user->id)
+                ->with('job', 'profile')
+                ->get();
+        } else {
+            $invites = Invite::where('profile_id', $freelancer->id)
             ->with('job', 'profile')
             ->get();
+        }
+
+        
 
         return view('dashboard.jobs.invites', compact('invites'));
     }
+
 
     public function milestones(Request $request, $slug)
     {
