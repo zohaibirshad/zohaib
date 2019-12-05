@@ -45,7 +45,7 @@ class ViewServiceProvider extends ServiceProvider
                     $newJobsCount = 0;
                     $ongoingJobsCount = Job::where('profile_id',  $freelancer->id)->where('status', 'assigned')->count();
                     $completedJobsCount = Job::where('profile_id',  $freelancer->id)->where('status', 'completed')->count();
-                    $bidsCount = Bid::where('profile_id', $freelancer->id)->count();
+                    $bidsCount = Bid::where('profile_id', $freelancer->id)->where('status', 'pending')->count();
                     $invitesCount = Invite::where('profile_id', $freelancer->id)->count();
                 }
                 

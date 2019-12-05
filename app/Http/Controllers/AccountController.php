@@ -51,8 +51,8 @@ class AccountController extends Controller
         $profile = Profile::find($user->profile->id);
 
         if($request->account_type == 'freelancer'){
-            if(!$profile->verified){
-                toastr()->error('Sorry, could not switch because your account hasn\'t been verified');
+            if(!$profile->verified ){
+                toastr()->error('Sorry, could not switch, upload required document to start the verification process');
                 return back();
             }
         }
