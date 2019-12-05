@@ -50,12 +50,10 @@ class AccountController extends Controller
         $user = User::find(Auth::id()); 
         $profile = Profile::find($user->profile->id);
 
-        // if($request->account_type == 'freelancer'){
-        //     if(!$profile->verified ){
-        //         toastr()->error('Sorry, could not switch, upload required document to start the verification process');
-        //         return back();
-        //     }
-        // }
+        if(!$profile->verified ){
+            toastr()->error('Sorry, could not switch, upload required document to start the verification process');
+            return back();
+        }
         $user->syncRoles([$request->account_type]); 
 
        
