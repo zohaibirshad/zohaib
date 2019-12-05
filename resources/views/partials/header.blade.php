@@ -23,7 +23,7 @@
 						@auth
 						<li>
 							<a href="{{ route('pricing') }}" class="{{ (request()->is('pricing')) ? 'current' : '' }}">
-							Pricing
+							GoPro
 							</a>
 						</li>	
 						@endauth
@@ -138,7 +138,7 @@
 										@endif	
 									</div>
 									<div class="user-name">
-										{{ Auth::user()->fullname }} <span class="text-capitalize">{{ Auth::user()->profile->type }}</span>
+										{{ Auth::user()->first_name  }} {{ substr(Auth::user()->last_name, 0, 1)  }}.
 									</div>
 								</div>
 								

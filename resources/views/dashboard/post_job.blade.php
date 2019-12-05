@@ -298,7 +298,8 @@
 			}
 
 			function isValidLength(field, length){
-				return field.length >= length ? true : false;
+				let noSpace = field.replace(/ /g, "");
+				return noSpace.length >= length ? true : false;
 			}
 
 			function showError(message){
