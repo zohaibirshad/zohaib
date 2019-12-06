@@ -480,29 +480,29 @@ class FreelancersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_milestone(Request $request, $job_uuid)
+    public function add_milestone(Request $request)
     {
-        $validateData = $request->validate([
+        $request->validate([
             'heading' => 'required',
             'activity' => 'required',
             'cost' => 'required',
-            'status' => 'required',
         ]);
 
-        $job = Job::where('uuid', $job_uuid)->first();
+        if($request->cost > $request->available){
+            return back()->with('error', 'Cost exceeded limit')->withInput();
+        }
 
         $milestone = new Milestone;
-        $milestone->job_id = $job->id;
+        $milestone->job_id = $request->job_id;
+        $milestone->user_id = $request->user_id;
+        $milestone->profile_id = Auth::id();
         $milestone->heading = $request->heading;
         $milestone->activity = $request->activity;
         $milestone->cost = $request->cost;
-        $milestone->status = $request->status;
+        $milestone->status = 'not done';
         $milestone->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Milestone was saved successfully"
-        ]);
+        return back()->with('success', 'Milestone added!');
     }
 
     /**

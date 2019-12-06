@@ -1,7 +1,13 @@
 @extends('layouts.dashboard_master')
 @section('title', 'Milestones')
 @section('subtitle')
-Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
+Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a> 
+
+@role('freelancer')
+<a href="#small-dialog-4"  class="popup-with-zoom-anim btn btn-primary btn-xs">
+    Add Milestone
+</a>
+@endrole
 @endsection
 
 @section('content')
@@ -173,6 +179,52 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 </form>
 
 				<button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="completionForm">Yes <i class="icon-material-outline-check-circle"></i></button>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- Bid Acceptance Popup / End -->
+
+<!-- Bid Acceptance Popup
+================================================== -->
+<div id="small-dialog-4" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+	<!--Tabs -->
+	<div class="sign-in-form">
+
+		<ul class="popup-tabs-nav">
+			<li><a href="#tab1">Add Milestone</a></li>
+		</ul>
+
+		<div class="popup-tabs-container">
+
+			<!-- Tab -->
+			<div class="popup-tab-content" id="tab">
+
+                <!-- Button -->
+                <form action="/milestones/add" method="post" id="addMileStoneForm">
+                    @csrf
+                    <input type="hidden" name="job_id" value="{{ $job->id }}">
+                    <input type="hidden" name="user_id" value="{{ $job->user_id }}">
+                    <input type="hidden" name="available" value="{{ $available }}">
+                    <!-- Price Slider -->
+                    <div class="submit-field">
+                        <label>Title</label>
+                        <input name="heading" placeholder="Domain and Hosting Set up" required value="{{ old('heading') }}">
+                    </div>
+                    <div class="submit-field">
+                        <label>Cost (<i class="text-muted">Amount Limit $ {{ $available }}</i>)</label>
+                        <input name="cost" type="number" required max="{{ $available }}" value="{{ old('cost') }}"">
+                    </div>
+                    <div class="submit-field">
+                        <label>Description</label>
+                        <textarea name="activity" cols="10" placeholder="Milestone Details" class="with-border" required value="{{ old('activity') }}""></textarea>
+                    </div>                    
+                </form>
+
+				<button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="addMileStoneForm">Continue <i class="icon-material-outline-check-circle"></i></button>
 
 			</div>
 

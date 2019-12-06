@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bid;
 use App\Models\Bookmark;
 use App\Models\Country;
 use App\Models\Invite;
@@ -79,6 +80,8 @@ class DashboardController extends Controller
         if(empty($job)){
             abort(404);
         }
+        $bidRate = 0;        
+        $jobMilestones = 0;
 
         if($user->hasRole('hirer')){
             $m = Milestone::where('job_id', $job->id)
@@ -98,6 +101,12 @@ class DashboardController extends Controller
             ->where('status', 'done')
             ->where('profile_id', $freelancer->id)
             ->count();
+
+            $bidRate = Bid::where('profile_id', $freelancer->id)
+            ->where('job_id', $job->id)->first()->rate;
+
+            $jobMilestones = Milestone::where('profile_id', $freelancer->id)
+            ->where('job_id', $job->id)->sum('cost');
         }
 
 
@@ -110,7 +119,9 @@ class DashboardController extends Controller
             $completion = ($done / $mCount ) * 100;
         }
 
-        return view('dashboard.milestones', compact('milestones', 'job', 'completion'));
+        $available = $bidRate - $jobMilestones;
+
+        return view('dashboard.milestones', compact('milestones', 'job', 'completion', 'bid', 'available'));
     }
 
     public function bidders(Request $request, $slug)
