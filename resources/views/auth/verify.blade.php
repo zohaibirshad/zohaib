@@ -1,6 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.master')
+@section('title', 'Email Verification')
 
 @section('content')
+<!-- Spacer -->
+<div class="margin-top-70"></div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -21,4 +25,10 @@
         </div>
     </div>
 </div>
+
+
+<!-- Spacer -->
+<div class="margin-top-70"></div>
+<!-- Spacer / End-->
 @endsection
+
