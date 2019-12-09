@@ -190,3 +190,9 @@ Route::group(['middleware' => ['auth']], function () {
         return view('dashboard.finances.withdraw_funds');
     })->name('withdraw-funds');
 });
+
+
+Route::post(
+    'stripe/webhook',
+    '\App\Http\Controllers\WebhookController@handleWebhook'
+);

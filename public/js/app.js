@@ -8273,8 +8273,8 @@ var render = function() {
                                       _vm._v(
                                         "\n                    " +
                                           _vm._s(
-                                            job.country == "null"
-                                              ? "N/A"
+                                            job.country == null
+                                              ? " "
                                               : job.country.name
                                           ) +
                                           "\n                  "
