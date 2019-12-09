@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+
+
+
+
+
 
 Route::namespace("Auth")->group(function () {
     Route::get('login/{provider}', 'LoginController@redirectToProvider');
@@ -22,14 +28,6 @@ Route::namespace("Auth")->group(function () {
 });
 
 Route::get('/', 'ApplicationController@index')->name('home');
-
-// Route::get('login', function () {
-//     return view('auth.login');
-// })->name('login.page'); 
-
-// Route::get('register', function () {
-//     return view('auth.register');
-// })->name('register.page');
 
 Route::get('how-it-works', function () {
     return view('how_it_works');
@@ -121,7 +119,7 @@ Route::get('invoice', function () {
 
 
 // DASHBOARD STUFF
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     // Profile Settings
     Route::post('update_password', 'AccountController@update_password');
     Route::post('update_basic_info', 'AccountController@update_basic_info');

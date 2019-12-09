@@ -28,13 +28,11 @@ class LoginController extends Controller
     // protected $redirectTo = '/browse-jobs';
     public function redirectTo()
     {
-
-        if(auth()->user()->hasRole('freelancer')){
+        if (auth()->user()->hasRole('freelancer')) {
             return '/browse-jobs';
         } else {
             return '/browse-freelancers';
         }
-        
     }
 
     /**

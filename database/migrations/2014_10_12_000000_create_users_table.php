@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('profile_verified_at')->nullable();
+            $table->enum('review', ['not_started', 'pending', 'successful', 'failed'])->nullable()->default('not_started');
             $table->string('password');
             $table->rememberToken();
             $table->softDeletes();

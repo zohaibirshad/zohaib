@@ -15,7 +15,7 @@ use Laravel\Cashier\Billable;
 
 
 
-class User extends Authenticatable implements Auditable
+class User extends Authenticatable implements MustVerifyEmail, Auditable
 {
     use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes;
 

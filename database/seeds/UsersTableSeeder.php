@@ -21,6 +21,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'emrade95@gmail.com',
                 'phone' => '0209436736',
                 'email_verified_at' => now(),
+                'profile_verified_at' => now(),
+                'review' => 'successful',
             ],
             [
                 'first_name' => 'Emmanuel',
