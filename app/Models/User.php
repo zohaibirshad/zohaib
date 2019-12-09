@@ -52,10 +52,11 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         'name'
     ];
 
-    public function getNameAttribute()
+    
+    public function getNameAttribute() 
     {
         return "{$this->first_name} {$this->last_name}";
-    }
+    } 
 
 
     public function profile()
