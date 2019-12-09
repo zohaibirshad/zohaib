@@ -48,6 +48,15 @@ class DashboardController extends Controller
 
         return view('dashboard.settings', compact('countries', 'user', 'skills', 'intent', 'payment_method'));
     }
+
+    public function verify()
+    {
+        if(!empty(Auth::user()->profile_verified_at)){
+            toastr()->error('Profile is already verified');
+            return redirect('settings'); 
+        }
+        return view('dashboard.verify');
+    }
     
     public function invites()
     {

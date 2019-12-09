@@ -124,6 +124,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('update_password', 'AccountController@update_password');
     Route::post('update_basic_info', 'AccountController@update_basic_info');
     Route::post('update_freelancer_info', 'AccountController@update_freelancer_info');
+    Route::post('update_freelancer_documents', 'AccountController@update_freelancer_documents');
     Route::post('update_role', 'AccountController@update_role');
 
     // Freelancers
@@ -175,6 +176,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     })->name('messages');
 
     Route::get('settings', 'DashboardController@settings')->name('settings');
+    Route::get('verify-profile', 'DashboardController@verify');
 
     Route::get('milestones/{id}', 'DashboardController@milestones')->name('milestones');
 

@@ -50,10 +50,25 @@ class AccountController extends Controller
         $user = User::find(Auth::id()); 
         $profile = Profile::find($user->profile->id);
 
-        if(!$profile->verified ){
-            toastr()->error('Sorry, could not switch, upload required document to start the verification process');
+        if($user->review == 'pending'){
+            toastr()->error('Your account is already under review. You can only switch when review is completed and successful');
             return back();
         }
+
+        if($user->review == 'not_started'){
+            toastr()->error('Sorry, could not switch, upload required document to start the verification process');
+            return redirect('verify-profile');
+        }
+
+        if($user->review == 'failed'){
+            toastr()->error('Sorry, documents uploaded were not valid. Upload a valid document');
+            return redirect('verify-profile');
+        }
+
+        // if(!$profile->verified ){
+        //     toastr()->error('Sorry, could not switch, upload required document to start the verification process');
+        //     return back();
+        // }
         $user->syncRoles([$request->account_type]); 
 
        
@@ -183,6 +198,45 @@ class AccountController extends Controller
             DB::rollback();
 
             return redirect()->back()->with('error', 'Something went wrong')->withInput();
+        }
+    }
+
+    public function update_freelancer_documents(Request $request)
+    {
+        Validator::make($request->all(), [
+            'documents.*' => 'file|max:10240',
+        ], [])->validate();
+
+        try {
+            DB::beginTransaction();
+
+            $profile = Profile::find(Auth::user()->profile->id);
+
+            if ($request->hasFile('documents')) {
+                $profile
+                    ->addMultipleMediaFromRequest(['documents'])
+                    ->each(function ($fileAdder) {
+                        $fileAdder->toMediaCollection('cv');
+                    });
+            }
+
+            $user = User::find(Auth::id());
+            $user->review = 'pending';
+            $user->save();
+
+            DB::commit();
+            return redirect('settings')->with('success', 'Your uploaded documents are now under review.');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage(), [
+                "code" => $e->getCode(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+            ]);
+
+            // Rollback DB transactions is an error occurred
+            DB::rollback();
+
+            return back()->with('error', 'Something went wrong')->withInput();
         }
     }
 
