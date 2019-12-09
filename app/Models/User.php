@@ -48,14 +48,12 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         'email_verified_at' => 'datetime',
     ];
     
-    protected $appends = [
-        'name'
-    ];
 
-    public function getNameAttribute()
+
+    public function getNameAttribute() 
     {
         return "{$this->first_name} {$this->last_name}";
-    }
+    } 
 
 
     public function profile()

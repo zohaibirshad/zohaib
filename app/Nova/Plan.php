@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\DateTime;
@@ -72,7 +73,7 @@ class Plan extends Resource
                 ->sortable(),
                 Text::make( __('Plan ID'),  'plan_id')
                 ->sortable(),
-                Textarea::make( __('Description'),  'description')
+                Trix::make( __('Description'),  'description')
                 ->sortable(),
                 Number::make( __('Quantity'),  'quantity')
                 ->sortable()

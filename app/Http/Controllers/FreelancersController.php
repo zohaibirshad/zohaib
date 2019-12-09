@@ -310,7 +310,7 @@ class FreelancersController extends Controller
         ]);
     }
 
-        /**
+    /**
      * Reject Invite.
      *
      * @param  string  $invite_uuid
