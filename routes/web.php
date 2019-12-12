@@ -56,7 +56,7 @@ Route::post('billing/paymentmethod/update', function(Request $request){
 Route::get('jobs-api', 'JobsController@jobs');
 Route::get('job-categories-api', 'JobsController@industries');
 Route::get('skills-api', 'JobsController@skills');
-Route::get('post-job', 'JobsController@create')->name('post-job');
+// Route::get('post-job', 'JobsController@create')->name('post-job');
 
 // Freelancers
 Route::get('freelancers-api', 'FreelancersController@freelancers');
@@ -137,6 +137,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // Freelancer Stuff
     Route::group(['middleware' => ['role:freelancer']], function () {
+        Route::get('post-job', 'JobsController@create')->name('post-job');
         Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
         Route::get('reject-invite/{uuid}', 'FreelancersController@reject_invite')->name('reject.invite');
         Route::put('accept-invite/{uuid}', 'FreelancersController@accept_invite')->name('accept.invite');
