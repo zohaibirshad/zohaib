@@ -76,3 +76,4 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         return "{$this->first_name} {$this->last_name}";
     }
 }
+

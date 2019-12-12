@@ -24,7 +24,7 @@ class AddPlanIdToPlansTable extends Migration
      */
     public function down()
     {
-        Schema::table('plans', function (Blueprint $table) {
+        Schema::table('plan', function (Blueprint $table) {
             $table->dropColumn('plan_id');
         });
     }

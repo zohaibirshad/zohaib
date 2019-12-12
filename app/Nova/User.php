@@ -6,7 +6,9 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\MorphToMany;
@@ -71,6 +73,15 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+
+            Select::make( __('Review'),  'review')
+                ->sortable()
+                ->options([
+                    'successful' => 'successful',
+                    'pending' => 'pending',
+                ])->displayUsingLabels(),
+
+            DateTime::make(__('Verfication Date'),  'profile_verified_at'),
 
             CreatedBy::make('Created By'),
 
