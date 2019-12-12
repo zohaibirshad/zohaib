@@ -57,6 +57,9 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                                 <a href="#small-dialog-3"  class="popup-with-zoom-anim button btn-xs completedBtn" data-milestone="{{ $milestone }}">
                                     <i class="icon-material-outline-check-circle"></i> Mark as Completed
                                 </a>
+                                <a href="#small-dialog-edit"  class="popup-with-zoom-anim button dark btn-xs editBtn" data-milestone="{{ $milestone }}">
+                                    <i class="icon-feather-edit"></i> Edit
+                                </a>
                             </span>
                             @endrole
                             @endif
@@ -216,15 +219,60 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                     </div>
                     <div class="submit-field">
                         <label>Cost (<i class="text-muted">Amount Limit $ {{ $available }}</i>)</label>
-                        <input name="cost" type="number" required max="{{ $available }}" value="{{ old('cost') }}"">
+                        <input name="cost" type="number" required max="{{ $available }}" value="{{ old('cost') }}">
                     </div>
                     <div class="submit-field">
                         <label>Description</label>
-                        <textarea name="activity" cols="10" placeholder="Milestone Details" class="with-border" required value="{{ old('activity') }}""></textarea>
+                        <textarea name="activity" cols="10" placeholder="Milestone Details" class="with-border" required value="{{ old('activity') }}"></textarea>
                     </div>                    
                 </form>
 
 				<button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="addMileStoneForm">Continue <i class="icon-material-outline-check-circle"></i></button>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- Bid Acceptance Popup / End -->
+
+<!-- Bid Acceptance Popup
+================================================== -->
+<div id="small-dialog-edit" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+	<!--Tabs -->
+	<div class="sign-in-form">
+
+		<ul class="popup-tabs-nav">
+			<li><a href="#tab1">Edit Milestone</a></li>
+		</ul>
+
+		<div class="popup-tabs-container">
+
+			<!-- Tab -->
+			<div class="popup-tab-content" id="tab">
+
+                <!-- Button -->
+                <form action="/milestones/edit" method="post" id="editMileStoneForm">
+                    @csrf
+                    <input type="hidden" name="job_id" value="{{ $job->id }}">
+                    <input type="hidden" name="user_id" value="{{ $job->user_id }}">
+                    <input type="hidden" name="available" value="{{ $available }}">
+                    <!-- Price Slider -->
+                    <div class="submit-field">
+                        <label>Title</label>
+                        <input name="heading" placeholder="Domain and Hosting Set up" required value="{{ old('heading') }}" id="heading">
+                    </div>
+                    <div class="submit-field">
+                        <label>Cost (<i class="text-muted">Amount Limit $ <i id="availableIsh"></i></i>)</label>
+                        <input name="cost" type="number" required max="{{ $available }}" value="{{ old('cost') }}" id="cost">
+                    </div>
+                    <div class="submit-field">
+                        <label>Description</label>
+                        <textarea name="activity" cols="10" placeholder="Milestone Details" class="with-border" required value="{{ old('activity') }}" id="activity"></textarea>
+                    </div>                    
+                </form>
+
+				<button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="editMileStoneForm">Continue <i class="icon-material-outline-check-circle"></i></button>
 
 			</div>
 
@@ -244,6 +292,19 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 $('#milestoneHeading').text(milestone.heading);
                 $('#milestoneActivity').text(milestone.activity);
                 $('#milestoneCost').text('$'+ThousandSeparator(milestone.cost));
+            });
+
+            $('.editBtn').click(function(){
+                var _milestone = $(this).attr("data-milestone");
+                var milestone = JSON.parse(_milestone);
+                var available = {!! $available !!};
+
+                $('#heading').val(milestone.heading);
+                $('#activity').val(milestone.activity);
+                $('#cost').val(milestone.cost);
+                $('#cost').attr('max', milestone.cost + available);
+                $('#availableIsh').text(milestone.cost + available);
+                $('#editMileStoneForm').attr('action', 'edit_milestone/'+milestone.uuid);
             });
 
             $('.pay').click(function(){

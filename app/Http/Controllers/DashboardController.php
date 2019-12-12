@@ -112,7 +112,7 @@ class DashboardController extends Controller
             ->count();
 
             $bidRate = Bid::where('profile_id', $freelancer->id)
-            ->where('job_id', $job->id)->first()->rate;
+            ->where('job_id', $job->id)->first()->rate ?? 0;
 
             $jobMilestones = Milestone::where('profile_id', $freelancer->id)
             ->where('job_id', $job->id)->sum('cost');
@@ -130,7 +130,7 @@ class DashboardController extends Controller
 
         $available = $bidRate - $jobMilestones;
 
-        return view('dashboard.milestones', compact('milestones', 'job', 'completion', 'bid', 'available'));
+        return view('dashboard.milestones', compact('milestones', 'job', 'completion', 'available'));
     }
 
     public function bidders(Request $request, $slug)
