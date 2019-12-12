@@ -50,19 +50,21 @@ class AccountController extends Controller
         $user = User::find(Auth::id()); 
         $profile = Profile::find($user->profile->id);
 
-        if($user->review == 'pending'){
-            toastr()->error('Your account is already under review. You can only switch when review is completed and successful');
-            return back();
-        }
-
-        if($user->review == 'not_started'){
-            toastr()->error('Sorry, could not switch, upload required document to start the verification process');
-            return redirect('verify-profile');
-        }
-
-        if($user->review == 'failed'){
-            toastr()->error('Sorry, documents uploaded were not valid. Upload a valid document');
-            return redirect('verify-profile');
+        if($request->account_type == 'freelancer'){
+            if($user->review == 'pending'){
+                toastr()->error('Your account is already under review. You can only switch when review is completed and successful');
+                return back();
+            }
+    
+            if($user->review == 'not_started'){
+                toastr()->error('Sorry, could not switch, upload required document to start the verification process');
+                return redirect('verify-profile');
+            }
+    
+            if($user->review == 'failed'){
+                toastr()->error('Sorry, documents uploaded were not valid. Upload a valid document');
+                return redirect('verify-profile');
+            }
         }
 
         // if(!$profile->verified ){

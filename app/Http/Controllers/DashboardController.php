@@ -126,6 +126,12 @@ class DashboardController extends Controller
 
         if($mCount > 0){
             $completion = ($done / $mCount ) * 100;
+
+            // Set job to completed if its 100
+            if($completion == 100){
+                $job->status = 'completesd';
+                $job->save();
+            }
         }
 
         $available = $bidRate - $jobMilestones;
