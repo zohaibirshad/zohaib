@@ -82,6 +82,17 @@ class AccountController extends Controller
         return back();
     }
 
+    public function verify_profile(){        
+        $user = User::find(Auth::id()); 
+        $user->review = 'successful';
+        $user->profile_verified_at = now();
+        $user->save();
+
+        $profile = Profile::find($user->profile->id);
+        $profile->verified = 1;
+        $profile->save();
+    }
+
     public function update_basic_info(Request $request)
     {
 
