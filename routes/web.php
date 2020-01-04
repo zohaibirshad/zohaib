@@ -36,7 +36,7 @@ Route::get('how-it-works', function () {
 Route::get('companies/{id}', function($id){
     $profile = \App\Models\Profile::where('uuid', $id)->first();
 
-    if (empty($freelancer)) {
+    if (empty($profile)) {
         abort(404);
     }
     views($profile)->delayInSession(10)->record();    
