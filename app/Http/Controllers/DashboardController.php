@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bid;
-use App\Models\Bookmark;
-use App\Models\Country;
-use App\Models\Invite;
 use App\Models\Job;
-use App\Models\Milestone;
-use App\Models\Profile;
 use App\Models\Skill;
+use App\Models\Invite;
+use App\Models\Country;
+use App\Models\Profile;
+use App\Models\Bookmark;
+use App\Models\Milestone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use CyrildeWit\EloquentViewable\View;
+use CyrildeWit\EloquentViewable\Support\Period;
 
 class DashboardController extends Controller
 {
@@ -32,7 +35,58 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashboard');
+        $user = Auth::user();
+        // Get Jobs the User has Completed
+        if ($user->hasRole('hirer')) {
+            $count_ongoing_jobs = $jobs = Job::where('status', 'assigned' )->where('user_id', Auth::id())->count();
+            $pending_bids = Job::withCount('bids')->get('id');
+            $pending_bids = $pending_bids->sum('bids_count');
+            $completed_jobs = $jobs = Job::where('status', 'completed' )->where('user_id', Auth::id())->count();
+            $jobs = $jobs = Job::where('user_id', Auth::id())->with('profile')->limit('5')->get();
+
+            $monthly_views = views($user->profile)->period(Period::since(now()->startOfMonth()))->count();
+
+            $profile_views = $this->profile_views($user->profile);
+            
+            return view('dashboard.dashboard', compact('count_ongoing_jobs', 'pending_bids', 'completed_jobs', 'jobs', 'profile_views', 'monthly_views'));
+
+        } else {
+            $jobs = Job::where('profile_id', Auth::user()->profile->id)->get();
+
+            $bids_count = Bid::where('profile_id', $user->profile->id)->where('status', 'pending')->whereMonth('created_at', now()->copy()->format('m'))->count();
+            $monthly_views = views($user->profile)->period(Period::since(now()->startOfMonth()))->count();
+
+            $profile_views = $this->profile_views($user->profile);
+
+            $profile = $user->profile;
+
+            $ongoing_jobs_count = Job::where('profile_id', Auth::user()->profile->id)->where('status', 'assigned' )->count();
+
+            return view('dashboard.dashboard', compact('profile_views', 'jobs', 'monthly_views', 'bids_count', 'profile', 'ongoing_jobs_count'));
+        }
+       
+    }
+
+    private function profile_views($user)
+    {
+        $user =  View::where('viewable_id', $user->id)
+        ->where('viewable_type', 'App\Models\Profile')
+        ->selectRaw('count(id) as `total`')
+        ->selectRaw("count( case when (MONTH(viewed_at) = 1 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `jan`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 2 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `feb`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 3 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `mar`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 4 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `apr`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 5 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `may`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 6 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `jun`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 7 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `jul`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 8 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `aug`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 9 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `sep`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 10 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `oct`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 11 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `nov`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 12 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `dec`")  
+        ->first();
+
+        return $user;
     }
 
     public function settings(Request $request)
@@ -46,7 +100,15 @@ class DashboardController extends Controller
 
         $intent = $myUser->createSetupIntent();
 
-        return view('dashboard.settings', compact('countries', 'user', 'skills', 'intent', 'payment_method'));
+        if($myUser->hasPaymentMethod()){
+            $card = $myUser->defaultPaymentMethod()->card;
+            // dd($myUser->defaultPaymentMethod());
+        }else{
+            $card = "";
+        }
+      
+
+        return view('dashboard.settings', compact('countries', 'user', 'skills', 'intent', 'payment_method', 'card'));
     }
 
     public function verify()
@@ -150,4 +212,6 @@ class DashboardController extends Controller
 
         return view('dashboard.bidders', compact('job'));
     }
+
+
 }

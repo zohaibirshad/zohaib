@@ -18,7 +18,7 @@
 
 						<ul data-submenu-title="Start">
 							<li class="{{ (request()->is('dashboard')) ? 'active' : '' }}">
-								<a href="#"><i class="icon-material-outline-dashboard"></i> Dashboard</a>
+								<a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a>
 							</li>
 							<li class="{{ (request()->is('messages')) ? 'active' : '' }}">
 								<a href="{{ route('messages') }}"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a>

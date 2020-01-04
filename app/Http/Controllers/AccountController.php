@@ -56,7 +56,7 @@ class AccountController extends Controller
                 return back();
             }
     
-            if($user->review == 'not_started'){
+            if($user->review == 'not started'){
                 toastr()->error('Sorry, could not switch, upload required document to start the verification process');
                 return redirect('verify-profile');
             }
@@ -65,14 +65,20 @@ class AccountController extends Controller
                 toastr()->error('Sorry, documents uploaded were not valid. Upload a valid document');
                 return redirect('verify-profile');
             }
+
+            if($user->review != 'successfull'){
+                toastr()->error('Sorry, could not switch, upload required document to start the verification process');
+                return redirect('verify-profile');
+            }
         }
 
-        // if(!$profile->verified ){
-        //     toastr()->error('Sorry, could not switch, upload required document to start the verification process');
-        //     return back();
-        // }
-        $user->syncRoles([$request->account_type]); 
 
+        if($user->review != 'successfull'){
+            toastr()->error('Sorry, only verified account can switch, upload required document to start the verification process');
+            return redirect('verify-profile');
+        }
+
+        $user->syncRoles([$request->account_type]); 
        
         $profile->type = $request->account_type;
         $profile->save();

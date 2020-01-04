@@ -33,23 +33,27 @@ Route::get('how-it-works', function () {
     return view('how_it_works');
 })->name('how-it-works');
 
-Route::post('billing/paymentmethod/update', function(Request $request){
+Route::get('companies/{id}', function($id){
+    $profile = \App\Models\Profile::where('uuid', $id)->first();
 
-    $user = Auth::user();
+    if (empty($freelancer)) {
+        abort(404);
+    }
+    views($profile)->delayInSession(10)->record();    
 
-    // $user->createAsStripeCustomer();
+    $jobs =  \App\Models\Job::where('status', 'not assigned')
+    ->where('user_id', $profile->user_id)
+    ->get();
 
-    if ($user->hasPaymentMethod()) {
-        $user->updateDefaultPaymentMethod($request->method);
-    }else {
-        $user->addPaymentMethod($request->method);
-        $user->updateDefaultPaymentMethod($request->method);
-    } 
+    $reviews = $jobs->map(function($item,$value){
+        return [
+            $item->reviews()->latest()->limit('20')->get()
+        ];
+    })->flatten()->all();
 
-    return response()->json([
-        'message' => "Payment Method Added Successful",
-        'data' => $user->defaultPaymentMethod()
-    ]);
+    // return $reviews;
+
+    return view('company', compact('profile', 'jobs', 'reviews'));
 });
 
 // Jobs
@@ -78,14 +82,41 @@ Route::get('pricing', function () {
 
 })->name('pricing');
 
+Route::post('billing/paymentmethod/update', function(Request $request){
+
+    $user = Auth::user();
+
+    try {
+        if ($user->hasPaymentMethod()) {
+            $user->updateDefaultPaymentMethod($request->method);
+        }else {
+            $user->addPaymentMethod($request->method);
+            $user->updateDefaultPaymentMethod($request->method);
+        } 
+    } catch (\Laravel\Cashier\Exceptions\InvalidStripeCustomer $e) {
+        
+        $user->createAsStripeCustomer();
+        $user->addPaymentMethod($request->method);
+        $user->updateDefaultPaymentMethod($request->method);
+    }
+  
+
+    return response()->json([
+        'message' => "Payment Method Added Successful",
+        'data' => $user->defaultPaymentMethod()
+    ]);
+});
+
 Route::get('checkout/{id}', function ($id) {
     $plan = App\Models\Plan::find($id);
 
+    $user = Auth::user();
 
-    $intent = Auth::user()->createSetupIntent();
+    $card = $user->defaultPaymentMethod()->card;
 
+    $intent =  $user->createSetupIntent();
 
-    return view('subscription.checkout', compact('plan', 'intent'));
+    return view('subscription.checkout', compact('plan', 'intent', 'card'));
 
 })->name('checkout');
 
@@ -99,7 +130,7 @@ Route::post('order-confirmation', function (Request $request) {
 
     $paymentMethod = $user->defaultPaymentMethod();
 
-    $user->newSubscription('bins', $plan->plan_id)->create($paymentMethod->id);
+    $user->newSubscription('bids', $plan->plan_id)->create($paymentMethod->id);
 
     return view('subscription.confirmation', compact('plan'));
 })->name('confirmation');
@@ -116,6 +147,74 @@ Route::get('invoice', function () {
     ]);
 })->name('invoice');
 
+Route::post('add-fund', function(Request $request){
+    $validateData = $request->validate([
+        'amount' => 'required|integer',
+        'method'
+    ]);
+
+    $amount = bcmul($request->amount, 100);
+    $user = Auth::user();
+
+    try {
+        $payment = $user->charge($amount, $request->method, [
+            'custom_option' => "Account Topup",
+        ]);
+    } catch (Exception $e) {
+        $payment = new Payment;
+        $payment->amount = $request->amount;
+        $payment->user_id = $request->user()->id;
+        $payment->profile_id = $request->user()->profile->id;
+        $payment->status = "failed";
+        $payment->type = "Account Topup";
+        $payment->payment_method = $request->method;
+        $payment->description = "Account Topup Failed";
+        $payment->save();
+
+        return response()->json([
+            message => "Account Topup Failed",
+            status => "Successful"
+        ]);
+    }  
+    
+    $table->decimal('amount', 13,2)->nullable();
+    $table->bigInteger('user_id')->unsigned()->nullable();
+    $table->foreign('user_id')->references('id')->on('users');
+    $table->biginteger('profile_id')->unsigned()->nullable();
+    $table->foreign('profile_id')->references('id')->on('profiles');
+    $table->string('status')->nullable();
+    $table->string('type')->nullable();
+    $table->string('payment_method')->nullable();
+    $table->string('description')->nullable();
+
+
+
+    $payment = new Payment;
+    $payment->amount = $request->amount;
+    $payment->user_id = $request->user()->id;
+    $payment->profile_id = $request->user()->profile->id;
+    $payment->status = "success";
+    $payment->type = "Account Topup";
+    $payment->payment_method = $request->method;
+    $payment->description = "Account Topup";
+    $payment->save();
+
+    return response()->json([
+        message => "Account Topup Successful",
+        status => "Successful"
+    ]);
+});
+
+// Finances
+Route::get('add-funds', function () {
+    $intent = Auth::user()->createSetupIntent();
+
+    return view('dashboard.finances.add_funds', compact('intent'));
+})->name('add-funds');
+
+Route::get('withdraw-funds', function () {
+    return view('dashboard.finances.withdraw_funds');
+})->name('withdraw-funds');
 
 
 // DASHBOARD STUFF
@@ -134,10 +233,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Hirer 
     Route::get('browse-jobs', 'JobsController@index')->name('jobs.index');
     Route::resource('jobs', 'JobsController')->except('index');
+    Route::get('post-job', 'JobsController@create')->name('post-job');
 
     // Freelancer Stuff
     Route::group(['middleware' => ['role:freelancer']], function () {
-        Route::get('post-job', 'JobsController@create')->name('post-job');
         Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
         Route::get('reject-invite/{uuid}', 'FreelancersController@reject_invite')->name('reject.invite');
         Route::put('accept-invite/{uuid}', 'FreelancersController@accept_invite')->name('accept.invite');
@@ -181,15 +280,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('milestones/{id}', 'DashboardController@milestones')->name('milestones');
 
-
-    // Finances
-    Route::get('add-funds', function () {
-        return view('dashboard.finances.add_funds');
-    })->name('add-funds');
-
-    Route::get('withdraw-funds', function () {
-        return view('dashboard.finances.withdraw_funds');
-    })->name('withdraw-funds');
 });
 
 

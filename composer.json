@@ -12,6 +12,7 @@
         "benjacho/belongs-to-many-field": "^1.2.1",
         "cloudstudio/resource-generator": "^1.4",
         "coreproc/nova-auditing-user-fields": "^0.1.0",
+        "cyrildewit/eloquent-viewable": "^4.1",
         "davidpiesse/nova-maintenance-mode": "^0.0.5",
         "digitalcloud/nova-resource-notes": "^1.4",
         "dniccum/custom-email-sender": "^1.1",
@@ -36,6 +37,7 @@
         "spatie/laravel-permission": "^3.0",
         "spatie/laravel-schemaless-attributes": "^1.6",
         "spatie/nova-backup-tool": "^3.5",
+        "themsaid/nova-cashier-manager": "^0.2.1",
         "torann/currency": "^1.0",
         "vyuldashev/nova-permission": "^2.1",
         "yoeunes/toastr": "^1.2"

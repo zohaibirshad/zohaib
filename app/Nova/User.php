@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\MorphToMany;
 use KABBOUCHI\NovaImpersonate\Impersonate;
+use Themsaid\CashierTool\CashierResourceTool;
 use Coreproc\NovaAuditingUserFields\CreatedBy;
 use Coreproc\NovaAuditingUserFields\UpdatedBy;
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
@@ -31,7 +32,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $title = 'first_name';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -98,7 +99,10 @@ class User extends Resource
 
             Impersonate::make($this)->withMeta([
 			    'redirect_to' => '/settings'
-			]),
+            ]),
+            
+            CashierResourceTool::make()->onlyOnDetail()
+
      
 
         ];

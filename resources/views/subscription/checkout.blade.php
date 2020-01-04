@@ -56,7 +56,12 @@
 						<input checked id="paypal" name="cardType" type="radio" value="paypal">
 						<label for="paypal">Use Card on file</label>
 						<!-- <img class="payment-logo paypal" src="https://i.imgur.com/ApBxkXU.png" alt=""> -->
+						<p>
+							Type: ({{ $card->brand }})</br> 
+            				Last four digits: {{ $card->last4 }}
+						</p>
 					</div>
+					
 
 					<div class="payment-tab-content">
 						<p>Use Card on file for subscription</p>

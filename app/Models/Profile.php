@@ -8,10 +8,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use DigitalCloud\ModelNotes\HasNotes;
 use App\Traits\Uuid;
 use Spatie\MediaLibrary\Models\Media;
+use CyrildeWit\EloquentViewable\Viewable;
+use CyrildeWit\EloquentViewable\Contracts\Viewable as ViewableContract;
 
-class Profile extends Model implements HasMedia
+class Profile extends Model implements HasMedia, ViewableContract
 {
-    use HasMediaTrait, HasNotes, Uuid;
+    use HasMediaTrait, HasNotes, Uuid, Viewable;
     /**
      * @var  string
      */

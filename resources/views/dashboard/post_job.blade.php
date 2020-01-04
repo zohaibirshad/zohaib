@@ -7,7 +7,7 @@
 	<div class="col-6 offset-3">
 		<div class="notification error">
 			<p class="text-center" ><i class="icon-line-awesome-exclamation-circle" style="font-size: 20px;"></i>
-				Sorry, you are NOT authorized to post a job.
+				Sorry, you are NOT authorized to post a job, Switch to hirer to continue.
 			</p>
 		</div>
 	</div>

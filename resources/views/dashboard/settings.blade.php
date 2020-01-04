@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-auto">
                         <div class="row">
 
                             <div class="col-xl-6">
@@ -296,7 +296,11 @@
     <div id="test1" class="dashboard-box">
         <!-- Headline -->
         <div class="headline">
-            <h3><i class="icon-line-awesome-money"></i> Billing Information</h3>
+            <h3><i class="icon-line-awesome-money"></i>Billing Information </h3>
+            @if(Auth::user()->hasPaymentMethod()) 
+            Default Card ({{ $card->brand }})</br> 
+            Last four digits: {{ $card->last4 }}
+            @endif
         </div>
         <div class="flex flex-row justify-center items-center">
             <div id="spinner" style="display:none" class="spinner-border text-warning w-12 h-12 my-2"></div>
@@ -367,11 +371,13 @@
                 alert(r.data.message);
                 console.log(r);
                 $('#billing').show()
+                window.location.reload();
                 
             }).catch(function(e){
                 console.log(e);
                 alert('Pls, try again')
                 $('#billing').show()
+                window.location.reload();
                 
             })
         }

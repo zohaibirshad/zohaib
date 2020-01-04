@@ -293,7 +293,7 @@ class JobsController extends Controller
             abort(404);
         }
 
-        $isBookmakedByUser = Bookmark::where(['job_id' => $job->id, 'user_id' => Auth::id()])->exists();
+        $isBookmakedByUser = Bookmark::where(['job_id' => $job->id, 'user_id' => Auth::id()])->exists(); 
         $hasPlacedBid = Bid::where(['job_id' => $job->id, 'profile_id' => Auth::id()])->exists();
 
         return view('jobs.show', compact('job', 'bids', 'isBookmakedByUser', 'hasPlacedBid'));
@@ -344,6 +344,25 @@ class JobsController extends Controller
 
     public function create()
     {
+        $user = Auth::user(); 
+        $profile = $user->profile;
+
+        if($profile->account_type == 'freelancer'){
+            if($user->review == 'pending'){
+                toastr()->error('Your account is already under review. You can only switch when review is completed and successful');
+                return back();
+            }
+    
+            if($user->review == 'not_started'){
+                toastr()->error('Sorry, could not switch, upload required document to start the verification process');
+                return redirect('verify-profile');
+            }
+    
+            if($user->review == 'failed'){
+                toastr()->error('Sorry, documents uploaded were not valid. Upload a valid document');
+                return redirect('verify-profile');
+            }
+        }
         $categories = Industry::get();
         $budgetTypes = JobBudget::get();
         $skills = Skill::get();

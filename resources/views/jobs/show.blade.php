@@ -19,12 +19,12 @@
                             @endif	
                         </div>
 						<div class="header-details">
-							<h3>{{ $job->title }}</h3>
+							<h3>{{ $job->title ?? '' }}</h3>
 							<h5>About the Employer</h5>
 							<ul>
-								<li><a href="#"><i class="icon-feather-user"></i>{{ $job->owner->name }}</a></li>
+								<li><a href="../companies/{{ $job->owner->profile->uuid ?? '' }}"><i class="icon-feather-user"></i>{{ $job->owner->name ?? '' }}</a></li>
 								<li><div class="star-rating" data-rating="{{ $job->owner->rating ?? 0 }}"></div></li>
-								<li><img class="flag" src="{{ asset('assets/images/flags/'. strtolower($job->owner->profile->country->code.'.svg')) }}" alt=""> {{ $job->owner->profile->country->name }}</li>
+								<li><img class="flag" src="{{ asset('assets/images/flags/'. strtolower($job->owner->profile->country->code.'.svg')) }}" alt="$job->owner->profile->country->name"> {{ $job->owner->profile->country->name }}</li>
 								
 								@if($job->owner->verified == 1)
                                 <li><div class="verified-badge-with-title">Verified</div></li>
@@ -34,8 +34,17 @@
 					</div>
 					<div class="right-side">
 						<div class="salary-box">
-							<div class="salary-type">Project Budget</div>
-							<div class="salary-amount">${{ $job->min_budget }}  - ${{ $job->max_budget }} </div>
+							<div class="salary-type">@if($job->budget_type == 'fixed')
+													Fixed Price
+												@else
+													Hourly Rate
+												@endif</div>
+							<div class="salary-amount">	
+												@if ($job->min_budget == $job->max_budget)
+													{{ '$'.$job->min_budget }}
+												@else
+													{{ '$'.$job->min_budget. ' - $' .$job->max_budget }}
+												@endif</div>
 						</div>
 					</div>
 				</div>
@@ -253,6 +262,7 @@
 
 	</div>
 </div>
+<script src="{{ asset('js/app.js') }}"></script>
 
 <script>
 	function bookmark(id){

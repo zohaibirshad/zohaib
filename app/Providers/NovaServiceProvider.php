@@ -87,6 +87,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Spatie\BackupTool\BackupTool(), 
             new \Cloudstudio\ResourceGenerator\ResourceGenerator(),
             new \Itainathaniel\AdminNotes\AdminNotes(),
+            new \Themsaid\CashierTool\CashierTool(),
         ];
     }
 

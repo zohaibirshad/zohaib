@@ -6,7 +6,7 @@
         {{-- <nav id="breadcrumbs" class="dark">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 <li>Post a Job</li>
             </ul>
         </nav> --}}

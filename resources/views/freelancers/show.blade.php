@@ -273,6 +273,7 @@
 	</div>
 </div>
 <!-- Recruit Me Popup / End -->
+<script src="{{ asset('js/app.js') }}"></script>
 
 <script>
         function bookmark(id){

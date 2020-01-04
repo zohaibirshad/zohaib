@@ -158,13 +158,17 @@ class FreelancersController extends Controller
         $freelancer = Profile::with('skills', 'country', 'reviews', 'jobs_completion', 'social_links')
         ->where('uuid', $uuid)->first();
 
+        if (empty($freelancer)) {
+            abort(404);
+        }
+
+        views($freelancer)->delayInSession(10)->record();
+
         $jobs = Job::where('status', 'completed')->where('profile_id', $freelancer->id)->paginate(5);
 
         $hirerJobs = Job::where('status', 'not assigned')->where('user_id', Auth::id())->get();
 
-        if (empty($freelancer)) {
-            abort(404);
-        }
+        
 
         $isBookmakedByUser = Bookmark::where(['profile_id' => $freelancer->id, 'user_id' => Auth::id()])->exists();
 
@@ -387,6 +391,13 @@ class FreelancersController extends Controller
 
         $profile = Profile::where('user_id', Auth::user()->id)->first();
         $job = Job::where('uuid', $job_uuid)->first();
+
+        if(Auth::user()->subscription('bids')->ended())
+        {
+            return redirect()->back()->with('failed', 'Out of Bids for the Month, Subscribe to Bid!');
+        }
+
+        $user->subscription('bids')->decrementQuantity();
 
         $bid = new Bid;
         $bid->profile_id = $profile->id;
