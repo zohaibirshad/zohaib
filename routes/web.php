@@ -150,7 +150,7 @@ Route::get('invoice', function () {
 Route::post('add-fund', function(Request $request){
     $validateData = $request->validate([
         'amount' => 'required|integer',
-        'method'
+        'method' => 'required'
     ]);
 
     $amount = bcmul($request->amount, 100);
@@ -177,17 +177,6 @@ Route::post('add-fund', function(Request $request){
         ]);
     }  
     
-    $table->decimal('amount', 13,2)->nullable();
-    $table->bigInteger('user_id')->unsigned()->nullable();
-    $table->foreign('user_id')->references('id')->on('users');
-    $table->biginteger('profile_id')->unsigned()->nullable();
-    $table->foreign('profile_id')->references('id')->on('profiles');
-    $table->string('status')->nullable();
-    $table->string('type')->nullable();
-    $table->string('payment_method')->nullable();
-    $table->string('description')->nullable();
-
-
 
     $payment = new Payment;
     $payment->amount = $request->amount;

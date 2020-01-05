@@ -18,7 +18,9 @@ class CreateAccountsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->biginteger('profile_id')->unsigned()->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles');
-            $table->decimal('amount', 13,2)->nullable();
+            $table->string('uuid')->nullable();
+            $table->string('name')->nullable();
+            $table->decimal('balance', 13,2)->default(0)->nullable();
             $table->timestamps();
         });
     }

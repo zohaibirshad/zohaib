@@ -50,7 +50,7 @@
                     <div class="col-12">
                         <button  class="my-5 mx-1 button bg-blue-500 ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
                             <i class="icon-material-outline-check-circle mr-1"></i>
-                            Confirm & Add $50.99
+                            <span id="amount-value">Confirm & Add $50.99</span>
                         </button>
                     </div> 
                 </div>
@@ -83,14 +83,16 @@
 
     function updateValue(e){
          var total = document.getElementById('total');
-         total.value = e.target.value + 0.99;
-         console.log(total.value);
+         total.value = e.target.value + '.99';
          
+         var amountValue = document.getElementById('amount-value')
+         amountValue.innerHTML = "Confirm & Add $" + total.value;
+         console.log(amountValue.innerHTML);
     }
 
     cardButton.addEventListener('click', async (e) => {
 
-        const amount = document.getElementById('amount');
+        const amount = document.getElementById('amount').value;
 
         function addMoney(method){
             axios.post('add-funds',{
@@ -104,7 +106,6 @@
                     console.log(e);
                     alert('Pls, try again')
                     $('#billing').show()
-                    
                 })
         }
 
@@ -122,7 +123,6 @@
         );
 
         if (error) {
-            
             $('#spinner').hide()
             $('#billing').show()
             console.log(error);
