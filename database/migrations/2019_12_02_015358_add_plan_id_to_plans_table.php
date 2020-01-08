@@ -12,7 +12,7 @@ class AddPlanIdToPlansTable extends Migration
      */
     public function up()
     {
-        Schema::table('plan', function (Blueprint $table) {
+        Schema::table('plans', function (Blueprint $table) {
             $table->string('plan_id')->nullable();
         });
     }
@@ -24,7 +24,7 @@ class AddPlanIdToPlansTable extends Migration
      */
     public function down()
     {
-        Schema::table('plan', function (Blueprint $table) {
+        Schema::table('plans', function (Blueprint $table) {
             $table->dropColumn('plan_id');
         });
     }
