@@ -211,7 +211,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     
         $user = Auth::user();
     
-        $card = $user->defaultPaymentMethod()->card;
+        try {
+            $card = $user->defaultPaymentMethod()->card;
+        } catch (\Throwable $th) {
+           $card = NULL;
+        }
+       
     
         $intent =  $user->createSetupIntent();
     
