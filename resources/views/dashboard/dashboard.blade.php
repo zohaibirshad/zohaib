@@ -12,7 +12,7 @@
 				<div class="fun-fact" data-fun-fact-color="#36bd78">
 					<div class="fun-fact-text">
 						<span>Completed Jobs</span>
-						<h4>{{ $bids_count }}</h4>
+						<h4>{{ $completed_jobs }}</h4>
 					</div>
 					<div class="fun-fact-icon"><i class="icon-material-outline-gavel"></i></div>
 				</div>

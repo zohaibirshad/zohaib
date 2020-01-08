@@ -13,13 +13,13 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->string('name')->nullable();
             $table->biginteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->biginteger('profile_id')->unsigned()->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles');
             $table->string('uuid')->nullable();
-            $table->string('name')->nullable();
             $table->decimal('balance', 13,2)->default(0)->nullable();
             $table->timestamps();
         });

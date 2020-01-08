@@ -16,6 +16,7 @@ class PlanTableSeeder extends Seeder
             [
                 'title' => $title = 'Free',
                 'description' => 'Free',
+                'plan_id' => 'plan_GVczqaKRlCmfjz',
                 'quantity' => 10,
                 'recommended' => 0,
                 'price' => 0
@@ -23,6 +24,7 @@ class PlanTableSeeder extends Seeder
             [
                 'title' => 'Economy plus',
                 'description' => 'Economy plus',
+                'plan_id' => 'plan_GGdmaALWoi8qDw',
                 'quantity' => 20,
                 'recommended' => 0,
                 'price' => 4.99
@@ -30,6 +32,7 @@ class PlanTableSeeder extends Seeder
             [
                 'title' => $title = 'Business',
                 'description' => 'Business',
+                'plan_id' => 'plan_GVclbII6CjiJKX',
                 'quantity' => 30,
                 'recommended' => 1,
                 'price' => 9.99
@@ -37,6 +40,7 @@ class PlanTableSeeder extends Seeder
             [
                 'title' => $title = 'First-Class',
                 'description' => 'First-Class',
+                'plan_id' => 'plan_GVcwp75rI3AdcV',
                 'quantity' => 40,
                 'recommended' => 0,
                 'price' => 29.99

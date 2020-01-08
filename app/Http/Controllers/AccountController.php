@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Profile;
 use App\Models\Skill;
+use App\Models\Account;
+use App\Models\Profile;
+use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Aggregates\AccountAggregate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Exceptions\CouldNotSubtractMoney;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -66,27 +71,27 @@ class AccountController extends Controller
                 return redirect('verify-profile');
             }
 
-            if($user->review != 'successfull'){
+            if($user->review != 'successful'){
                 toastr()->error('Sorry, could not switch, upload required document to start the verification process');
                 return redirect('verify-profile');
             }
         }
 
 
-        if($user->review != 'successfull'){
+        if($user->review != 'successful'){
             toastr()->error('Sorry, only verified account can switch, upload required document to start the verification process');
             return redirect('verify-profile');
         }
 
         $user->syncRoles([$request->account_type]); 
-       
+      
         $profile->type = $request->account_type;
         $profile->save();
 
         session(['role' => $request->account_type]);
 
         toastr()->success('Your account type has been switched to '. ucfirst($request->account_type));
-
+        \Log::info("worked");
         return back();
     }
 
@@ -320,5 +325,120 @@ class AccountController extends Controller
         }
 
         return response()->back()->with('status', "profile updated Succesfully");
+    }
+
+    public function view_account()
+    {
+        $account = Account::where('user_id', Auth::user()->id)->first();
+        return response()->json($account);
+    }
+    public function update_account(Request $request){
+        $validateData = $request->validate([
+            'amount' => 'required|integer',
+            'method' => 'required',
+        ]);
+    
+        $amount = bcmul($request->amount + $request->percentage , 100);
+        $user = $request->user();
+        if($request->has('deposit')){
+            try {
+                $payment = $user->charge($amount, $request->method);
+            } catch (Exception $e) {
+                $payment = new Transaction;
+                $payment->amount = $request->amount  + $request->percentage;
+                $payment->account_id = $user->account->id;
+                $payment->status = "failed";
+                $payment->type = $request->type;
+                $payment->payment_method = $request->method;
+                $payment->description = "Account " . $request->type . " Failed";
+                $payment->save();
+                if($request->ajax()){
+                    return response()->json([
+                        'message' => "Account " . $request->type . " Failed",
+                        'status' => "Successful"
+                    ]);
+                }
+
+                toastr()->error("Account " . $request->type . " failed");
+                return back();
+                
+            } 
+        } 
+        $payment = new Transaction;
+        $payment->amount = $request->amount  + $request->percentage;
+        $payment->account_id = $user->account->id;
+        $payment->type = $request->type;
+        $payment->payment_method = $request->method;
+        $payment->description = "Account " . $request->type . " Successful";
+        
+    
+        $account = $user->account;
+    
+        if($account){
+            $aggregateRoot = AccountAggregate::retrieve($account->uuid);
+
+            if($request->has('deposit')){
+                $payment->status = "success";
+                $aggregateRoot->addMoney($request->amount);
+               
+            }
+            
+            if($request->has('withdrawal')){
+                try {
+                    $payment->status = "pending";
+                    $aggregateRoot->subtractMoney($request->amount);
+                } catch (CouldNotSubtractMoney $e) {
+                    \Log::error($e->getMessage());
+
+                    if($request->ajax()){
+                        return response()->json([
+                            'message' => $e->getMessage(),
+                            'status' => "Successful"
+                        ]);
+                    }
+        
+                    toastr()->error("Account " . $e->getMessage() . " failed");
+                    return back();
+
+                }
+                
+            }
+
+            $aggregateRoot->persist(); 
+
+        }else{
+            
+            if($request->ajax()){
+                return response()->json([
+                    'message' => "Account " . $request->type . " Failed",
+                    'status' => "Successful"
+                ]);
+            }
+
+            toastr()->error("Account " . $request->type . " failed");
+            return back();
+
+        }
+
+        $payment->save();
+    
+        if($request->ajax()){
+            return response()->json([
+                'message' => "Account " . $request->type . " Successful",
+                'status' => "Successful"
+            ]);
+        }
+
+        toastr()->success("Account " . $request->type . " Success");
+        return back();
+
+
+    }
+    public function delete_account(Account $account)
+    {
+        AccountAggregate::retrieve($account->uuid)
+            ->deleteAccount()
+            ->persist();
+        return back();
     }
 }

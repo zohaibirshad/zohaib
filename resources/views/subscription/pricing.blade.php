@@ -10,22 +10,18 @@
 	<div class="row">
 
 		<div class="col-xl-12">
-
+			@auth
 			<!-- Billing Cycle  -->
-			<!-- <div class="billing-cycle-radios margin-bottom-70">
-				<div class="radio billed-monthly-radio">
-					<input id="radio-5" name="radio-payment-type" type="radio" checked>
-					<label for="radio-5"><span class="radio-label"></span> Billed Monthly</label>
-				</div>
-
-				<div class="radio billed-yearly-radio">
-					<input id="radio-6" name="radio-payment-type" type="radio">
-					<label for="radio-6"><span class="radio-label"></span> Billed Yearly <span class="small-label">Save 10%</span></label>
-				</div>
-			</div> -->
+			@isset($my_plan->pivot)
+			<div class="billing-cycle-radios margin-bottom-70 flex flex-row justify-end">
+				<div class="mx-3 px-4 py-3 bg-orange-500 shadow-lg text-white"><h4 class="text-white">Current Plan: {{ $my_plan->title ?? '' }} - Bids {{ $my_plan->quantity ?? '' }}</h4></div>
+				<div class="mx-3 px-4 py-3 bg-orange-500 shadow-lg text-white"><h4 class="text-white">Bids Used: {{ $my_plan->pivot->count ?? '' }}</h4></div>
+			</div>
+			@endisset
+			@endauth
 
 			<!-- Pricing Plans Container -->
-			<div class="pricing-plans-container">
+			<div class="pricing-plans-container pt-10">
 
 				@foreach($plans as $plan)
 					<!-- Plan -->
@@ -34,14 +30,12 @@
 						<div class="recommended-badge">Recommended</div>
 						@endif
 						<h3>{{ $plan->title }}</h3>
-						<p class="margin-top-10">{{ $plan->description }}</p>
 						<div class="pricing-plan-label billed-monthly-label"><strong>${{ $plan->price }}</strong>/ monthly</div>
 						<!-- <div class="pricing-plan-label billed-yearly-label"><strong>$529</strong>/ yearly</div> -->
 						<div class="pricing-plan-features">
 							<strong>Features of {{ $plan->title }}</strong>
-							<ul>
-								<li>{{ $plan->quantity }} Bids Each Month</li>
-							</ul>
+							<p>{{ $plan->quantity }} Bids Each Month</p>
+							<p>{!! $plan->description !!}</p>
 						</div>
 						<a href="{{ route('checkout', $plan->id) }}" class="button full-width margin-top-20">Buy Now</a>
 					</div>

@@ -15,31 +15,24 @@ class AccountBalanceProjector implements Projector
 {
     use ProjectsEvents;
 
-    public function onAccountCreated(AccountCreated $event)
+    public function onAccountCreated(AccountCreated $event, string $aggregateUuid)
     {
         Account::create($event->accountAttributes);
     }
-
-    public function onMoneyAdded(MoneyAdded $event)
+    public function onMoneyAdded(MoneyAdded $event, string $aggregateUuid)
     {
-        $account = Account::uuid($event->accountUuid);
-
+        $account = Account::uuid($aggregateUuid);
         $account->balance += $event->amount;
-
         $account->save();
     }
-
-    public function onMoneySubtracted(MoneySubtracted $event)
+    public function onMoneySubtracted(MoneySubtracted $event, string $aggregateUuid)
     {
-        $account = Account::uuid($event->accountUuid);
-
+        $account = Account::uuid($aggregateUuid);
         $account->balance -= $event->amount;
-
         $account->save();
     }
-
-    public function onAccountDeleted(AccountDeleted $event)
+    public function onAccountDeleted(AccountDeleted $event, string $aggregateUuid)
     {
-        Account::uuid($event->accountUuid)->delete();
+        Account::uuid($aggregateUuid)->delete();
     }
 }

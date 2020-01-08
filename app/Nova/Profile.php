@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Currency;
@@ -119,7 +120,7 @@ class Profile extends Resource
                 0 => 'No',
                 1 => 'Yes',
             ])->displayUsingLabels(),
-            Currency::make( __('Rate'),  'rate')
+            Number::make( __('Rate'),  'rate')
             ->sortable(),
 
             HasMany::make('Jobs'),

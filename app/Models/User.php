@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
+use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use DigitalCloud\ModelNotes\HasNotes;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Cashier\Billable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 
@@ -48,8 +49,24 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         'email_verified_at' => 'datetime',
         'profile_verified_at' => 'datetime',
     ];
-    
 
+     /**
+     * Boot function from laravel.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model) {
+
+            $model->createAsStripeCustomer();
+
+            Account::createWithAttributes(['name' => 'walet', 'user_id' => $model->id]);
+
+        });
+
+    }
+    
 
     public function getNameAttribute() 
     {
@@ -75,6 +92,16 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     public function getFullnameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function account()
+    {
+        return $this->hasOne('App\Models\Account');
+    }
+
+    public function plan()
+    {
+        return $this->belongsToMany('App\Models\Plan')->withTimestamps()->withPivot('count');
     }
 }
 

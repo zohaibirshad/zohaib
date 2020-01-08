@@ -6,16 +6,12 @@ use Spatie\EventSourcing\ShouldBeStored;
 
 class MoneyAdded implements ShouldBeStored
 {
-    /** @var string */
-    public $accountUuid;
 
     /** @var int */
     public $amount;
 
-    public function __construct(string $accountUuid, int $amount)
+    public function __construct($amount)
     {
-        $this->accountUuid = $accountUuid;
-
         $this->amount = $amount;
     }
 }

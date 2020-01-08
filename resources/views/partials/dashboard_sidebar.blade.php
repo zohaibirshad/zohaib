@@ -60,19 +60,22 @@
 								</ul>	
 							</li>
 
-							<li class="{{ (request()->is('add-funds') || request()->is('withdraw-funds') || request()->is('transaction-history')) ? 'active-submenu' : '' }}">
+							<li class="{{ (request()->is('add-funds') || request()->is('withdraw-funds') || request()->is('transactions-history')) ? 'active-submenu' : '' }}">
 								<a href="#">
 									<i class="icon-line-awesome-money"></i> Finances
 								</a>
 								<ul>
 									<li><a href="{{ route('add-funds') }}">Add Funds </a></li>
 									<li><a href="{{ route('withdraw-funds') }}">Withdraw Funds </a></li>
-									<li><a href="#">Transaction History</a></li>
+									<li><a href="{{ route('transactions-history') }}">Transaction History</a></li>
 								</ul>	
 							</li>
 						</ul>
 
 						<ul data-submenu-title="Account">
+							<li class="{{ (request()->is('cancel')) ? 'active' : '' }}">
+								<a href="{{ route('cancel') }}"><i class="icon-line-awesome-euro"></i>Subscription</a>
+							</li>
 							<li class="{{ (request()->is('settings')) ? 'active' : '' }}">
 								<a href="{{ route('settings') }}"><i class="icon-material-outline-settings"></i> Settings</a>
 							</li>

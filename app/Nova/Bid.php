@@ -82,7 +82,7 @@ class Bid extends Resource
                             'fixed' => 'fixed',
                             'hourly' => 'hourly',
                         ]),
-            Currency::make( __('Rate'),  'rate')
+            Number::make( __('Rate'),  'rate')
             ->sortable(),
             Number::make( __('Delivery Time'),  'delivery_time')
             ->sortable(),
@@ -99,8 +99,7 @@ class Bid extends Resource
                             'accepted' => 'accepted',
                         ]),
             Trix::make( __('Description'),  'description')
-            ->sortable()
-            ->withFiles('public'),
+            ->sortable(),
 
             Notes::make('Notes','notes')->onlyOnDetail(),
             

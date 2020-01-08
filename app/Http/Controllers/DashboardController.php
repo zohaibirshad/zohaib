@@ -36,10 +36,11 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         // Get Jobs the User has Completed
         if ($user->hasRole('hirer')) {
             $count_ongoing_jobs = $jobs = Job::where('status', 'assigned' )->where('user_id', Auth::id())->count();
-            $pending_bids = Job::withCount('bids')->get('id');
+            $pending_bids = Job::where('status', 'not assigned' )->withCount('bids')->get('id');
             $pending_bids = $pending_bids->sum('bids_count');
             $completed_jobs = $jobs = Job::where('status', 'completed' )->where('user_id', Auth::id())->count();
             $jobs = $jobs = Job::where('user_id', Auth::id())->with('profile')->limit('5')->get();
@@ -53,6 +54,9 @@ class DashboardController extends Controller
         } else {
             $jobs = Job::where('profile_id', Auth::user()->profile->id)->get();
 
+            $completed_jobs = Job::where('profile_id', Auth::user()->profile->id)->where('status', 'completed' )->count();
+
+
             $bids_count = Bid::where('profile_id', $user->profile->id)->where('status', 'pending')->whereMonth('created_at', now()->copy()->format('m'))->count();
             $monthly_views = views($user->profile)->period(Period::since(now()->startOfMonth()))->count();
 
@@ -62,7 +66,7 @@ class DashboardController extends Controller
 
             $ongoing_jobs_count = Job::where('profile_id', Auth::user()->profile->id)->where('status', 'assigned' )->count();
 
-            return view('dashboard.dashboard', compact('profile_views', 'jobs', 'monthly_views', 'bids_count', 'profile', 'ongoing_jobs_count'));
+            return view('dashboard.dashboard', compact('profile_views', 'jobs', 'monthly_views', 'bids_count', 'profile', 'ongoing_jobs_count', 'completed_jobs'));
         }
        
     }
@@ -191,14 +195,14 @@ class DashboardController extends Controller
 
             // Set job to completed if its 100
             if($completion == 100){
-                $job->status = 'completesd';
+                $job->status = 'completed';
                 $job->save();
             }
         }
 
         $available = $bidRate - $jobMilestones;
 
-        return view('dashboard.milestones', compact('milestones', 'job', 'completion', 'available'));
+        return view('dashboard.milestones', compact('milestones', 'job', 'completion', 'available')); 
     }
 
     public function bidders(Request $request, $slug)

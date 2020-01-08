@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Bid;
 use App\Models\Job;
+use App\Models\User;
 use App\Models\Invite;
-use App\Models\Milestone;
+use App\Models\Review;
 use App\Models\Profile;
+use App\Models\Bookmark;
+use App\Models\Milestone;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Aggregates\AccountAggregate;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Exceptions\CouldNotSubtractMoney;
 
 class HirerController extends Controller
 {
@@ -147,7 +155,7 @@ class HirerController extends Controller
     public function update_milestone(Request $request, $mile_uuid)
     {
         $validateData = $request->validate([
-            'status' => 'required'
+            'status' => 'required',
         ]);
 
         $milestone = Milestone::where('uuid', $mile_uuid)->first();
@@ -164,8 +172,96 @@ class HirerController extends Controller
 
     public function release_payment_for_milestone(Request $request, $mile_uuid)
     {
-
         $milestone = Milestone::where('uuid', $mile_uuid)->first();
+
+        $transfer_user = Profile::find($milestone->profile_id);
+
+        $transfer_user = User::find($transfer_user->user_id);
+        
+        $amount = bcmul($milestone->cost , 100);
+        $user = $request->user();
+        
+        $payment = new Transaction;
+        $payment->amount = $milestone->cost;
+        $payment->account_id = $user->account->id;
+        $payment->type = 'transfer';
+        $payment->payment_method = 'account';
+        $payment->description = "Money transfer to " . $transfer_user->name ." Account";
+    
+        $account = $user->account;
+    
+        if($account){
+            $aggregateRoot = AccountAggregate::retrieve($account->uuid);
+
+            try {
+                $payment->status = "success";
+                $aggregateRoot->subtractMoney($milestone->cost);
+                
+            } catch (CouldNotSubtractMoney $e) {
+                \Log::error($e->getMessage());
+
+                if($request->ajax()){
+                    return response()->json([
+                        'message' => $e->getMessage(),
+                        'status' => "Failed"
+                    ]);
+                }
+    
+                toastr()->error("Account " . $e->getMessage() . " failed");
+                return back();
+
+            }
+            $aggregateRoot->persist(); 
+            $payment->save();
+
+
+            $transfer_user_account = $transfer_user->account;
+
+            if($transfer_user_account){
+                $aggregateTransferRoot = AccountAggregate::retrieve($transfer_user_account->uuid);
+               
+                $aggregateTransferRoot->addMoney($milestone->cost);
+
+                $payment = new Transaction;
+                $payment->amount = $milestone->cost;
+                $payment->account_id = $transfer_user_account->id;
+                $payment->type = 'transfer';
+                $payment->payment_method = 'account';
+                $payment->description = "Money transfer from " . $request->user()->name. " Account";
+                $payment->status = "success";
+                $payment->save();
+
+                $aggregateTransferRoot->persist();
+            }else{
+                if($request->ajax()){
+                    return response()->json([
+                        'message' => "Money tranfer failed",
+                        'status' => "Failed"
+                    ]);
+                }
+    
+                toastr()->error("Money tranfer failed");
+                return back();
+            }
+
+           
+        }else{
+            
+            if($request->ajax()){
+                return response()->json([
+                    'message' => "Money Transfer Failed",
+                    'status' => "Failed"
+                ]);
+            }
+
+            toastr()->error("Money Transfer Failed");
+            return back();
+
+        }
+
+     
+    
+        
         $milestone->is_paid = 1;
         $milestone->save();
 

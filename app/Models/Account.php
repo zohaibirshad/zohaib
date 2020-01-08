@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\Uuid;
 use App\Events\MoneyAdded;
+use Illuminate\Support\Str;
 use App\Events\AccountCreated;
 use App\Events\AccountDeleted;
 use App\Events\MoneySubtracted;
@@ -12,12 +12,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    use HasNotes, Uuid;
+    use HasNotes;
 
     protected $guarded = [];
 
     public static function createWithAttributes(array $attributes): Account
     {
+        $attributes['uuid'] = (string) Str::orderedUuid();
     
         /*
          * The account will be created inside this event using the generated uuid.
@@ -30,20 +31,10 @@ class Account extends Model
         return static::uuid($attributes['uuid']);
     }
 
-    public function addMoney(int $amount)
+    public function getNameAttribute() 
     {
-        event(new MoneyAdded($this->uuid, $amount));
-    }
-
-    public function subtractMoney(int $amount)
-    {
-        event(new MoneySubtracted($this->uuid, $amount));
-    }
-
-    public function remove()
-    {
-        event(new AccountDeleted($this->uuid));
-    }
+        return "{$this->user->first_name} {$this->user->last_name}";
+    } 
 
     /*
      * A helper method to quickly retrieve an account by uuid.
@@ -52,4 +43,37 @@ class Account extends Model
     {
         return static::where('uuid', $uuid)->first();
     }
+
+    public function addMoney(int $amount)
+    {
+        event(new MoneyAdded($this->uuid, $amount,));
+    }
+
+    public function subtractMoney(int $amount)
+    {
+        event(new MoneySubtracted($amount));
+    }
+
+    public function remove()
+    {
+        event(new AccountDeleted($this->uuid));
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Transaction');
+    }
+
+    public function transactions_count()
+    {
+        return $this->hasMany('App\Models\TransactionCount');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+
+
 }

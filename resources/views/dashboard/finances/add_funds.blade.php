@@ -5,13 +5,17 @@
 <div class="row">
     <!-- Dashboard Box -->
     <div class="col-xl-6">
-        <div class="dashboard-box margin-top-0">
+        <div class="flex flex-row justify-center items-center">
+            <div id="spinner" style="display:none" class="spinner-border text-warning w-12 h-12 my-2"></div>
+        </div>
+        <div id="billing" class="dashboard-box margin-top-0">
             <!-- Headline -->
-            <div class="headline">
+            <div class="headline flex flex-row justify-between">
                 <h3>
                     <i class="icon-line-awesome-money"></i> 
                     <img src="{{ asset('assets/images/stripe-logo.png') }}" height="30px">
                 </h3>
+                <h3>Balance: ${{ $account->balance }}</h3>
             </div>
     
             <div class="content px-4 py-4">
@@ -34,8 +38,8 @@
                                     </select>
                                 </div>
                                 <div class="col-xl-8">
-                                    <input id="amount" type="number" class="with-border" value="50" required>
-                                    <small class="text-muted">Processing fee <span class="float-right">$0.99</span></small>
+                                    <input id="amount" type="number" class="with-border" value="0" required>
+                                    <small class="text-muted">Processing fee <span id="processing_fee" class="float-right"></span></small>
                                 </div>
                             </div>
                         </div>
@@ -50,13 +54,21 @@
                     <div class="col-12">
                         <button  class="my-5 mx-1 button bg-blue-500 ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
                             <i class="icon-material-outline-check-circle mr-1"></i>
-                            <span id="amount-value">Confirm & Add $50.99</span>
+                            <span id="amount-value">Confirm & Add $0</span>
                         </button>
                     </div> 
                 </div>
             </div>
 
         </div>
+    </div>
+    <div class="col-xl-6">
+        <h2>Transaction Fees</h2>
+        <ul>
+        <li>Credit cards, PayPal, Skrill – 2.5%</li> 
+        <li>Local bank deposit – Free</li> 
+        <li>International wire - $15</li>
+        </ul>
     </div>
 </div>
 @endsection
@@ -83,7 +95,12 @@
 
     function updateValue(e){
          var total = document.getElementById('total');
-         total.value = e.target.value + '.99';
+         var perc = Number((2.5 / 100) * e.target.value);
+         var processing_fee = document.getElementById('processing_fee');
+         processing_fee.innerHTML = "$"+perc
+         total.value = Number(Number(e.target.value) + perc);
+         console.log();
+         
          
          var amountValue = document.getElementById('amount-value')
          amountValue.innerHTML = "Confirm & Add $" + total.value;
@@ -93,19 +110,26 @@
     cardButton.addEventListener('click', async (e) => {
 
         const amount = document.getElementById('amount').value;
+        var perc = Number((2.5 / 100) * amount);
 
         function addMoney(method){
             axios.post('add-funds',{
                     method: method,
                     amount: amount,
+                    percentage: perc,
+                    deposit: 'deposit',
+                    type: 'deposit'
                 }).then(function(r){
                     alert(r.data.message);
                     console.log(r);
+                    window.location.reload();
                     $('#billing').show()
                 }).catch(function(e){
                     console.log(e);
                     alert('Pls, try again')
                     $('#billing').show()
+                    window.location.reload();
+
                 })
         }
 
@@ -126,7 +150,9 @@
             $('#spinner').hide()
             $('#billing').show()
             console.log(error);
-            alert(error.message)
+            alert(error.message);           
+            window.location.reload();
+
             
         } else {
             $('#spinner').hide();
@@ -139,6 +165,7 @@
                 console.log(e);
                 alert('Pls, try again')
                 $('#billing').show()
+                window.location.reload();
                 
             })
         }

@@ -38,7 +38,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                             <i class="icon-material-outline-check-circle text-success"></i>
                             
                             @if($milestone->is_paid)
-                            <span class="badge badge-success float-right">Paid</span>
+                            <span class="badge badge-success">Paid</span>
                             @else
                             @role('hirer')
                             <span class="float-right">
@@ -51,18 +51,20 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                             
                             @endif
 
-                            @if($milestone->status == 'not done') 
+                           
                             @role('freelancer')
                             <span class="float-right">
+                            @if($milestone->status == 'not done') 
                                 <a href="#small-dialog-3"  class="popup-with-zoom-anim button btn-xs completedBtn" data-milestone="{{ $milestone }}">
                                     <i class="icon-material-outline-check-circle"></i> Mark as Completed
                                 </a>
+                                @endif
                                 <a href="#small-dialog-edit"  class="popup-with-zoom-anim button dark btn-xs editBtn" data-milestone="{{ $milestone }}">
                                     <i class="icon-feather-edit"></i> Edit
                                 </a>
                             </span>
                             @endrole
-                            @endif
+                           
                         </h3>
                         <p>${{ $milestone->cost }}</p>
                     </li>
@@ -105,6 +107,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
 
                 <!-- Button -->
                 <form action="" method="post" id="releasePaymentForm">
+                <input name="transfer_id" type="hidden" value="{{ $milestone->profile_id }}"/>
                     @csrf
                 </form>
 
@@ -238,11 +241,11 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
 
 <!-- Bid Acceptance Popup
 ================================================== -->
-<div id="small-dialog-edit" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+<div id="small-dialog-edit" class="zoom-anim-dialog mfp-hide dialog-with-tabs bg-white max-w-md mx-auto">
 	<!--Tabs -->
 	<div class="sign-in-form">
 
-		<ul class="popup-tabs-nav">
+	<ul class="popup-tabs-nav">
 			<li><a href="#tab1">Edit Milestone</a></li>
 		</ul>
 

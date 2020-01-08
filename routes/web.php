@@ -74,136 +74,6 @@ Route::get('posts/categories', 'BlogController@categories');
 Route::get('posts/featured', 'BlogController@featured_posts');
 Route::get('posts/trending', 'BlogController@trending_posts');
 
-// Subscription
-Route::get('pricing', function () {
-
-    $plans = App\Models\Plan::oldest()->get();
-    return view('subscription.pricing', compact('plans'));
-
-})->name('pricing');
-
-Route::post('billing/paymentmethod/update', function(Request $request){
-
-    $user = Auth::user();
-
-    try {
-        if ($user->hasPaymentMethod()) {
-            $user->updateDefaultPaymentMethod($request->method);
-        }else {
-            $user->addPaymentMethod($request->method);
-            $user->updateDefaultPaymentMethod($request->method);
-        } 
-    } catch (\Laravel\Cashier\Exceptions\InvalidStripeCustomer $e) {
-        
-        $user->createAsStripeCustomer();
-        $user->addPaymentMethod($request->method);
-        $user->updateDefaultPaymentMethod($request->method);
-    }
-  
-
-    return response()->json([
-        'message' => "Payment Method Added Successful",
-        'data' => $user->defaultPaymentMethod()
-    ]);
-});
-
-Route::get('checkout/{id}', function ($id) {
-    $plan = App\Models\Plan::find($id);
-
-    $user = Auth::user();
-
-    $card = $user->defaultPaymentMethod()->card;
-
-    $intent =  $user->createSetupIntent();
-
-    return view('subscription.checkout', compact('plan', 'intent', 'card'));
-
-})->name('checkout');
-
-Route::post('order-confirmation', function (Request $request) {
-    $validateData = $request->validate([
-        'plan' => 'integer|required'
-    ]);
-    $plan = App\Models\Plan::find($request->plan);
-
-    $user = Auth::user();
-
-    $paymentMethod = $user->defaultPaymentMethod();
-
-    $user->newSubscription('bids', $plan->plan_id)->create($paymentMethod->id);
-
-    return view('subscription.confirmation', compact('plan'));
-})->name('confirmation');
-
-Route::get('invoice', function () {
-
-    $user = Auth::user();
-
-    $invoice = $user->invoices()->first();
-
-    return Auth::user()->downloadInvoice($invoice->id, [
-        'vendor' => 'Yohli',
-        'product' => 'Bids',
-    ]);
-})->name('invoice');
-
-Route::post('add-fund', function(Request $request){
-    $validateData = $request->validate([
-        'amount' => 'required|integer',
-        'method' => 'required'
-    ]);
-
-    $amount = bcmul($request->amount, 100);
-    $user = Auth::user();
-
-    try {
-        $payment = $user->charge($amount, $request->method, [
-            'custom_option' => "Account Topup",
-        ]);
-    } catch (Exception $e) {
-        $payment = new Payment;
-        $payment->amount = $request->amount;
-        $payment->user_id = $request->user()->id;
-        $payment->profile_id = $request->user()->profile->id;
-        $payment->status = "failed";
-        $payment->type = "Account Topup";
-        $payment->payment_method = $request->method;
-        $payment->description = "Account Topup Failed";
-        $payment->save();
-
-        return response()->json([
-            message => "Account Topup Failed",
-            status => "Successful"
-        ]);
-    }  
-    
-
-    $payment = new Payment;
-    $payment->amount = $request->amount;
-    $payment->user_id = $request->user()->id;
-    $payment->profile_id = $request->user()->profile->id;
-    $payment->status = "success";
-    $payment->type = "Account Topup";
-    $payment->payment_method = $request->method;
-    $payment->description = "Account Topup";
-    $payment->save();
-
-    return response()->json([
-        message => "Account Topup Successful",
-        status => "Successful"
-    ]);
-});
-
-// Finances
-Route::get('add-funds', function () {
-    $intent = Auth::user()->createSetupIntent();
-
-    return view('dashboard.finances.add_funds', compact('intent'));
-})->name('add-funds');
-
-Route::get('withdraw-funds', function () {
-    return view('dashboard.finances.withdraw_funds');
-})->name('withdraw-funds');
 
 
 // DASHBOARD STUFF
@@ -268,6 +138,155 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('verify-profile', 'DashboardController@verify');
 
     Route::get('milestones/{id}', 'DashboardController@milestones')->name('milestones');
+
+    // Subscription
+    Route::get('pricing', function () {
+
+        $plans = App\Models\Plan::oldest()->get();
+        $my_plan = Auth::user()->plan()->first();
+    
+        return view('subscription.pricing', compact('plans', 'my_plan'));
+
+    })->name('pricing');
+
+       // Subscription
+    Route::get('cancel', function () {
+
+        $plans = App\Models\Plan::oldest()->get();
+        $my_plan = Auth::user()->plan()->first();
+    
+        return view('subscription.cancel', compact('plans', 'my_plan'));
+
+    })->name('cancel');
+
+    Route::get('cancel/subscription', function () {
+        $user = Auth::user();
+        $plans = App\Models\Plan::oldest()->get();
+        $my_plan = $user->plan()->first();
+    
+        try {
+            if ($user->subscribed('main')) {
+                $user->subscription('main')->cancel();
+            }
+            
+        } catch (\Exception $e) {
+            toastr()->error('Sorry, We could not cancel subscription, something went wrong, contact support or try again');
+            return redirect()->back();
+        }
+
+        $user->plan()->detach();
+
+        toastr()->success('Success, Subscription Cancelled');
+        return back()->with('success','Subscription Cancelled');
+
+    });
+
+    Route::post('billing/paymentmethod/update', function(Request $request){
+
+        $user = Auth::user();
+    
+        try {
+            if ($user->hasPaymentMethod()) {
+                $user->updateDefaultPaymentMethod($request->method);
+            }else {
+                $user->addPaymentMethod($request->method);
+                $user->updateDefaultPaymentMethod($request->method);
+            } 
+        } catch (\Laravel\Cashier\Exceptions\InvalidStripeCustomer $e) {
+            
+            $user->createAsStripeCustomer();
+            $user->addPaymentMethod($request->method);
+            $user->updateDefaultPaymentMethod($request->method);
+        }
+      
+    
+        return response()->json([
+            'message' => "Payment Method Added Successful",
+            'data' => $user->defaultPaymentMethod()
+        ]);
+    });
+    
+    Route::get('checkout/{id}', function ($id) {
+        $plan = App\Models\Plan::find($id);
+    
+        $user = Auth::user();
+    
+        $card = $user->defaultPaymentMethod()->card;
+    
+        $intent =  $user->createSetupIntent();
+    
+        return view('subscription.checkout', compact('plan', 'intent', 'card'));
+    
+    })->name('checkout');
+    
+    Route::post('order-confirmation', function (Request $request) {
+        $validateData = $request->validate([
+            'plan' => 'integer|required'
+        ]);
+        $plan = App\Models\Plan::find($request->plan);
+    
+        $user = Auth::user();
+    
+        $paymentMethod = $user->defaultPaymentMethod();
+    
+        try {
+            if ($user->subscribed('main')) {
+                $user->subscription('main')->cancel();
+            }
+            $user->newSubscription('main', $plan->plan_id)->create($paymentMethod->id, [
+                'email' => $user->email,
+            ]);
+            
+        } catch (\Exception $e) {
+            toastr()->error('Sorry, We could not subscribe you to this plan, check your card details or try again');
+            return redirect()->back();
+        }
+
+        $user->plan()->sync([$plan->id => ['count' => 0]]);
+       
+    
+        return view('subscription.confirmation', compact('plan'));
+    })->name('confirmation');
+    
+    Route::get('invoice', function () {
+    
+        $user = Auth::user();
+    
+        $invoice = $user->invoices()->first();
+    
+        return Auth::user()->downloadInvoice($invoice->id, [
+            'vendor' => 'Yohli',
+            'product' => 'Bids',
+        ]);
+    })->name('invoice');
+    
+    Route::post('add-funds', 'AccountController@update_account');
+    
+    // Finances
+    Route::get('add-funds', function () {
+        $intent = Auth::user()->createSetupIntent();
+    
+        $account = \App\Models\Account::where('user_id', Auth::user()->id)->first();
+    
+        return view('dashboard.finances.add_funds', compact('intent', 'account'));
+    })->name('add-funds');
+    
+    Route::get('withdraw-funds', function () {
+        $account = \App\Models\Account::where('user_id', Auth::user()->id)->first();
+    
+        return view('dashboard.finances.withdraw_funds',  compact('account'));
+    
+    })->name('withdraw-funds');
+    
+    
+    Route::get('transactions-history', function () {
+        $account = \App\Models\Account::where('user_id', Auth::user()->id)->first();
+
+        $transactions =  \App\Models\Transaction::where('account_id', Auth::user()->account->id)->latest()->limit(10)->get();
+    
+        return view('dashboard.finances.transactions',  compact('account', 'transactions'));
+        
+    })->name('transactions-history');
 
 });
 

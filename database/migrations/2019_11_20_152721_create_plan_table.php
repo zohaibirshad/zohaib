@@ -12,7 +12,7 @@ class CreatePlanTable extends Migration
      */
     public function up()
     {
-        Schema::create('plan', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
             $table->integer('recommended')->nullable();

@@ -322,6 +322,8 @@ class FreelancersController extends Controller
      */
     public function accept_invite(Request $request, $invite_uuid)
     {
+        $user = $request->user();
+
         $validateData = $request->validate([
             'rate' => 'required',
             'delivery_time' => 'required',
@@ -333,6 +335,15 @@ class FreelancersController extends Controller
         $invite = Invite::where('uuid', $invite_uuid)->first();
 
         $profile = Profile::where('user_id', Auth::user()->id)->first();
+
+        $plan = $user->plan()->first();
+
+        if($plan->count < $plan->quantity){
+            $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+        }else{
+            return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
+        }
+
 
         $invite->status = 'accepted';
         $invite->profile_id = $profile->id;
@@ -382,6 +393,7 @@ class FreelancersController extends Controller
      */
     public function make_bid(Request $request, $job_uuid)
     {
+        $user = $request->user();
         $validateData = $request->validate([
             'rate' => 'required',
             'delivery_time' => 'required',
@@ -392,12 +404,18 @@ class FreelancersController extends Controller
         $profile = Profile::where('user_id', Auth::user()->id)->first();
         $job = Job::where('uuid', $job_uuid)->first();
 
-        if(Auth::user()->subscription('bids')->ended())
+        if($user->subscription('bids')->ended())
         {
             return redirect()->back()->with('failed', 'Out of Bids for the Month, Subscribe to Bid!');
         }
 
-        $user->subscription('bids')->decrementQuantity();
+        $plan = $user->plan()->first();
+
+        if($plan->count < $plan->quantity){
+            $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+        }else{
+            return redirect()->back()->with('failed', 'Out of Bids for the Month, Subscribe to Bid!');
+        }
 
         $bid = new Bid;
         $bid->profile_id = $profile->id;

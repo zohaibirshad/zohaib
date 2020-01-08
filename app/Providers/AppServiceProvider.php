@@ -4,6 +4,9 @@ namespace App\Providers;
 
 
 use Illuminate\Support\ServiceProvider;
+use App\Projectors\AccountBalanceProjector;
+use App\Projectors\TransactionCountProjector;
+use Spatie\EventSourcing\Facades\Projectionist;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +17,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Projectionist::addProjectors([
+            AccountBalanceProjector::class,
+            TransactionCountProjector::class,
+        ]);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Textarea;
@@ -83,16 +84,21 @@ class Milestone extends Resource
             ->sortable(),
             Textarea::make( __('Activity'),  'activity')
             ->sortable(),
-            Currency::make( __('Cost'),  'cost')
+            Number::make( __('Cost'),  'cost')
             ->sortable(),
             Select::make( __('Status'),  'status')
             ->sortable()
             ->options([
-                'pending' => 'Pending',
+                'not done' => 'Pending',
                 'approved' => 'Approved',
                 'started' => 'Started',
-                'completed' => 'Completed',
-                'paid' => 'Paid',
+                'done' => 'Completed',
+            ])->displayUsingLabels(),
+            Select::make( __('Payment'),  'is_paid')
+            ->sortable()
+            ->options([
+                '0' => 'No',
+                '1' => 'Yes',
             ])->displayUsingLabels(),
             Notes::make('Notes','notes')->onlyOnDetail(),
     ];

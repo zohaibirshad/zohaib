@@ -25,6 +25,12 @@ class JobBudgetsTableSeeder extends Seeder
                 'to' => '2000',
                 'type' => 'fixed',
             ],
+             [
+                'name' => 'Large Project',
+                'from' => '11000',
+                'to' => '20000',
+                'type' => 'hour',
+            ],
         ];
 
         foreach ($budgets as $budget) {
