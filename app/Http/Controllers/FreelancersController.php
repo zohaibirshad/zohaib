@@ -345,7 +345,7 @@ class FreelancersController extends Controller
                 return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
             }
         }else{
-            $user->plan()->sync(1, ['count' =>  1]);
+            $user->plan()->sync([1 => ['count' => 0]]);
         }
 
 
@@ -417,7 +417,7 @@ class FreelancersController extends Controller
                 return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
             }
         }else{
-            $user->plan()->sync(1, ['count' =>  1]);
+            $user->plan()->sync([1 => ['count' => 0]]);
         }
 
         $bid = new Bid;
