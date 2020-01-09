@@ -338,10 +338,14 @@ class FreelancersController extends Controller
 
         $plan = $user->plan()->first();
 
-        if($plan->count < $plan->quantity){
-            $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+        if($plan){
+            if($plan->count < $plan->quantity){
+                $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+            }else{
+                return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
+            }
         }else{
-            return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
+            $user->plan()->sync(1, ['count' =>  1]);
         }
 
 
@@ -406,10 +410,14 @@ class FreelancersController extends Controller
 
         $plan = $user->plan()->first();
 
-        if($plan->count < $plan->quantity){
-            $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+        if($plan){
+            if($plan->count < $plan->quantity){
+                $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+            }else{
+                return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
+            }
         }else{
-            return redirect()->back()->with('failed', 'Out of Bids for the Month, Subscribe to Bid!');
+            $user->plan()->sync(1, ['count' =>  1]);
         }
 
         $bid = new Bid;
