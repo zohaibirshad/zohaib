@@ -87,6 +87,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        $user->profile()->create([
+            'name' => $data['first_name'] . " " . $data['last_name'],
+            'email' => $data['email'],
+            'type' => $data['account-type'],
+            'country_id' => $data['country'],
+        ]);
 
         $role = Role::where('name', $data['account-type'])->first();
         if(!$role){ 
