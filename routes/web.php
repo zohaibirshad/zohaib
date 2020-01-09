@@ -248,7 +248,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         }
 
         $user->plan()->sync([$plan->id => ['count' => 0]]);
-       
     
         return view('subscription.confirmation', compact('plan'));
     })->name('confirmation');

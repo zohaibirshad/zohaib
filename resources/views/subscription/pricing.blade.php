@@ -24,6 +24,7 @@
 			<div class="pricing-plans-container pt-10">
 
 				@foreach($plans as $plan)
+				@if($plan->title != 'Free')
 					<!-- Plan -->
 					<div class="pricing-plan {{ $plan->recommended == 1 ? 'recommended' : '' }}">
 						@if($plan->recommended == 1)
@@ -39,6 +40,7 @@
 						</div>
 						<a href="{{ route('checkout', $plan->id) }}" class="button full-width margin-top-20">Buy Now</a>
 					</div>
+				@endif
 				@endforeach
 
 			</div>

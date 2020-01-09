@@ -100,6 +100,7 @@ class RegisterController extends Controller
         }
 
         $user->assignRole($data['account-type']);
+        
 
         return $user;
 

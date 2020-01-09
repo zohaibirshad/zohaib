@@ -404,11 +404,6 @@ class FreelancersController extends Controller
         $profile = Profile::where('user_id', Auth::user()->id)->first();
         $job = Job::where('uuid', $job_uuid)->first();
 
-        if($user->subscription('bids')->ended())
-        {
-            return redirect()->back()->with('failed', 'Out of Bids for the Month, Subscribe to Bid!');
-        }
-
         $plan = $user->plan()->first();
 
         if($plan->count < $plan->quantity){
