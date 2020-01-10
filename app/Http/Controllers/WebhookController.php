@@ -70,8 +70,8 @@ class WebhookController extends CashierController
                     try {
                         $my_plan = Plan::where('plan_id', $data['plan']['id'])->first();
                         $user->plan()->sync([$my_plan->id => ['count' => 0]]);
-                    } catch (\Exception $th) {
-                        //throw $th;
+                    } catch (\Exception $e) {
+                        \Log::error($e->getMessage());
                     }
                 }
 
@@ -122,10 +122,9 @@ class WebhookController extends CashierController
                 $subscription->markAsCancelled();
             });
             try {
-                $my_plan = Plan::where('plan_id', $data['plan']['id'])->first();
-                $user->plan()->detach([$my_plan->id]);
-            } catch (\Exception $th) {
-                //throw $th;
+                $user->plan()->detach();
+            } catch(\Exception $e) {
+                \Log::error($e->getMessage());
             }
         }
 
