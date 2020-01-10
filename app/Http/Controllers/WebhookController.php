@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
+use Laravel\Cashier\Subscription;
 use Laravel\Cashier\Events\WebhookHandled;
 use Laravel\Cashier\Events\WebhookReceived;
-use Laravel\Cashier\Subscription;
-use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
 
 class WebhookController extends CashierController
@@ -67,7 +68,8 @@ class WebhookController extends CashierController
                 if (isset($data['plan']['id'])) {
                     $subscription->stripe_plan = $data['plan']['id']; 
                     try {
-                        $user->plan()->sync([$data['plan']['id'] => ['count' => 0]]);
+                        $my_plan = Plan::where('plan_id', $data['plan']['id'])->first();
+                        $user->plan()->sync([$my_plan->id => ['count' => 0]]);
                     } catch (\Exception $th) {
                         //throw $th;
                     }
@@ -120,7 +122,8 @@ class WebhookController extends CashierController
                 $subscription->markAsCancelled();
             });
             try {
-                $user->plan()->detach([$data['plan']['id']]);
+                $my_plan = Plan::where('plan_id', $data['plan']['id'])->first();
+                $user->plan()->detach([$my_plan->id]);
             } catch (\Exception $th) {
                 //throw $th;
             }
