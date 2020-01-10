@@ -2,6 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Laravel\Cashier\Events\WebhookHandled;
+use Laravel\Cashier\Events\WebhookReceived;
+use Laravel\Cashier\Subscription;
+use Symfony\Component\HttpFoundation\Response;
+
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
 
 class WebhookController extends CashierController
