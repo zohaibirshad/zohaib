@@ -52,7 +52,7 @@ class WebhookController extends CashierController
 
             $user->subscriptions->filter(function (Subscription $subscription) use ($data) {
                 return $subscription->stripe_id === $data['id'];
-            })->each(function (Subscription $subscription) use ($data) {
+            })->each(function (Subscription $subscription) use ($data, $user) {
                 if (isset($data['status']) && $data['status'] === 'incomplete_expired') {
                     $subscription->delete();
 
@@ -68,7 +68,6 @@ class WebhookController extends CashierController
                 if (isset($data['plan']['id'])) {
                     $subscription->stripe_plan = $data['plan']['id']; 
                     try {
-                        $user = $this->getUserByStripeId($payload['data']['object']['customer']);
                         $my_plan = Plan::where('plan_id', $data['plan']['id'])->first();
                         $user->plan()->sync([$my_plan->id => ['count' => 0]]);
                     } catch (\Exception $e) {
