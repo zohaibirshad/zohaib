@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\BelongsToMany;
 use KABBOUCHI\NovaImpersonate\Impersonate;
 use Themsaid\CashierTool\CashierResourceTool;
 use Coreproc\NovaAuditingUserFields\CreatedBy;
@@ -93,6 +94,7 @@ class User extends Resource
             HasOne::make('Profile'),
             HasMany::make('Jobs'),
             HasMany::make('Reviews'),
+            BelongsToMany::make('Plan'),
 
             MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
             MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
