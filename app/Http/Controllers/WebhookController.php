@@ -66,6 +66,11 @@ class WebhookController extends CashierController
                 // Plan...
                 if (isset($data['plan']['id'])) {
                     $subscription->stripe_plan = $data['plan']['id']; 
+                    try {
+                        $user->plan()->sync([$data['plan']['id'] => ['count' => 0]]);
+                    } catch (\Exception $th) {
+                        //throw $th;
+                    }
                 }
 
                 // Trial ending date...
@@ -114,6 +119,11 @@ class WebhookController extends CashierController
             })->each(function ($subscription) {
                 $subscription->markAsCancelled();
             });
+            try {
+                $user->plan()->detach([$data['plan']['id']]);
+            } catch (\Exception $th) {
+                //throw $th;
+            }
         }
 
         return $this->successMethod();
