@@ -340,9 +340,18 @@ class FreelancersController extends Controller
 
         if($plan){
             if($plan->count < $plan->quantity){
-                $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+                if($plan->title == 'free'){
+                    $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+                }else{
+                    if(\Carbon\Carbon::parse($plan->pivot->created_at)->format('m') == now()->format('m')){
+                        $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+                    } else {
+                        return redirect()->back()->with('error', "You can't accept the invite because your subscription for the Month has expired, Subscribe to Bid!");
+                    }
+                }
+               
             }else{
-                return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
+                return redirect()->back()->with('error', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
             }
         }else{
             $user->plan()->sync([1 => ['count' => 0]]);
@@ -411,10 +420,20 @@ class FreelancersController extends Controller
         $plan = $user->plan()->first();
 
         if($plan){
-            if($plan->count < $plan->quantity){
-                $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->count + 1]);
+            
+            if($plan->pivot->count < $plan->quantity){
+                if($plan->title == 'free'){
+                    $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->pivot->count + 1]);
+                }else{
+                    if(\Carbon\Carbon::parse($plan->pivot->created_at)->format('m') == now()->format('m')){
+                        $user->plan()->updateExistingPivot($plan->id, ['count' => $plan->pivot->count + 1]);
+                    } else {
+                        return redirect()->back()->with('error', "Your subscription for the Month has expired, Subscribe to Bid!");
+                    }
+                }
+               
             }else{
-                return redirect()->back()->with('failed', "You can't accept the invite because you are out of Bids for the Month,, Subscribe to Bid!");
+                return redirect()->back()->with('error', "You are out of Bids for the Month, Subscribe to Bid!");
             }
         }else{
             $user->plan()->sync([1 => ['count' => 0]]);
