@@ -243,7 +243,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             ]);
             
         } catch (\Exception $e) {
-            toastr()->error('Sorry, We could not subscribe you to this plan, check your card details or try again');
+            toastr()->error('Sorry, ' . $e->getMessage());
             return redirect()->back();
         }
 
