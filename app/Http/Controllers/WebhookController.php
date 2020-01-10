@@ -50,7 +50,7 @@ class WebhookController extends CashierController
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
             $data = $payload['data']['object'];
 
-            $user->subscriptions->filter(function (Subscription $subscription) use ($data) {
+            $user->subscriptions->filter(function (Subscription $subscription) use ($data, $user) {
                 return $subscription->stripe_id === $data['id'];
             })->each(function (Subscription $subscription) use ($data, $user) {
                 if (isset($data['status']) && $data['status'] === 'incomplete_expired') {
