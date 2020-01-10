@@ -122,8 +122,8 @@ class WebhookController extends CashierController
                 $subscription->markAsCancelled();
             });
             try {
-                $user->plan()->detach();
-                $user->plan()->sync([1 => ['count' => 0]]);
+                $my_plan = Plan::where('plan_id', 'free')->first();
+                $user->plan()->sync([$my_plan->id => ['count' => 0]]);
             } catch(\Exception $e) {
                 \Log::error($e->getMessage());
             }
