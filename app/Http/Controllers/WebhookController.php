@@ -123,6 +123,7 @@ class WebhookController extends CashierController
             });
             try {
                 $user->plan()->detach();
+                $user->plan()->sync([1 => ['count' => 0]]);
             } catch(\Exception $e) {
                 \Log::error($e->getMessage());
             }
