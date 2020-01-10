@@ -68,7 +68,7 @@ class WebhookController extends CashierController
                 if (isset($data['plan']['id'])) {
                     $subscription->stripe_plan = $data['plan']['id']; 
                     try {
-                        $user = $this->getUserByStripeId($payload['data']['object']['customer']));
+                        $user = $this->getUserByStripeId($payload['data']['object']['customer']);
                         $my_plan = Plan::where('plan_id', $data['plan']['id'])->first();
                         $user->plan()->sync([$my_plan->id => ['count' => 0]]);
                     } catch (\Exception $e) {
