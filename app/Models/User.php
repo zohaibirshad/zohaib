@@ -61,7 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
 
             $model->createAsStripeCustomer();
 
-            $plan = Plan::where('title', 'Free')->first();
+            $plan = Plan::where('plan_id', 'free')->first();
     
             $model->trial_ends_at = now()->addDays(30);
 

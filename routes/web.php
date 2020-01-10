@@ -161,7 +161,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('cancel/subscription', function () {
         $user = Auth::user();
-        $plans = App\Models\Plan::oldest()->get();
+        $plan = App\Models\Plan::where('plan_id', 'free')->first();
         $my_plan = $user->plan()->first();
     
         try {
@@ -173,8 +173,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             toastr()->error('Sorry, We could not cancel subscription, something went wrong, contact support or try again');
             return redirect()->back();
         }
+        if($my_plan->title == 'free'){
+            toastr()->error('Sorry, We could not cancel subscription, something went wrong, contact support or try again');
+            return redirect()->with('error','Free Plan can not be  Cancelled');
+        }
 
-        $user->plan()->detach();
+        $user->plan()->sync([$plan->id => ['count' => 0]]);
 
         toastr()->success('Success, Subscription Cancelled');
         return back()->with('success','Subscription Cancelled');
