@@ -24,7 +24,7 @@
 						<div class="freelancer-overview">
 							<div class="freelancer-overview-inner">
 								<h4 class="font-weight-bold">
-									<a href="{{ route('jobs.show', $bookmark->job) }}">{{ $bookmark->job->title ?? "" }} 
+									<a href="{{ route('jobs.show', $bookmark->job->slug) }}">{{ $bookmark->job->title ?? "" }} 
 									</a>
 								</h4>
 							</div>
