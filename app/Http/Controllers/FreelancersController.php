@@ -324,6 +324,10 @@ class FreelancersController extends Controller
     {
         $user = $request->user();
 
+        if($user->review != 'successful') {
+            return  redirect('verify-profile')->with('error', "You must verify your account");
+          };
+
         $validateData = $request->validate([
             'rate' => 'required',
             'delivery_time' => 'required',
@@ -407,6 +411,11 @@ class FreelancersController extends Controller
     public function make_bid(Request $request, $job_uuid)
     {
         $user = $request->user();
+
+        if($user->review != 'successful') {
+          return  redirect('verify-profile')->with('error', "You must verify your account");
+        };
+
         $validateData = $request->validate([
             'rate' => 'required',
             'delivery_time' => 'required',

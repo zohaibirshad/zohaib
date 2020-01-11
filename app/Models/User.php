@@ -71,6 +71,23 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
 
         });
 
+        static::updating(function ($model) {
+            $profile = Profile::where('user_id', $model->id)->first();
+            if($profile){
+                if($model->review == 'successful'){
+                    empty($model->profile_verified_at) ? $model->profile_verified_at = now()->copy()->toDateTimeString() : $model->profile_verified_at;
+                    $profile->verified = 1;
+                    $profile->save();
+                }elseif($model->review == 'pending'){
+                    $model->profile_verified_at = NULL;
+                    $profile->verified = 0;
+                    $profile->save();
+                }
+            }
+            
+        });
+
+
     }
     
 

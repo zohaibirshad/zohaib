@@ -27,11 +27,11 @@
                         </span>
                     @endif
 					<div>
-						<input type="radio" name="account-type" value="freelancer" id="freelancer-radio" class="account-type-radio" checked/>
+						<input type="radio" name="account-type" value="freelancer" id="freelancer-radio" class="account-type-radio" {{ old('account-type') == 'freelancer' ? 'checked' : '' }}/>
 						<label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Freelancer</label>
 					</div>
 					<div>
-						<input type="radio" name="account-type" value="hirer"  id="employer-radio" class="account-type-radio"/>
+						<input type="radio" name="account-type" value="hirer"  id="employer-radio" class="account-type-radio" {{ old('account-type') == 'hirer' ? 'checked' : '' }}/>
 						<label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Hirer</label>
 					</div>
 				</div>  
@@ -101,11 +101,11 @@
 				<!-- Button -->
 				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="register-account-form">Register <i class="icon-material-outline-arrow-right-alt"></i></button>
 				<!-- Social Login -->
-				<div class="social-login-separator"><span>or</span></div>
+				<!-- <div class="social-login-separator"><span>or</span></div>
 				<div class="social-login-buttons">
 					<button class="facebook-login ripple-effect"><i class="icon-brand-facebook-f"></i> Register via Facebook</button>
 					<button class="google-login ripple-effect"><i class="icon-brand-google-plus-g"></i> Register via Google+</button>
-				</div>
+				</div> -->
 			</div>
         </form>
 		</div>

@@ -33,7 +33,7 @@ class LoginController extends Controller
         // } else {
         //     return '/browse-freelancers';
         // }
-
+        
         return 'dashboard';
     }
 
@@ -75,16 +75,38 @@ class LoginController extends Controller
         if ($existingUser) {
             // log them in
             auth()->login($existingUser, true);
+            return redirect()->to('/dashboard');
         } else {
             // create a new user
             $newUser = new User;
-            $newUser->id = $user->getId();
-            $newUser->name = $user->getName();
+            $name = explode(" ", $user->getName());
+            if(isset($name[0])){
+                $newUser->first_name = $name[0];
+            }
+            if(isset($name[1])){
+                $$newUser->last_name = $name[1];
+            }
+            if(isset($name[2])){
+                $$newUser->last_name = $name[1]. " " .$name[2];
+            }
+            if(isset($name[3])){
+                $$newUser->last_name = $name[1]. " " .$name[2] . " " .$name[3];
+            }
+           
+            // $newUser->id = $user->getId();
             $newUser->email = $user->getEmail();
             $newUser->avatar =  $user->getAvatar();
             $newUser->save();
             auth()->login($newUser, true);
+
+            $newUser->profile()->create([
+                'name' => $user->getName(),
+                'email' => $user->getName(),
+            ]);
+
+            return redirect()->to('/update_profile');
+    
         }
-        return redirect()->to('/settings');
+        
     }
 }

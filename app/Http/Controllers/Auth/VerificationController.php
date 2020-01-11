@@ -28,11 +28,13 @@ class VerificationController extends Controller
     //protected $redirectTo = '/';
     public function redirectTo()
     {
-        if (auth()->user()->hasRole('freelancer')) {
-            return '/browse-jobs';
-        } else {
-            return '/browse-freelancers';
-        }
+        // if (auth()->user()->hasRole('freelancer')) {
+        //     return '/browse-jobs';
+        // } else {
+        //     return '/browse-freelancers';
+        // }
+
+        return 'settings';
     }
 
     /**

@@ -94,6 +94,7 @@ class User extends Resource
             HasOne::make('Profile'),
             HasMany::make('Jobs'),
             HasMany::make('Reviews'),
+            HasOne::make('Account'),
             BelongsToMany::make('Plan'),
 
             MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),

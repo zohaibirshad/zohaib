@@ -35,6 +35,23 @@ class Profile extends Model implements HasMedia, ViewableContract
         'name', 'email', 'country_id', 'type'
     ];
 
+       /**
+     * Boot function from laravel.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($model) {
+            $user = User::find($model->user_id);
+            if($user){
+                $user->syncRoles([$model->type]); 
+            }
+            
+        });
+
+    }
+
     public function getCompletionRateAttribute()
     {
         $jobs_count = $this->jobs()->count();

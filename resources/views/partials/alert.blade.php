@@ -23,3 +23,12 @@
 @endforeach
 
 @endif
+
+@auth
+@if(auth()->user()->review != 'successful')
+<div class="notification error closeable">
+        <p class="text-center" ><i class="icon-line-awesome-exclamation-circle" style="font-size: 20px;"></i>Please upload supporting documents to be fully verified to bid for jobs. <a href="../verify-profile"> Verify Now!</a></p>
+        <a class="close" href="#"></a>
+    </div>
+@endif
+@endauth

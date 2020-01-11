@@ -77,7 +77,6 @@ class AccountController extends Controller
             }
         }
 
-
         if($user->review != 'successful'){
             toastr()->error('Sorry, only verified account can switch, upload required document to start the verification process');
             return redirect('verify-profile');
@@ -86,6 +85,7 @@ class AccountController extends Controller
         $user->syncRoles([$request->account_type]); 
       
         $profile->type = $request->account_type;
+        $profile->verified = 1;
         $profile->save();
 
         session(['role' => $request->account_type]);
