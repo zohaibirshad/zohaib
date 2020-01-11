@@ -201,7 +201,7 @@
 						</div><div class="clearfix"></div>
 					</div>
 
-					<textarea class="with-border" placeholder="Comment" name="message" id="message" cols="7" required>Excellent programmer - helped me fixing small issue.</textarea>
+					<textarea class="with-border" placeholder="Comment" name="message" id="message" cols="7">Excellent programmer - helped me fixing small issue.</textarea>
 
 				</form>
 				
@@ -258,7 +258,7 @@
                     </div>
                     <input type="hidden" name="job_id" id="job_id">
 
-					<textarea class="with-border" placeholder="Comment" name="body" cols="7" required></textarea>
+					<textarea class="with-border" placeholder="Comment" name="body" cols="7"></textarea>
 
 				</form>
 				
@@ -341,7 +341,7 @@
                     <input type="hidden" name="job_id" id="job_id2">
                     <input type="hidden" name="user_id" id="user_id">
 
-					<textarea class="with-border" placeholder="Comment" name="body" cols="7" required></textarea>
+					<textarea class="with-border" placeholder="Comment" name="body" cols="7"></textarea>
 
 				</form>
 				
