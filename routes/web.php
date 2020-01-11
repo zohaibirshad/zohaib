@@ -237,6 +237,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         $user = Auth::user();
     
         $paymentMethod = $user->defaultPaymentMethod();
+        if(empty($paymentMethod)){
+            toastr()->error('Sorry, Add valid card details before subscribing');
+            return redirect()->back();
+        }
     
         try {
             if ($user->subscribed('main')) {
