@@ -33,11 +33,11 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                     @forelse ($milestones as $milestone)
                     <li class="event {{ $milestone->status == 'done' ? 'done' : 'notdone'}}">
                         <h3> <a href="#small-dialog-2"  class="popup-with-zoom-anim milestoneDetails" data-milestone="{{ $milestone }}">
-                            {{ $milestone->heading }}</a>
+                            {{ $milestone->heading ?? ''}}</a>
                             @if($milestone->status == 'done') 
                             <i class="icon-material-outline-check-circle text-success"></i>
                             
-                            @if($milestone->is_paid)
+                            @if($milestone->is_paid ?? '')
                             <span class="badge badge-success">Paid</span>
                             @else
                             @role('hirer')
@@ -66,7 +66,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                             @endrole
                            
                         </h3>
-                        <p>${{ $milestone->cost }}</p>
+                        <p>${{ $milestone->cost ?? ""}}</p>
                     </li>
                     @empty
                     <p class="text-center text-muted py-3">NO MILESTONES FOR THIS JOB</p>
@@ -98,16 +98,16 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
 				
 				<!-- Welcome Text -->
 				<div class="welcome-text">
-					<h3 id="releasePayment">Release Payment to David for Milestone?</h3>
+					<h3 id="releasePayment">Release Payment to {{ $milestone->name ?? '' }} for Milestone?</h3>
 					<div class="bid-acceptance margin-top-15" id="paymentCost">
-						$600
+                    {{ $milestone->cost ?? '' }}
 					</div>
 
 				</div>
 
                 <!-- Button -->
                 <form action="" method="post" id="releasePaymentForm">
-                <input name="transfer_id" type="hidden" value="{{ $milestone->profile_id }}"/>
+                <input name="transfer_id" type="hidden" value="{{ $milestone->profile_id ?? '' }}"/>
                     @csrf
                 </form>
 
