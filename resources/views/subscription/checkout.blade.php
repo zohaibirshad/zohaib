@@ -79,19 +79,23 @@
 
 					<div class="payment-tab-content">
 						<div class="row payment-form-row">
-
+							<div class="flex flex-row justify-center items-center">
+							<div id="spinner" style="display:none" class="spinner-border text-warning w-12 h-12 my-2"></div>
+						</div>
+						<div class="w-full" id="billing">
 							<div class="col-md-12">
 								<div class="card-label">
 									<input id="card-holder-name" name="nameOnCard" value="{{ Auth::user()->name }}" required type="text" placeholder="Cardholder Name">
 								</div>
 							</div>
 
-						 <!-- Stripe Elements Placeholder -->
-						 <div class="mt-5 col-md-12 text-2xl" id="card-element"></div>
+							<!-- Stripe Elements Placeholder -->
+							<div class="mt-5 col-md-12 text-2xl" id="card-element"></div>
 
-						<button  class="my-5 mx-1 button bg-blue-500 ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
-							Add Payment Method
-						</button>
+							<button  class="my-5 mx-1 button bg-blue-500 ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
+								Add Payment Method
+							</button>
+						</div>
 
 						</div>
 					</div>
