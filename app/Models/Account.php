@@ -31,6 +31,11 @@ class Account extends Model
         return static::uuid($attributes['uuid']);
     }
 
+    public function getUsernameAttribute() 
+    {
+        return "{$this->user->name}";
+    } 
+
     /*
      * A helper method to quickly retrieve an account by uuid.
      */

@@ -25,7 +25,7 @@ class Account extends Resource
      *
      * @var  string
      */
-    public static $title = 'name';
+    public static $title = 'username';
 
     /**
      * The columns that should be searched.
