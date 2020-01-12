@@ -167,6 +167,11 @@ class DashboardController extends Controller
             ->where('status', 'done')
             ->where('user_id', $user->id)
             ->count();
+
+            $paid = Milestone::where('job_id', $job->id)
+            ->where('is_paid', 1)
+            ->where('user_id', $user->id)
+            ->count();
         } else {
             $m = Milestone::where('job_id', $job->id)
             ->with('profile')
@@ -174,6 +179,11 @@ class DashboardController extends Controller
 
             $done = Milestone::where('job_id', $job->id)
             ->where('status', 'done')
+            ->where('profile_id', $freelancer->id)
+            ->count();
+
+            $paid = Milestone::where('job_id', $job->id)
+            ->where('is_paid', 1)
             ->where('profile_id', $freelancer->id)
             ->count();
 
@@ -189,12 +199,14 @@ class DashboardController extends Controller
         $mCount = $m->count();
 
         $completion = 0;
+        $payment = 0;
 
         if($mCount > 0){
             $completion = ($done / $mCount ) * 100;
+            $is_paid = ($paid / $mCount ) * 100;
 
             // Set job to completed if its 100
-            if($completion == 100){
+            if($payment == 100 ){
                 $job->status = 'completed';
                 $job->save();
             }
@@ -202,7 +214,7 @@ class DashboardController extends Controller
 
         $available = $bidRate - $jobMilestones;
 
-        return view('dashboard.milestones', compact('milestones', 'job', 'completion', 'available')); 
+        return view('dashboard.milestones', compact('milestones', 'job', 'completion','payment', 'available')); 
     }
 
     public function bidders(Request $request, $slug)

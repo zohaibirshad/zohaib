@@ -20,8 +20,11 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 @if(sizeof($milestones) == 0)
                 <p class="text-center text-muted">NO MILESTONES FOR THIS JOB</p>
                 @else
-                <div class="flex flex-row flex-wrap justify-between"></div>
+                <div class="flex flex-row flex-wrap justify-between">
                 <h3><i class="icon-material-outline-access-time"></i> {{ $completion }}% Completed</h3>
+                <h3><i class="icon-line-awesome-money"></i> {{ $payment }}% Payments</h3>
+
+                </div>
                 @endif
             </div>
             {{-- approved, done, change, not done --}}
@@ -38,9 +41,9 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                         @elseif($milestone->status == 'request changes')
                         <p class="text-red-500">Hirer has requested for changes</p>
                         @elseif($milestone->status == 'approved')
-                        <p class="text-yellow-500">Start work, Hirer has approved your milestone. Funds in escrow. </p>
+                        <p class="text-yellow-500">Start work, Hirer has approved your milestone. Funds in escrow. When done, mark as completed</p>
                         @elseif($milestone->status == 'done' & $milestone->is_paid == 0)
-                        <p class="text-blue-500">Funds will be transfered into your account soon. </p>
+                        <p class="text-light-blue-500">Funds will be transfered into your account soon. </p>
                         @elseif($milestone->status == 'done' & $milestone->is_paid == 1)
                         <p class="text-green-500">Funds has been transfered into your account. </p>
                         @endif

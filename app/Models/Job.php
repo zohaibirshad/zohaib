@@ -41,9 +41,9 @@ class Job extends Model implements HasMedia
             $model->uuid = Str::uuid();
         });
 
-        static::updating(function ($model) {
-            $model->slug = (string) Str::slug($model->title ."-". time());
-        });
+        // static::updating(function ($model) {
+        //     $model->slug = (string) Str::slug($model->title ."-". time());
+        // });
     }
 
     public function getCreatedAtAttribute()
