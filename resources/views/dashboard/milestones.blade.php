@@ -20,10 +20,11 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 @if(sizeof($milestones) == 0)
                 <p class="text-center text-muted">NO MILESTONES FOR THIS JOB</p>
                 @else
+                <div class="flex flex-row flex-wrap justify-between"></div>
                 <h3><i class="icon-material-outline-access-time"></i> {{ $completion }}% Completed</h3>
                 @endif
             </div>
-            {{-- approved, done, change, pending --}}
+            {{-- approved, done, change, not done --}}
     
             @if(sizeof($milestones) > 0)
             <div class="content pb-1">
@@ -31,6 +32,17 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 <ul class="timeline">
                     @forelse ($milestones as $milestone)
                     <li class="event {{ $milestone->status == 'done' ? 'done' : 'notdone'}}">
+                        @if($milestone->status == 'not done')
+                        <p class="text-red-500">Start the milestone only when Hirer has approved</p>
+                        @elseif($milestone->status == 'request changes')
+                        <p class="text-red-500">Hirer has requested for changes</p>
+                        @elseif($milestone->status == 'approved')
+                        <p class="text-yellow-500">Start work, Hirer has approved your milestone. Funds in escrow. </p>
+                        @elseif($milestone->status == 'done' & $milestone->is_paid == 0)
+                        <p class="text-blue-500">Funds will be transfered into your account soon. </p>
+                        @elseif($milestone->status == 'done' & $milestone->is_paid == 1)
+                        <p class="text-green-500">Funds has been transfered into your account. </p>
+                        @endif
                          <p>{{ $milestone->status }}</p>
                         <h3> <a href="#small-dialog-2"  class="popup-with-zoom-anim milestoneDetails" data-milestone="{{ $milestone }}">
                             {{ $milestone->heading ?? ''}}</a>
@@ -50,8 +62,8 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                                         <i class="icon-material-outline-check-circle"></i> Mark as Completed
                                     </a>
                                 @else
-                                    <a href="#small-dialog-edit"  class="float-right popup-with-zoom-anim button dark btn-xs editBtn" data-milestone="{{ $milestone }}">
-                                        <i class="icon-feather-edit"></i> Edit
+                                    <a href="#small-dialog-edit"  class="float-right popup-with-zoom-anim button dark btn-xs pt-1 editBtn" data-milestone="{{ $milestone }}">
+                                        <i class="icon-feather-edit"></i> <span class="px-3 text-sm">Edit Milestone</span>
                                     </a>
                                 </span>
                                 @endif
