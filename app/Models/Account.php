@@ -33,7 +33,7 @@ class Account extends Model
 
     public function getUsernameAttribute() 
     {
-        return "{$this->user->name}";
+        return $this->user ? $this->user->name : 'User Deleted';
     } 
 
     /*
