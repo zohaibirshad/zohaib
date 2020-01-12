@@ -93,8 +93,8 @@ class BlogPost extends Resource
             Text::make( __('Count'),  'count')
             ->exceptOnForms()
             ->sortable(),
-            Trix::make( __('Body'),  'body')->withFiles('public')
-            ->sortable(),
+            Trix::make( __('Body'),  'body')
+            ->hideFromIndex(),
             Notes::make('Notes','notes')->onlyOnDetail(),
 
             ];
