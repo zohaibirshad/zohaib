@@ -20,12 +20,13 @@
              <!-- Form -->
 			<form method="post" id="register-account-form" action="/register">
                 @csrf
-			  <div class="account-type">
-                    @if ($errors->has('account-type'))
+				@if ($errors->has('account-type'))
                         <span class="text-sm text-red-500">
                             <strong> {{ $errors->first('account-type') }}</strong>
                         </span>
                     @endif
+			  <div class="account-type">
+                   
 					<div>
 						<input type="radio" name="account-type" value="freelancer" id="freelancer-radio" class="account-type-radio" {{ old('account-type') == 'freelancer' ? 'checked' : '' }}/>
 						<label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Freelancer</label>
