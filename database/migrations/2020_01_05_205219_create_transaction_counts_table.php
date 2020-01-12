@@ -17,7 +17,8 @@ class CreateTransactionCountsTable extends Migration
             $table->increments('id');
             $table->string('uuid');
             $table->integer('user_id');
-            $table->bigInteger('account_id')->index()->nullable();
+            $table->bigInteger('account_id')->unsigned()->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->integer('count')->default(0);
             $table->timestamps();
         });

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use DigitalCloud\ModelNotes\HasNotes;
 use App\Traits\Uuid;
+use DigitalCloud\ModelNotes\HasNotes;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Milestone extends Model
 {
 
-    use HasNotes, Uuid;
+    use HasNotes, Uuid, SoftDeletes;
 
     /**
     * @var  string

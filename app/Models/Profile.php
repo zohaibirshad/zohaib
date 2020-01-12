@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Support\Str;
 use DigitalCloud\ModelNotes\HasNotes;
-use App\Traits\Uuid;
 use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\Viewable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use CyrildeWit\EloquentViewable\Contracts\Viewable as ViewableContract;
 
 class Profile extends Model implements HasMedia, ViewableContract
 {
-    use HasMediaTrait, HasNotes, Uuid, Viewable;
+    use HasMediaTrait, HasNotes, Viewable, SoftDeletes;
     /**
      * @var  string
      */
@@ -42,10 +43,24 @@ class Profile extends Model implements HasMedia, ViewableContract
     {
         parent::boot();
 
+        static::creating(function ($model) {
+            $model->uuid = (string) Str::orderedUuid();
+        });
+
         static::updated(function ($model) {
             $user = User::find($model->user_id);
             if($user){
                 $user->syncRoles([$model->type]); 
+            }
+            
+        });
+
+        static::deleting(function ($model) {
+            if($model->jobs()->exists()){
+                foreach ($model->jobs as $job) {
+                    $job->profile_id = NULL;
+                    $job->save();
+                }
             }
             
         });
@@ -163,7 +178,6 @@ class Profile extends Model implements HasMedia, ViewableContract
     {
         return $this->jobs()->where('status', 'completed');
     }
-
 
     /**
      * Get all of the user's reviews.

@@ -17,7 +17,7 @@ class CreateTransactionTable extends Migration
             $table->string('uuid')->nullable();
             $table->decimal('amount', 13,2)->nullable();
             $table->bigInteger('account_id')->unsigned()->nullable();
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->string('account_uuid')->nullable();
             $table->string('status')->nullable();
             $table->string('type')->nullable();
