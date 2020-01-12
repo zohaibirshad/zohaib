@@ -93,7 +93,7 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
 
     public function getNameAttribute() 
     {
-       return is_null($this->first_name) ? "{$this->first_name} {$this->last_name}" : "Profile Deleted";
+       return is_null($this->first_name) ? "Profile Deleted" :  "{$this->first_name} {$this->last_name}";
     } 
 
 
