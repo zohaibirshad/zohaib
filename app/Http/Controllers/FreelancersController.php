@@ -324,9 +324,9 @@ class FreelancersController extends Controller
     {
         $user = $request->user();
 
-        if($user->review != 'successful') {
-            return  redirect('verify-profile')->with('error', "You must verify your account");
-          };
+        // if($user->review != 'successful') {
+        //     return  redirect('verify-profile')->with('error', "You must verify your account");
+        //   };
 
         $validateData = $request->validate([
             'rate' => 'required',
@@ -412,9 +412,9 @@ class FreelancersController extends Controller
     {
         $user = $request->user();
 
-        if($user->review != 'successful') {
-          return  redirect('verify-profile')->with('error', "You must verify your account");
-        };
+        // if($user->review != 'successful') {
+        //   return  redirect('verify-profile')->with('error', "You must verify your account");
+        // };
 
         $validateData = $request->validate([
             'rate' => 'required',
