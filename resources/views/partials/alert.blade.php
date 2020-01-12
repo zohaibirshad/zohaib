@@ -25,9 +25,10 @@
 @endif
 
 @auth
+@role('hirer')
 @if(auth()->user()->review == 'not_started')
 <div class="notification error closeable">
-    <p class="text-center" ><i class="icon-line-awesome-exclamation-circle" style="font-size: 20px;"></i>Please upload supporting documents to be fully verified to bid for jobs. <a href="../verify-profile"> Verify Now!</a></p>
+    <p class="text-center" ><i class="icon-line-awesome-exclamation-circle" style="font-size: 20px;"></i>Please upload supporting documents to be fully verified<a href="../verify-profile"> Verify Now!</a></p>
     <a class="close" href="#"></a>
 </div>
 @elseif(auth()->user()->review == 'pending')
@@ -36,4 +37,20 @@
     <a class="close" href="#"></a>
 </div>
 @endif
+@endrole
+
+@role('freelancer')
+@if(auth()->user()->review == 'not_started')
+<div class="notification error closeable">
+    <p class="text-center" ><i class="icon-line-awesome-exclamation-circle" style="font-size: 20px;"></i>Please upload supporting documents to be fully verified to bid for jobs<a href="../verify-profile"> Verify Now!</a></p>
+    <a class="close" href="#"></a>
+</div>
+@elseif(auth()->user()->review == 'pending')
+<div class="notification error closeable">
+    <p class="text-center" ><i class="icon-line-awesome-exclamation-circle" style="font-size: 20px;"></i>Your uploaded Documents are under review. Thank you!</a></p>
+    <a class="close" href="#"></a>
+</div>
+@endif
+@endrole
+
 @endauth

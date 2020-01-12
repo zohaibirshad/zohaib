@@ -41,16 +41,16 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                                     <div class="verified-badge"></div>
                                     @endif
                                     @if (sizeof($bid->profile->getMedia('profile')) == 0)
-									<a href="freelancers/{{ $bid->profile->uuid }}"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
+									<a href="../freelancers/{{ $bid->profile->uuid }}"><img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></a>
 									@else
-									<a href="freelancers/{{ $bid->profile->uuid }}"><img src="{{ $bid->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/></a>
+									<a href="../freelancers/{{ $bid->profile->uuid }}"><img src="{{ $bid->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/></a>
 									@endif
                                 </div>
 
                                 <!-- Name -->
                                 <div class="freelancer-name">
                                     <h4>
-                                        <a href="freelancers/{{ $bid->profile->uuid }}">{{ $bid->profile->name }} 
+                                        <a href="../freelancers/{{ $bid->profile->uuid }}">{{ $bid->profile->name }} 
                                             <img class="flag" src="{{ asset('assets/images/flags/'. strtolower($bid->profile->country->code).'.svg') }}" alt="{{ $bid->profile->country->name }}">
                                         </a>
                                     </h4>

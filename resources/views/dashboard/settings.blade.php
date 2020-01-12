@@ -30,8 +30,7 @@
                         </div>
                     </div>
 
-                    <div class="col-auto">
-                        <div class="row">
+                        <div class="flex flex-row flex-wrap max-w-5xl">
 
                             <div class="col-xl-6">
                                 <div class="submit-field">
@@ -118,7 +117,6 @@
                             </div>      
 
                         </div>
-                    </div>
                 </div>
 
                 </form>
@@ -143,7 +141,7 @@
                     @csrf
                     <ul class="fields-ul">
                     <li>
-                        <div class="row">
+                        <div class="row max-w-5xl">
                             <div class="col-xl-4">
                                 <div class="submit-field">
                                     <div class="bidding-widget">
@@ -206,7 +204,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="row">
+                        <div class="row max-w-5xl">
                             <div class="col-xl-6">
                                 <div class="submit-field">
                                     <h5>Professional Headline</h5>
@@ -225,7 +223,7 @@
                     </li>
 
                     <li>
-                        <div class="row">
+                        <div class="row max-w-5xl">
                             <div class="col-xl-12">
                                 <div class="submit-field">
                                     <button type="submit" class="button ripple-effect">Submit Changes</button>
@@ -242,7 +240,7 @@
     @endrole
 
     <!-- Dashboard Box -->
-    <div class="col-xl-12">
+    <div class="col-xl-12 max-w-full">
         <form method="post" action="/update_password">
             @csrf
             <div id="test1" class="dashboard-box">
@@ -253,7 +251,7 @@
                 </div>
 
                 <div class="content with-padding">
-                    <div class="row">
+                    <div class="row max-w-5xl">
                         <div class="col-xl-4">
                             <div class="submit-field">
                                 <h5>Current Password</h5>
