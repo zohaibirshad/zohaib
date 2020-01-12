@@ -166,8 +166,8 @@ class HirerController extends Controller
         if($request->status == 'approved'){
             if($user->account()->exists()){
                 if($user->account->balance < $milestone->cost){
-                    toastr()->error("Account, You dont have enough funds in your walet to fund the milestone cost");
-                    return back()->with('error', "You must add funds in your wallet to serve as an escrow payment, the money would still stays in your account until you release payment. Thank You");
+                    toastr()->error("Account, You dont have enough funds in your walet to fund the milestone cost. Account Balance: $" .$user->account->balance);
+                    return back()->with('error', "You must add funds in your wallet to serve as an escrow payment, the money would still stays in your account until you release payment. Account Balance: $" .$user->account->balance);
                 }
             }
            
