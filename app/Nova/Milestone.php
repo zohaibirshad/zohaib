@@ -90,8 +90,9 @@ class Milestone extends Resource
             ->sortable()
             ->options([
                 'not done' => 'Pending',
-                'approved' => 'Approved',
                 'started' => 'Started',
+                'request changes' => 'Request Changes',
+                'approved' => 'Approved',
                 'done' => 'Completed',
             ])->displayUsingLabels(),
             Select::make( __('Payment'),  'is_paid')

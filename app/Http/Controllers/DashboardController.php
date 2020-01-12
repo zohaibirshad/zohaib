@@ -43,7 +43,7 @@ class DashboardController extends Controller
             $pending_bids = Job::where('user_id', $user->id)->where('status', 'not assigned' )->withCount('bids')->get('id');
             $pending_bids = $pending_bids->sum('bids_count');
             $completed_jobs = $jobs = Job::where('status', 'completed' )->where('user_id', Auth::id())->count();
-            $jobs = $jobs = Job::where('user_id', Auth::id())->with('profile')->limit('5')->get();
+            $jobs = $jobs = Job::where('user_id', Auth::id())->with('profile')->limit('4')->latest()->get();
 
             $monthly_views = views($user->profile)->period(Period::since(now()->startOfMonth()))->count();
 
@@ -52,7 +52,7 @@ class DashboardController extends Controller
             return view('dashboard.dashboard', compact('count_ongoing_jobs', 'pending_bids', 'completed_jobs', 'jobs', 'profile_views', 'monthly_views'));
 
         } else {
-            $jobs = Job::where('profile_id', Auth::user()->profile->id)->get();
+            $jobs = Job::where('profile_id', Auth::user()->profile->id)->limit(4)->latest()->get();
 
             $completed_jobs = Job::where('profile_id', Auth::user()->profile->id)->where('status', 'completed' )->count();
 

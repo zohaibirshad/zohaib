@@ -14,7 +14,6 @@
 
             <div class="content">
                 <ul class="dashboard-box-list">
-                    <li>
                         @forelse ($jobs as $job)
                     <li>
                             <!-- Job Listing -->
@@ -46,7 +45,7 @@
                             <!-- Buttons -->
                             @role('hirer')
                             <div class="buttons-to-right always-visible">
-                                <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect"><i class="icon-line-awesome-list-alt"></i> View Milestones <span class="button-info">3</span></a>
+                                <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect"><i class="icon-line-awesome-list-alt"></i> View Milestones <span class="button-info">{{ $job->milestones_count }}</span></a>
                             </div>
                             @endrole
                         </li>  

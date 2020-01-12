@@ -250,7 +250,7 @@ class FreelancersController extends Controller
         return redirect()->back()->with('success', 'Review updated');
     }
 
-    public function update_milestone(Request $request, $mile_uuid)
+    public function update_milestone_status(Request $request, $mile_uuid)
     {
         $validateData = $request->validate([
             'status' => 'required'
@@ -572,26 +572,23 @@ class FreelancersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit_milestone(Request $request, $mile_uuid)
+    public function update_milestone(Request $request, $mile_uuid)
     {
         $validateData = $request->validate([
             'heading' => 'required',
             'activity' => 'required',
             'cost' => 'required',
-            'status' => 'required',
         ]);
 
-        $milestone = Milestone::where('uuid', $mile_uuid);
+        $milestone = Milestone::where('uuid', $mile_uuid)->first();
         $milestone->heading = $request->heading;
         $milestone->activity = $request->activity;
         $milestone->cost = $request->cost;
-        $milestone->status = $request->status;
         $milestone->save();
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Milestone was Updated successfully"
-        ]);
+        return back()->with(
+            'success', "Milestone was Updated successfully"
+        );
     }
 
 

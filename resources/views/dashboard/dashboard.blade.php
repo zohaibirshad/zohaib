@@ -6,7 +6,7 @@
     <!-- Dashboard Content
 	================================================== -->
 	
-	@role('freelancer')
+			@role('freelancer')
 			<!-- Fun Facts Container -->
 			<div class="fun-facts-container">
 				<div class="fun-fact" data-fun-fact-color="#36bd78">
@@ -106,6 +106,7 @@
 					<!-- Dashboard Box / End -->
 				</div>
 			</div>
+		
 			<!-- Row / End -->
 			@endrole('freelancer')
 
@@ -165,48 +166,48 @@
 					</div>
 					<!-- Dashboard Box / End -->
 				</div>
-				<div class="xl:w-4/12 lg:ml-1 h-64">
+				<div class="xl:w-4/12 lg:ml-1">
 
 					<!-- Dashboard Box -->
 					<!-- If you want adjust height of two boxes 
 						 add to the lower box 'main-box-in-row' 
 						 and 'child-box-in-row' to the higher box -->
-                         <div class="dashboard-box">
-						<div class="headline">
-							<h3><i class="icon-material-outline-assignment"></i>Ongoing Jobs</h3>
+                        <div class="dashboard-box">
+							<div class="headline">
+								<h3><i class="icon-material-outline-assignment"></i>Ongoing Jobs</h3>
+							</div>
+							<div class="content">
+								<ul class="dashboard-box-list">
+									@foreach($jobs as $job)
+									<li>
+										<div class="invoice-list-item">
+										<strong>{{ $job->title }}</strong>
+											<ul>
+												<li>
+													@if($job->budget_type == 'fixed')
+														Fixed Price
+													@else
+														Hourly Rate
+													@endif
+													@if ($job->min_budget == $job->max_budget)
+														{{ '$'.$job->min_budget }}
+													@else
+														{{ '$'.$job->min_budget. ' - $' .$job->max_budget }}
+													@endif
+												</li>
+												<li>Date: {{ $job->created_at }}</li>
+												<li><span class="@if($job->status == 'completed') paid @else unpaid @endif">{{ $job->status }}</span></li>
+											</ul>
+										</div>
+										<!-- Buttons -->
+										<div class="buttons-to-right">
+											<a href="../jobs/{{ $job->slug }}" class="button">View Job</a>
+										</div>
+									</li>
+									@endforeach
+								</ul>
+							</div>
 						</div>
-						<div class="content">
-							<ul class="dashboard-box-list">
-								@foreach($jobs as $job)
-								<li>
-									<div class="invoice-list-item">
-									<strong>{{ $job->title }}</strong>
-										<ul>
-											<li>
-												@if($job->budget_type == 'fixed')
-													Fixed Price
-												@else
-													Hourly Rate
-												@endif
-												@if ($job->min_budget == $job->max_budget)
-													{{ '$'.$job->min_budget }}
-												@else
-													{{ '$'.$job->min_budget. ' - $' .$job->max_budget }}
-												@endif
-											</li>
-											<li>Date: {{ $job->created_at }}</li>
-											<li><span class="@if($job->status == 'completed') paid @else unpaid @endif">{{ $job->status }}</span></li>
-										</ul>
-									</div>
-									<!-- Buttons -->
-									<div class="buttons-to-right">
-										<a href="../jobs/{{ $job->slug }}" class="button">View Job</a>
-									</div>
-								</li>
-								@endforeach
-							</ul>
-						</div>
-					</div>
 					<!-- Dashboard Box / End -->
 				</div>
 			</div>

@@ -154,15 +154,29 @@ class HirerController extends Controller
      */
     public function update_milestone(Request $request, $mile_uuid)
     {
+        $user = $request->user();
+
         $validateData = $request->validate([
             'status' => 'required',
         ]);
+    
 
         $milestone = Milestone::where('uuid', $mile_uuid)->first();
+
+        if($request->status == 'approved'){
+            if($user->account()->exists()){
+                if($user->account->balance < $milestone->cost){
+                    toastr()->error("Account, You dont have enough funds in your walet to fund the milestone cost");
+                    return back()->with('error', "You must add funds in your wallet to serve as an escrow payment, the money would still stays in your account until you release payment. Thank You");
+                }
+            }
+           
+        }
+
         $milestone->status = $request->status;
         $milestone->save();
 
-        return back()->with('success', 'Payment Released For Milestone');
+        return back()->with('success', 'Milestone Status Changed');
 
         // return response()->json([
         //     'status' => "Success",
@@ -208,7 +222,7 @@ class HirerController extends Controller
                 }
     
                 toastr()->error("Account " . $e->getMessage() . " failed");
-                return back();
+                return back()->with('error', "You dont have enough funds in your walet");
 
             }
             $aggregateRoot->persist(); 
@@ -259,9 +273,6 @@ class HirerController extends Controller
 
         }
 
-     
-    
-        
         $milestone->is_paid = 1;
         $milestone->save();
 
@@ -408,4 +419,6 @@ class HirerController extends Controller
 
         return view('dashboard.bookmarks', compact('bookmarks'));
     }
+
+    
 }

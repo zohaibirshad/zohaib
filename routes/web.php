@@ -103,7 +103,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('edit_bid/{uuid}', 'FreelancersController@edit_bid');
         Route::post('delete_bid/{uuid}', 'FreelancersController@delete_bid');
         Route::post('review_job/{uuid}', 'FreelancersController@review_job');
-        Route::post('milestones/edit_milestone/{uuid}', 'FreelancersController@update_milestone');
+        Route::post('milestones/update_milestone/{uuid}', 'FreelancersController@update_milestone');
+        Route::post('milestones/freelancer/update_status/{uuid}', 'FreelancersController@update_milestone_status');
         Route::post('milestones/add', 'FreelancersController@add_milestone');
     });
 
@@ -115,6 +116,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('bidders/{uuid}', 'HirerController@manage_bids')->name('bidders');
         Route::post('bidders/accept_bid/{uuid}', 'HirerController@accept_bid');
         Route::post('milestones/release_payment/{uuid}', 'HirerController@release_payment_for_milestone');
+        Route::post('milestones/hirer/update_status/{uuid}', 'HirerController@update_milestone');
     });
 
     Route::get('ongoing-jobs', 'JobsController@ongoing_jobs')->name('ongoing-jobs');
