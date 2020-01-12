@@ -101,8 +101,7 @@ class Profile extends Resource
             ])->displayUsingLabels(),
             BelongsToManyField::make('Skiils', 'skills', 'App\Nova\Skill')->optionsLabel('title')->nullable()->hideFromIndex(),
             Trix::make( __('Description'),  'description')
-            ->hideFromIndex()
-            ->withFiles('public'),
+            ->hideFromIndex(),
             Text::make( __('Phone'),  'phone')
             ->sortable(),
             Text::make( __('Email'),  'email')

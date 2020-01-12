@@ -40,7 +40,7 @@ class DashboardController extends Controller
         // Get Jobs the User has Completed
         if ($user->hasRole('hirer')) {
             $count_ongoing_jobs = $jobs = Job::where('status', 'assigned' )->where('user_id', Auth::id())->count();
-            $pending_bids = Job::where('status', 'not assigned' )->withCount('bids')->get('id');
+            $pending_bids = Job::where('user_id', $user->id)->where('status', 'not assigned' )->withCount('bids')->get('id');
             $pending_bids = $pending_bids->sum('bids_count');
             $completed_jobs = $jobs = Job::where('status', 'completed' )->where('user_id', Auth::id())->count();
             $jobs = $jobs = Job::where('user_id', Auth::id())->with('profile')->limit('5')->get();

@@ -79,10 +79,10 @@ class BlogPost extends Resource
             ->searchable()
             ->sortable(),
             BelongsToManyField::make('Categories', 'categories', 'App\Nova\BlogCategory')
-            ->options(\App\Models\BlogCategory::all())
+            ->optionsLabel('title')
             ->nullable(),
             BelongsToManyField::make('Tags', 'tags', 'App\Nova\BlogTag')
-            ->options(\App\Models\BlogTag::all())
+            ->optionsLabel('title')
             ->nullable(),
             Select::make( __('Featured Article'),  'featured')
             ->sortable()

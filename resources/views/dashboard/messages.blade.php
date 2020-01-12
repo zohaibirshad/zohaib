@@ -116,22 +116,9 @@
 				<div class="clearfix"></div>
 			</div>
 
-			{{-- <div class="message-bubble">
-				<div class="message-bubble-inner">
-					<div class="message-avatar"><img src="{{ asset('assets/images/user-avatar-small-02.jpg') }}" alt="" /></div>
-					<div class="message-text">
-						<!-- Typing Indicator -->
-						<div class="typing-indicator">
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div> --}}
 		</div>
 		<!-- Message Content Inner / End -->
+		
 							
 		<!-- Reply Area -->
 		<div class="message-reply">
@@ -147,6 +134,7 @@
 		</div>
 
 	</div>
+	
 	<!-- Message Content -->
 
 	</div>
