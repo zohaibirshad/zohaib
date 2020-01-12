@@ -210,7 +210,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
 			<div class="popup-tab-content" id="tab">
 
                 <!-- Button -->
-                <form action="/milestones/add" method="post" id="addMileStoneForm">
+                <form action="../milestones/add" method="post" id="addMileStoneForm">
                     @csrf
                     <input type="hidden" name="job_id" value="{{ $job->id }}">
                     <input type="hidden" name="user_id" value="{{ $job->user_id }}">
@@ -255,7 +255,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
 			<div class="popup-tab-content" id="tab">
 
                 <!-- Button -->
-                <form action="/milestones/edit" method="post" id="editMileStoneForm">
+                <form action="../milestones/edit" method="post" id="editMileStoneForm">
                     @csrf
                     <input type="hidden" name="job_id" value="{{ $job->id }}">
                     <input type="hidden" name="user_id" value="{{ $job->user_id }}">
