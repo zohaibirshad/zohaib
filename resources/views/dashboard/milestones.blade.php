@@ -32,6 +32,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 <ul class="timeline">
                     @forelse ($milestones as $milestone)
                     <li class="event {{ $milestone->status == 'done' ? 'done' : 'notdone'}}">
+                        @role('freelancer')
                         @if($milestone->status == 'not done')
                         <p class="text-red-500">Start the milestone only when Hirer has approved</p>
                         @elseif($milestone->status == 'request changes')
@@ -43,6 +44,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                         @elseif($milestone->status == 'done' & $milestone->is_paid == 1)
                         <p class="text-green-500">Funds has been transfered into your account. </p>
                         @endif
+                        @endrole
                          <p>{{ $milestone->status }}</p>
                         <h3> <a href="#small-dialog-2"  class="popup-with-zoom-anim milestoneDetails" data-milestone="{{ $milestone }}">
                             {{ $milestone->heading ?? ''}}</a>
