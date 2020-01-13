@@ -4,9 +4,11 @@
 Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a> 
 
 @role('freelancer')
+@if($job->status != 'completed')
 <a href="#small-dialog-4"  class="popup-with-zoom-anim btn btn-primary btn-xs">
     Add Milestone
 </a>
+@endif
 @endrole
 @endsection
 
