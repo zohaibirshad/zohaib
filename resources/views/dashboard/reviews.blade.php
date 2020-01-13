@@ -36,10 +36,10 @@
 								@else
 								<div class="item-details margin-top-10">
 									<div class="star-rating" data-rating="{{ $job->rating ?? 0 }}"></div>
-									<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->reviews[0]->created_at }}</div>
+									<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->reviews()->where('reviewable_id', $job->id)->first()->created_at }}</div>
 								</div>
 								<div class="item-description">
-									<p>{{ $job->reviews[0]->body }}</p>
+									<p>{{ $job->reviews()->where('reviewable_id', $job->id)->first()->body }}</p>
 								</div>
 								@endif
                                 </div>
@@ -87,25 +87,25 @@
 								<h4><i  class="icon-feather-briefcase"></i> {{ $job->title ?? ''}}</h4>
 								@isset($job->profile)
 								<p class="mt-2"><i  class="icon-feather-user"></i> {{ $job->profile->name ?? ''}}</p>
-									@if(sizeof($job->profile->reviews) == 0)
-									<span class="company-not-rated margin-bottom-5">Not Rated</span>
-									@else
+									@if($job->reviewed)
 									<div class="item-details margin-top-10">
 										<div class="star-rating" data-rating="{{ $job->profile->rating ?? 0 }}"></div>
-										<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->profile->reviews[0]->created_at ?? ''}}</div>
+										<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->reviews()->where('reviewable_id', $job->id)->first()->created_at ?? ''}}</div>
 									</div>
 									<div class="item-description">
-										<p>{{ $job->profile->reviews[0]->body ?? ''}}</p>
+										<p>{{ $job->reviews()->where('reviewable_id', $job->id)->first()->body ?? ''}}</p>
 									</div>
+									@else
+									<span class="company-not-rated margin-bottom-5">Not Rated</span>
 									@endif
 								@endisset
                                 </div>
                             </div>
 							@if(!empty($job->profile))
-								@if(sizeof($job->profile->reviews) == 0)
-								<a href="#small-dialog-3" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 leaveReview2" data-job="{{ $job }}"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>
-								@else
+								@if($job->reviewed)
 								{{-- <a href="#small-dialog-1" class="popup-with-zoom-anim button gray ripple-effect margin-top-5 margin-bottom-10 editReview" data-job="{{ $job }}"><i class="icon-feather-edit"></i> Edit Review</a> --}}
+								@else
+								<a href="#small-dialog-3" class="popup-with-zoom-anim button ripple-effect margin-top-5 margin-bottom-10 leaveReview2" data-job="{{ $job }}"><i class="icon-material-outline-thumb-up"></i> Leave a Review</a>
 								@endif
 
 							@else
