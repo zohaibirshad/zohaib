@@ -66,8 +66,8 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                                     <a href="#small-dialog-3"  class="popup-with-zoom-anim button btn-xs completedBtn" data-milestone="{{ $milestone }}">
                                         <i class="icon-material-outline-check-circle"></i> Mark as Completed
                                     </a>
-                                @else
-                                    <a href="#small-dialog-edit"  class="float-right popup-with-zoom-anim button dark btn-xs pt-1 editBtn" data-milestone="{{ $milestone }}">
+                                @elseif($milestone->status != 'approved' & $milestone->status != 'done')
+                                    <a href="#small-dialog-edit"  class="popup-with-zoom-anim button dark btn-xs editBtn" data-milestone="{{ $milestone }}">
                                         <i class="icon-feather-edit"></i> <span class="px-3 text-sm">Edit Milestone</span>
                                     </a>
                                 </span>

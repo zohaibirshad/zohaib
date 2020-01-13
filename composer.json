@@ -31,7 +31,6 @@
         "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
         "maatwebsite/laravel-nova-excel": "^1.1",
-        "musonza/chat": "^4.2",
         "nikaia/nova-rating-field": "^1.0",
         "owen-it/laravel-auditing": "^9.3",
         "spatie/laravel-event-sourcing": "^2.0",
