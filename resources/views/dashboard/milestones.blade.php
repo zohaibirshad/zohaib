@@ -5,9 +5,12 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
 
 @role('freelancer')
 @if($job->status != 'completed')
-<a href="#small-dialog-4"  class="popup-with-zoom-anim btn btn-primary btn-xs">
-    Add Milestone
+<div class="flex flex-row flex-wrap justify-between">
+<a href="#small-dialog-4"  class="popup-with-zoom-anim">
+    <span class=" text-sm bg-light-blue-500 shadow px-5 py-2 rounded-full text-white">Add Milestone</span>
 </a>
+<p class="px-4 py-2 bg-red-400 text-white shadow">Ensure You add all the milestones before your start </p>
+</div>
 @endif
 @endrole
 @endsection
@@ -24,6 +27,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 @else
                 <div class="flex flex-row flex-wrap justify-between">
                 <h3><i class="icon-material-outline-access-time"></i> {{ $completion }}% Completed</h3>
+
                 <h3><i class="icon-line-awesome-money"></i> {{ $payment }}% Payments</h3>
 
                 </div>
