@@ -326,15 +326,15 @@
 					<div class="feedback-yes-no">
 						<strong>Your Rating</strong>
 						<div class="leave-rating">
-							<input type="radio" name="rating" id="rating-radio-6" value="5" required>
+							<input type="radio" name="rating" id="rating-radio-1" value="5" required>
 							<label for="rating-radio-1" class="icon-material-outline-star"></label>
-							<input type="radio" name="rating" id="rating-radio-7" value="4" required>
+							<input type="radio" name="rating" id="rating-radio-2" value="4" required>
 							<label for="rating-radio-2" class="icon-material-outline-star"></label>
-							<input type="radio" name="rating" id="rating-radio-8" value="3" required>
+							<input type="radio" name="rating" id="rating-radio-3" value="3" required>
 							<label for="rating-radio-3" class="icon-material-outline-star"></label>
-							<input type="radio" name="rating" id="rating-radio-9" value="2" required>
+							<input type="radio" name="rating" id="rating-radio-4" value="2" required>
 							<label for="rating-radio-4" class="icon-material-outline-star"></label>
-							<input type="radio" name="rating" id="rating-radio-10" value="1" required>
+							<input type="radio" name="rating" id="rating-radio-5" value="1" required>
 							<label for="rating-radio-5" class="icon-material-outline-star"></label>
 						</div><div class="clearfix"></div>
                     </div>
