@@ -221,7 +221,7 @@ class FreelancersController extends Controller
         $job = Job::where('uuid', $job_uuid)->first();
 
         $job->reviews()->create([
-            'user_id' => Auth::user()->id,
+            'user_id' => $job->user->id,
             'rating' => $request->rating,
             'body' => $request->body,
             'job_id' => $request->job_id,

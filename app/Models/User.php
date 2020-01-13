@@ -106,6 +106,13 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         return "{$this->first_name} {$this->last_name}";
     } 
 
+    public function getRatingAttribute()
+    {
+        $rating = $this->reviews()->average('rating');
+
+        return number_format($rating, 1);
+    }
+
 
     public function profile()
     {
