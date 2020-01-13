@@ -23,7 +23,7 @@
 						<div class="header-details">
 							<h3> {{ $profile->name }}</h3>
 							<ul>
-								<li><div class="star-rating" data-rating="{{ $profile->rating ?? 0 }}"></div></li>
+								<li><div class="star-rating" data-rating="{{ $profile->user->rating ?? 0 }}"></div></li>
 								<li><img class="flag" src="{{ asset('assets/images/flags/'. strtolower($profile->country->code.'.svg')) }}" alt="$profile->country->name">{{ $profile->country->name }}</li>
                                 @if($profile->verified == 1)
                                 <li><div class="verified-badge-with-title">Verified</div></li>

@@ -35,7 +35,7 @@
 								<span class="company-not-rated margin-bottom-5">Not Rated</span>
 								@else
 								<div class="item-details margin-top-10">
-									<div class="star-rating" data-rating="{{ $job->profile->rating }}"></div>
+									<div class="star-rating" data-rating="{{ $job->rating ?? 0 }}"></div>
 									<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->reviews[0]->created_at }}</div>
 								</div>
 								<div class="item-description">
@@ -91,7 +91,7 @@
 									<span class="company-not-rated margin-bottom-5">Not Rated</span>
 									@else
 									<div class="item-details margin-top-10">
-										<div class="star-rating" data-rating="{{ $job->user->rating }}"></div>
+										<div class="star-rating" data-rating="{{ $job->profile->rating ?? 0 }}"></div>
 										<div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ $job->profile->reviews[0]->created_at ?? ''}}</div>
 									</div>
 									<div class="item-description">
