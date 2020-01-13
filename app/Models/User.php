@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
-use Musonza\Chat\Traits\Messageable;
 use DigitalCloud\ModelNotes\HasNotes;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -19,7 +18,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, Auditable
 {
-    use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes, Messageable;
+    use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes;
 
     protected $guard_name = 'web';
 
