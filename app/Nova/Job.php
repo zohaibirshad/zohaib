@@ -5,9 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Place;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
@@ -76,6 +74,10 @@ class Job extends Resource
             ID::make( __('Id'),  'id')
             ->rules('required')
             ->sortable(),
+            Files::make('Supporting Document', 'project_files')
+            ->customProperties([
+                'type' => 'project files',
+            ]),
             BelongsTo::make('Hirer', 'owner', 'App\Nova\User')
             ->searchable()
             ->sortable(),  
@@ -134,10 +136,11 @@ class Job extends Resource
                 'no' => 'No',
                 'yes' => 'Yes',
             ]),
-            Files::make('Supporting Document', 'project_files')
-            ->customProperties([
-                'type' => 'project files',
-            ]),
+
+            DateTime::make(__('Created at'), 'created_at')
+            ->sortable()
+            ->exceptOnForms(),
+            
             MorphMany::make('Reviews'),
             HasMany::make('Bids'),
             HasMany::make('Milestones'),
