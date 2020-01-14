@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Browse Freelancers')
+@section('title', 'Agency Profile')
 
 @section('content')
 
