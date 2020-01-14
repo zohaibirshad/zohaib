@@ -64,7 +64,7 @@
                                     <h4>{{ $job->title }}</h4>
                                     <div class="item-details margin-top-10">
                                         <div class="star-rating" data-rating="{{ $job->profile->rating ?? 0 }}"></div>
-                                        <div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ \Carbon\Carbon::parse($job->created_at)->toDateString() }}</div>
+                                        <div class="detail-item"><i class="icon-material-outline-date-range"></i> {{ \Carbon\Carbon::parse($job->created)->toDateString() }}</div>
                                     </div>
                                     <div class="item-details margin-top-10">
                                     <div class="detail-item"><i class="icon-material-outline-monetization-on"></i>On budget:  {{ strtoupper($job->onbudget) }}</div>

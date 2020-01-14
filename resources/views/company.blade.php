@@ -94,7 +94,7 @@
                                                 {{ '$'.$job->min_budget. ' - $' .$job->max_budget }}
                                             @endif
                                         </li>
-										<li><i class="icon-material-outline-access-time"></i> {{ $job->created_at }}</li>
+										<li><i class="icon-material-outline-access-time"></i> {{ $job->created }}</li>
 									</ul>
 								</div>
 							</div>

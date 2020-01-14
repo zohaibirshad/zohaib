@@ -90,7 +90,7 @@
 													{{ '$'.$job->min_budget. ' - $' .$job->max_budget }}
 												@endif
 											</li>
-											<li>Date: {{ $job->created_at }}</li>
+											<li>Date: {{ $job->created }}</li>
 											<li><span class="@if($job->status == 'completed') paid @else unpaid @endif">{{ $job->status }}</span></li>
 										</ul>
 									</div>
@@ -195,7 +195,7 @@
 														{{ '$'.$job->min_budget. ' - $' .$job->max_budget }}
 													@endif
 												</li>
-												<li>Date: {{ $job->created_at }}</li>
+												<li>Date: {{ $job->created }}</li>
 												<li><span class="@if($job->status == 'completed') paid @else unpaid @endif">{{ $job->status }}</span></li>
 											</ul>
 										</div>

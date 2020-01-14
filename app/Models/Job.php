@@ -25,6 +25,7 @@ class Job extends Model implements HasMedia
         'updated_at' => 'datetime',
     ];
 
+
     protected $appends = [
         'rating',
         'reviewed'
@@ -57,7 +58,7 @@ class Job extends Model implements HasMedia
     }
 
 
-    public function getCreatedAtAttribute()
+    public function getCreatedAttribute()
     {
         return  Carbon::parse($this->attributes['created_at'])->diffForHumans();
     }

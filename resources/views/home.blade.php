@@ -123,7 +123,7 @@
 								<h3 class="task-listing-title">{{ $job->title ?? '' }}</h3>
 								<ul class="task-icons">
 									<li><i class="icon-material-outline-location-on"></i> {{ $job->country->name ?? ''  }}</li>
-									<li><i class="icon-material-outline-access-time"></i> {{ \Carbon\Carbon::parse($job->created_at)->diffForHumans() }}</li>
+									<li><i class="icon-material-outline-access-time"></i> {{ \Carbon\Carbon::parse($job->created)->diffForHumans() }}</li>
 								</ul>
 								<div class="task-tags margin-top-15">
 								@foreach($job->skills as $skill)

@@ -45,13 +45,16 @@ Route::get('companies/{id}', function($id){
     ->where('user_id', $profile->user_id)
     ->get();
 
-    $reviews = $jobs->map(function($item,$value){
+    $reviewed_jobs =  \App\Models\Job::where('status', 'completed')
+    ->where('user_id', $profile->user_id)
+    ->get();
+
+    $reviews = $reviewed_jobs->map(function($item,$value){
         return [
             $item->reviews()->latest()->limit('20')->get()
         ];
     })->flatten()->all();
 
-    // return $reviews;
 
     return view('company', compact('profile', 'jobs', 'reviews'));
 });

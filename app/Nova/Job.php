@@ -137,7 +137,7 @@ class Job extends Resource
                 'yes' => 'Yes',
             ]),
 
-            DateTime::make(__('Created at'), 'created_at')
+            DateTime::make(__('Created At'), 'created_at')->format('LL')
             ->sortable()
             ->exceptOnForms(),
             
