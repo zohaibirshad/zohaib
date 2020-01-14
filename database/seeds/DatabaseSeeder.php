@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CountriesTableSeeder::class,
             RolesTableSeeder::class,
             SkillsTableSeeder::class,
+            PlanTableSeeder::class,
             UsersTableSeeder::class,
             BlogTagsTableSeeder::class,
             BlogCategoriesTableSeeder::class,
