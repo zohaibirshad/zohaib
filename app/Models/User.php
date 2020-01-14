@@ -89,12 +89,29 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
 
 
     }
+
+    public function getParticipantDetailsAttribute()
+    {
+        return [
+            'name' => "{$this->first_name} {$this->last_name}",
+            'email' => $this->email,
+            'profile' => $this->profile,
+
+        ];
+    }
     
 
     public function getNameAttribute() 
     {
         return "{$this->first_name} {$this->last_name}";
     } 
+
+    public function getRatingAttribute()
+    {
+        $rating = $this->reviews()->average('rating');
+
+        return number_format($rating, 1);
+    }
 
 
     public function profile()

@@ -26,7 +26,8 @@ class Job extends Model implements HasMedia
     ];
 
     protected $appends = [
-        'rating'
+        'rating',
+        'reviewed'
     ];
 
     /**
@@ -45,6 +46,16 @@ class Job extends Model implements HasMedia
         //     $model->slug = (string) Str::slug($model->title ."-". time());
         // });
     }
+
+    public function getReviewedAttribute()
+    {
+         if(is_null($this->ontime)){
+             return false;
+         }else {
+            return true;
+         }
+    }
+
 
     public function getCreatedAtAttribute()
     {

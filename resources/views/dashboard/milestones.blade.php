@@ -4,9 +4,14 @@
 Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a> 
 
 @role('freelancer')
-<a href="#small-dialog-4"  class="popup-with-zoom-anim btn btn-primary btn-xs">
-    Add Milestone
+@if($job->status != 'completed')
+<div class="flex flex-row flex-wrap justify-between">
+<a href="#small-dialog-4"  class="popup-with-zoom-anim">
+    <span class=" text-sm bg-light-blue-500 shadow px-5 py-2 rounded-full text-white">Add Milestone</span>
 </a>
+<p class="px-4 py-2 bg-red-400 text-white shadow">Ensure You add all the milestones before your start the project.</p>
+</div>
+@endif
 @endrole
 @endsection
 
@@ -22,6 +27,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                 @else
                 <div class="flex flex-row flex-wrap justify-between">
                 <h3><i class="icon-material-outline-access-time"></i> {{ $completion }}% Completed</h3>
+
                 <h3><i class="icon-line-awesome-money"></i> {{ $payment }}% Payments</h3>
 
                 </div>
@@ -66,8 +72,8 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
                                     <a href="#small-dialog-3"  class="popup-with-zoom-anim button btn-xs completedBtn" data-milestone="{{ $milestone }}">
                                         <i class="icon-material-outline-check-circle"></i> Mark as Completed
                                     </a>
-                                @else
-                                    <a href="#small-dialog-edit"  class="float-right popup-with-zoom-anim button dark btn-xs pt-1 editBtn" data-milestone="{{ $milestone }}">
+                                @elseif($milestone->status != 'approved' & $milestone->status != 'done')
+                                    <a href="#small-dialog-edit"  class="popup-with-zoom-anim button dark btn-xs editBtn" data-milestone="{{ $milestone }}">
                                         <i class="icon-feather-edit"></i> <span class="px-3 text-sm">Edit Milestone</span>
                                     </a>
                                 </span>

@@ -169,7 +169,7 @@ class DashboardController extends Controller
             ->count();
 
             $paid = Milestone::where('job_id', $job->id)
-            ->where('is_paid', 1)
+            ->where('is_paid', '1')
             ->where('user_id', $user->id)
             ->count();
         } else {
@@ -183,7 +183,7 @@ class DashboardController extends Controller
             ->count();
 
             $paid = Milestone::where('job_id', $job->id)
-            ->where('is_paid', 1)
+            ->where('is_paid', '1')
             ->where('profile_id', $freelancer->id)
             ->count();
 
@@ -203,7 +203,7 @@ class DashboardController extends Controller
 
         if($mCount > 0){
             $completion = ($done / $mCount ) * 100;
-            $is_paid = ($paid / $mCount ) * 100;
+            $payment = ($paid / $mCount ) * 100;
 
             // Set job to completed if its 100
             if($payment == 100 ){

@@ -50,14 +50,14 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                                 <!-- Name -->
                                 <div class="freelancer-name">
                                     <h4>
-                                        <a href="../freelancers/{{ $bid->profile->uuid }}">{{ $bid->profile->name }} 
+                                        <a href="../freelancers/{{ $bid->profile->uuid }}">{{ $bid->profile->name ?? '' }} 
                                             <img class="flag" src="{{ asset('assets/images/flags/'. strtolower($bid->profile->country->code).'.svg') }}" alt="{{ $bid->profile->country->name }}">
                                         </a>
                                     </h4>
 
                                     <!-- Details -->
                                     <span class="freelancer-detail-item">
-                                        <a href="mailto:{{ $bid->profile->email }}"><i class="icon-feather-mail"></i> {{ $bid->profile->email }}</a></span>
+                                        <a href="mailto:{{ $bid->profile->email }}"><i class="icon-feather-mail"></i> {{ $bid->profile->email  ?? ''}}</a></span>
 
                                     <!-- Rating -->
 
@@ -71,8 +71,8 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 
                                     <!-- Bid Details -->
                                     <ul class="dashboard-task-info bid-info">
-                                        <li><strong>${{ $bid->rate }}</strong><span class="text-capitalize">{{ $job->budget_type }} Rate</span></li>
-                                        <li><strong>{{ $bid->delivery_time }} {{ $bid->delivery_type }}</strong><span>Delivery Time</span></li>
+                                        <li><strong>${{ $bid->rate  ?? ''}}</strong><span class="text-capitalize">{{ $job->budget_type  ?? ''}} Rate</span></li>
+                                        <li><strong>{{ $bid->delivery_time  ?? ''}} {{ $bid->delivery_type  ?? ''}}</strong><span>Delivery Time</span></li>
                                     </ul>
 
                                     <!-- Buttons -->
@@ -116,9 +116,9 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 				
 				<!-- Welcome Text -->
 				<div class="welcome-text">
-					<h3 id="acceptBidText">Accept Offer From David</h3>
+					<h3 id="acceptBidText">Accept Offer From {{ $bid->profile->name ?? '' }} </h3>
 					<div class="bid-acceptance margin-top-15" id="bidPrice">
-						$3200
+						${{ $bid->rate ?? '' }} 
 					</div>
 
 				</div>
@@ -161,12 +161,12 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 				
 				<!-- Welcome Text -->
 				<div class="welcome-text">
-					<h3>Direct Message To David</h3>
+					<h3>Direct Message To {{ $bid->profile->name ?? '' }} </h3>
 				</div>
 					
 				<!-- Form -->
 				<form method="post" id="send-pm">
-					<textarea name="textarea" cols="10" placeholder="Message" class="with-border" required></textarea>
+					<textarea name="message" cols="10" placeholder="Message" class="with-border" required></textarea>
 				</form>
 				
 				<!-- Button -->

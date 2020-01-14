@@ -40,14 +40,13 @@
                             <ul class="dashboard-task-info">
                                 <li><strong>{{ $job->milestones_count }}</strong><span>Milestones</span></li>
                                 <li><strong>${{ number_format($job->min_budget) }} - ${{ number_format($job->max_budget) }}</strong><span class="text-capitalize">{{ $job->budget_type }} Rate</span></li>
+                                <li><strong>${{ $job->milestones()->where('is_paid', 1)->sum('cost') }}</strong><span class="text-capitalize">Amount Paid</span></li>
                             </ul>
     
                             <!-- Buttons -->
-                            @role('hirer')
                             <div class="buttons-to-right always-visible">
                                 <a href="{{ route('milestones', $job->slug) }}" class="button ripple-effect"><i class="icon-line-awesome-list-alt"></i> View Milestones <span class="button-info">{{ $job->milestones_count }}</span></a>
                             </div>
-                            @endrole
                         </li>  
                     @empty
                     <p class="text-center text-muted py-3">YOU HAVE NO COMPLETED JOBS</p> 
