@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             IndustriesTableSeeder::class,            
             JobBudgetsTableSeeder::class,
             JobsTableSeeder::class,
+            PaymentProvidersTableSeeder::class,
         ]);
     }
 }

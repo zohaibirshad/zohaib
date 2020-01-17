@@ -33,6 +33,14 @@ class Job extends Resource
      */
     public static $title = 'title';
 
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Job';
+
     /**
      * The columns that should be searched.
      *

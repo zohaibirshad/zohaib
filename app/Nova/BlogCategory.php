@@ -34,6 +34,13 @@ class BlogCategory extends Resource
     ];
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Blog';
+
+    /**
      * Get the displayable label of the resource.
      *
      * @return  string

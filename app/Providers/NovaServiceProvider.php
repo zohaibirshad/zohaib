@@ -58,7 +58,19 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            // new Help,
+            (new \App\Nova\Metrics\NewUsers)->width('1/4'),
+            (new \App\Nova\Metrics\UsersPerDay)->width('1/4'),
+            // (new \App\Nova\Metrics\UsersPerPlan)->width('1/4'),
+            (new \App\Nova\Metrics\NewJobs)->width('1/4'),
+            (new \App\Nova\Metrics\JobsPerDay)->width('1/4'),
+            (new \App\Nova\Metrics\NewSubscriptions)->width('1/4'),
+            (new \App\Nova\Metrics\SubscriptionsPerDay)->width('1/4'),
+            (new \App\Nova\Metrics\NewBids)->width('1/4'),
+            (new \App\Nova\Metrics\BidsPerDay)->width('1/4'),
+            (new \App\Nova\Metrics\NewInvites)->width('1/4'),
+            (new \App\Nova\Metrics\InvitesPerDay)->width('1/4'),
+            (new \App\Nova\Metrics\JobsStatus)->width('1/4'),
+            (new \App\Nova\Metrics\MilestonesStatus)->width('1/4'),
         ];
     }
 

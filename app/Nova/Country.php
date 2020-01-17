@@ -34,6 +34,13 @@ class Country extends Resource
     ];
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Settings';
+
+    /**
      * Get the displayable label of the resource.
      *
      * @return  string

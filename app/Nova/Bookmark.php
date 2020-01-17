@@ -35,6 +35,13 @@ class Bookmark extends Resource
     ];
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Job';
+
+    /**
      * Get the displayable label of the resource.
      *
      * @return  string

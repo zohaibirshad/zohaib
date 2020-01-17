@@ -5,23 +5,18 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\BelongsTo;
-use DigitalCloud\NovaResourceNotes\Fields\Notes;
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
-use Benjacho\BelongsToManyField\BelongsToManyField;
 
 
-class BlogPost extends Resource
+class PaymentProvider extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var  string
      */
-    public static $model = \App\Models\BlogPost::class;
+    public static $model = \App\Models\PaymentProvider::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -29,13 +24,6 @@ class BlogPost extends Resource
      * @var  string
      */
     public static $title = 'title';
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Blog';
 
     /**
      * The columns that should be searched.
@@ -53,8 +41,15 @@ class BlogPost extends Resource
      */
     public static function label()
     {
-        return __('Blog Posts');
+        return __('Payment Providers');
     }
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Finances';
 
     /**
     * Get the displayable singular label of the resource.
@@ -63,7 +58,7 @@ class BlogPost extends Resource
     */
     public static function singularLabel()
     {
-        return __('Blog Post');
+        return __('Payment Provider');
     }
 
     /**
@@ -78,33 +73,25 @@ class BlogPost extends Resource
             ID::make( __('Id'),  'id')
             ->rules('required')
             ->sortable(),
-            Images::make('Featured Image', 'featured')
-            ->withResponsiveImages(),
             Text::make( __('Title'),  'title')
             ->sortable(),
-            BelongsTo::make('Author', 'user', 'App\Nova\User')
-            ->searchable()
+            Number::make( __('Withdrawal Rate'),  'withdrawal_rate')
             ->sortable(),
-            BelongsToManyField::make('Categories', 'categories', 'App\Nova\BlogCategory')
-            ->optionsLabel('title')
-            ->nullable(),
-            BelongsToManyField::make('Tags', 'tags', 'App\Nova\BlogTag')
-            ->optionsLabel('title')
-            ->nullable(),
-            Select::make( __('Featured Article'),  'featured')
-            ->sortable()
-            ->options([
-                'no' => 'No',
-                'yes' => 'Yes',
-            ])->displayUsingLabels(),
-            Text::make( __('Count'),  'count')
-            ->exceptOnForms()
+            Number::make( __('Deposit Rate'),  'deposit_rate')
             ->sortable(),
-            Trix::make( __('Body'),  'body')
-            ->hideFromIndex(),
-            Notes::make('Notes','notes')->onlyOnDetail(),
-
-            ];
+            Number::make( __('Withdrawal Fixed  Rate'),  'withdrawal_fixed_rate')
+            ->sortable(),
+            Number::make( __('Deposit Fixed Rate'),  'deposit_fixed_rate')
+            ->sortable(),
+            Number::make( __('Api Key'),  'api_key')
+            ->sortable(),
+            Number::make( __('Api Secret'),  'api_secret')
+            ->sortable(),
+            Number::make( __('Merchant Id'),  'merchant_id')
+            ->sortable(),
+            Number::make( __('Merchank Key'),  'merchank_key')
+            ->sortable(),
+        ];
     }
 
     /**

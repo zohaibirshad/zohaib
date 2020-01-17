@@ -36,6 +36,14 @@ class Account extends Resource
         'id'
     ];
 
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Finances';
+
     /**
      * Get the displayable label of the resource.
      *

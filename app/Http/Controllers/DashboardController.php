@@ -76,7 +76,7 @@ class DashboardController extends Controller
         $user =  View::where('viewable_id', $user->id)
         ->where('viewable_type', 'App\Models\Profile')
         ->selectRaw('count(id) as `total`')
-        ->selectRaw("count( case when (MONTH(viewed_at) = 1 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `jan`")  
+        ->selectRaw("count(case when (MONTH(viewed_at) = 1 AND YEAR(viewed_at) = YEAR(CURDATE() ) ) then 1 end) as `jan`")  
         ->selectRaw("count(case when (MONTH(viewed_at) = 2 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `feb`")  
         ->selectRaw("count(case when (MONTH(viewed_at) = 3 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `mar`")  
         ->selectRaw("count(case when (MONTH(viewed_at) = 4 AND YEAR(viewed_at) = YEAR(CURDATE()) ) then 1 end) as `apr`")  

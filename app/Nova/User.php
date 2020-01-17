@@ -44,6 +44,13 @@ class User extends Resource
         'id', 'first_name', 'last_name', 'email',
     ];
 
+     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Account';
+
     /**
      * Get the fields displayed by the resource.
      *
