@@ -167,7 +167,7 @@ const app = window.app = new Vue({
 				
 			})
 
-		}
+		},
 
 		dateFormat(d){
 			return Moment(d).fromNow();
