@@ -16,11 +16,16 @@ class CreateChatTables extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('job_id')->nullable();
+            $table->bigInteger('job_id')->nullable()->unsigned();
             $table->boolean('private')->default(true);
             $table->boolean('direct_message')->default(false);
             $table->text('data')->nullable();
             $table->timestamps();
+
+            $table->foreign('job_id')
+            ->references('id')
+            ->on('jobs')
+            ->onDelete('cascade');
         });
 
         Schema::create('participation', function (Blueprint $table) {

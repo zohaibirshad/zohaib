@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\Profile;
 use App\Models\Bookmark;
 use App\Models\Milestone;
+use App\Models\Conversation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -210,7 +211,9 @@ class DashboardController extends Controller
                 $job->status = 'completed';
                 $job->save();
 
-                
+                $conversation = Conversation::where('job_id', $job_id)->first();
+                $request->user()->leaveConversation($conversation->id);
+                $conversation->delete();
             }
         }
 

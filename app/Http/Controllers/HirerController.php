@@ -128,6 +128,7 @@ class HirerController extends Controller
         $freelancer = User::find($bid->profile->user->id);
 
         $conversation = Conversation::new([
+            'job_id' => $job_id,
             'data'=> '',
             'direct_message' => false,
             'participants' => [
