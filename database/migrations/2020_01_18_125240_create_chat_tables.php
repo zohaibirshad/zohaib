@@ -16,6 +16,7 @@ class CreateChatTables extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('job_id')->nullable();
             $table->boolean('private')->default(true);
             $table->boolean('direct_message')->default(false);
             $table->text('data')->nullable();

@@ -209,6 +209,8 @@ class DashboardController extends Controller
             if($payment == 100 ){
                 $job->status = 'completed';
                 $job->save();
+
+                
             }
         }
 
