@@ -64,10 +64,10 @@
 
 		<div class="messages-headline">
 			<h4>@{{ profile.name }}</h4>
-			<!-- <a href="#" class="message-action"><i class="icon-feather-trash-2"></i> Delete Conversation</a> -->
+			<!-- <span  @click="scrollDown()" class="message-action"><i class="icon-feather-arrow-down-circle cursor-pointer"></i> Go to Bottom</span> -->
 		</div>
 		<!-- Message Content Inner -->
-			<div class="message-content-inner" v-chat-scroll="{always: false, smooth: true}">
+			<div class="message-content-inner" v-chat-scroll="{always: true, smooth: true, scrollonremoved:true, smoothonremoved: true}">
 				<div v-for="message in conversation" key="message.conversation_id" >					
 				<!-- Time Sign -->
 				<div class="message-time-sign">
@@ -89,7 +89,7 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
-
+			<span id="pane"></span>
 			</div>
 	<!-- Message Content Inner / End -->
 
@@ -217,7 +217,11 @@ const app = window.app = new Vue({
 						console.log(['websocket', e]);
 						
 				});
+
+				var pane = document.getElementById('pane');
+				pane.scrollTop = pane.offsetHeight;
 			}
+			
 
 		},
 		findConversation:  function(id, profile){
@@ -239,11 +243,22 @@ const app = window.app = new Vue({
 					self.single_conversation.push(e.message);
 					console.log(['websocket', e]);
 
-			});
+				});
+				var pane = document.getElementById('pane');
+				pane.scrollTop = pane.scrollHeight;
+			
 			}
+
 			
 			
 		},
+
+		scrollDown: function(){
+			console.log('clicked');
+			
+			var pane = document.getElementById('pane');
+				pane.scrollTop = pane.scrollHeight;
+		}
 	},
 
 	mounted: function(){
