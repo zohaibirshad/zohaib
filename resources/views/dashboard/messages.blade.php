@@ -212,7 +212,7 @@ const app = window.app = new Vue({
 			{
 				this.markSeen(this.single_conversation[0].conversation_id);
 				Echo.private('chat-conversation.' + this.single_conversation[0].conversation_id)
-					.listen('MessageWasSent', function(e) {
+					.listen('.App\\Events\\MessageWasSent', function(e) {
 						self.single_conversation.push(e.message);
 						console.log(['websocket', e]);
 						
@@ -235,7 +235,7 @@ const app = window.app = new Vue({
 			{
 				this.markSeen(this.single_conversation[0].conversation_id);
 				Echo.private('chat-conversation.' + this.single_conversation[0].conversation_id)
-				.listen('MessageWasSent', function(e) {
+				.listen('.App\\Events\\MessageWasSent', function(e) {
 					self.single_conversation.push(e.message);
 					console.log(['websocket', e]);
 
