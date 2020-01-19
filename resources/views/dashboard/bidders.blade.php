@@ -79,7 +79,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                                     @if($job->status != 'assigned')
                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-0">
                                         <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect acceptBids" data-bid="{{ $bid }}"><i class="icon-material-outline-check"></i> Accept Offer</a>
-                                        <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-mail"></i> Send Message</a>
+                                        <!-- <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-mail"></i> Send Message</a> -->
                                     @endif
                                     </div>
                                 </div>

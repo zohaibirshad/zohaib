@@ -21,7 +21,7 @@
 								<a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a>
 							</li>
 							<li class="{{ (request()->is('messages')) ? 'active' : '' }}">
-								<a href="{{ route('messages') }}"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a>
+								<a href="{{ route('chats') }}"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a>
 							</li>
 							<li class="{{ (request()->is('bookmarks.index')) ? 'active' : '' }}">
 								<a href="{{ route('bookmarks.index') }}"><i class="icon-material-outline-star-border"></i> Bookmarks </a>

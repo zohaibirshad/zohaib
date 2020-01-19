@@ -7,11 +7,14 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\Invite;
 use App\Models\Review;
+use App\Models\Message;
 use App\Models\Profile;
 use App\Models\Bookmark;
 use App\Models\Milestone;
 use App\Models\Transaction;
+use App\Models\Conversation;
 use Illuminate\Http\Request;
+use App\Models\Participation;
 use Illuminate\Support\Facades\Log;
 use App\Aggregates\AccountAggregate;
 use App\Http\Controllers\Controller;
@@ -121,6 +124,25 @@ class HirerController extends Controller
         $job->status = 'assigned';
         $job->profile_id = $request->profile_id;
         $job->save();
+
+        $freelancer = User::find($bid->profile->user->id);
+
+        $conversation = Conversation::new([
+            'data'=> '',
+            'direct_message' => false,
+            'participants' => [
+                $request->user(),
+                $freelancer
+            ]
+        ]);
+
+        $body =  $job->title . "at $" . $bid->rate. " has been accepted";
+
+        $participant = Participation::where('conversation_id', $conversation->id)
+                                    ->where('user_id', $request->user()->id)
+                                    ->first();
+
+        $message = Message::send($conversation,  $body, $participant);
 
         return back()->with('success', 'Bid Accepted Successfully');
 

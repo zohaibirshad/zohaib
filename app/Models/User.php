@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\Messageable;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
+use App\Traits\SetsParticipants;
 use Laravel\Passport\HasApiTokens;
 use DigitalCloud\ModelNotes\HasNotes;
 use Spatie\Permission\Traits\HasRoles;
@@ -18,7 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, Auditable
 {
-    use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes;
+    use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes, SetsParticipants, Messageable;
 
     protected $guard_name = 'web';
 
@@ -90,15 +92,26 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
 
     }
 
-    // public function getParticipantDetailsAttribute()
-    // {
-    //     return [
-    //         'name' => "{$this->first_name} {$this->last_name}",
-    //         'email' => $this->email,
-    //         'profile' => $this->profile,
+    public function getParticipantDetailsAttribute()
+    {
+        return [
+            'id' => $this->id,
+            'name' => "{$this->first_name} {$this->last_name}",
+            'email' => $this->email,
+            'profile' => $this->profile,
 
-    //     ];
-    // }
+        ];
+    }
+
+    public function getParticipantDetails()
+    {
+        return [
+            'name' => "{$this->first_name} {$this->last_name}",
+            'email' => $this->email,
+            'profile' => $this->profile,
+
+        ];
+    }
     
 
     public function getNameAttribute() 

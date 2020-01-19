@@ -18,3 +18,6 @@ mix.js('resources/js/app.js', 'public/js')
       processCssUrls: false,
       postCss: [ tailwindcss('./tailwind.js') ],
     })
+
+mix.js('resources/js/websocket.js', 'public/js')
+    

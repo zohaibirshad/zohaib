@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Participation;
+
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -11,6 +13,11 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('chat-conversation.{id}', function ($user, $id) {
+    $participation = Participation::where('user_id', $user->id)->where('conversation_id', $id)->first();
+    if($participation){
+        return true;
+    }else {
+        false;
+    }
 });
