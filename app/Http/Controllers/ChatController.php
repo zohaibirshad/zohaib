@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Models\Participation;
+use App\Models\MessageNotification;
 use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
@@ -49,7 +50,27 @@ class ChatController extends Controller
 
         $message = Message::send($conversation,  $request->body, $participant);
 
+        // $newMessage = Message::find($message->id);
+
+        $notification = MessageNotification::where('user_id', $request->user()->id)
+        ->where('conversation_id', $conversation->id)
+        ->update([
+            'is_seen' => 1
+        ]);
+
         return response()->json($message);
+    }
+
+    public function markSeen(Request $request)
+    {
+        $notification = MessageNotification::where('user_id', $request->user()->id)
+            ->where('message_id', $message->id)
+            ->select([
+                '*',
+                'updated_at as read_at',
+            ])->update([
+                'is_seen' => 1
+            ]);
     }
 
 

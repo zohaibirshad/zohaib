@@ -3,13 +3,14 @@
 namespace App\Providers;
 
 use App\Models\Bid;
-use App\Models\Invite;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
 use App\Models\Job;
+use App\Models\Invite;
 use App\Models\Profile;
+use App\Models\MessageNotification;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -55,6 +56,7 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('bids_count', $bidsCount);
             $view->with('invites_count', $invitesCount);
             $view->with('new_jobs_count', $newJobsCount);
+            $view->with('chat_notifications', auth()->user()->chat_notifications());
         });
     }
 }
