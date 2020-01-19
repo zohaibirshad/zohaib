@@ -95,7 +95,7 @@
 
 					
 <!-- Reply Area -->
-<div class="message-reply">
+<div v-show="canSendMessage" class="message-reply">
 	<textarea v-model="body"  cols="1" rows="1" placeholder="Your Message" data-autoresize></textarea>                                
 	<button @click="send()"  class="button button-sliding-icon ripple-effect">
 		Send
@@ -129,6 +129,7 @@ const app = window.app = new Vue({
 		user: user,
 		profile: {},
 		body: '',
+		canSendMessage: false
 	},
 
 	computed: {
@@ -187,6 +188,9 @@ const app = window.app = new Vue({
 		init: function(){
 			var self = this
 			var BreakException = {};
+			if(conversations.length > 0){
+				this.canSendMessage = true;
+			}
 			try {
 				for (var index = 0; index < conversations.length; index++) {
 					const element = conversations[index];
