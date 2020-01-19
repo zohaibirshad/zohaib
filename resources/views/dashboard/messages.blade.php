@@ -52,7 +52,7 @@
 				@endif
 			@endforeach
 		@empty
-			<p class="text-center text-muted py-3">You dont have conversation</p>
+			<p class="text-center text-muted py-3">Zero Conversation.. its quiet out here</p>
 			
 		@endforelse
         </ul>
