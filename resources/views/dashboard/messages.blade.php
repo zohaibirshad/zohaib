@@ -158,6 +158,17 @@ const app = window.app = new Vue({
 
 		},
 
+		markSeen(id){
+			axios.put('../chats/'+ id + '/markseen/', {
+			}).then(function(r){
+				console.log(r);
+			}).catch(function(e){
+				console.log(e);
+				
+			})
+
+		}
+
 		dateFormat(d){
 			return Moment(d).fromNow();
 		},
@@ -199,6 +210,7 @@ const app = window.app = new Vue({
 
 			if(this.single_conversation[0] != undefined)
 			{
+				this.markSeen(this.single_conversation[0].conversation_id);
 				Echo.private('chat-conversation.' + this.single_conversation[0].conversation_id)
 					.listen('MessageWasSent', function(e) {
 						self.single_conversation.push(e.message);
@@ -221,6 +233,7 @@ const app = window.app = new Vue({
 
 			if(this.single_conversation[0] != undefined)
 			{
+				this.markSeen(this.single_conversation[0].conversation_id);
 				Echo.private('chat-conversation.' + this.single_conversation[0].conversation_id)
 				.listen('MessageWasSent', function(e) {
 					self.single_conversation.push(e.message);

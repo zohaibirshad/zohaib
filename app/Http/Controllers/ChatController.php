@@ -30,15 +30,6 @@ class ChatController extends Controller
     }
 
 
-    public function show(Request $request, $id)
-    {
-
-      $conversation = Conversation::where('id', $id)->with('participants')->first()->pluck('participants');
-
-      return view('dashboard.chat_messages', compact('conversations'));
-
-    }
-
     public function send(Request $request, $id)
     {
 
@@ -64,13 +55,10 @@ class ChatController extends Controller
     public function markSeen(Request $request)
     {
         $notification = MessageNotification::where('user_id', $request->user()->id)
-            ->where('message_id', $message->id)
-            ->select([
-                '*',
-                'updated_at as read_at',
-            ])->update([
-                'is_seen' => 1
-            ]);
+        ->where('conversation_id', $request->id)
+        ->update([
+            'is_seen' => 1
+        ]);
     }
 
 

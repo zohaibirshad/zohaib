@@ -84,6 +84,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //chat
     Route::get('chats', 'ChatController@index')->name('chats'); 
     Route::put('chats/{id}', 'ChatController@send'); 
+    Route::put('chats/{id}/markseen', 'ChatController@markSeen'); 
     // Profile Settings
     Route::post('update_password', 'AccountController@update_password');
     Route::post('update_basic_info', 'AccountController@update_basic_info');
