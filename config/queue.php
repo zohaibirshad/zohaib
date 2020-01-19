@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('redis'),
+    'default' => env('QUEUE_CONNECTION', 'redis'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ return [
 
         'database' => [
             'driver' => 'database',
-            'table' => 'jobs',
+            'table' => 'queue_jobs',
             'queue' => 'default',
             'retry_after' => 90,
         ],
