@@ -20,7 +20,7 @@ window.Echo = new Echo({
     wsPort: 6001,
     wssPort: 6001,
     disableStats: true,
-    encrypted: true
-
+    encrypted: true,
+    namespace: 'App.Events'
 });
 
