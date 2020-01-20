@@ -23,6 +23,7 @@
         "fideloper/proxy": "^4.0",
         "genealabs/nova-passport-manager": "*",
         "gregoriohc/laravel-nova-theme-responsive": "^0.6.2",
+        "guzzlehttp/guzzle": "^6.5",
         "itainathaniel/nova-admin-notes": "^1.0",
         "kabbouchi/nova-impersonate": "^1.1",
         "laravel/cashier": "^10.3",

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 
+use App\Models\Bid;
+use App\Observers\BidObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Projectors\AccountBalanceProjector;
 use App\Projectors\TransactionCountProjector;
@@ -30,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Bid::observe(BidObserver::class);
     }
 }
