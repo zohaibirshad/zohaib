@@ -57,7 +57,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 
                                     <!-- Details -->
                                     <span class="freelancer-detail-item">
-                                        <a href="mailto:{{ $bid->profile->email }}"><i class="icon-feather-mail"></i> {{ $bid->profile->email  ?? ''}}</a></span>
+                                        <!-- <a href="mailto:{{ $bid->profile->email }}"><i class="icon-feather-mail"></i> {{ $bid->profile->headline  ?? ''}}</a></span> -->
 
                                     <!-- Rating -->
 
@@ -79,7 +79,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                                     @if($job->status != 'assigned')
                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-0">
                                         <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect acceptBids" data-bid="{{ $bid }}"><i class="icon-material-outline-check"></i> Accept Offer</a>
-                                        <!-- <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-mail"></i> Send Message</a> -->
+                                        <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect viewBid" data-bid="{{ $bid }}"><i class="icon-feather-eye"></i> View Bid</a>
                                     @endif
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 	<div class="sign-in-form">
 
 		<ul class="popup-tabs-nav">
-			<li><a href="#tab2">Send Message</a></li>
+			<li><a href="#tab2">View Bid</a></li>
 		</ul>
 
 		<div class="popup-tabs-container">
@@ -161,16 +161,14 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 				
 				<!-- Welcome Text -->
 				<div class="welcome-text">
-					<h3>Direct Message To {{ $bid->profile->name ?? '' }} </h3>
+                <h3 id="view_name" class="py-2"> </h3>
+                <span class="px-4 py-3 bg-orange-600 text-white shadow-md rounded" id="view_rate"> </span>
+                <p class="text-left pt-2" id="view_body"> </p>
 				</div>
 					
-				<!-- Form -->
-				<form method="post" id="send-pm">
-					<textarea name="message" cols="10" placeholder="Message" class="with-border" required></textarea>
-				</form>
+				
 				
 				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect" type="submit" form="send-pm">Send <i class="icon-material-outline-arrow-right-alt"></i></button>
 
 			</div>
 
@@ -189,6 +187,15 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                 $('#acceptBidText').text('Accept Offer From '+bid.profile.name);
                 $('#aProfileId').val(bid.profile.id);
                 $('#acceptBidForm').attr('action', 'accept_bid/'+bid.uuid);
+            });
+
+            $('.viewBid').click(function(){
+                var _bid = $(this).attr("data-bid");
+                var bid = JSON.parse(_bid);
+                
+                $('#view_name').text(bid.profile.name);
+                $('#view_rate').text('Rate $'+bid.rate);
+                $('#view_body').text(bid.description);
             });
             function ThousandSeparator2(nStr) {
                 nStr += '';
