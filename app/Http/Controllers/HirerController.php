@@ -128,7 +128,7 @@ class HirerController extends Controller
         $freelancer = User::find($bid->profile->user->id);
 
         $conversation = Conversation::new([
-            'job_id' => $job_id,
+            'job_id' => $job->id,
             'data'=> '',
             'direct_message' => false,
             'participants' => [
@@ -137,7 +137,7 @@ class HirerController extends Controller
             ]
         ]);
 
-        $body =  $job->title . "at $" . $bid->rate. " has been accepted";
+        $body =  $job->title . " bid at $" . $bid->rate. " has been accepted";
 
         $participant = Participation::where('conversation_id', $conversation->id)
                                     ->where('user_id', $request->user()->id)

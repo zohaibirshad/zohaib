@@ -190,7 +190,7 @@ class Conversation extends Model
     {
 
         /** @var Conversation $conversation */
-        $conversation = self::create(['data' => $payload['data'], 'direct_message' => (bool) $payload['direct_message']]);
+        $conversation = self::create(['data' => $payload['data'], 'direct_message' => (bool) $payload['direct_message'], 'job_id' => $payload['job_id']]);
 
         if ($payload['participants']) {
             $conversation->addParticipants($payload['participants']);

@@ -98,8 +98,7 @@ class Profile extends Resource
             Text::make( __('Name'),  'name')
             ->rules('required')
             ->sortable(),
-            Text::make( __('Professional Headline'),  'headline')
-            ->rules('required'),
+            Text::make( __('Professional Headline'),  'headline'),
             Select::make( __('Type'),  'type')
             ->sortable()
             ->options([

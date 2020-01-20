@@ -23,7 +23,7 @@
 			@foreach($c->participants as $p)
 				@if($p->user->id != auth()->user()->id)
 					<li>
-						<a class="cursor-pointer" @click="findConversation({{ $c->id }}, {{ $p->user->profile }})">
+						<a class="cursor-pointer" @click="findConversation({{ $c->id }}, {{ $p->user->profile }}, {{ $c->job_id }})">
 							<div class="message-avatar">
 								<i class="status-icon status-offline"></i>
 								@if (sizeof($p->user->profile->getMedia('profile')) == 0)
@@ -129,7 +129,8 @@ const app = window.app = new Vue({
 		user: user,
 		profile: {},
 		body: '',
-		canSendMessage: false
+		canSendMessage: false,
+		job_id: '',
 	},
 
 	computed: {
@@ -151,9 +152,9 @@ const app = window.app = new Vue({
 			}).then(function(r){
 				self.body = '';
 				self.single_conversation.push(r.data);
-				console.log(r);
+				// console.log(r);
 			}).catch(function(e){
-				console.log(e);
+				// console.log(e);
 				
 			})
 
@@ -162,9 +163,9 @@ const app = window.app = new Vue({
 		markSeen(id){
 			axios.put('../chats/'+ id + '/markseen/', {
 			}).then(function(r){
-				console.log(r);
+				// console.log(r);
 			}).catch(function(e){
-				console.log(e);
+				// console.log(e);
 				
 			})
 
@@ -201,6 +202,7 @@ const app = window.app = new Vue({
 							
 							self.single_conversation = element.messages;
 							self.profile = p.user.profile
+							self.job_id = element.job_id;
 							throw BreakException;
 						}	
 					});
@@ -222,15 +224,25 @@ const app = window.app = new Vue({
 						
 				});
 
+				if(this.job_id == null){
+					this.canSendMessage = false;
+				}else{
+					this.canSendMessage = true;
+				}
+
 				var pane = document.getElementById('pane');
 				pane.scrollTop = pane.offsetHeight;
+
+			}else{
+				this.canSendMessage = false;
 			}
 			
 
 		},
-		findConversation:  function(id, profile){
+		findConversation:  function(id, profile, job_id){
 			console.log(id);
-			this.profile = profile
+			this.job_id = job_id;
+			this.profile = profile;
 			var self = this;
 			this.conversations.forEach(function(c) {
 				if(c.id == id){
@@ -248,9 +260,17 @@ const app = window.app = new Vue({
 					console.log(['websocket', e]);
 
 				});
+				if(this.job_id == null){
+					this.canSendMessage = false;
+				}else{
+					this.canSendMessage = true;
+				}
+
 				var pane = document.getElementById('pane');
-				pane.scrollTop = pane.scrollHeight;
-			
+				pane.scrollTop = pane.offsetHeight;
+				
+			}else{
+				this.canSendMessage = false;
 			}
 
 			

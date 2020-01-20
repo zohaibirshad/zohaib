@@ -83,12 +83,6 @@ class Bid extends Resource
             BelongsTo::make('Job')
             ->searchable()
             ->sortable(),
-            Select::make( __('Rate Type'),  'rate_type')
-            ->sortable()
-            ->options([
-                            'fixed' => 'fixed',
-                            'hourly' => 'hourly',
-                        ]),
             Number::make( __('Rate'),  'rate')
             ->sortable(),
             Number::make( __('Delivery Time'),  'delivery_time')
