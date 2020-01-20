@@ -214,7 +214,7 @@ class DashboardController extends Controller
                 $conversation = Conversation::where('job_id', $job->id)->first();
                 // $request->user()->leaveConversation($conversation->id);
                 $conversation->job_id = NULL;
-                $conversation->save;
+                $conversation->save();
             }
         }
 
