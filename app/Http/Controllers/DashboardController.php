@@ -211,7 +211,7 @@ class DashboardController extends Controller
                 $job->status = 'completed';
                 $job->save();
 
-                $conversation = Conversation::where('job_id', $job_id)->first();
+                $conversation = Conversation::where('job_id', $job->id)->first();
                 // $request->user()->leaveConversation($conversation->id);
                 $conversation->job_id = NULL;
                 $conversation->save;
