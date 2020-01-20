@@ -47,7 +47,9 @@
         "themsaid/nova-cashier-manager": "^0.2.1",
         "torann/currency": "^1.0",
         "vyuldashev/nova-permission": "^2.1",
-        "yoeunes/toastr": "^1.2"
+        "yoeunes/toastr": "^1.2",
+        "aws/aws-sdk-php": "~3.0"
+
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

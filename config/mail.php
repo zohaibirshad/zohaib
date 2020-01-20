@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'sendmail'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@yohli.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@yohli.com'),
         'name' => env('MAIL_FROM_NAME', 'Yohli'),
     ],
 
