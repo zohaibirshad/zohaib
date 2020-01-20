@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('update_freelancer_info', 'AccountController@update_freelancer_info');
     Route::post('update_freelancer_documents', 'AccountController@update_freelancer_documents');
     Route::post('update_role', 'AccountController@update_role');
+    Route::post('update_withdrawal_info', 'AccountController@update_withdrawal_info');
 
     // Freelancers
     Route::get('browse-freelancers', 'FreelancersController@index')->name('freelancers.index');

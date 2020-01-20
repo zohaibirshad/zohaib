@@ -327,6 +327,44 @@ class AccountController extends Controller
         return response()->back()->with('status', "profile updated Succesfully");
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $profile_uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function update_withdrawal_info(Request $request)
+    {
+        $validateData = $request->validate([
+            'paypal' => 'nullable|string',
+            'skrill' => 'nullable|string',
+            'momo' => 'nullable|string',
+            'momo_country' => 'nullable|string',
+            'momo_network' => 'nullable|string',
+            'bank_name' => 'nullable|string',
+            'bank_no' => 'nullable|string',
+            'bank_branch' => 'nullable|string',
+            'bank_country' => 'nullable|string',
+        ]);
+
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+        $profile->paypal = $request->paypal;
+        $profile->skrill = $request->skrill;
+        $profile->momo = $request->momo;
+        $profile->momo_country = $request->momo_country;
+        $profile->momo_network = $request->momo_network;
+        $profile->bank_name = $request->bank_name;
+        $profile->bank_no = $request->bank_no;
+        $profile->bank_branch = $request->bank_branch;
+        $profile->bank_country = $request->bank_country;
+        $profile->save();
+
+        return response()->back()->with('status', "profile updated Succesfully");
+    }
+
+    
+
     public function view_account()
     {
         $account = Account::where('user_id', Auth::user()->id)->first();

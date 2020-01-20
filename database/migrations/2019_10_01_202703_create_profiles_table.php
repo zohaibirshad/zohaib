@@ -31,6 +31,15 @@ class CreateProfilesTable extends Migration
             $table->decimal('rate', 13, 2)->nullable();
             $table->string('featured')->nullable();
             $table->json('options')->nullable();
+            $table->string('momo')->nullable();
+            $table->string('momo_network')->nullable();
+            $table->string('momo_country')->nullable();
+            $table->string('paypal')->nullable();
+            $table->string('skrill')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_no')->nullable();
+            $table->string('bank_branch')->nullable();
+            $table->string('bank_country')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

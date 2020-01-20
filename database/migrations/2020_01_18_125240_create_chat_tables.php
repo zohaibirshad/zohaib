@@ -54,7 +54,7 @@ class CreateChatTables extends Migration
             $table->bigInteger('conversation_id')->unsigned();
             $table->bigInteger('participation_id')->unsigned()->nullable();
             $table->string('type')->default('text');
-            $table->timestamps();
+            $table->timestampsTz();
 
             $table->foreign('participation_id')
                 ->references('id')

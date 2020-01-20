@@ -290,6 +290,96 @@
         </form>
     </div>
 
+        <!-- Dashboard Box -->
+        <div class="col-xl-12 max-w-full">
+        <form method="post" action="../update_withdrawal_info">
+            @csrf
+            <div id="test1" class="dashboard-box">
+
+                <!-- Headline -->
+                <div class="headline">
+                    <h3><i class="icon-material-outline-lock"></i> Withdrawal Walet</h3>
+                </div>
+
+                <div class="content with-padding">
+                    <div class="row max-w-5xl">
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Paypal</h5>
+                                <input type="text" name="paypal" class="with-border" value="{{  old('paypal', $user->paypal) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Skrill</h5>
+                                <input type="text" name="skrill" class="with-border" value="{{  old('skrill', $user->skrill) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Mobile Money Number</h5>
+                                <input type="text" name="momo" class="with-border" value="{{  old('momo', $user->momo) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Mobile Money Network</h5>
+                                <input type="text" name="momo_network" class="with-border" value="{{  old('momo_network', $user->momo_network) }}">
+                            </div>
+                        </div>
+
+                        <h5>Mobile Money Issued Country</h5>
+                        <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_country" id="momo_country" required>
+                            @foreach ($countries as $country)
+                            <option value="{{ $country->name }}" {{ $user->momo_country == $country->name ? 'selected="selected"' : '' }}>
+                                {{ $country->name }}
+                            </option> 
+                            @endforeach                                 
+                        </select>
+
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Bank Account Name</h5>
+                                <input type="text" name="bank_name" class="with-border" value="{{  old('bank_name', $user->bank_name) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Bank Account No</h5>
+                                <input type="text" name="bank_no" class="with-border" value="{{  old('bank_no', $user->bank_no) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Bank Account Branch</h5>
+                                <input type="text" name="bank_branch" class="with-border" value="{{  old('bank_branch', $user->bank_branch) }}">
+                            </div>
+                        </div>
+
+                        <h5>Bank Account Country</h5>
+                        <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_country" id="momo_country" required>
+                            @foreach ($countries as $country)
+                            <option value="{{ $country->name }}" {{ $user->bank_country == $country->name ? 'selected="selected"' : '' }}>
+                                {{ $country->name }}
+                            </option> 
+                            @endforeach                                 
+                        </select>
+
+                        <!-- Button -->
+                        <div class="col-xl-12">
+                            <button type="submit" class="button ripple-effect">Update Withdrawal Info</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="my-6 col-xl-12">
     <div id="test1" class="dashboard-box">
         <!-- Headline -->
