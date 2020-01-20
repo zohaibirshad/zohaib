@@ -8,7 +8,7 @@ return [
      * Set a custom dashboard configuration
      */
     'dashboard' => [
-        'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
+        'port' => env('MIX_WS_CONNECT_PRODUCTION') ? 6002 : 6001,
     ],
 
     /*
