@@ -75,7 +75,7 @@
 				</div>
 				<div v-if="message.sender.email == user.email" class="message-bubble me">
 					<div class="message-bubble-inner">
-						<div class="message-avatar"><img v-bind:src="image(message.sender.profile)" alt=""/></div>
+						<div :title="message.sender.name" class="message-avatar"><img v-bind:src="image(message.sender.profile)" alt=""/></div>
 						<div class="message-text"><p>@{{ message.body }}</p></div>
 					</div>
 					<div class="clearfix"></div>
@@ -83,7 +83,7 @@
 
 				<div v-else class="message-bubble">
 					<div class="message-bubble-inner">
-						<div class="message-avatar"><img  v-bind:src="image(message.sender.profile)" alt="" /></div>
+						<div :title="message.sender.name" class="message-avatar"><img  v-bind:src="image(message.sender.profile)" alt="" /></div>
 						<div class="message-text"><p>@{{ message.body }}</p></div>
 					</div>
 					<div class="clearfix"></div>
