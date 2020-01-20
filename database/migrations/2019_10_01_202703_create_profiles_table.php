@@ -37,6 +37,7 @@ class CreateProfilesTable extends Migration
             $table->string('paypal')->nullable();
             $table->string('skrill')->nullable();
             $table->string('bank_name')->nullable();
+            $table->string('bank_account_name')->nullable();
             $table->string('bank_no')->nullable();
             $table->string('bank_branch')->nullable();
             $table->string('bank_country')->nullable();

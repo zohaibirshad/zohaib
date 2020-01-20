@@ -324,7 +324,7 @@ class AccountController extends Controller
                 });
         }
 
-        return response()->back()->with('status', "profile updated Succesfully");
+        return back()->with('status', "profile updated Succesfully");
     }
 
     /**
@@ -343,6 +343,7 @@ class AccountController extends Controller
             'momo_country' => 'nullable|string',
             'momo_network' => 'nullable|string',
             'bank_name' => 'nullable|string',
+            'bank_account_name' => 'nullable|string',
             'bank_no' => 'nullable|string',
             'bank_branch' => 'nullable|string',
             'bank_country' => 'nullable|string',
@@ -355,12 +356,13 @@ class AccountController extends Controller
         $profile->momo_country = $request->momo_country;
         $profile->momo_network = $request->momo_network;
         $profile->bank_name = $request->bank_name;
+        $profile->bank_account_name = $request->bank_account_name;
         $profile->bank_no = $request->bank_no;
         $profile->bank_branch = $request->bank_branch;
         $profile->bank_country = $request->bank_country;
         $profile->save();
 
-        return response()->back()->with('status', "profile updated Succesfully");
+        return back()->with('status', "profile updated Succesfully");
     }
 
     
