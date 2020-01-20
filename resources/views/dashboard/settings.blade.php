@@ -354,7 +354,7 @@
                         <div class="col-xl-6">
                             <div class="submit-field">
                                 <h5>Bank Account Name</h5>
-                                <input type="text" name="bank_name" class="with-border" value="{{  old('bank_account_name', $user->bank_account_name) }}">
+                                <input type="text" name="bank_account_name" class="with-border" value="{{  old('bank_account_name', $user->bank_account_name) }}">
                             </div>
                         </div>
 
