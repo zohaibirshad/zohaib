@@ -2357,7 +2357,9 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log(text);
       text = String(text);
-      return text.substring(0, no);
+      text = text.substring(0, no);
+      console.log(text);
+      return text;
     },
     skillChange: function skillChange(selected) {
       this.search.skills = selected;
