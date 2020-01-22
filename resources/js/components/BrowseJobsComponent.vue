@@ -152,7 +152,7 @@
                     <strong>{{ budget(job) }}</strong>
                     <span>{{ budgetType(job) }}</span>
                   </div>
-                  <span class="button button-sliding-icon ripple-effect min-w-xxxs">
+                  <span class="button button-sliding-icon ripple-effect min-w-xxxs" :class="[bidCheck(job) ? 'bg-gray-400' : '']">
                     {{ user.type == 'freelancer' ? bidCheck(job) ? "Pending Bid" : "Bid Now" : 'View' }}
                     <i class="icon-material-outline-arrow-right-alt"></i>
                   </span>

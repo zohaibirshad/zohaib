@@ -8497,7 +8497,10 @@ var render = function() {
                                     "span",
                                     {
                                       staticClass:
-                                        "button button-sliding-icon ripple-effect min-w-xxxs"
+                                        "button button-sliding-icon ripple-effect min-w-xxxs",
+                                      class: [
+                                        _vm.bidCheck(job) ? "bg-gray-400" : ""
+                                      ]
                                     },
                                     [
                                       _vm._v(
