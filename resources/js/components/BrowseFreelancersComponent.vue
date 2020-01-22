@@ -135,7 +135,7 @@
                         />
                       </a>
                     </h4>
-                    <span>{{ freelancer.headline }}</span>
+                    <span>{{ freelancer.headline.substring(0, 50) }}</span>
                     <!-- Rating -->
                     <div class="freelancer-rating">
                       <div class="star-rating" :data-rating="freelancer.rating"></div>
@@ -158,7 +158,7 @@
                     <li>
                       Rate
                       <strong>
-                        ${{ freelancer.rate }} /
+                        ${{ freelancer.rate.substring(0, 4) }} /
                         hr
                       </strong>
                     </li>
@@ -166,7 +166,7 @@
                       Job Success
                       <strong>
                         {{
-                        freelancer.completion_rate
+                        truncate(freelancer.completion_rate, 4)
                         }}%
                       </strong>
                     </li>
@@ -231,6 +231,11 @@ export default {
   methods: {
     link(freelancer) {
       return "freelancers/" + freelancer.uuid;
+    },
+
+    truncate(text, no) {
+      text = String(text);
+      return text.substring(0, no);
     },
 
     skillChange(selected) {

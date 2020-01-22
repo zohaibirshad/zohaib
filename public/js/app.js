@@ -2350,6 +2350,10 @@ __webpack_require__.r(__webpack_exports__);
     link: function link(freelancer) {
       return "freelancers/" + freelancer.uuid;
     },
+    truncate: function truncate(text, no) {
+      text = String(text);
+      return text.substring(0, no);
+    },
     skillChange: function skillChange(selected) {
       this.search.skills = selected;
       this.getResults();
@@ -7842,7 +7846,11 @@ var render = function() {
                                       ]),
                                       _vm._v(" "),
                                       _c("span", [
-                                        _vm._v(_vm._s(freelancer.headline))
+                                        _vm._v(
+                                          _vm._s(
+                                            freelancer.headline.substring(0, 50)
+                                          )
+                                        )
                                       ]),
                                       _vm._v(" "),
                                       _c(
@@ -7894,7 +7902,9 @@ var render = function() {
                                   _c("strong", [
                                     _vm._v(
                                       "\n                      $" +
-                                        _vm._s(freelancer.rate) +
+                                        _vm._s(
+                                          freelancer.rate.substring(0, 4)
+                                        ) +
                                         " /\n                      hr\n                    "
                                     )
                                   ])
@@ -7907,7 +7917,12 @@ var render = function() {
                                   _c("strong", [
                                     _vm._v(
                                       "\n                      " +
-                                        _vm._s(freelancer.completion_rate) +
+                                        _vm._s(
+                                          _vm.truncate(
+                                            freelancer.completion_rate,
+                                            4
+                                          )
+                                        ) +
                                         "%\n                    "
                                     )
                                   ])
