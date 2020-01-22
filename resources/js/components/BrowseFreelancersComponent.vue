@@ -234,7 +234,7 @@ export default {
     },
 
     truncate(text, no) {
-      if(text == null OR text == undefined){
+      if(text == null || text == undefined){
         return ''
       }
       text = String(text);
