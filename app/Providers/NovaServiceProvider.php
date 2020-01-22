@@ -7,6 +7,7 @@ use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Genealabs\NovaPassportManager\NovaPassportManager;
+use SimonHamp\LaravelNovaCsvImport\LaravelNovaCsvImport;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -100,7 +101,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Cloudstudio\ResourceGenerator\ResourceGenerator(),
             new \Itainathaniel\AdminNotes\AdminNotes(),
             new \Themsaid\CashierTool\CashierTool(),
-            new SimonHamp\LaravelNovaCsvImport\LaravelNovaCsvImport,
+            new LaravelNovaCsvImport,
         ];
     }
 

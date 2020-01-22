@@ -158,7 +158,7 @@
                     <li>
                       Rate
                       <strong>
-                        ${{ truncate(freelancer.rate, 4) }} /
+                        ${{ freelancer.rate }} /
                         hr
                       </strong>
                     </li>
@@ -166,7 +166,7 @@
                       Job Success
                       <strong>
                         {{
-                        truncate(freelancer.completion_rate, 4)
+                        truncate(freelancer.completion_rate, 5)
                         }}%
                       </strong>
                     </li>

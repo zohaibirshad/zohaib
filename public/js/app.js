@@ -7912,9 +7912,7 @@ var render = function() {
                                   _c("strong", [
                                     _vm._v(
                                       "\n                      $" +
-                                        _vm._s(
-                                          _vm.truncate(freelancer.rate, 4)
-                                        ) +
+                                        _vm._s(freelancer.rate) +
                                         " /\n                      hr\n                    "
                                     )
                                   ])
@@ -7930,7 +7928,7 @@ var render = function() {
                                         _vm._s(
                                           _vm.truncate(
                                             freelancer.completion_rate,
-                                            4
+                                            5
                                           )
                                         ) +
                                         "%\n                    "
