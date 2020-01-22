@@ -2355,6 +2355,7 @@ __webpack_require__.r(__webpack_exports__);
         return '';
       }
 
+      console.log(text);
       text = String(text);
       return text.substring(0, no);
     },
