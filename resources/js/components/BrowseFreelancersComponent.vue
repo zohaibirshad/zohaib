@@ -135,7 +135,7 @@
                         />
                       </a>
                     </h4>
-                    <span>{{ freelancer.headline.substring(0, 50) }}</span>
+                    <span>{{ truncate(freelancer.headline, 50) }}</span>
                     <!-- Rating -->
                     <div class="freelancer-rating">
                       <div class="star-rating" :data-rating="freelancer.rating"></div>
@@ -158,7 +158,7 @@
                     <li>
                       Rate
                       <strong>
-                        ${{ freelancer.rate.substring(0, 4) }} /
+                        ${{ truncate(freelancer.rate, 4) }} /
                         hr
                       </strong>
                     </li>
@@ -234,6 +234,9 @@ export default {
     },
 
     truncate(text, no) {
+      if(text == null OR text == undefined){
+        return ''
+      }
       text = String(text);
       return text.substring(0, no);
     },
