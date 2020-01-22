@@ -29,13 +29,13 @@
 			</div>
 
 			<div class="content with-padding padding-bottom-10">
-				<form action="{{ route('jobs.store') }}" method="POST" id="post_job_form">
+				<form action="{{ route('jobs.store') }}" method="POST" id="post_job_form" enctype="multipart/form-data">
 					@csrf
 					<div class="row form-section" id="section-1">
 						<div class="col-xl-12">
 							<div class="submit-field">
 								<h5>Select a name for the job</h5>
-								<input type="text" name="title" class="with-border" placeholder="e.g. I need a blog" id="title">
+								<input type="text" name="title" class="with-border" value="{{ old('title') }}" placeholder="e.g. I need a blog" id="title">
 							</div>
 						</div>
 						<div class="col-xl-12">
@@ -48,7 +48,7 @@
 									class="with-border" 
 									placeholder="Provide an accurate and detailed description that best suits the proposed job" 
 									id="description"
-								></textarea>
+								>{{ old('description') }}</textarea>
 							</div>
 						</div>
 						<div class="col-xl-12">
@@ -73,7 +73,7 @@
 								<h5>Job Category</h5>
 								<select class="selectpicker with-border" data-size="7" title="Select Category" id="category" name="industry_id">									
 									@foreach ($categories as $category)
-									<option value="{{ $category->id }}">{{ $category->title }}</option>
+									<option value="{{ $category->id }}" {{ $category->id == old('industry_id') ? 'selected="selected"' : '' }}>{{ $category->title }}</option>
 									@endforeach									
 								</select>
 							</div>
@@ -110,7 +110,7 @@
 								<div class="row">
 									<div class="col-xl-12">
 										<select class="selectpicker with-border" id="pricing" name="budget_type">
-											<option value="fixed">Fixed Price</option>
+											<option value="fixed" {{ 'fixed' == old('budget_type') ? 'selected="selected"' : '' }}>Fixed Price</option>
 											<option value="hourly">Hourly Price</option>
 										</select>										
 									</div>
@@ -148,13 +148,13 @@
 											<div class="col-6">
 												<div class="submit-field">
 													<h5>Minimum Budget</h5>
-													<input type="number" name="min_budget" value="0" class="with-border" id="min_budget">
+													<input type="number" name="min_budget" value="{{ old('min_budget') ?? 0 }}" class="with-border" id="min_budget">
 												</div>														
 											</div>
 											<div class="col-6">
 												<div class="submit-field">
 													<h5>Maximum Budget</h5>
-													<input type="number" name="max_budget" value="0" class="with-border" id="max_budget">
+													<input type="number" name="max_budget" value="{{ old('max_budget') ?? 0 }}" class="with-border" id="max_budget">
 												</div>
 											</div>
 										</div>
@@ -167,7 +167,7 @@
 						<div class="col-xl-12">
 							<div class="submit-field">
 								<div class="uploadButton margin-top-30">
-									<input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" multiple/>
+									<input class="uploadButton-input" type="file" accept="image/*, application/pdf, application/txt, application/doc,application/docx,application/csv,application/xlsx" name="documents[]" id="upload" multiple/>
 									<label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
 									<span class="uploadButton-file-name">Images or documents that might be helpful in describing your job</span>
 								</div>

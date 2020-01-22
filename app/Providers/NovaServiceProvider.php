@@ -100,6 +100,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Cloudstudio\ResourceGenerator\ResourceGenerator(),
             new \Itainathaniel\AdminNotes\AdminNotes(),
             new \Themsaid\CashierTool\CashierTool(),
+            new SimonHamp\LaravelNovaCsvImport\LaravelNovaCsvImport,
         ];
     }
 

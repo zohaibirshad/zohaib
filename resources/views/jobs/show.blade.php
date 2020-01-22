@@ -75,17 +75,19 @@
 			 <!-- Atachments -->
 			<div class="single-page-section">
 				<h3>Attachments</h3>
-				@forelse ($job->getMedia('project_files') as $file)
-				<li>
+				
 				<div class="attachments-container">
-					<a href="storage/{{ $file->id }}/{{ $file->file_name }}" target="new" class="attachment-box ripple-effect cursor-pointer">
+				@forelse ($job->getMedia('project_files') as $file)
+					<a href="../storage/{{ $file->id }}/{{ $file->file_name }}" target="new" class="attachment-box ripple-effect cursor-pointer">
 						<span class="text-capitalize hover:text-white ">{{ $file->name }} </span>
 						<i class="text-uppercase hover:text-white">{{ $file->extension }}</i>
 					</a>
-				</div>
-				@empty
+
+					@empty
 				None
 				@endforelse
+				</div>
+				
 			
 			</div> 
 

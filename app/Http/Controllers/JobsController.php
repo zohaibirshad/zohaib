@@ -45,7 +45,7 @@ class JobsController extends Controller
         $maxBudget = $request->max_budget;
 
 
-        $jobs = Job::with('industry', 'skills', 'job_budget', 'country')
+        $jobs = Job::with('industry', 'skills', 'job_budget', 'country', 'bids')
             ->when(!empty($keyWord), function ($query) use ($keyWord) {
                 $query->where('title', 'LIKE', "%$keyWord%");
             })
@@ -377,6 +377,7 @@ class JobsController extends Controller
             'budget_type' => 'required',
             'min_budget' => 'required',
             'max_budget' => 'required',
+            'documents.*' => 'file|max:10240',
         ], [])->validate();
 
         if(!Auth::user()->hasRole('hirer')){
@@ -399,8 +400,8 @@ class JobsController extends Controller
 
         if ($request->hasFile('documents')) {
             $job
-                ->addMultipleMediaFromRequest($request->file('documents'))
-                ->each(function ($fileAdder) {
+            ->addMultipleMediaFromRequest(['documents'])
+            ->each(function ($fileAdder) {
                     $fileAdder->toMediaCollection('project_files');
             });
         }

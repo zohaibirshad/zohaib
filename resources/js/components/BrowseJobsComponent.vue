@@ -140,18 +140,20 @@
                   <p class="task-listing-text">{{ truncate(job.description) }}</p>
                   <div class="task-tags">
                     <span v-for="skill in job.skills" :key="skill.id" class="mr-1">{{ skill.title }}</span>
+                    <span v-if="bidCheck(job)" class="bg-green-400 text-white px-4 py-2 shadow-sm">Bid Submitted</span>
+
                   </div>
                 </div>
               </div>
 
               <div class="task-listing-bid">
-                <div class="task-listing-bid-inner">
+                <div class="task-listing-bid-inner flex flex-row flex-wrap">
                   <div class="task-offers">
                     <strong>{{ budget(job) }}</strong>
                     <span>{{ budgetType(job) }}</span>
                   </div>
-                  <span class="button button-sliding-icon ripple-effect">
-                    {{ user.type == 'freelancer' ? 'Bid Now' : 'View' }}
+                  <span class="button button-sliding-icon ripple-effect min-w-xxxs">
+                    {{ user.type == 'freelancer' ? bidCheck(job) ? "Pending Bid" : "Bid Now" : 'View' }}
                     <i class="icon-material-outline-arrow-right-alt"></i>
                   </span>
                 </div>
@@ -170,8 +172,8 @@
         <!-- Tasks Container / End -->
 
         <!-- Pagination -->
-        <div class="clearfix"></div>
-        <pagination :data="jobs" @pagination-change-page="getResults"></pagination>
+        <div class="clearfix my-2"></div>
+        <pagination class="my-3" :data="jobs" @pagination-change-page="getResults"></pagination>
         <!-- Pagination / End -->
       </div>
     </div>
@@ -184,6 +186,7 @@ export default {
   props : ['user'],
   data() {
     return {
+      profile: {},
       jobs: {},
       categories: {},
       skills: {},
@@ -231,11 +234,35 @@ export default {
     this.getResults();
     this.getCategories();
     this.getSkills();
+    this.getUser();
   },
 
   methods: {
     slug(slug) {
       return "jobs/" + slug;
+    },
+
+    bidCheck(job){
+      let result = false;
+      let self = this;
+      for (let index = 0; index < job.bids.length; index++) {
+        const element = job.bids[index];
+        if(job.bids[index].profile_id == self.profile.id){
+          result = true;
+          return result
+        } 
+      }
+      console.log(result);
+      
+      return result;
+    },
+
+     getUser(){
+      axios
+        .get("user")
+        .then(response => {
+          this.profile = response.data;
+        });
     },
 
     skillChange(selected) {

@@ -107,7 +107,8 @@
             <!--Freelancer -->
             <div v-for="freelancer in freelancers.data" :key="freelancer.id" class="freelancer">
               <!-- Overview -->
-              <div class="freelancer-overview">
+
+              <div v-if="freelancer.id != profile.id" class="freelancer-overview">
                 <div class="freelancer-overview-inner">
                   <!-- Bookmark Icon -->
                   <span class="bookmark-icon"></span>
@@ -203,6 +204,7 @@
 export default {
   data() {
     return {
+      profile: {},
       freelancers: {},
       countries: [],
       skills: {},
@@ -223,6 +225,7 @@ export default {
     this.getResults();
     this.getCountries();
     this.getSkills();
+    this.getUser();
   },
 
   methods: {
@@ -250,6 +253,14 @@ export default {
 
     country(country) {
       return `assets/images/flags/${country.code.toLowerCase()}.svg`;
+    },
+
+    getUser(){
+      axios
+        .get("user")
+        .then(response => {
+          this.profile = response.data;
+        });
     },
 
     getResults(page = 1) {

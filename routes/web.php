@@ -140,9 +140,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('freelancers/bookmarks-toggle-api', 'BookmarksController@toggle_api');
     Route::get('reviews', 'ReviewsController@index')->name('reviews');
 
-    Route::get('messages', function () {
-        return view('dashboard.messages');
-    })->name('messages');
+
+    Route::get('user', function (Request $request) {
+        return response()->json($request->user()->profile);
+    })->middleware('auth');
 
     Route::get('settings', 'DashboardController@settings')->name('settings');
     Route::get('verify-profile', 'DashboardController@verify');

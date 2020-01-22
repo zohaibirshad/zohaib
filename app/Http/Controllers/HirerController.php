@@ -59,7 +59,7 @@ class HirerController extends Controller
 
         if ($request->hasFile('documents')) {
             $fileAdders = $job
-                ->addMultipleMediaFromRequest($request->file('documents'))
+                ->addMultipleMediaFromRequest('documents')
                 ->each(function ($fileAdder) {
                     $fileAdder->toMediaCollection('project_files');
             });

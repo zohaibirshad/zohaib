@@ -179,15 +179,18 @@ class AccountController extends Controller
 
         $skills = [];
 
-        foreach ($request->skills as $index => $skill) {
-            if(is_numeric($skill)){
-                array_push($skills, $skill);
-            }  else {
-                $skillId = $this->createSkill($skill);
-                array_push($skills, $skillId);
+        if($request->filled('skills')){
+            foreach ($request->skills as $index => $skill) {
+                if(is_numeric($skill)){
+                    array_push($skills, $skill);
+                }  else {
+                    $skillId = $this->createSkill($skill);
+                    array_push($skills, $skillId);
+                }
+                
             }
-            
         }
+        
 
         try {
             DB::beginTransaction();
@@ -318,7 +321,7 @@ class AccountController extends Controller
 
         if ($request->hasFile('documents')) {
             $fileAdders = $profile
-                ->addMultipleMediaFromRequest($request->file('document'))
+                ->addMultipleMediaFromRequest('documents')
                 ->each(function ($fileAdder) {
                     $fileAdder->toMediaCollection('cv');
                 });

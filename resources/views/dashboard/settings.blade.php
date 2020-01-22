@@ -336,7 +336,7 @@
                                 <h5>Mobile Money Issued Country</h5>
                                 <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_country" id="momo_country">
                                     @foreach ($countries as $country)
-                                    <option value="{{ $country->name }}" {{ $user->momo_country == $country->name ? 'selected="selected"' : '' }}>
+                                    <option value="{{ $country->code }}" {{ $user->momo_country == $country->code ? 'selected="selected"' : '' }}>
                                         {{ $country->name }}
                                     </option> 
                                     @endforeach                                 
@@ -377,7 +377,7 @@
                                 <h5>Bank Account Country</h5>
                                 <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="bank_country" id="bank_country">
                                     @foreach ($countries as $country)
-                                    <option value="{{ $country->name }}" {{ $user->bank_country == $country->name ? 'selected="selected"' : '' }}>
+                                    <option value="{{ $country->code }}" {{ $user->bank_country == $country->code ? 'selected="selected"' : '' }}>
                                         {{ $country->name }}
                                     </option> 
                                     @endforeach                                 
