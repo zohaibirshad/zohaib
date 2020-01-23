@@ -139,11 +139,13 @@ class HirerController extends Controller
 
         $body =  $job->title . " bid at $" . $bid->rate. " has been accepted";
 
+        $request->body = $body;
+
         $participant = Participation::where('conversation_id', $conversation->id)
                                     ->where('user_id', $request->user()->id)
                                     ->first();
 
-        $message = Message::send($conversation,  $body, $participant);
+        $message = Message::send($conversation, $request, $participant);
 
         return back()->with('success', 'Bid Accepted Successfully');
 

@@ -95,25 +95,26 @@
 								</div>
 							</div>
 						</div>
+						<span id="pane"></span>
+						</div>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 			</div>
-			<span id="pane"></span>
-			</div>
+		
 	<!-- Message Content Inner / End -->
 
 					
 <!-- Reply Area -->
-<div v-show="canSendMessage" class="message-reply">
-	<div class="flex flex-row">
+<div v-show="canSendMessage" class="message-reply flex flex-row flex-wrap">
+	<div class="flex flex-row flex-wrap">
 		<div class="uploadButton margin-top-0">
 			<input class="uploadButton-input" ref="files" v-on:change="handleFilesUpload()" type="file" accept="image/*, application/*, video/*" id="upload" name="files[]" multiple/>
 			<label class="uploadButton-button ripple-effect" for="upload"><i class="icon-material-outline-attach-file"> </i></label>
 			<span class="uploadButton-file-name"></span>
 		</div>
 	</div>   
-	<textarea class="p-2" v-model="body"  cols="1" rows="1" placeholder="Your Message" data-autoresize></textarea>  
+	<textarea class="p-2 min-w-xxs" v-model="body"  cols="1" rows="1" placeholder="Your Message" data-autoresize></textarea>  
                            
 	<button @click="send()"  class="button button-sliding-icon ripple-effect">
 		Send
@@ -280,8 +281,7 @@ const app = window.app = new Vue({
 					this.canSendMessage = true;
 				}
 
-				var pane = document.getElementById('pane');
-				pane.scrollTop = pane.offsetHeight;
+				this.scrollDown();
 
 			}else{
 				this.canSendMessage = false;
@@ -316,11 +316,11 @@ const app = window.app = new Vue({
 					this.canSendMessage = true;
 				}
 
-				var pane = document.getElementById('pane');
-				pane.scrollTop = pane.offsetHeight;
+				this.scrollDown()
 				
 			}else{
 				this.canSendMessage = false;
+				this.scrollDown()
 			}
 
 			
@@ -331,7 +331,12 @@ const app = window.app = new Vue({
 			console.log('clicked');
 			
 			var pane = document.getElementById('pane');
+			if(pane != null){
+				pane.scrollIntoView();
 				pane.scrollTop = pane.scrollHeight;
+			}
+		
+				
 		}
 	},
 
