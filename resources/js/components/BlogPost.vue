@@ -140,7 +140,7 @@ export default {
         image(media){
             if(media.length > 0)
             {
-                return media[0].id + '/' + media[0].file_title; 
+                return media[0].id + '/' + media[0].file_name; 
             }
 
             return 'assets/images/blog-01a.jpg';

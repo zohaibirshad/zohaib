@@ -44713,10 +44713,8 @@ var isProduction = "false" === 'true';
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]((_ref = {
   broadcaster: 'pusher',
   key: "HHDN589R44589F",
-  wsHost: 'websocket.yohli.com',
-  wssHost: 'websocket.yohli.com',
-  wssPort: isProduction ? 6002 : 6001
-}, _defineProperty(_ref, "wssPort", isProduction ? 6002 : 6001), _defineProperty(_ref, "disableStats", true), _defineProperty(_ref, "encrypted", true), _defineProperty(_ref, "namespace", 'App.Events'), _ref));
+  wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com'
+}, _defineProperty(_ref, "wsHost", isProduction ? 'window.location.hostname' : 'websocket.yohli.com'), _defineProperty(_ref, "wssPort", isProduction ? 6002 : 6001), _defineProperty(_ref, "wssPort", isProduction ? 6002 : 6001), _defineProperty(_ref, "disableStats", true), _defineProperty(_ref, "encrypted", true), _defineProperty(_ref, "namespace", 'App.Events'), _ref));
 
 /***/ }),
 

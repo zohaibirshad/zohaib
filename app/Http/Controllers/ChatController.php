@@ -39,7 +39,7 @@ class ChatController extends Controller
         ->where('user_id', $request->user()->id)
         ->first();
 
-        $message = Message::send($conversation,  $request->body, $participant);
+        $message = Message::send($conversation,  $request, $participant);
 
         // $newMessage = Message::find($message->id);
 

@@ -84,7 +84,17 @@
 				<div v-else class="message-bubble">
 					<div class="message-bubble-inner">
 						<div :title="message.sender.name" class="message-avatar"><img  v-bind:src="image(message.sender.profile)" alt="" /></div>
-						<div class="message-text"><p>@{{ message.body }}</p></div>
+						<div class="message-text">
+							<p v-if="message.body">@{{ message.body }}</p>
+							<div v-if="showAttachemnts(message.media)" class="attachments-container flex flex-col">
+								<div v-for="media_file in message.media" key="media_file.id">
+									<a :href="file(media_file)" target="new" class="attachment-box ripple-effect cursor-pointer" download>
+										<span class="text-capitalize hover:text-white ">@{{ media_file.file_name }} </span>
+										<i class="text-uppercase hover:text-white">@{{ media_file.mime_type }}</i> 
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -96,7 +106,15 @@
 					
 <!-- Reply Area -->
 <div v-show="canSendMessage" class="message-reply">
-	<textarea v-model="body"  cols="1" rows="1" placeholder="Your Message" data-autoresize></textarea>                                
+	<div class="flex flex-row">
+		<div class="uploadButton margin-top-0">
+			<input class="uploadButton-input" ref="files" v-on:change="handleFilesUpload()" type="file" accept="image/*, application/*, video/*" id="upload" name="files[]" multiple/>
+			<label class="uploadButton-button ripple-effect" for="upload"><i class="icon-material-outline-attach-file"> </i></label>
+			<span class="uploadButton-file-name"></span>
+		</div>
+	</div>   
+	<textarea class="p-2" v-model="body"  cols="1" rows="1" placeholder="Your Message" data-autoresize></textarea>  
+                           
 	<button @click="send()"  class="button button-sliding-icon ripple-effect">
 		Send
 		<i class="icon-feather-send"></i>
@@ -131,6 +149,7 @@ const app = window.app = new Vue({
 		body: '',
 		canSendMessage: false,
 		job_id: '',
+		files: []
 	},
 
 	computed: {
@@ -147,10 +166,23 @@ const app = window.app = new Vue({
 				return alert("message can't be empty")
 			}
 
-			axios.put('../chats/'+ this.single_conversation[0].conversation_id, {
-				body: this.body
-			}).then(function(r){
+			var formData = new FormData();
+			for( var i = 0; i < this.files.length; i++ ){
+				let file = this.files[i];
+
+				formData.append('files[' + i + ']', file);
+			}
+			formData.append('body', this.body);
+
+			axios.post('../chats/'+ this.single_conversation[0].conversation_id,
+				formData, {
+					headers: {
+					'Content-Type': 'multipart/form-data'
+					}
+				}
+			).then(function(r){
 				self.body = '';
+				self.files = '';
 				self.single_conversation.push(r.data);
 				// console.log(r);
 			}).catch(function(e){
@@ -158,6 +190,24 @@ const app = window.app = new Vue({
 				
 			})
 
+		},
+
+		showAttachemnts: function(media){
+			if(media.length > 0)
+            {
+                return true; 
+            }
+		},
+
+		file: function(media){
+				var path = '../storage/' + media.id + '/' + media.file_name;
+				console.log(path);
+                return path; 
+			
+		},
+
+		handleFilesUpload: function() {
+			this.files = this.$refs.files.files;
 		},
 
 		markSeen(id){

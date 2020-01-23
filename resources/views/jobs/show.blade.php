@@ -80,7 +80,7 @@
 				@forelse ($job->getMedia('project_files') as $file)
 					<a href="../storage/{{ $file->id }}/{{ $file->file_name }}" target="new" class="attachment-box ripple-effect cursor-pointer">
 						<span class="text-capitalize hover:text-white ">{{ $file->name }} </span>
-						<i class="text-uppercase hover:text-white">{{ $file->extension }}</i>
+						<i class="text-uppercase hover:text-white">{{ $file->extension }}</i> 
 					</a>
 
 					@empty

@@ -83,7 +83,7 @@ class Conversation extends Model
      */
     public function messages()
     {
-        return $this->hasMany(Message::class, 'conversation_id')->orderBy('messages.id', 'asc'); //->with('sender');
+        return $this->hasMany(Message::class, 'conversation_id')->orderBy('messages.id', 'asc')->with('media');
     }
 
     /**

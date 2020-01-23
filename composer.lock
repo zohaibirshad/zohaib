@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2829e59e49835ddf02f6634d7989d35d",
+    "content-hash": "5d09b98a7ab8fe48eabe7bc99d5e63be",
     "packages": [
         {
             "name": "ampeco/nova-date-range-filter",
@@ -6304,48 +6304,6 @@
                 "syntax"
             ],
             "time": "2019-12-13T21:54:06+00:00"
-        },
-        {
-            "name": "simonhamp/laravel-nova-csv-import",
-            "version": "v0.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/simonhamp/laravel-nova-csv-import.git",
-                "reference": "482b842a807f36a2a3bc541dcb2941a3e5fa7d08"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/simonhamp/laravel-nova-csv-import/zipball/482b842a807f36a2a3bc541dcb2941a3e5fa7d08",
-                "reference": "482b842a807f36a2a3bc541dcb2941a3e5fa7d08",
-                "shasum": ""
-            },
-            "require": {
-                "maatwebsite/excel": "^3.1",
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "SimonHamp\\LaravelNovaCsvImport\\ToolServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SimonHamp\\LaravelNovaCsvImport\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A fully-fledged CSV import tool for Laravel Nova.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "time": "2019-10-25T11:35:26+00:00"
         },
         {
             "name": "spatie/db-dumper",

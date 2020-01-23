@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use App\Events\MessageWasSent;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Message extends Model
+class Message extends Model implements HasMedia
 {
+    use HasMediaTrait;
+    
     protected $fillable = [
         'body',
         'participation_id',
@@ -29,10 +34,17 @@ class Message extends Model
     ];
     protected $appends = ['sender'];
 
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('attachments');
+    }
+
     public function participation()
     {
         return $this->belongsTo(Participation::class, 'participation_id');
     }
+
+
     public function getSenderAttribute()
     {
         $participantModel = $this->participation->user;
@@ -85,13 +97,23 @@ class Message extends Model
      *
      * @return Model
      */
-    public static function send(Conversation $conversation, string $body, Participation $participant, string $type = 'text'): Model
+    public static function send(Conversation $conversation, Request $request, Participation $participant, string $type = 'text'): Model
     {
         $message = $conversation->messages()->create([
-            'body'             => $body,
+            'body'             => $request->body,
             'participation_id' => $participant->getKey(),
             'type'             => $type,
         ]);
+
+        if ($request->hasFile('files')) {
+            $message
+                ->addMultipleMediaFromRequest(['files'])
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection('attachments');
+                });
+        }
+        
+        $message = self::find($message->id);
         
         broadcast(new MessageWasSent($message))->toOthers();
     

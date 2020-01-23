@@ -17,8 +17,8 @@ let isProduction = process.env.MIX_WS_CONNECT_PRODUCTION === 'true';
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
-    wsHost: 'websocket.yohli.com',
-    wssHost: 'websocket.yohli.com',
+    wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
+    wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
     wssPort: isProduction ? 6002 : 6001,
     wssPort: isProduction ? 6002 : 6001,
     disableStats: true,

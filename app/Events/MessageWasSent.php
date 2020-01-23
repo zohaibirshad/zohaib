@@ -37,6 +37,7 @@ class MessageWasSent implements ShouldBroadcast
             'message' => [
                 'id'              => $this->message->getKey(),
                 'body'            => $this->message->body,
+                'attachments'     => $this->message->attachments,
                 'conversation_id' => $this->message->conversation_id,
                 'type'            => $this->message->type,
                 'created_at'      => $this->message->created_at,
