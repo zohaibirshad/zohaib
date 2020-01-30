@@ -132,8 +132,8 @@
 	<textarea class="p-2 min-w-xxs" v-model="body"  cols="1" rows="1" placeholder="Your Message" data-autoresize></textarea>  
                            
 	<button @click="send()"  class="button button-sliding-icon ripple-effect">
-		Send
-		<i class="icon-feather-send"></i>
+		<span v-if="!spinner">Send</span>
+		<span id="spinner" v-if="spinner" class="spinner-border text-warning w-8 h-10 p-2"></span>
 	</button>
 
 </div>
@@ -166,8 +166,7 @@ const app = window.app = new Vue({
 		canSendMessage: false,
 		job_id: '',
 		files: null,
-		active: true,
-		inActive: false,
+		spinner: false,
 	},
 
 	computed: {
@@ -196,22 +195,31 @@ const app = window.app = new Vue({
 				formData.append('body', this.body);
 			}
 			
-
-			axios.post('../chats/'+ this.single_conversation[0].conversation_id,
-				formData, {
-					headers: {
-					'Content-Type': 'multipart/form-data'
+			if(this.single_conversation[0] != undefined){
+				this.spinner = true;
+				axios.post('../chats/'+ this.single_conversation[0].conversation_id,
+					formData, {
+						headers: {
+						'Content-Type': 'multipart/form-data'
+						}
 					}
-				}
-			).then(function(r){
-				self.body = null;
-				self.files = null;
-				self.single_conversation.push(r.data);
-				console.log(self.$refs.files.files);
-			}).catch(function(){
-				// console.log(e);
-				
-			})
+				).then(function(r){
+					self.body = null;
+					self.files = null;
+					self.single_conversation.push(r.data);
+					self.spinner = false;
+					console.log(self.$refs.files.files);
+				}).catch(function(){
+					// console.log(e);
+					self.spinner = false;
+					
+				})
+			}else{
+				this.body = null;
+				this.files = null;
+				alert("you can not send messages to user")
+			}
+		
 
 		},
 
@@ -303,6 +311,8 @@ const app = window.app = new Vue({
 		},
 		findConversation:  function(id, profile, job_id){
 			console.log(id);
+			this.body = null;
+			this.files = null;
 			this.job_id = job_id;
 			this.profile = profile;
 			var self = this;
