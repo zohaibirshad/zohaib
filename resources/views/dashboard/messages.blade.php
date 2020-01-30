@@ -68,15 +68,26 @@
 		</div>
 		<!-- Message Content Inner -->
 			<div class="message-content-inner" v-chat-scroll="{always: true, smooth: true, scrollonremoved:true, smoothonremoved: true}">
-				<div v-for="message in conversation" key="message.conversation_id" >					
+				<div v-for="message in conversation">					
 				<!-- Time Sign -->
 				<div class="message-time-sign">
 					<span>@{{ dateFormat(message.created_at) }}</span>
 				</div>
-				<div v-if="message.sender.email == user.email" class="message-bubble me">
-					<div class="message-bubble-inner">
-						<div :title="message.sender.name" class="message-avatar"><img v-bind:src="image(message.sender.profile)" alt=""/></div>
-						<div class="message-text"><p>@{{ message.body }}</p></div>
+				<div v-if="message.sender.email == user.email" class="message-bubble  me">
+					<div class="message-bubble-inner ">
+						<div :title="message.sender.name" class="message-avatar"><img v-bind:src="image(message.sender.profile)" alt=""/>
+						 </div>
+						<div class="message-text bg-light-blue-400">
+							<p v-if="message.body">@{{ message.body }}</p>
+							<div v-if="showAttachemnts(message.media)" class="attachments-container  flex flex-col">
+								<div v-for="media_file in message.media">
+									<a :href="file(media_file)" class="attachment-box bg-light-blue-400 ripple-effect cursor-pointer" download>
+										<span class="text-capitalize text-white hover:text-black ">@{{ media_file.file_name }} </span>
+										<i class="text-uppercase text-white hover:text-black">@{{ media_file.mime_type }}</i> 
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -87,7 +98,7 @@
 						<div class="message-text">
 							<p v-if="message.body">@{{ message.body }}</p>
 							<div v-if="showAttachemnts(message.media)" class="attachments-container flex flex-col">
-								<div v-for="media_file in message.media" key="media_file.id">
+								<div v-for="media_file in message.media">
 									<a :href="file(media_file)" target="new" class="attachment-box ripple-effect cursor-pointer" download>
 										<span class="text-capitalize hover:text-white ">@{{ media_file.file_name }} </span>
 										<i class="text-uppercase hover:text-white">@{{ media_file.mime_type }}</i> 
@@ -111,7 +122,11 @@
 		<div class="uploadButton margin-top-0">
 			<input class="uploadButton-input" ref="files" v-on:change="handleFilesUpload()" type="file" accept="image/*, application/*, video/*" id="upload" name="files[]" multiple/>
 			<label class="uploadButton-button ripple-effect" for="upload"><i class="icon-material-outline-attach-file"> </i></label>
-			<span class="uploadButton-file-name"></span>
+			<div class="flex flex-col justify-start px-2">
+				<span v-for="file in files">
+					<div class="text-gray-700">@{{ file.name }}</div>
+				</span>
+			</div>
 		</div>
 	</div>   
 	<textarea class="p-2 min-w-xxs" v-model="body"  cols="1" rows="1" placeholder="Your Message" data-autoresize></textarea>  
@@ -147,10 +162,12 @@ const app = window.app = new Vue({
 		single_conversation: {},
 		user: user,
 		profile: {},
-		body: '',
+		body: null,
 		canSendMessage: false,
 		job_id: '',
-		files: []
+		files: null,
+		active: true,
+		inActive: false,
 	},
 
 	computed: {
@@ -163,17 +180,22 @@ const app = window.app = new Vue({
 	methods: {
 		send(){
 			var self = this;
-			if(this.body == ''){
+			if(this.body == null & this.files == null){
 				return alert("message can't be empty")
 			}
 
 			var formData = new FormData();
-			for( var i = 0; i < this.files.length; i++ ){
-				let file = this.files[i];
+			if(this.files != null){
+				for( var i = 0; i < this.files.length; i++ ){
+					let file = this.files[i];
 
-				formData.append('files[' + i + ']', file);
+					formData.append('files[' + i + ']', file);
+				}
 			}
-			formData.append('body', this.body);
+			if(this.body != null){
+				formData.append('body', this.body);
+			}
+			
 
 			axios.post('../chats/'+ this.single_conversation[0].conversation_id,
 				formData, {
@@ -182,11 +204,11 @@ const app = window.app = new Vue({
 					}
 				}
 			).then(function(r){
-				self.body = '';
-				self.files = '';
+				self.body = null;
+				self.files = null;
 				self.single_conversation.push(r.data);
-				// console.log(r);
-			}).catch(function(e){
+				console.log(self.$refs.files.files);
+			}).catch(function(){
 				// console.log(e);
 				
 			})
@@ -209,6 +231,8 @@ const app = window.app = new Vue({
 
 		handleFilesUpload: function() {
 			this.files = this.$refs.files.files;
+			console.log(this.files);
+			
 		},
 
 		markSeen(id){
@@ -267,24 +291,12 @@ const app = window.app = new Vue({
 
 			if(this.single_conversation[0] != undefined)
 			{
-				this.markSeen(this.single_conversation[0].conversation_id);
-				Echo.private('chat-conversation.' + this.single_conversation[0].conversation_id)
-					.listen('MessageWasSent', function(e) {
-						self.single_conversation.push(e.message);
-						console.log(['websocket', e]);
-						
-				});
-
-				if(this.job_id == null){
-					this.canSendMessage = false;
-				}else{
-					this.canSendMessage = true;
-				}
-
-				this.scrollDown();
+				this.activateWebsocket()
+				
 
 			}else{
 				this.canSendMessage = false;
+				// this.scrollDown()
 			}
 			
 
@@ -303,20 +315,7 @@ const app = window.app = new Vue({
 
 			if(this.single_conversation[0] != undefined)
 			{
-				this.markSeen(this.single_conversation[0].conversation_id);
-				Echo.private('chat-conversation.' + this.single_conversation[0].conversation_id)
-				.listen('MessageWasSent', function(e) {
-					self.single_conversation.push(e.message);
-					console.log(['websocket', e]);
-
-				});
-				if(this.job_id == null){
-					this.canSendMessage = false;
-				}else{
-					this.canSendMessage = true;
-				}
-
-				this.scrollDown()
+				this.activateWebsocket()
 				
 			}else{
 				this.canSendMessage = false;
@@ -325,6 +324,29 @@ const app = window.app = new Vue({
 
 			
 			
+		},
+
+		activateWebsocket: function(){
+			var self = this;
+
+			this.markSeen(this.single_conversation[0].conversation_id);
+
+			if(this.job_id == null){
+				this.canSendMessage = false;
+			}else{
+				this.canSendMessage = true;
+			}
+
+			this.scrollDown();
+			
+			Echo.private('chat-conversation.' + this.single_conversation[0].conversation_id)
+				.listen('MessageWasSent', function(e) {
+					self.single_conversation.push(e.message);
+					console.log(['websocket', e]);
+
+			});
+
+		
 		},
 
 		scrollDown: function(){

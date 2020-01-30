@@ -32,7 +32,7 @@ class Message extends Model implements HasMedia
     protected $casts = [
         'flagged' => 'boolean',
     ];
-    protected $appends = ['sender'];
+    protected $appends = ['sender', 'media'];
 
     public function registerMediaCollections()
     {
@@ -53,6 +53,12 @@ class Message extends Model implements HasMedia
         }
         return $this->participation->user;
     }
+
+    public function getMediaAttribute()
+    {
+        return $this->media()->get();
+    }
+
     public function unreadCount(Model $participant)
     {
         return MessageNotification::where('user_id', $participant->getKey())
@@ -100,7 +106,7 @@ class Message extends Model implements HasMedia
     public static function send(Conversation $conversation, Request $request, Participation $participant, string $type = 'text'): Model
     {
         $message = $conversation->messages()->create([
-            'body'             => $request->body,
+            'body'             => $request->body ?? 'file',
             'participation_id' => $participant->getKey(),
             'type'             => $type,
         ]);
