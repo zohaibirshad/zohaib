@@ -133,7 +133,7 @@
                            
 	<button @click="send()"  class="button button-sliding-icon ripple-effect">
 		<span v-if="!spinner">Send</span>
-		<span id="spinner" v-if="spinner" class="spinner-border text-warning w-8 h-10 p-2"></span>
+		<span id="spinner" v-if="spinner" class="spinner-border text-warning w-8 h-8 my-2"></span>
 	</button>
 
 </div>
