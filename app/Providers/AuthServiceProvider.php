@@ -26,6 +26,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('viewWebSocketsDashboard', function ($user = null) {
+            if(env('APP_ENV') == 'local'){
+                return true;
+            }
             return in_array($user->email, [
                 'emmanuel@jumeni.com', 'emmarthurson@gmail.com','emradegh@gmail.com'
             ]);
