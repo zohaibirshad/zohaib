@@ -22,6 +22,5 @@ window.Echo = new Echo({
     wssPort: isProduction ? 6001 : 6002,
     disableStats: true,
     encrypted: true,
-    namespace: 'App.Events'
 });
 
