@@ -44711,6 +44711,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   key: "HHDN589R44589F",
   wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
   wsPort: isProduction ? 6002 : 6001,
+  wssHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
+  wssPort: isProduction ? 6002 : 6001,
   disableStats: true,
   encrypted: true,
   namespace: 'App.Events'
