@@ -38,7 +38,7 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'host' => env('WEBSOCKET_HOST'),
-                'port' => env('MIX_WS_CONNECT_PRODUCTION') ? 6002 : 6001,
+                'port' => env('MIX_WS_CONNECT_PRODUCTION') ? 6001 : 6001,
                 'scheme' => 'https',
                 'curl_options' => [
                     CURLOPT_SSL_VERIFYHOST => env('CURLOPT_SSL_VERIFYHOST', 0),
