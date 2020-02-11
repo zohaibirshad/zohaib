@@ -249,10 +249,12 @@ const app = window.app = new Vue({
 		},
 
 		showAttachemnts: function(media){
-			if(media.length > 0)
-            {
-                return true; 
-            }
+			if(media != undefined){
+				if(media.length > 0){
+					return true; 
+				}
+			}
+			
 		},
 
 		file: function(media){
