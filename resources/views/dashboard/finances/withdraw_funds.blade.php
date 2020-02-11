@@ -25,11 +25,15 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <select name="method" class="selectpicker with-border" id="payment_method">
-                                            <option value="stripe" >Stripe - free</option>
-                                            <option value="paypal" >Paypal - free</option>
-                                            <option value="international wire" >International wire - $25</option>
-                                            <option value="mobile money">Mobile money - 3.0%</option>
-                                            <option value="debit card">debit card - 3.0%</option>
+                                            @if(!empty($profile->paypal))
+                                                <option value="paypal" >Paypal - free</option>
+                                            @endif
+                                            @if(!empty($profile->momo) & !empty($profile->momo_network) & !empty($profile->momo_country))
+                                                <option value="mobile money">Mobile money - 3.0%</option>
+                                            @endif
+                                            @if(!empty($profile->bank_name) & !empty($profile->bank_no) & !empty($profile->bank_account_name))
+                                                <option value="international wire" >International wire</option>
+                                            @endif
                                         </select>
                                     </div>
                                 </div>

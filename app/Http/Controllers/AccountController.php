@@ -464,7 +464,7 @@ class AccountController extends Controller
         }
 
         $payment->save();
-    
+        
         if($request->ajax()){
             return response()->json([
                 'message' => "Account " . $request->type . " Successful",

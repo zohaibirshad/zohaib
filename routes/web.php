@@ -296,8 +296,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     
     Route::get('withdraw-funds', function () {
         $account = \App\Models\Account::where('user_id', Auth::user()->id)->first();
+
+        $profile = Auth::user()->profile;
     
-        return view('dashboard.finances.withdraw_funds',  compact('account'));
+        return view('dashboard.finances.withdraw_funds',  compact('account', 'profile'));
     
     })->name('withdraw-funds');
     
