@@ -44697,10 +44697,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 /* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-chat-scroll */ "./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js");
 /* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1__);
-var _ref;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -44710,11 +44706,15 @@ window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/d
 
 window.VueChatScroll = vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1___default.a;
 var isProduction = "false" === 'true';
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]((_ref = {
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "HHDN589R44589F",
-  wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com'
-}, _defineProperty(_ref, "wsHost", isProduction ? 'window.location.hostname' : 'websocket.yohli.com'), _defineProperty(_ref, "wssPort", isProduction ? 6002 : 6001), _defineProperty(_ref, "wssPort", isProduction ? 6002 : 6001), _defineProperty(_ref, "disableStats", true), _defineProperty(_ref, "encrypted", true), _defineProperty(_ref, "namespace", 'App.Events'), _ref));
+  wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
+  wsPort: isProduction ? 6002 : 6001,
+  disableStats: true,
+  encrypted: true,
+  namespace: 'App.Events'
+});
 
 /***/ }),
 
