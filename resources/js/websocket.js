@@ -18,7 +18,7 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
-    wsPort: isProduction ? 443 : 6001,
+    wsPort: isProduction ? 6002 : 6001,
     disableStats: true,
     encrypted: true,
     namespace: 'App.Events'
