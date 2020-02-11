@@ -28,7 +28,7 @@
 				<div class="chat-main-box">
 					<!-- .chat-left-panel -->
 					<div class="chat-left-aside">
-						<div class="open-panel"><i class="icon-line-awesome-angle-right"></i></div>
+						<div class="open-panel bg-orange-500 text-white"><i class="icon-line-awesome-angle-right"></i></div>
 						<div class="chat-left-inner">
 							<div class="form-material">
 								<p class="p-2">Chat Contacts</p>
@@ -88,12 +88,12 @@
 									<li v-if="message.sender.email == user.email" class="reverse">
 										<div class="chat-content">
 											<h5>@{{ message.sender.name }}</h5>
-											<div class="box bg-light-blue-200" v-if="message.body">@{{ message.body }}</div>
+											<div class="box bg-gray-200 text-black" v-if="message.body">@{{ message.body }}</div>
 											<div v-if="showAttachemnts(message.media)"  class="flex flex-col flex-no-wrap mr-0" >
 													<div v-for="media_file in message.media">
-														<a :href="file(media_file)" class="text-orange-500  cursor-pointer" download>
+														<a :href="file(media_file)" class="text-gray-600  cursor-pointer" download>
 															<span class="text-capitalize  hover:text-black cursor-pointer">@{{ media_file.file_name }} </span>
-															<i class="text-uppercase  hover:text-black cursor-pointer">@{{ media_file.mime_type }}</i> 
+															<!-- <i class="text-uppercase  hover:text-black cursor-pointer">@{{ media_file.mime_type }}</i>  -->
 														</a>
 													</div>
 												</div>
@@ -107,11 +107,11 @@
 										<div class="chat-content">
 											<h5>@{{ message.sender.name }}</h5>
 											<div class="box bg-light-info" v-if="message.body">@{{ message.body }}</div>
-											<div v-if="showAttachemnts(message.media)" class="flex flex-col">
+											<div v-if="showAttachemnts(message.media)" class="flex flex-col cursor-pointer">
 												<div v-for="media_file in message.media">
-													<a :href="file(media_file)" target="new" class="text-orange-500 ripple-effect cursor-pointer" download>
+													<a :href="file(media_file)" title="Click to Download" target="new" class="text-gray-600 ripple-effect cursor-pointer" download>
 														<span class="cursor-pointer text-capitalize hover:text-black ">@{{ media_file.file_name }} </span>
-														<i class="cursor-pointer text-uppercase hover:text-white">@{{ media_file.mime_type }}</i> 
+														<!-- <i class="cursor-pointer text-uppercase hover:text-white">@{{ media_file.mime_type }}</i>  -->
 													</a>
 												</div>
 											</div>
