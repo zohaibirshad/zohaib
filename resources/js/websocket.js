@@ -18,9 +18,9 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: isProduction ? window.location.hostname : 'websocket.yohli.com',
-    wsPort: isProduction ? 403 : 6001,
+    wsPort: isProduction ? 443 : 6001,
     wssHost: isProduction ? window.location.hostname : 'websocket.yohli.com',
-    wssPort: isProduction ? 403 : 6001,
+    wssPort: isProduction ? 443 : 6001,
     disableStats: true,
     encrypted: true,
 });
