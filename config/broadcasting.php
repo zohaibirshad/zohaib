@@ -37,7 +37,7 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'host' => '127.0.0.1',
+                'host' => env('WEBSOCKET_HOST'),
                 'port' => env('MIX_WS_CONNECT_PRODUCTION') ? 6002 : 6001,
                 'scheme' => 'https',
                 'curl_options' => [
