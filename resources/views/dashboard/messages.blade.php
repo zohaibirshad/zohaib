@@ -31,7 +31,7 @@
 						<div class="open-panel bg-orange-500 text-white"><i class="icon-line-awesome-angle-right"></i></div>
 						<div class="chat-left-inner">
 							<div class="form-material">
-								<p class="p-2">Chat Contacts</p>
+								<p class="p-3">Chat Contacts</p>
 							</div>
 							<ul class="chatonline style-none ">
 							@forelse ($conversations as $c)
@@ -233,7 +233,7 @@ const app = window.app = new Vue({
 					self.files = null;
 					self.single_conversation.push(r.data);
 					self.spinner = false;
-					console.log(self.$refs.files.files);
+					// console.log(self.$refs.files.files);
 				}).catch(function(){
 					// console.log(e);
 					self.spinner = false;
@@ -257,14 +257,14 @@ const app = window.app = new Vue({
 
 		file: function(media){
 				var path = '../storage/' + media.id + '/' + media.file_name;
-				console.log(path);
+				// console.log(path);
                 return path; 
 			
 		},
 
 		handleFilesUpload: function() {
 			this.files = this.$refs.files.files;
-			console.log(this.files);
+			// console.log(this.files);
 			
 		},
 
