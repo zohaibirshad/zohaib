@@ -44705,14 +44705,14 @@ window.Moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 
 window.VueChatScroll = vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1___default.a;
-var isProduction = "false" === 'true';
+var isProduction = "true" === 'true';
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "HHDN589R44589F",
-  wsHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
-  wsPort: isProduction ? 6002 : 6001,
-  wssHost: isProduction ? 'window.location.hostname' : 'websocket.yohli.com',
-  wssPort: isProduction ? 6002 : 6001,
+  wsHost: isProduction ? window.location.hostname : 'websocket.yohli.com',
+  wsPort: isProduction ? 6001 : 6001,
+  wssHost: isProduction ? window.location.hostname : 'websocket.yohli.com',
+  wssPort: isProduction ? 6001 : 6001,
   disableStats: true,
   encrypted: true,
   namespace: 'App.Events'
