@@ -44709,13 +44709,8 @@ var isProduction = "true" === 'true';
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "HHDN589R44589F",
-  wsHost: isProduction ? window.location.hostname : 'websocket.yohli.com',
-  wsPort: isProduction ? 6001 : 6001,
-  wssHost: isProduction ? window.location.hostname : 'websocket.yohli.com',
-  wssPort: isProduction ? 6001 : 6001,
-  disableStats: true,
-  encrypted: true,
-  namespace: 'App.Events'
+  cluster: 'mt1',
+  forceTLS: true
 });
 
 /***/ }),
