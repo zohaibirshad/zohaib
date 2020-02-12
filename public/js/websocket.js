@@ -44708,7 +44708,7 @@ window.VueChatScroll = vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1___default.a;
 var isProduction = "true" === 'true';
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "HHDN589R44589F",
+  key: "52700d94e0bea9cadc40",
   cluster: 'mt1',
   forceTLS: true
 });
