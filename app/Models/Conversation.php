@@ -38,6 +38,11 @@ class Conversation extends Model
         return $this->participants->pluck('user');
     }
 
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
+
     /**
      * Conversation participants.
      *

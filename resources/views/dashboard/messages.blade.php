@@ -49,15 +49,11 @@
 													</div>
 													<div class="flex flex-col justify-between">
 														<span class="font-light">{{ $p->user->name }}</span>
+														<span class=""><b>Job:</b> {{ $p->conversationWithLastMessage->job->title }}</span>
 														@if($p->conversationWithLastMessage->last_message)
 														<small>{{ $p->conversationWithLastMessage->last_message->created_at->diffForHumans() }}</small>
 														@else
 														<small>{{ $p->created_at->diffForHumans() }}</small>
-														@endif
-														@if($p->conversationWithLastMessage->last_message)
-														<small><b>{{ $p->conversationWithLastMessage->last_message->body }}</b></small>
-														@else
-														<small><b>No Messages yet</b></small>
 														@endif
 													</div>
 												</div>
