@@ -40,11 +40,11 @@
 										<li>
 											<a class="cursor-pointer " @click="findConversation({{ $c->id }}, {{ $p->user->profile }}, {{ $c->job_id }})">
 												<div class="flex flex-row flex-no-wrap">
-													<div>
+													<div class="mr-1">
 														@if (sizeof($p->user->profile->getMedia('profile')) == 0)
-														<img class="img-circle" src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
+														<img class="img-circle object-contain" src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
 														@else
-														<img class="img-circle" src="{{ $p->user->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
+														<img class="img-circle object-contain" src="{{ $p->user->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
 														@endif
 													</div>
 													<div class="flex flex-col justify-between">
