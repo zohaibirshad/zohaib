@@ -118,7 +118,6 @@ class PayPalService {
         $headers = array_change_key_case($request->headers->all(), CASE_UPPER);
 
         \Log::info($requestBody);
-        \Log::info($this->webhook_id);
         
         $signatureVerification = new VerifyWebhookSignature();
         $signatureVerification->setAuthAlgo($request->header("paypal-auth-algo"));
@@ -135,14 +134,9 @@ class PayPalService {
             /** @var \PayPal\Api\VerifyWebhookSignatureResponse $output */
             $output = $signatureVerification->post($this->apiContext);
         } catch (\Exception $e) {
-            // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-            // ResultPrinter::printError("Validate Received Webhook Event", "WebhookEvent", null, $req->toJSON(), $ex);
             \Log::critical($e);
-
-            // return response()->json(['Error: Could not verify signature.']);
-
         }
-        \Log::info($output);
+        \Log::info(print_r($output, true));
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
         \Log::critical($status);
