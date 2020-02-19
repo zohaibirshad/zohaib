@@ -147,7 +147,7 @@ class PayPalService {
                 // $transaction = Transaction::where('transaction_id', $itemID)->first();
                 $transaction = Transaction::find(10);
                 $transaction->status = 'failed';
-                $transaction->description = $json['transaction_status'];
+                $transaction->description = $json['resource']['transaction_status'];
                 $transaction->save();
                 $account = $transaction->account()->with('user')->first();
 
@@ -163,7 +163,7 @@ class PayPalService {
                 $itemID = $json['resource']['payout_item']['sender_item_id'];
                 $transaction = Transaction::where('transaction_id')->first();
                 $transaction->status = 'success';
-                $transaction->description = $json['transaction_status'];
+                $transaction->description = $json['resource']['transaction_status'];
                 $transaction->save();
 
                 $account = $transaction->account()->with('user')->first();
