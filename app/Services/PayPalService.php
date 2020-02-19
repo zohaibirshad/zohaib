@@ -151,6 +151,7 @@ class PayPalService {
 
                 $user = $account->user;
                 $user->notify(new PayPalPayOutFailed($transaction));
+                \Log::info(print_r($user, true));
                 return response('Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.', 400)->header('Content-Type', 'text/plain');
 
             case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
@@ -164,6 +165,7 @@ class PayPalService {
                 $user = $account->user;
 
                 $user->notify(new PayPalPayOutSuccess($transaction));
+                \Log::info(print_r($user, true));
                 return response('Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.', 400)->header('Content-Type', 'text/plain');
 
 
