@@ -93,21 +93,10 @@ class PayPalService {
     {
         // Get request details
         $requestBody = $request->getContent();
+        $headers = array_change_key_case($request->headers->all(), CASE_UPPER);
+
         \Log::info($requestBody);
         \Log::info($headers);
-        $headers = array_change_key_case($request->headers->all(), CASE_UPPER);
-        
-        /**
-        * Receive HTTP headers that you received from PayPal webhook.
-        * Just uncomment the below line to read the data from actual request.
-        */
-        /** @var Array $headers */
-        //$headers = getallheaders();
-        
-        /**
-        * In documentations https://developer.paypal.com/docs/api/webhooks/v1/#verify-webhook-signature
-        * All header keys as UPPERCASE, but I receive the header key as the example array, First letter as UPPERCASE
-        */
         
         $signatureVerification = new VerifyWebhookSignature();
         $signatureVerification->setAuthAlgo($headers['PAYPAL-AUTH-ALGO']);
