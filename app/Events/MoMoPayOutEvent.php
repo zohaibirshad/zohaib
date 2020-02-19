@@ -21,7 +21,7 @@ class MoMoPayOutEvent
      *
      * @return void
      */
-    public function __construct(Profile $profile, Transaction $transaction, Array $request)
+    public function __construct(Profile $profile, Transaction $transaction)
     {
         $this->transaction = $transaction;
         $this->profile = $profile;
