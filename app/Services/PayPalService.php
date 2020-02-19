@@ -122,6 +122,7 @@ class PayPalService {
             // return response()->json(['Error: Could not verify signature.']);
 
         }
+        \Log::critical($output);
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
         \Log::critical($status);
