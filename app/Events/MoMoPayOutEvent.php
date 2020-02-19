@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Profile;
+use App\Models\Transaction;
 use Illuminate\Queue\SerializesModels;
 
 class MoMoPayOutEvent
