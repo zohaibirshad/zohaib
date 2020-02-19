@@ -16,6 +16,7 @@ use \PayPal\Api\VerifyWebhookSignature;
 use \PayPal\Api\PayoutSenderBatchHeader;
 use App\Notifications\PayPalPayOutFailed;
 use App\Notifications\PayPalPayOutSuccess;
+use App\Notifications\PayPalPayOutProcessing;
 use PayPal\Api\VerifyWebhookSignatureResponse;
 
 class PayPalService {
@@ -40,7 +41,11 @@ class PayPalService {
         $this->webhook_id = config('paypal.webhook_id');
         
         // Set the Paypal API Context/Credentials
-        $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
+        $this->apiContext = new ApiContext(new OAuthTokenCredential(
+             $this->client_id,
+             $this->secret
+            )
+        );
         $this->apiContext->setConfig(
             array(
                 'mode' => 'sandbox',
@@ -103,6 +108,7 @@ class PayPalService {
         
         // $transaction->batch_id = $output->getBatchHeader()->getPayoutBatchId();
         $transaction->save();
+        $user->notify(new PayPalPayOutProcessing($transaction));
         // \ResultPrinter::printResult("Created Single Synchronous Payout", "Payout", $output->getBatchHeader()->getPayoutBatchId(), $request, $output);
         \Log::info(print_r($output, true));
         // return $output;
@@ -114,14 +120,12 @@ class PayPalService {
         // Get request details
         $requestBody = $request->getContent();
         $headers = array_change_key_case($request->headers->all(), CASE_UPPER);
-
-        \Log::info($requestBody);
         
         $signatureVerification = new VerifyWebhookSignature();
         $signatureVerification->setAuthAlgo($request->header("paypal-auth-algo"));
         $signatureVerification->setTransmissionId($request->header("paypal-transmission-id"));
         $signatureVerification->setCertUrl($request->header("paypal-cert-url"));
-        $signatureVerification->setWebhookId("$this->webhook_id"); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
+        $signatureVerification->setWebhookId($this->webhook_id); 
         $signatureVerification->setTransmissionSig($request->header("paypal-transmission-sig"));
         $signatureVerification->setTransmissionTime($request->header("paypal-transmission-time"));
         
@@ -135,8 +139,6 @@ class PayPalService {
             \Log::critical($e);
         }
         \Log::info(print_r($output, true));
-        \Log::info(print_r($req, true));
-        \Log::info(print_r($this->apiContext, true));
 
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
@@ -145,7 +147,7 @@ class PayPalService {
 
         switch(strtoupper($status)) {
             case "FAILURE":
-                return response()->json(['Forbidden: Invalid signature.']);
+                return response()->json(['Forbidden'=> 'Invalid signature.']);
             case "SUCCESS":
                 $json = json_decode($requestBody, 1);
                 goto UPDATE_TRANSACTION;

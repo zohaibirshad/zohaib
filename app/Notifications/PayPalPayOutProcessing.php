@@ -52,11 +52,11 @@ class PayPalPayOutProcessing extends Notification
 
         return (new MailMessage)
                     ->error()
-                    ->subject('Withdrawal Request'. $this->transaction->status)
-                    ->greeting('Hello!'. $account->user->name. ',')
-                    ->line('Withdrawal Request'. $this->transaction->status)
-                    ->action($this->transaction->amount, '#')
-                    ->line('Your Account has been refunded, Pls try again or contact support for assistance')
+                    ->subject('Withdrawal Request Processing')
+                    ->greeting('Hello! '. $account->user->name. ',')
+                    ->line('Withdrawal Request Processing')
+                    ->line('Amount $'.  $this->transaction->amount)            
+                    ->line('You will get an email when request status changes')
                     ->action('Transaction History', url('/transactions-history'))
                     ->line('Thank you for using '. config('app.name'));
     }
