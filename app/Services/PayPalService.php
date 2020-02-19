@@ -15,6 +15,7 @@ use \PayPal\Auth\OAuthTokenCredential;
 use \PayPal\Api\VerifyWebhookSignature;
 use \PayPal\Api\PayoutSenderBatchHeader;
 use App\Notifications\PayPalPayOutFailed;
+use App\Notifications\PayPalPayOutSuccess;
 use PayPal\Api\VerifyWebhookSignatureResponse;
 
 class PayPalService {
