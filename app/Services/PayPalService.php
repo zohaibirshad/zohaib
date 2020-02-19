@@ -138,11 +138,25 @@ class PayPalService {
         
         UPDATE_TRANSACTION:
         switch($json['event_type']) {
+            case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
+                $itemID = $json['resource']['payout_item']['sender_item_id'];
+                $transaction = Transaction::where('transaction_id')->first();
+                $transaction->status = 'success';
+                $transaction->description = $json['resource']['transaction_status'];
+                $transaction->save();
+
+                $account = $transaction->account()->with('user')->first();
+                $user = $account->user;
+
+                $user->notify(new PayPalPayOutSuccess($transaction));
+                \Log::info(print_r($user, true));
+                break;
+            
             case (
-                    "PAYMENT.PAYOUTS-ITEM.REFUNDED" || "PAYMENT.PAYOUTS-ITEM.CANCELED" || 
-                    "PAYMENT.PAYOUTS-ITEM.DENIED" || "PAYMENT.PAYOUTS-ITEM.FAILED" || 
-                    "PAYMENT.PAYOUTS-ITEM.RETURNED" 
-                 ):
+                "PAYMENT.PAYOUTS-ITEM.REFUNDED" || "PAYMENT.PAYOUTS-ITEM.CANCELED" || 
+                "PAYMENT.PAYOUTS-ITEM.DENIED" || "PAYMENT.PAYOUTS-ITEM.FAILED" || 
+                "PAYMENT.PAYOUTS-ITEM.RETURNED" 
+                ):
                 $itemID = $json['resource']['payout_item']['sender_item_id'];
                 // $transaction = Transaction::where('transaction_id', $itemID)->first();
                 $transaction = Transaction::find(10);
@@ -157,25 +171,11 @@ class PayPalService {
                 $user = $account->user;
                 $user->notify(new PayPalPayOutFailed($transaction));
                 \Log::info(print_r($user, true));
-                return response()->json(['Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.']);
-
-            case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
-                $itemID = $json['resource']['payout_item']['sender_item_id'];
-                $transaction = Transaction::where('transaction_id')->first();
-                $transaction->status = 'success';
-                $transaction->description = $json['resource']['transaction_status'];
-                $transaction->save();
-
-                $account = $transaction->account()->with('user')->first();
-                $user = $account->user;
-
-                $user->notify(new PayPalPayOutSuccess($transaction));
-                \Log::info(print_r($user, true));
-                return response()->json(['Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.']);
-
+                break;
 
             default:
                 return response()->json(['Error: Invalid webhook.']);
+                break;
 
             
             // case "PAYMENT.PAYOUTSBATCH.BLOCKED":
