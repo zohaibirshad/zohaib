@@ -138,6 +138,7 @@ class PayPalService {
         }
         \Log::info(print_r($output, true));
         \Log::info(print_r($req, true));
+        \Log::info(print_r($this->apiContext, true));
 
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
