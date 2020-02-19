@@ -129,7 +129,7 @@ class PayPalService {
         $signatureVerification->setTransmissionTime($request->header("paypal-transmission-time"));
         
         $signatureVerification->setRequestBody($requestBody);
-        $req = clone $signatureVerification;
+        // $req = clone $signatureVerification;
         
         try {
             /** @var \PayPal\Api\VerifyWebhookSignatureResponse $output */
@@ -146,7 +146,7 @@ class PayPalService {
 
         switch(strtoupper($status)) {
             case "FAILURE":
-                return response()->json(['Forbidden'=> 'Invalid signature.']);
+                echo $status;
             case "SUCCESS":
                 $json = json_decode($requestBody, 1);
                 goto UPDATE_TRANSACTION;
@@ -192,7 +192,7 @@ class PayPalService {
                 break;
 
             default:
-                return response()->json(['Error: Invalid webhook.']);
+                
                 break;
 
             
@@ -208,10 +208,8 @@ class PayPalService {
                
         }
 
-        return response()->json(['Error: Invalid webhook.']);
-        // return response('Error: Invalid webhook.', 500)->header('Content-Type', 'text/plain');
         
-        // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-        // ResultPrinter::printResult("Validate Received Webhook Event", "WebhookEvent", $output->getVerificationStatus(), $req->toJSON(), $output);
+        echo $status;
+
     }
 }
