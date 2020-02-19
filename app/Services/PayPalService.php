@@ -119,12 +119,12 @@ class PayPalService {
             // ResultPrinter::printError("Validate Received Webhook Event", "WebhookEvent", null, $req->toJSON(), $ex);
             \Log::critical($e->getMessage());
 
-            return response()->json(['Error: Could not verify signature.']);
+            // return response()->json(['Error: Could not verify signature.']);
 
         }
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
-
+        \Log::critical($status);
         switch(strtoupper($status)) {
             case "FAILURE":
                 return response()->json(['Forbidden: Invalid signature.']);
