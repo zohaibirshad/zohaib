@@ -77,10 +77,14 @@ class PayPalService {
             ->setNote('Thanks for using Yohli!')
             ->setReceiver($profile->email)
             ->setSenderItemId($transaction_id)
-            ->setAmount(new Currency("{
-                'value': $transaction->amount,
-                'currency':'USD'
-            }"));
+            ->setAmount(new Currency(json_encode(
+                [
+                    'value' => $transaction->amount,
+                    'currency' => 'USD'
+                ]
+            )));
+
+
 
             
         $payouts->setSenderBatchHeader($senderBatchHeader)
@@ -138,7 +142,7 @@ class PayPalService {
             // return response()->json(['Error: Could not verify signature.']);
 
         }
-        \Log::critical($output);
+        \Log::info($output);
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
         \Log::critical($status);
