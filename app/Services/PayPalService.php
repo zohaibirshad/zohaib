@@ -111,7 +111,7 @@ class PayPalService {
         
         try {
             /** @var \PayPal\Api\VerifyWebhookSignatureResponse $output */
-            $output = $signatureVerification->post($apiContext);
+            $output = $signatureVerification->post($this->apiContext);
         } catch (\Exception $e) {
             // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
             // ResultPrinter::printError("Validate Received Webhook Event", "WebhookEvent", null, $req->toJSON(), $ex);
