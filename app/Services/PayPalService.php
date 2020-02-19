@@ -127,11 +127,9 @@ class PayPalService {
             case "FAILURE":
                 return response()->json(['Forbidden: Invalid signature.']);
             case "SUCCESS":
-                $json = json_decode($request_body, 1);
-                goto UPDATE_TRANSACTION;
+                $json = json_decode($requestBody, 1);
         }
     
-        UPDATE_TRANSACTION:
         switch($json['event_type']) {
             case (
                     "PAYMENT.PAYOUTS-ITEM.REFUNDED" || "PAYMENT.PAYOUTS-ITEM.CANCELED" || 
@@ -185,7 +183,7 @@ class PayPalService {
                
         }
 
-        
+        return response()->json(['Error: Invalid webhook.']);
         // return response('Error: Invalid webhook.', 500)->header('Content-Type', 'text/plain');
         
         // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
