@@ -90,6 +90,7 @@ class PayPalService {
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             $transaction->status = "pending";
+            $transaction->description = "Account withdrawal failed";
             $transaction->save();
             $account = $transaction->account()->with('user')->first();
 
@@ -103,6 +104,8 @@ class PayPalService {
 
         
         // $transaction->batch_id = $output->getBatchHeader()->getPayoutBatchId();
+        $account = $transaction->account()->with('user')->first();
+        $user = $account->user;
         $transaction->save();
         $user->notify(new PayPalPayOutProcessing($transaction));
         // \ResultPrinter::printResult("Created Single Synchronous Payout", "Payout", $output->getBatchHeader()->getPayoutBatchId(), $request, $output);
