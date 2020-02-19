@@ -120,7 +120,7 @@ class PayPalService {
         $signatureVerification->setAuthAlgo($request->header("paypal-auth-algo"));
         $signatureVerification->setTransmissionId($request->header("paypal-transmission-id"));
         $signatureVerification->setCertUrl($request->header("paypal-cert-url"));
-        $signatureVerification->setWebhookId("11R31285SW305182B"); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
+        $signatureVerification->setWebhookId($this->webhook_id); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
         $signatureVerification->setTransmissionSig($request->header("paypal-transmission-sig"));
         $signatureVerification->setTransmissionTime($request->header("paypal-transmission-time"));
         
@@ -142,7 +142,7 @@ class PayPalService {
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
         \Log::critical($status);
-        $status =  'SUCCESS';
+        // $status =  'SUCCESS';
 
         switch(strtoupper($status)) {
             case "FAILURE":
