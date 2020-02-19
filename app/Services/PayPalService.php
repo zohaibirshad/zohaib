@@ -23,6 +23,7 @@ class PayPalService {
     private $mode;
     private $client_id;
     private $secret;
+    private $webhook_id;
     
     // Create a new instance with our paypal credentials
     public function __construct()
@@ -35,6 +36,7 @@ class PayPalService {
             $this->client_id = config('paypal.sandbox_client_id');
             $this->secret = config('paypal.sandbox_secret');
         }
+        $this->webhook_id = config('paypal.webhook_id');
         
         // Set the Paypal API Context/Credentials
         $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
@@ -102,7 +104,7 @@ class PayPalService {
         $signatureVerification->setAuthAlgo($headers['PAYPAL-AUTH-ALGO'][0]);
         $signatureVerification->setTransmissionId($headers['PAYPAL-TRANSMISSION-ID'][0]);
         $signatureVerification->setCertUrl($headers['PAYPAL-CERT-URL'][0]);
-        $signatureVerification->setWebhookId("0FV983392A0531201"); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
+        $signatureVerification->setWebhookId($this->webhook_id); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
         $signatureVerification->setTransmissionSig($headers['PAYPAL-TRANSMISSION-SIG'][0]);
         $signatureVerification->setTransmissionTime($headers['PAYPAL-TRANSMISSION-TIME'][0]);
         
