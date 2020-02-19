@@ -168,6 +168,21 @@ class PayPalService {
                 $user->notify(new PayPalPayOutSuccess($transaction));
                 \Log::info(print_r($user, true));
                 break;
+
+            case "PAYMENT.PAYOUTS-ITEM.UNCLAIMED":
+                    $itemID = $json['resource']['payout_item']['sender_item_id'];
+                    $transaction = Transaction::where('transaction_id', $itemID)->first();
+                    // $transaction = Transaction::find(10);
+                    $transaction->status = 'pending';
+                    $transaction->description = $json['resource']['transaction_status'];
+                    $transaction->save();
+    
+                    $account = $transaction->account()->with('user')->first();
+                    $user = $account->user;
+    
+                    $user->notify(new PayPalPayOutProcessing($transaction));
+                    \Log::info(print_r($user, true));
+                    break;
             
             case (
                 "PAYMENT.PAYOUTS-ITEM.REFUNDED" || "PAYMENT.PAYOUTS-ITEM.CANCELED" || 
