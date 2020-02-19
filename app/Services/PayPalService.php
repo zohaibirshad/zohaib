@@ -86,7 +86,7 @@ class PayPalService {
 
 
         try {
-            $output = $payouts->createSynchronous($this->apiContext);
+            $output = $payouts->create(null, $this->apiContext);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             $transaction->status = "pending";
