@@ -434,6 +434,7 @@ class AccountController extends Controller
             if($request->has('withdrawal')){
                 try {
                     $payment->status = "pending";
+                    $payment->description = "Account " . $request->type . " Pending";
                     $aggregateRoot->subtractMoney($request->amount);
                 } catch (CouldNotSubtractMoney $e) {
                     \Log::error($e->getMessage());
