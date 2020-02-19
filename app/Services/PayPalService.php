@@ -143,7 +143,7 @@ class PayPalService {
                     "PAYMENT.PAYOUTS-ITEM.DENIED" || "PAYMENT.PAYOUTS-ITEM.FAILED" || 
                     "PAYMENT.PAYOUTS-ITEM.RETURNED" 
                  ):
-                $itemID = $json['event_type']['resource']['payout_item']['sender_item_id'];
+                $itemID = $json['resource']['payout_item']['sender_item_id'];
                 // $transaction = Transaction::where('transaction_id', $itemID)->first();
                 $transaction = Transaction::find(10);
                 $transaction->status = 'failed';
@@ -160,7 +160,7 @@ class PayPalService {
                 return response()->json(['Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.']);
 
             case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
-                $itemID = $json['event_type']['resource']['payout_item']['sender_item_id'];
+                $itemID = $json['resource']['payout_item']['sender_item_id'];
                 $transaction = Transaction::where('transaction_id')->first();
                 $transaction->status = 'success';
                 $transaction->description = $json['transaction_status'];
