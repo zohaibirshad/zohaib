@@ -48,6 +48,8 @@ class PayPalService {
 
     public function singlePayout(Profile $profile, Transaction $transaction)
     {
+        \Log::info('PayPal Started');
+
         $transaction_id = unique_code();
         $batch_id = uniqid();
         $transaction->transaction_id = $transaction_id;

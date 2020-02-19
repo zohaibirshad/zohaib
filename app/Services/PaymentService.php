@@ -23,6 +23,7 @@ class PaymentService {
      */
     public function floatToMobileMoney(Profile $profile, Transaction $transaction)
     {
+        \Log::info('Started');
         $pay = new PaySwitchPayment();
         $pay->amount = $transaction->amount;
         $pay->account_number = $profile->momo_number;
