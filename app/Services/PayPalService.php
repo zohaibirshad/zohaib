@@ -160,7 +160,7 @@ class PayPalService {
 
                 $user = $account->user;
                 $user->notify(new PayPalPayOutFailed($transaction));
-                return response('Success: Invalid webhook.', 400)->header('Content-Type', 'text/plain');
+                return response('Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.', 400)->header('Content-Type', 'text/plain');
 
             case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
                 $itemID = $json['event_type']['resource']['payout_item']['sender_item_id'];
@@ -173,7 +173,7 @@ class PayPalService {
                 $user = $account->user;
 
                 $user->notify(new PayPalPayOutSuccess($transaction));
-                return response('Success: Invalid webhook.', 400)->header('Content-Type', 'text/plain');
+                return response('Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.', 400)->header('Content-Type', 'text/plain');
 
 
             default:
