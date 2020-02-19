@@ -41,7 +41,20 @@ class PayPalService {
         
         // Set the Paypal API Context/Credentials
         $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
-        $this->apiContext->setConfig(config('paypal.settings'));
+        $this->apiContext->setConfig(
+            array(
+                'mode' => 'sandbox',
+                'log.LogEnabled' => true,
+                'log.FileName' => storage_path() . '/logs/paypal.log',
+                'log.LogLevel' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+                'cache.enabled' => true,
+                'http.ConnectionTimeOut' => 3000,
+                //'cache.FileName' => '/PaypalCache' // for determining paypal cache directory
+                // 'http.CURLOPT_CONNECTTIMEOUT' => 30
+                // 'http.headers.PayPal-Partner-Attribution-Id' => '123123123'
+                //'log.AdapterFactory' => '\PayPal\Log\DefaultLogFactory' // Factory class implementing \PayPal\Log\PayPalLogFactory
+            )
+        );
 
 
     }

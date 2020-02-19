@@ -10,5 +10,5 @@ function unique_code()
     $milliseconds = (String) round(microtime(true) * 568);
     $shuffled = str_shuffle($milliseconds);
     $id = substr($shuffled, 0, 13);
-    return $id;
+    return (String) $id;
 }
