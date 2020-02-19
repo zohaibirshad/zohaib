@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Payment;
+use App\Nova\Profile;
 use App\Jobs\BankTransfer;
-use App\Jobs\MobileMoneyTransfer;
+use App\Models\Transaction;
 use App\Services\PaySwitchPayment;
 use App\Aggregates\AccountAggregate;
 use App\Notifications\MoMoPayOutFailed;
