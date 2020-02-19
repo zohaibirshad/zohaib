@@ -98,15 +98,15 @@ class PayPalService {
         $headers = array_change_key_case($request->headers->all(), CASE_UPPER);
 
         \Log::info($requestBody);
-        \Log::info($headers);
+        \Log::info($request->header("paypal-cert-url"));
         
         $signatureVerification = new VerifyWebhookSignature();
-        $signatureVerification->setAuthAlgo($headers['PAYPAL-AUTH-ALGO'][0]);
-        $signatureVerification->setTransmissionId($headers['PAYPAL-TRANSMISSION-ID'][0]);
-        $signatureVerification->setCertUrl($headers['PAYPAL-CERT-URL'][0]);
+        $signatureVerification->setAuthAlgo($request->header("paypal-auth-algo"));
+        $signatureVerification->setTransmissionId($request->header("paypal-transmission-id"));
+        $signatureVerification->setCertUrl($request->header("paypal-cert-url"));
         $signatureVerification->setWebhookId("11R31285SW305182B"); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
-        $signatureVerification->setTransmissionSig($headers['PAYPAL-TRANSMISSION-SIG'][0]);
-        $signatureVerification->setTransmissionTime($headers['PAYPAL-TRANSMISSION-TIME'][0]);
+        $signatureVerification->setTransmissionSig($request->header("paypal-transmission-sig"));
+        $signatureVerification->setTransmissionTime($request->header("paypal-transmission-time"));
         
         $signatureVerification->setRequestBody($requestBody);
         $req = clone $signatureVerification;
