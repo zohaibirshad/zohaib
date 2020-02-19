@@ -152,7 +152,7 @@ class PayPalService {
                 $account = $transaction->account()->with('user')->first();
 
                 $aggregateRoot = AccountAggregate::retrieve($account->uuid);
-                $aggregateRoot->addMoney($request->amount);
+                $aggregateRoot->addMoney($transaction->amount);
 
                 $user = $account->user;
                 $user->notify(new PayPalPayOutFailed($transaction));
