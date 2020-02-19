@@ -12,8 +12,6 @@ class MoMoPayOutEvent
 
     public $profile;
 
-    public $request;
-
     public $transaction;
 
     /**
@@ -25,7 +23,6 @@ class MoMoPayOutEvent
     {
         $this->transaction = $transaction;
         $this->profile = $profile;
-        $this->request = $request;
         
     }
 }
