@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PayPalPayOutFailed extends Notification implements ShouldQueue
+class PayPalPayOutFailed extends Notification 
 {
     use Queueable;
 

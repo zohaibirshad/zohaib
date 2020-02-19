@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class MoMoPayOutSuccess extends Notification implements ShouldQueue
+class MoMoPayOutSuccess extends Notification 
 {
     use Queueable;
 

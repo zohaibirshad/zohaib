@@ -6,7 +6,7 @@ use App\Services\PayPalService;
 use App\Events\PayPalPayOutEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePayPalPayOut implements ShouldQueue
+class HandlePayPalPayOut 
 {
     /**
      * Create the event listener.
