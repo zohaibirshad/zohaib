@@ -53,7 +53,7 @@ class MoMoPayOutSuccess extends Notification implements ShouldQueue
                     ->subject('Withdrawal Request '. ucfirst($this->transaction->status))
                     ->greeting('Hello! '. $account->user->name. ',')
                     ->line('Withdrawal Request '. ucfirst($this->transaction->status))
-                    ->action("$" . $this->transaction->amount, '#')
+                    ->line('Amount $ '.  $this->transaction->amount)
                     ->action('Transaction History', url('/transactions-history'))
                     ->line('Thank you for using '. config('app.name'));
     }

@@ -55,7 +55,7 @@ class PayPalPayOutFailed extends Notification implements ShouldQueue
                     ->subject('Withdrawal Request '. ucfirst($this->transaction->status))
                     ->greeting('Hello! '. $account->user->name. ',')
                     ->line('Withdrawal Request '. ucfirst($this->transaction->status))
-                    ->action("$" . $this->transaction->amount, '#')
+                    ->line('Amount $ '.  $this->transaction->amount)                    
                     ->line('Your Account has been refunded, Pls try again or contact support for assistance')
                     ->action('Transaction History', url('/transactions-history'))
                     ->line('Thank you for using '. config('app.name'));
