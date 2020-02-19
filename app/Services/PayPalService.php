@@ -141,8 +141,8 @@ class PayPalService {
         switch($json['event_type']) {
             case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
                 $itemID = $json['resource']['payout_item']['sender_item_id'];
-                // $transaction = Transaction::where('transaction_id', $itemID)->first();
-                $transaction = Transaction::find(10);
+                $transaction = Transaction::where('transaction_id', $itemID)->first();
+                // $transaction = Transaction::find(10);
                 $transaction->status = 'success';
                 $transaction->description = $json['resource']['transaction_status'];
                 $transaction->save();
@@ -160,7 +160,7 @@ class PayPalService {
                 "PAYMENT.PAYOUTS-ITEM.RETURNED" 
                 ):
                 $itemID = $json['resource']['payout_item']['sender_item_id'];
-                // $transaction = Transaction::where('transaction_id', $itemID)->first();
+                $transaction = Transaction::where('transaction_id', $itemID)->first();
                 $transaction = Transaction::find(10);
                 $transaction->status = 'failed';
                 $transaction->description = $json['resource']['transaction_status'];
