@@ -93,8 +93,8 @@ class PayPalService {
     {
         // Get request details
         $requestBody = $request->getContent();
-        Log::info($requestBody);
-        Log::info( $headers);
+        \Log::info($requestBody);
+        \Log::info($headers);
         $headers = array_change_key_case($request->headers->all(), CASE_UPPER);
         
         /**
