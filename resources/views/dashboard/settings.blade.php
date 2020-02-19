@@ -328,7 +328,7 @@
                             <div class="submit-field">
                                 <h5>Mobile Money Network</h5>
                                 <!-- <input type="text" name="momo_network" class="with-border" value="{{  old('momo_network', $user->momo_network) }}"> -->
-                                <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_network" id="momo_network">
+                                <select class="selectpicker with-border" data-size="7" title="Select Network" data-live-search="true" name="momo_network" id="momo_network">
                                 <option value="MTN" 
                                 @if($user->momo_network == "MTN") 
                                 selected 
