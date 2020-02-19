@@ -117,7 +117,7 @@ class PayPalService {
             // ResultPrinter::printError("Validate Received Webhook Event", "WebhookEvent", null, $req->toJSON(), $ex);
             \Log::critical($e->getMessage());
 
-            return response('Error: Could not verify signature.', 500)->header('Content-Type', 'text/plain');
+            return response()->json(['Error: Could not verify signature.']);
 
         }
 
@@ -125,7 +125,7 @@ class PayPalService {
 
         switch(strtoupper($status)) {
             case "FAILURE":
-                return response('Forbidden: Invalid signature.', 403)->header('Content-Type', 'text/plain');
+                return response()->json(['Forbidden: Invalid signature.']);
             case "SUCCESS":
                 $json = json_decode($request_body, 1);
                 goto UPDATE_TRANSACTION;
@@ -152,7 +152,7 @@ class PayPalService {
                 $user = $account->user;
                 $user->notify(new PayPalPayOutFailed($transaction));
                 \Log::info(print_r($user, true));
-                return response('Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.', 400)->header('Content-Type', 'text/plain');
+                return response()->json(['Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.']);
 
             case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
                 $itemID = $json['event_type']['resource']['payout_item']['sender_item_id'];
@@ -166,11 +166,11 @@ class PayPalService {
 
                 $user->notify(new PayPalPayOutSuccess($transaction));
                 \Log::info(print_r($user, true));
-                return response('Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.', 400)->header('Content-Type', 'text/plain');
+                return response()->json(['Success: PAYMENT.PAYOUTS-ITEM.SUCCEEDED webhook.']);
 
 
             default:
-                return response('Error: Invalid webhook.', 500)->header('Content-Type', 'text/plain');
+                return response()->json(['Error: Invalid webhook.']);
 
             
             // case "PAYMENT.PAYOUTSBATCH.BLOCKED":
