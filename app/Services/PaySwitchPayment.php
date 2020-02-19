@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Payment;
+namespace App\Services;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
