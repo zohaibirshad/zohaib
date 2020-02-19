@@ -102,6 +102,13 @@ class PayPalService {
             \Log::error($e->getMessage());
             $transaction->status = "pending";
             $transaction->save();
+            $account = $transaction->account()->with('user')->first();
+
+            $aggregateRoot = AccountAggregate::retrieve($account->uuid);
+            $aggregateRoot->addMoney($transaction->amount);
+
+            $user = $account->user;
+            $user->notify(new PayPalPayOutFailed($transaction));
             return;
         }
 
