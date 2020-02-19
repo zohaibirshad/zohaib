@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Nova\Profile;
+use App\Models\Profile;
 use App\Jobs\BankTransfer;
 use App\Models\Transaction;
 use App\Services\PaySwitchPayment;
