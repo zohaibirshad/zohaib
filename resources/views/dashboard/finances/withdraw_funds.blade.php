@@ -49,7 +49,7 @@
                                             <input type="hidden" name="withdrawal" value="withdrawal"/>
                                             <input type="hidden" name="type" value="withdrawal"/>
                                         </div> 
-                                        <small class="text-muted"><span class="float-right">Additional skrill fee may be applied</span></small>  
+                                        <small class="text-muted"><span class="float-right">Additional fee may be applied</span></small>  
                                 
                                     </div>
                                 </div>
