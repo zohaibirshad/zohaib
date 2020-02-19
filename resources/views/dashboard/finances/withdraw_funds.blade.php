@@ -29,10 +29,10 @@
                                                 <option value="paypal" >Paypal - free</option>
                                             @endif
                                             @if(!empty($profile->momo) & !empty($profile->momo_network) & !empty($profile->momo_country))
-                                                <option value="mobile money">Mobile money - 3.0%</option>
+                                                <option value="momo">Mobile money - 3.0%</option>
                                             @endif
                                             @if(!empty($profile->bank_name) & !empty($profile->bank_no) & !empty($profile->bank_account_name))
-                                                <option value="international wire" >International wire</option>
+                                                <option value="bank" >International wire</option>
                                             @endif
                                         </select>
                                     </div>

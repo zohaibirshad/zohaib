@@ -96,10 +96,21 @@ class Transaction extends Resource
                     'withdrawal' => 'Withdrawal',
                     'transfer' => 'Transfer',
                 ])->displayUsingLabels(),
-                Text::make( __('Payment Method'),  'payment_method')
-                ->sortable(),
+                Select::make( __('Payment Method'),  'payment_method')
+                ->sortable()
+                ->options([
+                    'paypal' => 'PayPal',
+                    'bank' => 'Bank',
+                    'momo' => 'Mobile Money',
+                ])->displayUsingLabels(),
                 Textarea::make( __('Description'),  'description')
                 ->sortable(),
+                Text::make( __('Transaction ID'), 'transaction_id')
+                ->onlyOnDetail(),
+                Text::make( __('Pay Batch ID'), 'batch_id')
+                ->onlyOnDetail(),
+                Text::make( __('PayPal Status'), 'paypal_status')
+                ->onlyOnDetail(),
             ];
     }
 

@@ -49,7 +49,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-12"> 
-                        <p>Total <span id="total" class="float-right"></span></p>
+                        <p>Total <b><span id="total" class="float-right"></span></b></p>
                     </div>
                     <div class="col-12">
                         <button  class="my-5 mx-1 button bg-blue-500 ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
@@ -98,13 +98,13 @@
          var perc = Number((2.5 / 100) * e.target.value);
          var processing_fee = document.getElementById('processing_fee');
          processing_fee.innerHTML = "$"+perc
-         total.value = Number(Number(e.target.value) + perc);
-         console.log();
+         total.innerHTML = Number(Number(e.target.value) + perc);
+        //  console.log();
          
          
          var amountValue = document.getElementById('amount-value')
-         amountValue.innerHTML = "Confirm & Add $" + total.value;
-         console.log(amountValue.innerHTML);
+         amountValue.innerHTML = "Confirm & Add $" + total.innerHTML;
+        //  console.log(amountValue.innerHTML);
     }
 
     cardButton.addEventListener('click', async (e) => {

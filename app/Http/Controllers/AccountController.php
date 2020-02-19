@@ -9,7 +9,9 @@ use App\Models\Profile;
 use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Events\MoMoPayOutEvent;
 use Illuminate\Validation\Rule;
+use App\Events\PayPalPayOutEvent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Aggregates\AccountAggregate;
@@ -224,7 +226,7 @@ class AccountController extends Controller
             // Rollback DB transactions is an error occurred
             DB::rollback();
 
-            return redirect()->back()->with('error', 'Something went wrong')->withInput();
+            return back()->with('error', 'Something went wrong')->withInput();
         }
     }
 
@@ -365,7 +367,9 @@ class AccountController extends Controller
         $profile->bank_country = $request->bank_country;
         $profile->save();
 
-        return back()->with('status', "profile updated Succesfully");
+        toastr()->success("Withdrawal Info updated Succesfully");
+
+        return back()->with('status', "Withdrawal Info updated Succesfully");
     }
 
     
@@ -375,6 +379,7 @@ class AccountController extends Controller
         $account = Account::where('user_id', Auth::user()->id)->first();
         return response()->json($account);
     }
+    
     public function update_account(Request $request){
         $validateData = $request->validate([
             'amount' => 'required|integer',
@@ -436,7 +441,7 @@ class AccountController extends Controller
                     if($request->ajax()){
                         return response()->json([
                             'message' => $e->getMessage(),
-                            'status' => "Successful"
+                            'status' => "Falied"
                         ]);
                     }
         
@@ -448,7 +453,18 @@ class AccountController extends Controller
             }
 
             $aggregateRoot->persist(); 
+            $payment->save();
 
+            if($request->method == 'paypal')
+            {
+                event(new PayPalPayOutEvent($user->profile, $payment));
+            }
+
+            if($request->method == 'momo')
+            {
+                event(new MoMoPayOutEvent($user->profile, $payment));
+            }
+            
         }else{
             
             if($request->ajax()){
@@ -463,7 +479,7 @@ class AccountController extends Controller
 
         }
 
-        $payment->save();
+       
         
         if($request->ajax()){
             return response()->json([

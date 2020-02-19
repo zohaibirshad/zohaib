@@ -81,7 +81,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Support/ViewHelpers.php"
+            "app/Support/ViewHelpers.php",
+            "app/Helpers/Common.php"
         ],
         "classmap": [
             "database/seeds",

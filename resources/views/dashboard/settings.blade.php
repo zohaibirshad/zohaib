@@ -305,14 +305,14 @@
                     <div class="row max-w-5xl">
                         <div class="col-xl-6">
                             <div class="submit-field">
-                                <h5>Paypal</h5>
+                                <h5>Paypal Email</h5>
                                 <input type="text" name="paypal" class="with-border" value="{{  old('paypal', $user->paypal) }}">
                             </div>
                         </div>
 
                         <div class="col-xl-6">
                             <div class="submit-field">
-                                <h5>Skrill</h5>
+                                <h5>Skrill Email</h5>
                                 <input type="text" name="skrill" class="with-border" value="{{  old('skrill', $user->skrill) }}">
                             </div>
                         </div>
@@ -327,7 +327,29 @@
                         <div class="col-xl-6">
                             <div class="submit-field">
                                 <h5>Mobile Money Network</h5>
-                                <input type="text" name="momo_network" class="with-border" value="{{  old('momo_network', $user->momo_network) }}">
+                                <!-- <input type="text" name="momo_network" class="with-border" value="{{  old('momo_network', $user->momo_network) }}"> -->
+                                <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_network" id="momo_network">
+                                <option value="MTN" 
+                                @if($user->momo_network == "MTN") 
+                                selected 
+                                @endif
+                                >MTN</option> 
+                                <option value="VDF"
+                                @if($user->momo_network == "VDF") 
+                                selected 
+                                @endif
+                                >VODAFONE</option> 
+                                <option value="ATL"
+                                @if($user->momo_network == "ATL") 
+                                selected 
+                                @endif
+                                >AIRTEL</option> 
+                                <option value="TGO"
+                                @if($user->momo_network == "TIGO") 
+                                selected 
+                                @endif
+                                >TIGO</option> 
+                                </select>
                             </div>
                         </div>
 
