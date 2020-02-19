@@ -139,7 +139,8 @@ class PayPalService {
                     "PAYMENT.PAYOUTS-ITEM.RETURNED" 
                  ):
                 $itemID = $json['event_type']['resource']['payout_item']['sender_item_id'];
-                $transaction = Transaction::where('transaction_id')->first();
+                // $transaction = Transaction::where('transaction_id', $itemID)->first();
+                $transaction = Transaction::find(10);
                 $transaction->status = 'failed';
                 $transaction->description = $json['transaction_status'];
                 $transaction->save();
