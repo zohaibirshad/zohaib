@@ -141,7 +141,8 @@ class PayPalService {
         switch($json['event_type']) {
             case "PAYMENT.PAYOUTS-ITEM.SUCCEEDED":
                 $itemID = $json['resource']['payout_item']['sender_item_id'];
-                $transaction = Transaction::where('transaction_id')->first();
+                // $transaction = Transaction::where('transaction_id', $itemID)->first();
+                $transaction = Transaction::find(10);
                 $transaction->status = 'success';
                 $transaction->description = $json['resource']['transaction_status'];
                 $transaction->save();
@@ -164,6 +165,7 @@ class PayPalService {
                 $transaction->status = 'failed';
                 $transaction->description = $json['resource']['transaction_status'];
                 $transaction->save();
+
                 $account = $transaction->account()->with('user')->first();
 
                 $aggregateRoot = AccountAggregate::retrieve($account->uuid);
