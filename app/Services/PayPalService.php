@@ -137,6 +137,8 @@ class PayPalService {
             \Log::critical($e);
         }
         \Log::info(print_r($output, true));
+        \Log::info(print_r($req, true));
+
 
         $status = $output->getVerificationStatus(); // 'SUCCESS' or 'FAILURE'
         \Log::critical($status);
