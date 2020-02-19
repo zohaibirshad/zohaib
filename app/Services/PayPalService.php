@@ -108,7 +108,6 @@ class PayPalService {
         * In documentations https://developer.paypal.com/docs/api/webhooks/v1/#verify-webhook-signature
         * All header keys as UPPERCASE, but I receive the header key as the example array, First letter as UPPERCASE
         */
-        $headers = array_change_key_case($headers, CASE_UPPER);
         
         $signatureVerification = new VerifyWebhookSignature();
         $signatureVerification->setAuthAlgo($headers['PAYPAL-AUTH-ALGO']);
