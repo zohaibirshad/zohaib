@@ -47,8 +47,6 @@ class PayPalService {
                 'log.LogEnabled' => true,
                 'log.FileName' => storage_path() . '/logs/paypal.log',
                 'log.LogLevel' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
-                'cache.enabled' => true,
-                'http.ConnectionTimeOut' => 3000,
                 //'cache.FileName' => '/PaypalCache' // for determining paypal cache directory
                 // 'http.CURLOPT_CONNECTTIMEOUT' => 30
                 // 'http.headers.PayPal-Partner-Attribution-Id' => '123123123'
@@ -123,7 +121,7 @@ class PayPalService {
         $signatureVerification->setAuthAlgo($request->header("paypal-auth-algo"));
         $signatureVerification->setTransmissionId($request->header("paypal-transmission-id"));
         $signatureVerification->setCertUrl($request->header("paypal-cert-url"));
-        $signatureVerification->setWebhookId($this->webhook_id); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
+        $signatureVerification->setWebhookId("$this->webhook_id"); // Note that the Webhook ID must be a currently valid Webhook that you created with your client ID/secret.
         $signatureVerification->setTransmissionSig($request->header("paypal-transmission-sig"));
         $signatureVerification->setTransmissionTime($request->header("paypal-transmission-time"));
         
