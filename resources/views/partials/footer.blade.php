@@ -19,7 +19,7 @@
 						</div>
 						
 						<!-- Right Side -->
-						{{-- <div class="footer-rows-right">
+						 <div class="footer-rows-right">
 
 							<!-- Social Icons -->
 							<div class="footer-row">
@@ -49,15 +49,116 @@
 									<div class="clearfix"></div>
 								</div>
 							</div>
-						</div> --}}
+							
+						</div> 
 
 					</div>
 					<!-- Footer Rows Container / End -->
 				</div>
+
+				
+					<!-- Footer Middle Section / End -->
 			</div>
 		</div>
 	</div>
 	<!-- Footer Top Section / End -->	
+
+		<!-- Footer Middle Section -->
+		<div class="footer-middle-section">
+						<div class="container">
+							<div class="row">
+
+								<!-- Links -->
+								<div class="col-xl-2 col-lg-2 col-md-3">
+									<div class="footer-links">
+										<h3>For Freelancers</h3>
+										<ul>
+											<li><a href="../browse-jobs"><span>Browse Jobs</span></a></li>
+											<li><a href="../bookmarks"><span>My Bookmarks</span></a></li>
+										</ul>
+									</div>
+								</div>
+
+								<!-- Links -->
+								<div class="col-xl-2 col-lg-2 col-md-3">
+									<div class="footer-links">
+										<h3>For Hirers</h3>
+										<ul>
+											<li><a href="../browse-freelancers"><span>Browse Freelnacers</span></a></li>
+											<li><a href=
+												@auth
+												../post-job
+												@endauth
+												@guest
+												../login
+												@endguest
+											><span>Post a Job</span></a></li>
+										</ul>
+									</div>
+								</div>
+
+								<!-- Links -->
+								<div class="col-xl-2 col-lg-2 col-md-3">
+									<div class="footer-links">
+										<h3>Helpful Links</h3>
+										<ul>
+											<li><a href="../contact"><span>Contact us</span></a></li>
+											<li><a href="../copyright"><span>Copyright Policy</span></a></li>
+											<li><a href="../terms"><span>Terms of Use</span></a></li>
+										</ul>
+									</div>
+								</div>
+
+								<!-- Links -->
+								<div class="col-xl-2 col-lg-2 col-md-3">
+									<div class="footer-links">
+										<h3>Account</h3>
+										<ul>
+											<li><a href=
+												@auth
+													../dashboard
+												@endauth
+												@guest
+													../login
+												@endguest
+												><span>
+													@auth
+														Dashboard
+													@endauth
+													@guest
+														Login
+													@endguest
+												</span></a></li>
+											<li><a href=
+												@auth
+													../settings
+												@endauth
+												@guest
+													../login
+												@endguest
+											><span>
+												@auth
+													My Account
+												@endauth
+												@guest
+													Register
+												@endguest</span></a></li>
+										</ul>
+									</div>
+								</div>
+
+								<!-- Newsletter -->
+								<div class="col-xl-4 col-lg-4 col-md-12">
+									<h3><i class="icon-feather-mail"></i> Contact </h3>
+									<p>	
+										Tel: 0132837992, 0183892434
+										<br>Email: info@yohli.com
+										<br>Address: 425 Berry Street, CA 93584
+								    </p>
+								</div>
+							</div>
+						</div>
+					</div>
 	
 	<!-- Footer Copyrights -->
 	<div class="footer-bottom-section">

@@ -315,6 +315,23 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 });
 
+Route::get('contact', function(){
+    return view('contact');
+});
+
+Route::get('terms', function(){
+    return view('terms');
+});
+
+Route::get('privacy', function(){
+    return view('privacy');
+});
+
+Route::get('copyright', function(){
+    return view('copyright');
+});
+
+
 
 Route::post(
     'stripe/webhook',
