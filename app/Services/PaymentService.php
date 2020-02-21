@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Account;
 use App\Models\Profile;
 use App\Jobs\BankTransfer;
 use App\Models\Transaction;
