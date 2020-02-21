@@ -49,10 +49,10 @@ class PaymentService {
             $transaction->description = 'Withdrawal Failed';
             $transaction->save();
 
-            // $user = $profile->user()->with('account')->first();
+            $account = Account::where('user_id', $user->id)->first();
 
 
-            $aggregateRoot = AccountAggregate::retrieve($user->account->uuid);
+            $aggregateRoot = AccountAggregate::retrieve($account->uuid);
             $aggregateRoot->addMoney($transaction->amount);
 
             $user->notify( new MoMoPayOutFailed($transaction));
