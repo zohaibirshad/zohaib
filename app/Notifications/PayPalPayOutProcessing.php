@@ -53,7 +53,7 @@ class PayPalPayOutProcessing extends Notification
         $status = '';
         if($this->transaction->description == "UNCLAIMED"){
             $paypalEmail = $account->user->profile->paypal;
-            $status = "You not have a Paypal account. A link to sign up for an account was sent to this $paypalEmail. However, if you fo not claim this withdrawal within 30 days, the funds will be returned to Yohli.";
+            $status = "You do not have a Paypal account. A link to sign up for an account was sent to this $paypalEmail. However, if you fo not claim this withdrawal within 30 days, the funds will be returned to Yohli.";
         }
         return (new MailMessage)
                     ->error()
