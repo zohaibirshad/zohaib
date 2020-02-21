@@ -34,12 +34,13 @@ class PaymentService {
 
         $pay->momoTransfer();
 
+        $user = $profile->user;
+
         if($pay->response_code == '000' && $pay->response_status == 'Approved'){
             $transaction->status = 'success';
             $transaction->description = 'Withdrawal was successful';
             $transaction->save();
 
-            $user = $profile->user;
             $user->notify( new MoMoPayOutSuccess($transaction));
         }
         else
@@ -48,7 +49,7 @@ class PaymentService {
             $transaction->description = 'Withdrawal Failed';
             $transaction->save();
 
-            $user = $profile->user()->with('account')->first();
+            // $user = $profile->user()->with('account')->first();
 
 
             $aggregateRoot = AccountAggregate::retrieve($user->account->uuid);
