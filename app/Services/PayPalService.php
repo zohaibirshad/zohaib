@@ -84,7 +84,7 @@ class PayPalService {
 
         // $request = clone $payouts;
 
-
+        $status = '';
         try {
             $output = $payouts->create(null, $this->apiContext);
         } catch (\Exception $e) {
@@ -96,9 +96,14 @@ class PayPalService {
 
             $aggregateRoot = AccountAggregate::retrieve($account->uuid);
             $aggregateRoot->addMoney($transaction->amount);
+            $aggregateRoot->persist();
 
             $user = $account->user;
             $user->notify(new PayPalPayOutFailed($transaction));
+            $status = "failed";
+        }
+
+        if($status == 'failed'){
             return;
         }
 
@@ -106,6 +111,7 @@ class PayPalService {
         // $transaction->batch_id = $output->getBatchHeader()->getPayoutBatchId();
         $account = $transaction->account()->with('user')->first();
         $user = $account->user;
+        $transaction->description = "Account withdrawal processing";
         $transaction->save();
         $user->notify(new PayPalPayOutProcessing($transaction));
         // \ResultPrinter::printResult("Created Single Synchronous Payout", "Payout", $output->getBatchHeader()->getPayoutBatchId(), $request, $output);
