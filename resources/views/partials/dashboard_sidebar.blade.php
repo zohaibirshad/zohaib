@@ -79,7 +79,17 @@
 							<li class="{{ (request()->is('settings')) ? 'active' : '' }}">
 								<a href="{{ route('settings') }}"><i class="icon-material-outline-settings"></i> Settings</a>
 							</li>
-							<li><a href="#"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+							<li>
+								<a href="{{ route('logout') }}"  onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">
+									<i class="icon-material-outline-power-settings-new"></i> Logout
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										@csrf
+									</form>
+								</a>
+
+
+							</li>
 						</ul>
 						
 					</div>
