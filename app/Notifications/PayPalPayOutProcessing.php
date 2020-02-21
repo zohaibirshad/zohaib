@@ -54,7 +54,7 @@ class PayPalPayOutProcessing extends Notification
                     ->error()
                     ->subject('Withdrawal Request Processing')
                     ->greeting('Hello! '. $account->user->name. ',')
-                    ->line('Withdrawal Request Processing')
+                    ->line("Withdrawal Request " . $this->transaction->description)
                     ->line('Amount $'.  $this->transaction->amount)            
                     ->line('You will get an email when request status changes')
                     ->action('Transaction History', url('/transactions-history'))
