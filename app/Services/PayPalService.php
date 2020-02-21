@@ -89,7 +89,7 @@ class PayPalService {
             $output = $payouts->create(null, $this->apiContext);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            $transaction->status = "pending";
+            $transaction->status = "failed";
             $transaction->description = "Account withdrawal failed";
             $transaction->save();
             $account = $transaction->account()->with('user')->first();
