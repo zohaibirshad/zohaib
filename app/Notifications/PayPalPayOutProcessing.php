@@ -49,14 +49,18 @@ class PayPalPayOutProcessing extends Notification
     public function toMail($notifiable)
     {
         $account = $this->transaction->account()->with('user')->first();
-
+        $paypalEmail = $account->profile->paypal;
+        $status = '';
+        if($this->transaction->description == "UNCLAIMED"){
+            $status = "You not have a Paypal account. A link to sign up for an account was sent to this $paypalEmail. However, if you fo not claim this withdrawal within 30 days, the funds will be returned to Yohli.";
+        }
         return (new MailMessage)
                     ->error()
                     ->subject('Withdrawal Request Processing')
                     ->greeting('Hello! '. $account->user->name. ',')
-                    ->line("Withdrawal Request " . $this->transaction->description)
+                    ->line("Withdrawal Request Status: " . $this->transaction->description)
                     ->line('Amount $'.  $this->transaction->amount)            
-                    ->line('You will get an email when request status changes')
+                    ->line("You will get an email when request status changes. $status")
                     ->action('Transaction History', url('/transactions-history'))
                     ->line('Thank you for using '. config('app.name'));
     }
