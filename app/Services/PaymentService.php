@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Account;
 use App\Models\Profile;
 use App\Jobs\BankTransfer;
 use App\Models\Transaction;
@@ -50,11 +49,12 @@ class PaymentService {
             $transaction->description = 'Withdrawal Failed';
             $transaction->save();
 
-            $account = Account::where('user_id', $user->id)->first();
+            // $user = $profile->user()->with('account')->first();
 
 
-            $aggregateRoot = AccountAggregate::retrieve($account->uuid);
+            $aggregateRoot = AccountAggregate::retrieve($user->account->uuid);
             $aggregateRoot->addMoney($transaction->amount);
+            $aggregateRoot->persist(); 
 
             $user->notify( new MoMoPayOutFailed($transaction));
         }
