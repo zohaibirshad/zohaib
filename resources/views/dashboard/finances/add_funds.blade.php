@@ -32,12 +32,12 @@
                     <div class="col-xl-12">
                         <div class="submit-field">
                             <div class="row">
-                                <div class="col-xl-4">
+                                <div class="col-xl-4 my-2">
                                     <select class="selectpicker with-border" id="currency">
                                         <option>USD</option>
                                     </select>
                                 </div>
-                                <div class="col-xl-8">
+                                <div class="col-xl-8 my-2">
                                     <input id="amount" type="number" class="with-border" value="0" required>
                                     <small class="text-muted">Processing fee <span id="processing_fee" class="float-right"></span></small>
                                 </div>

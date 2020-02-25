@@ -45,7 +45,7 @@
                                 
                                         <div class="input-with-icon-left no-border">
                                             <i class="icon-feather-dollar-sign"></i>
-                                            <input type="amount" value="{{ old('amount') }}" name="amount" id="amount" type="number" class="input-text mt-1" value="0" required>
+                                            <input type="amount" value="{{ old('amount') }}" name="amount" id="amount" type="number" class="input-text" value="0" required>
                                             <input type="hidden" name="withdrawal" value="withdrawal"/>
                                             <input type="hidden" name="type" value="withdrawal"/>
                                         </div> 
