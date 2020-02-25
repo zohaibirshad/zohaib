@@ -45,7 +45,7 @@
                                 
                                         <div class="input-with-icon-left no-border">
                                             <i class="icon-feather-dollar-sign"></i>
-                                            <input type="amount" value="{{ old('amount') }}" name="amount" id="amount" type="number" class="input-text" value="0" required>
+                                            <input type="amount" value="{{ old('amount') }}" name="amount" id="amount" type="number" class="input-text mt-1" value="0" required>
                                             <input type="hidden" name="withdrawal" value="withdrawal"/>
                                             <input type="hidden" name="type" value="withdrawal"/>
                                         </div> 
@@ -66,7 +66,7 @@
                     <div class="col-12">
                         <button class="button ripple-effect">
                             <i class="icon-material-outline-check-circle mr-1"></i>
-                            <span id="amount-value">Confirm & Add $0</span>
+                            <span id="amount-value">Confirm & Withdraw $0</span>
                         </button>
                     </div> 
                 </div>
