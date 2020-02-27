@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\Account;
@@ -432,6 +433,29 @@ class AccountController extends Controller
             }
             
             if($request->has('withdrawal')){
+
+                $jobs = Job::where('status', 'assigned')->where('user_id', $account->user_id)->with(['bids'=> function($q){
+                     $q->where('status', 'accepted');
+                }, 'milestones' => function($q){
+                    $q->where('status', 'paid');
+                }])->get();
+        
+                $bids = 0;
+                foreach ($jobs as $job) {
+                    $bid_sum = $job->bids()->where('status', 'accepted')->first()->rate;
+        
+                    $bids =  $bids + $bid_sum;
+                }
+        
+                $milestones = [];
+                foreach ($jobs as $job) {
+                    $milestone_sum = $job->milestones()->where('status', 'paid')->sum('cost');
+        
+                    $milestones =  $bids + $milestone_sum;
+                }
+              
+                 dd($bids, $milestones);
+         
                 try {
                     $payment->status = "pending";
                     $payment->description = "Account " . $request->type . " Pending";

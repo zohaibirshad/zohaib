@@ -107,6 +107,21 @@
 
 
 				@auth
+
+					<!--  User Notifications -->
+					<div class="header-widget hide-on-mobile">
+					
+					
+					<!-- Messages -->
+					<div class="header-notifications">
+						<div class="header-notifications-trigger">
+							<a href="../chats"><i class="icon-feather-mail"></i><span>{{ $chat_notifications }}</span></a>
+						</div>
+					</div>
+
+				</div>
+				<!--  User Notifications / End -->
+
 				<!-- User Menu -->
 				<div class="header-widget">
 
@@ -157,7 +172,7 @@
 						</div>
 						
 						<ul class="user-menu-small-nav">
-							<li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+							<li><a href="{{ route('dashboard') }}"><i class="icon-material-outline-dashboard"></i> Dashboard  <b class="text-orange-500">{{ $chat_notifications }}</b> </a></li>
 							<li><a href="{{ route('settings') }}"><i class="icon-material-outline-settings"></i> Settings</a></li>
 							<li>
 								<a href="{{ route('logout') }}"  onclick="event.preventDefault();

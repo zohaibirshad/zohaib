@@ -284,15 +284,15 @@ const app = window.app = new Vue({
 		},
 
 		image(profile) {
-		if (
-			profile.photo == null ||
-			profile.photo == "" ||
-			profile.photo == undefined
-		) {
-			return "assets/images/user-avatar-placeholder.png";
-		} else {
-			return profile.photo;
-		}
+			if (
+				profile.photo == null ||
+				profile.photo == "" ||
+				profile.photo == undefined
+			) {
+				return "assets/images/user-avatar-placeholder.png";
+			} else {
+				return profile.photo;
+			}
 		},
 		init: function(){
 			var self = this

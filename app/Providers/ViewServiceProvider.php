@@ -58,5 +58,11 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('new_jobs_count', $newJobsCount);
             $view->with('chat_notifications', auth()->user()->chat_notifications());
         });
+
+        View::composer('partials.header', function ($view) {
+            $view->with('chat_notifications', auth()->user()->chat_notifications());
+        });
     }
+
+   
 }

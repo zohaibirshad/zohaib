@@ -90,7 +90,7 @@
 							</div>
 
 							<!-- Stripe Elements Placeholder -->
-							<div class="mt-5 col-md-12 text-2xl" id="card-element"></div>
+							<div class="mt-5 col-md-12 text-2xl border rounded p-3" id="card-element"></div>
 
 							<button  class="my-5 mx-1 button bg-blue-500 ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
 								Add Payment Method

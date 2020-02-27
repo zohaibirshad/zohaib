@@ -89,15 +89,8 @@
 						<div class="col-xl-12">
 							<div class="submit-field">
 								<h5>Skills <i class="help-icon" data-tippy-placement="right" title="Enter up to 5 skills that best describe your project. Freelancers will use these skills to find projects they are most interested and experienced in."></i></h5>
-								{{-- <div class="keywords-container">
-									<div class="keyword-input-container">
-										<input id="skills" type="text" class="keyword-input with-border" placeholder="e.g. HTML, SQL, React, Java"/>
-										<button class="keyword-input-button ripple-effect" type="button"><i class="icon-material-outline-add"></i></button>
-									</div>
-									<div class="keywords-list"><!-- keywords go here --></div>
-									<div class="clearfix"></div>
-								</div> --}}
-								<select class="selectpicker with-border" name="skills[]" multiple data-live-search="true" id="skills">								
+
+								<select class="selectpicker with-border z-200 relative" name="skills[]" multiple data-live-search="true" id="skills">								
 									@foreach ($skills as $skill)
 										<option value="{{ $skill->id }}">{{ $skill->title }} </option>
 									@endforeach
@@ -179,8 +172,8 @@
 		</div>
 	</div>
 
-	<div class="col-md-6 offset-md-3">
-		<button type="submit" class="button ripple-effect big margin-top-30 d-none" id="submitBtn"><i class="icon-feather-plus"></i> Post a Job</button>
+	<div class="col-md-6 offset-md-3 -z-10">
+		<button type="submit" class="button -z-10 ripple-effect big margin-top-30 d-none" id="submitBtn"><i class="icon-feather-plus"></i> Post a Job</button>
 	</div>
 
 </div>

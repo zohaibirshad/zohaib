@@ -303,84 +303,90 @@
 
                 <div class="content with-padding">
                     <div class="row max-w-5xl">
-                        <div class="col-xl-6">
-                            <div class="submit-field">
-                                <h5>Paypal Email</h5>
-                                <input type="text" name="paypal" class="with-border" value="{{  old('paypal', $user->paypal) }}">
+                            <h2 class="mb-4 col-xl-12">PayPal</h2>
+                            <div class="col-xl-6">
+                                <div class="submit-field">
+                                    <h5>Paypal Email</h5>
+                                    <input type="text" name="paypal" class="with-border" value="{{  old('paypal', $user->paypal) }}">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-xl-6">
+                            <hr class="col-xl-11 mb-4">
+
+                        <!-- <div class="col-xl-6">
                             <div class="submit-field">
                                 <h5>Skrill Email</h5>
                                 <input type="text" name="skrill" class="with-border" value="{{  old('skrill', $user->skrill) }}">
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-xl-6">
-                            <div class="submit-field">
-                                <h5>Mobile Money Number</h5>
-                                <input type="text" name="momo" class="with-border" value="{{  old('momo', $user->momo) }}">
+                        <h2 class="mb-4 col-xl-12">Mobile Money</h2>
+                            <div class="col-xl-4">
+                                <div class="submit-field">
+                                    <h5>Mobile Money Number</h5>
+                                    <input type="text" name="momo" class="with-border" value="{{  old('momo', $user->momo) }}">
+                                </div>
                             </div>
-                        </div>
+                        
 
-                        <div class="col-xl-6">
-                            <div class="submit-field">
-                                <h5>Mobile Money Network</h5>
-                                <!-- <input type="text" name="momo_network" class="with-border" value="{{  old('momo_network', $user->momo_network) }}"> -->
-                                <select class="selectpicker with-border" data-size="7" title="Select Network" data-live-search="true" name="momo_network" id="momo_network">
-                                <option value="MTN" 
-                                @if($user->momo_network == "MTN") 
-                                selected 
-                                @endif
-                                >MTN</option> 
-                                <option value="VDF"
-                                @if($user->momo_network == "VDF") 
-                                selected 
-                                @endif
-                                >VODAFONE</option> 
-                                <option value="ATL"
-                                @if($user->momo_network == "ATL") 
-                                selected 
-                                @endif
-                                >AIRTEL</option> 
-                                <option value="TGO"
-                                @if($user->momo_network == "TIGO") 
-                                selected 
-                                @endif
-                                >TIGO</option> 
-                                </select>
+                            <div class="col-xl-4">
+                                <div class="submit-field">
+                                    <h5>Mobile Money Network</h5>
+                                    <!-- <input type="text" name="momo_network" class="with-border" value="{{  old('momo_network', $user->momo_network) }}"> -->
+                                    <select class="selectpicker with-border" data-size="7" title="Select Network" data-live-search="true" name="momo_network" id="momo_network">
+                                    <option value="MTN" 
+                                    @if($user->momo_network == "MTN") 
+                                    selected 
+                                    @endif
+                                    >MTN</option> 
+                                    <option value="VDF"
+                                    @if($user->momo_network == "VDF") 
+                                    selected 
+                                    @endif
+                                    >VODAFONE</option> 
+                                    <option value="ATL"
+                                    @if($user->momo_network == "ATL") 
+                                    selected 
+                                    @endif
+                                    >AIRTEL</option> 
+                                    <option value="TGO"
+                                    @if($user->momo_network == "TIGO") 
+                                    selected 
+                                    @endif
+                                    >TIGO</option> 
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-xl-6">
-                            <div class="submit-field">
-                                <h5>Mobile Money Issued Country</h5>
-                                <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_country" id="momo_country">
-                                    @foreach ($countries as $country)
-                                    <option value="{{ $country->code }}" {{ $user->momo_country == $country->code ? 'selected="selected"' : '' }}>
-                                        {{ $country->name }}
-                                    </option> 
-                                    @endforeach                                 
-                                </select>
+                            <div class="col-xl-4">
+                                <div class="submit-field">
+                                    <h5>Mobile Money Issued Country</h5>
+                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_country" id="momo_country">
+                                        @foreach ($countries as $country)
+                                        <option value="{{ $country->code }}" {{ $user->momo_country == $country->code ? 'selected="selected"' : '' }}>
+                                            {{ $country->name }}
+                                        </option> 
+                                        @endforeach                                 
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-xl-6">
+                            <hr class="col-xl-11 mb-4">
+                        <h2 class="mb-4 col-xl-12">Bank</h2>
+                        <div class="col-xl-4">
                             <div class="submit-field">
                                 <h5>Bank Name</h5>
                                 <input type="text" name="bank_name" class="with-border" value="{{  old('bank_name', $user->bank_name) }}">
                             </div>
                         </div>
 
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
                             <div class="submit-field">
                                 <h5>Bank Account Name</h5>
                                 <input type="text" name="bank_account_name" class="with-border" value="{{  old('bank_account_name', $user->bank_account_name) }}">
                             </div>
                         </div>
 
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
                             <div class="submit-field">
                                 <h5>Bank Account No</h5>
                                 <input type="text" name="bank_no" class="with-border" value="{{  old('bank_no', $user->bank_no) }}">
@@ -433,7 +439,7 @@
         <div class="content with-padding col-xl-6" id="billing">
                 <input placeholder="Card Holder Name" value="{{ $user->name }}" class="with-border" id="card-holder-name" type="text">
                 <!-- Stripe Elements Placeholder -->
-                <div class="mt-4" id="card-element"></div>
+                <div class="mt-4 border rounded p-3" id="card-element"></div>
 
                 <button  class="my-4 button ripple-effect" id="card-button" data-secret="{{ $intent->client_secret }}">
                     Update Payment Method

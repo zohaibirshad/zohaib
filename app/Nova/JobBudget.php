@@ -23,7 +23,7 @@ class JobBudget extends Resource
      *
      * @var  string
      */
-    public static $title = 'budget';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -31,7 +31,7 @@ class JobBudget extends Resource
      * @var  array
      */
     public static $search = [
-        'id', 'budget'
+        'id', 'name'
     ];
 
     /**

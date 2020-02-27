@@ -26,7 +26,7 @@
                 </div>
 
                 <!-- Stripe Elements Placeholder -->
-                <div class="mt-5 col-md-12 text-2xl border rounded py-3" id="card-element"></div>
+                <div class="mt-5 col-md-12 text-2xl border rounded p-3" id="card-element"></div>
 
                 <div class="row pt-5">
                     <div class="col-xl-12">

@@ -25,7 +25,7 @@ class ChatController extends Controller
                 
          })->values()->flatten();
 
-        //   dd($conversations);
+        //   return ($conversations);
 
         $timezone = geoip($request->ip());
         $timezone = $timezone['timezone'];
