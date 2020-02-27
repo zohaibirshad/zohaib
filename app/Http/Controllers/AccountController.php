@@ -447,11 +447,11 @@ class AccountController extends Controller
                     $bids =  $bids + $bid_sum;
                 }
         
-                $milestones = [];
+                $milestones = 0;
                 foreach ($jobs as $job) {
                     $milestone_sum = $job->milestones()->where('status', 'paid')->sum('cost');
         
-                    $milestones =  $bids + $milestone_sum;
+                    $milestones =  $milestones + $milestone_sum;
                 }
               
                  dd($bids, $milestones);
