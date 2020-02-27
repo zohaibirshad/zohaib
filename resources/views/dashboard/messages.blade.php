@@ -51,9 +51,9 @@
 														<span class="font-light">{{ $p->user->name }}</span>
 														<span class=""><b>Job:</b> {{ $p->conversationWithLastMessage->job->title }}</span>
 														@if($p->conversationWithLastMessage->last_message)
-														<small>{{ $p->conversationWithLastMessage->last_message->created_at->diffForHumans() }}</small>
+														<small>{{ $p->conversationWithLastMessage->last_message->created_at->timezone($timezone)->diffForHumans() }}</small>
 														@else
-														<small>{{ $p->created_at->diffForHumans() }}</small>
+														<small>{{ $p->created_at->timezone($timezone)->diffForHumans() }}</small>
 														@endif
 													</div>
 												</div>
@@ -173,6 +173,7 @@
 
 var conversations = <?= json_encode($conversations); ?>;
 var user = <?= json_encode(auth()->user()); ?>;
+var timezone = "{{ $timezone }}";
 
 Vue.config.devtools = true
 Vue.use(VueChatScroll);
@@ -279,7 +280,7 @@ const app = window.app = new Vue({
 		},
 
 		dateFormat(d){
-			return Moment(d).fromNow();
+			return Moment.tz(d, timezone).fromNow();
 		},
 
 		image(profile) {

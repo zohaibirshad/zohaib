@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+         
          $conversations = Auth::user()->conversations();
          $conversations = $conversations->map(function($item, $value){
              return [
@@ -26,7 +27,12 @@ class ChatController extends Controller
 
         //   dd($conversations);
 
-         return view('dashboard.messages', compact('conversations'));
+        $timezone = geoip($request->ip());
+        $timezone = $timezone['timezone'];
+
+        // dd($timezone);
+
+         return view('dashboard.messages', compact('conversations', 'timezone'));
     }
 
 

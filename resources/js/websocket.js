@@ -4,7 +4,7 @@ window.Vue = require('vue');
 
 import Echo from 'laravel-echo'
 
-window.Moment = require('moment');
+window.Moment = require('moment-timezone');
 
 window.Pusher = require('pusher-js');
 
