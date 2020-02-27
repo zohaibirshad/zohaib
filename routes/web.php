@@ -295,11 +295,36 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     })->name('add-funds');
     
     Route::get('withdraw-funds', function () {
+
         $account = \App\Models\Account::where('user_id', Auth::user()->id)->first();
+
+        $jobs = \App\Models\Job::where('status', 'assigned')->where('user_id', $account->user_id)->with(['bids'=> function($q){
+                $q->where('status', 'accepted');
+                }, 'milestones' => function($q){
+                    $q->where('status', 'paid');
+                }])->get();
+
+       $bid_amount = 0;
+
+       foreach ($jobs as $job) {
+           $bid_sum = $job->bids()->where('status', 'accepted')->first()->rate;
+
+           $bid_amount =  $bid_amount + $bid_sum;
+       }
+
+       $milestone_amount = 0;
+
+       foreach ($jobs as $job) {
+           $milestone_sum = $job->milestones()->where('status', 'paid')->sum('cost');
+
+           $milestone_amount =  $milestone_amount + $milestone_sum;
+       }
+
+        $escrow = $milestone_amount + $bid_amount;
 
         $profile = Auth::user()->profile;
     
-        return view('dashboard.finances.withdraw_funds',  compact('account', 'profile'));
+        return view('dashboard.finances.withdraw_funds',  compact('account', 'profile', 'escrow'));
     
     })->name('withdraw-funds');
     

@@ -13,11 +13,14 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="flex flex-row justify-between mb-6">
-                            <h3>
-                                <i class="icon-line-awesome-money"></i> 
+                            <h3 class="p-2 flex flex-row">
+                                <i class="icon-line-awesome-money pt-1"></i> 
                                 <img src="{{ asset('assets/images/stripe-logo.png') }}" height="30px">
                             </h3>
-                            <h3>Balance: ${{ $account->balance }}</h3>
+                            <div class="flex flex-row flex-wrap justify-end">
+                                <h3 class="p-2">Balance: ${{ $account->balance }}</h3>
+                                <h3 class="p-2 text-red-500">Escrow: ${{ $escrow }}</h3>
+                            </div>
                         </div>
                         
                             <div class="submit-field">
