@@ -101,7 +101,7 @@ function updateValue(e){
      
      
      var amountValue = document.getElementById('amount-value')
-     amountValue.innerHTML = "Confirm & Add $" + total.value;
+     amountValue.innerHTML = "Confirm & Withdraw $" + total.value;
      console.log(amountValue.innerHTML);
 }
 
