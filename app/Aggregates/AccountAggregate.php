@@ -56,7 +56,7 @@ final class AccountAggregate extends AggregateRoot
     {
         if (!$this->hasSufficientFundsToSubtractAmount($amount)) {
             
-            throw CouldNotSubtractMoney::notEnoughFunds($amount);
+            throw CouldNotSubtractMoney::notEnoughFunds($amount, $this->accountLimit);
         }
 
         $this->recordThat(new MoneySubtracted($amount));
