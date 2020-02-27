@@ -316,7 +316,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 });
 
 Route::get('test', function(Request $request){
-    return $request->ip();
+    return response()->json(geoip($request->ip()));
 });
 
 Route::get('contact', function(){
