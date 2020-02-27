@@ -315,6 +315,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 });
 
+Route::get('test', function(Request $request){
+    return $request->ip();
+});
+
 Route::get('contact', function(){
     return view('contact');
 });

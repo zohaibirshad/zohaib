@@ -23,6 +23,7 @@
         "facade/ignition": "^1.9",
         "fideloper/proxy": "^4.0",
         "genealabs/nova-passport-manager": "*",
+        "geoip2/geoip2": "^2.10",
         "gregoriohc/laravel-nova-theme-responsive": "^0.6.2",
         "guzzlehttp/guzzle": "^6.5",
         "itainathaniel/nova-admin-notes": "^1.0",
@@ -48,6 +49,7 @@
         "spatie/nova-backup-tool": "^3.5",
         "themsaid/nova-cashier-manager": "^0.2.1",
         "torann/currency": "^1.0",
+        "torann/geoip": "^1.1",
         "vyuldashev/nova-permission": "^2.1",
         "yoeunes/toastr": "^1.2"
     },

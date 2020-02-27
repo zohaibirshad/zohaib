@@ -5,11 +5,10 @@ namespace App\Models;
 use App\Traits\Uuid;
 use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bid extends Model
 {
-    use HasNotes, Uuid, SoftDeletes;
+    use HasNotes, Uuid;
 
     /**
     * @var  string

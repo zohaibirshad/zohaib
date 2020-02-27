@@ -12,7 +12,6 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -20,7 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, Auditable
 {
-    use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SoftDeletes, SetsParticipants, Messageable;
+    use Notifiable, Billable, HasRoles, HasApiTokens, HasNotes, AuditTrait, SetsParticipants, Messageable;
 
     protected $guard_name = 'web';
 

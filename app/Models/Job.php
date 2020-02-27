@@ -8,12 +8,11 @@ use Illuminate\Support\Str;
 use DigitalCloud\ModelNotes\HasNotes;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Job extends Model implements HasMedia
 {
-    use HasMediaTrait, HasNotes, SoftDeletes, Uuid;
+    use HasMediaTrait, HasNotes, Uuid;
 
     /**
      * @var  string
