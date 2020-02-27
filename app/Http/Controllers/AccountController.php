@@ -440,22 +440,22 @@ class AccountController extends Controller
                     $q->where('status', 'paid');
                 }])->get();
         
-                $bids = 0;
+                $bid_amount = 0;
                 foreach ($jobs as $job) {
                     $bid_sum = $job->bids()->where('status', 'accepted')->first()->rate;
         
-                    $bids =  $bids + $bid_sum;
+                    $bid_amount =  $bid_amount + $bid_sum;
                 }
         
-                $milestones = 0;
+                $milestone_amount = 0;
                 foreach ($jobs as $job) {
                     $milestone_sum = $job->milestones()->where('status', 'paid')->sum('cost');
         
-                    $milestones =  $milestones + $milestone_sum;
+                    $milestone_amount =  $milestone_amount + $milestone_sum;
                 }
-              
-                 dd($bids, $milestones);
-         
+
+                $aggregateRoot->setAccountLimit($bid_amount + $milestone_amount);
+                       
                 try {
                     $payment->status = "pending";
                     $payment->description = "Account " . $request->type . " Pending";
