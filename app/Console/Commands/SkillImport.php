@@ -39,6 +39,7 @@ class SkillImport extends Command
      */
     public function handle()
     {
-       
+        Excel::import(new Skills, storage_path('skillset.csv'));
+
     }
 }
