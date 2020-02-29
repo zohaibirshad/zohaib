@@ -1,9 +1,8 @@
 <?php
 
-use App\Imports\SkillImport;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -345,7 +344,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 Route::get('test', function(Request $request){
     // return response()->json(geoip($request->ip()));
 
-    Excel::import(new SkillImport, storage_path('skillset.csv'));
+    Maatwebsite\Excel\Facades\Excel::import(new App\Imports\SkillImport, storage_path('skillset.csv'));
 
     return response()->json(['success']);
 

@@ -12,44 +12,7 @@ class SkillsTableSeeder extends Seeder
      */
     public function run()
     {
-        $skills = [
-            [
-                'title' => 'Android',
-            ],
-            [
-                'title' => 'iOS',
-            ],
-            [
-                'title' => 'copywriting',
-            ],
-            [
-                'title' => 'translating',
-            ],
-            [
-                'title' => 'editing',
-            ],
-            [
-                'title' => 'frontend',
-            ],
-            [ 
-                'title' => 'angualar',
-            ],
-            [
-                'title' => 'vue',
-            ],
-            [
-                'title' => 'web apps',
-            ],
-            [
-                'title' => 'design',
-            ],
-            [
-                'title' => 'wordpress',
-            ],
-        ];
+        Maatwebsite\Excel\Facades\Excel::import(new App\Imports\SkillImport, storage_path('skillset.csv'));
 
-        foreach ($skills as $skill) {
-            Skill::create($skill);
-        }
     }
 }
