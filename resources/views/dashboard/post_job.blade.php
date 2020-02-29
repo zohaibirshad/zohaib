@@ -20,7 +20,7 @@
 		</div>
 
 	<!-- Dashboard Box -->
-	<div class="col-sm-12 col-md-6 offset-md-3">
+	<div class="col-sm-12 col-md-6 offset-md-3 z-200 relative">
 		<div class="dashboard-box margin-top-0">
 
 			<!-- Headline -->
@@ -172,8 +172,8 @@
 		</div>
 	</div>
 
-	<div class="col-md-6 offset-md-3 -z-10">
-		<button type="submit" class="button -z-10 ripple-effect big margin-top-30 d-none" id="submitBtn"><i class="icon-feather-plus"></i> Post a Job</button>
+	<div class="col-md-6 offset-md-3">
+		<button type="submit" class="button z-10 ripple-effect big margin-top-30 d-none" id="submitBtn"><i class="icon-feather-plus"></i> Post a Job</button>
 	</div>
 
 </div>

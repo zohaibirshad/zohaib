@@ -388,7 +388,6 @@ const app = window.app = new Vue({
 						self.single_conversation.push(e.message);
 						// console.log(['websocket', e]);
 					}	
-
 			});
 
 		
