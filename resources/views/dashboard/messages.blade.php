@@ -6,6 +6,7 @@
 @section('content')
 <link href="{{ asset('css/chat.css') }}" rel="stylesheet">
 <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
 <script src="{{ asset('js/websocket.js') }}"></script>
 
@@ -374,19 +375,19 @@ const app = window.app = new Vue({
 
 			this.scrollDown();
 			
-			Echo.join('chat-conversation.' + this.single_conversation[0].conversation_id)
+			Echo.join(`chat-conversation.${this.single_conversation[0].conversation_id}`)
 				.joining((user) => {
-					alert(user.name + " Joined chat");
+					toastr.success(`${user.name} Joined chat`)
 				})
 				.leaving((user) => {
-					alert(user.name + " left chat");
+					toastr.error(`${user.name} left chat`)
 				})
 				.listen('MessageWasSent', function(e) {
 					if(self.single_conversation[0].conversation_id == e.message.conversation_id)
 					{
 						self.single_conversation.push(e.message);
 						// console.log(['websocket', e]);
-					}
+					}	
 
 			});
 
