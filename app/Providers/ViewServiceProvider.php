@@ -31,8 +31,9 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $user = Auth::user();
         View::composer('partials.dashboard_sidebar', function ($view) {
-            $user = Auth::user();
+
             if (!empty($user)) {
                 $freelancer = Profile::where('user_id', $user->id)->first();
     
@@ -56,11 +57,13 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('bids_count', $bidsCount);
             $view->with('invites_count', $invitesCount);
             $view->with('new_jobs_count', $newJobsCount);
-            $view->with('chat_notifications', auth()->user()->chat_notifications());
+            $view->with('chat_notifications',  $user->chat_notifications());
         });
 
         View::composer('partials.header', function ($view) {
-            $view->with('chat_notifications', auth()->user()->chat_notifications());
+            if (!empty($user)) {
+                $view->with('chat_notifications',  $user->chat_notifications());
+            }
         });
     }
 
