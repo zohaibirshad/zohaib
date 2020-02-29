@@ -31,10 +31,10 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $user = Auth::user();
+        
         View::composer('partials.dashboard_sidebar', function ($view) {
-
-            if (!empty($user)) {
+            $user = Auth::user();
+            if ($user) {
                 $freelancer = Profile::where('user_id', $user->id)->first();
     
                 if ($user->hasRole('hirer')) { 
@@ -60,8 +60,9 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('chat_notifications',  $user->chat_notifications());
         });
 
-        View::composer('partials.header', function ($view) {
-            if (!empty($user)) {
+        View::composer('partials.header', function ($view){
+            $user = Auth::user();
+            if ($user) {
                 $view->with('chat_notifications',  $user->chat_notifications());
             }
         });
