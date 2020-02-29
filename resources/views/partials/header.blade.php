@@ -111,13 +111,14 @@
 					<!--  User Notifications -->
 					<div class="header-widget hide-on-mobile">
 					
-					
+					@auth
 					<!-- Messages -->
 					<div class="header-notifications">
 						<div class="header-notifications-trigger">
 							<a href="../chats"><i class="icon-feather-mail"></i><span>{{ $chat_notifications }}</span></a>
 						</div>
 					</div>
+					@endauth
 
 				</div>
 				<!--  User Notifications / End -->
