@@ -382,8 +382,10 @@ const app = window.app = new Vue({
 					alert(user.name + " left chat");
 				})
 				.listen('MessageWasSent', function(e) {
-					self.single_conversation.push(e.message);
-					// console.log(['websocket', e]);
+					if(self.single_conversation[0].conversation_id == e.message.conversation_id){
+						self.single_conversation.push(e.message.);
+						// console.log(['websocket', e]);
+					}
 
 			});
 
