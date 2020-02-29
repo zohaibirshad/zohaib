@@ -345,7 +345,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 Route::get('test', function(Request $request){
     // return response()->json(geoip($request->ip()));
 
-    Excel::import(new SkillImport, storage_path('skills.xlsx'));
+    Excel::import(new SkillImport, storage_path('Skills.xlsx'));
 
     return response()->json(['success']);
 
