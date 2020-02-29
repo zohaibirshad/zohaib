@@ -30,7 +30,7 @@ class ChatController extends Controller
         $timezone = geoip($request->ip());
         $timezone = $timezone['timezone'];
 
-        // dd($timezone);
+        dd($timezone);
 
          return view('dashboard.messages', compact('conversations', 'timezone'));
     }
