@@ -375,15 +375,16 @@ const app = window.app = new Vue({
 			this.scrollDown();
 			
 			Echo.join('chat-conversation.' + this.single_conversation[0].conversation_id)
-			.here((users) => {
+				.joining((user) => {
 					alert(user.name + " Joined chat");
 				})
 				.leaving((user) => {
 					alert(user.name + " left chat");
 				})
 				.listen('MessageWasSent', function(e) {
-					if(self.single_conversation[0].conversation_id == e.message.conversation_id){
-						self.single_conversation.push(e.message.);
+					if(self.single_conversation[0].conversation_id == e.message.conversation_id)
+					{
+						self.single_conversation.push(e.message);
 						// console.log(['websocket', e]);
 					}
 
