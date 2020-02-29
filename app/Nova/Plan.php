@@ -140,6 +140,8 @@ class Plan extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel,
+        ];
     }
 }

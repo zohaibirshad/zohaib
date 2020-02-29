@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\FreePlan'
+        'App\Console\Commands\FreePlan',
+        'App\Console\Commands\SkillImport'
     ];
 
     /**
@@ -32,6 +33,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('plan:free')
         ->monthlyOn(1, '01:00')
         ->sendOutputTo('app/collection.txt');
+
+        // $schedule->command('skill:import')
+        // ->everyMinute()
+        // ->sendOutputTo('skill_import');
 
     }
 

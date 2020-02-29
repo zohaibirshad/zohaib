@@ -71,6 +71,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             (new \App\Nova\Metrics\InvitesPerDay)->width('1/4'),
             (new \App\Nova\Metrics\JobsStatus)->width('1/4'),
             (new \App\Nova\Metrics\MilestonesStatus)->width('1/4'),
+            
         ];
     }
 
@@ -100,6 +101,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Cloudstudio\ResourceGenerator\ResourceGenerator(),
             new \Itainathaniel\AdminNotes\AdminNotes(),
             new \Themsaid\CashierTool\CashierTool(),
+ 
         ];
     }
 

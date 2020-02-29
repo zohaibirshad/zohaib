@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class BlogPost extends Model implements HasMedia
 {
-    use HasMediaTrait, HasNotes, SoftDeletes, Slug;
+    use HasMediaTrait, HasNotes, Slug;
 
     /**
      * @var  string

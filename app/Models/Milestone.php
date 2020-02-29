@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Milestone extends Model
 {
 
-    use HasNotes, Uuid, SoftDeletes;
+    use HasNotes, Uuid;
 
     /**
     * @var  string
