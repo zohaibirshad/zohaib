@@ -282,7 +282,10 @@ const app = window.app = new Vue({
 
 		dateFormat(d){
 			var date = Moment.tz(d, timezone).fromNow();
-			console.log(date);
+			// console.log(date);
+			if(date == "Invalid date"){
+				return d
+			}
 			return date;
 			
 		},
@@ -339,7 +342,7 @@ const app = window.app = new Vue({
 
 		},
 		findConversation:  function(id, profile, job_id){
-			console.log(id);
+			// console.log(id);
 			this.body = null;
 			this.files = null;
 			this.job_id = job_id;
@@ -401,7 +404,7 @@ const app = window.app = new Vue({
 		},
 
 		scrollDown: function(){
-			console.log('clicked');
+			// console.log('clicked');
 			
 			var pane = document.getElementById('pane');
 			if(pane != null){
