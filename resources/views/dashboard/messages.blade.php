@@ -281,7 +281,10 @@ const app = window.app = new Vue({
 		},
 
 		dateFormat(d){
-			return Moment.tz(d, timezone).fromNow();
+			var date = Moment.tz(d, timezone).fromNow();
+			console.log(date);
+			return date;
+			
 		},
 
 		image(profile) {
