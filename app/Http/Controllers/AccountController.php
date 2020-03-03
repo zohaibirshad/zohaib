@@ -233,9 +233,12 @@ class AccountController extends Controller
 
     public function update_freelancer_documents(Request $request)
     {
+        $messages = [
+            'documents.*.max' => 'File must be less than or equal to 2 MB'
+        ];
         Validator::make($request->all(), [
-            'documents.*' => 'file|max:10240',
-        ], [])->validate();
+            'documents.*' => 'required|file|max:2000',
+        ],  $messages)->validate();
 
         try {
             DB::beginTransaction();

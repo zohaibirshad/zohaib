@@ -632,8 +632,6 @@ class Profile extends Resource
 
             HasMany::make('Jobs'),
 
-            HasMany::make('Social Links'),
-
             HasMany::make('Bids'),
 
             MorphMany::make('Reviews'),

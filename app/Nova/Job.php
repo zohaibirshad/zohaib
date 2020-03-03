@@ -201,7 +201,7 @@ class Job extends Resource
     public function actions(Request $request)
     {
         return [
-            new Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel,
+            new \Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel,
         ];
     }
 }

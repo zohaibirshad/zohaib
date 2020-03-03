@@ -88,6 +88,7 @@ class User extends Resource
                 ->options([
                     'successful' => 'successful',
                     'pending' => 'pending',
+                    'not_started' => 'not started',
                 ])->displayUsingLabels(),
 
             DateTime::make(__('Verfication Date'),  'profile_verified_at'),
