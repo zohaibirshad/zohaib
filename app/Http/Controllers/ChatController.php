@@ -55,6 +55,18 @@ class ChatController extends Controller
             'is_seen' => 1
         ]);
 
+        $timezone = geoip($request->ip());
+        $timezone = $timezone['timezone'];
+
+        $message =[
+            'id'              => $message->getKey(),
+            'body'            => $message->body,
+            'attachments'     => $message->attachments,
+            'conversation_id' => $message->conversation_id,
+            'type'            => $message->type,
+            'created_at'      => $message->created_at->timezone($timezone)->diffForHumans(),
+            'sender'          => $message->sender,
+        ];
         return response()->json($message);
     }
 
