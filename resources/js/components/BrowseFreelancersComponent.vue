@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-3 col-lg-4">
-        <div class="sidebar-container">
+        <div class="sidebar-container w-full">
           <!-- Keywords -->
           <div class="sidebar-widget">
             <h3>Search</h3>
@@ -23,7 +23,7 @@
             <!-- class="selectpicker default" -->
             <select
               class="select-picker"
-              data-size="7"
+              data-size="10"
               v-model="search.country"
               @change="getResults()"
               data-live-search="true"
@@ -73,7 +73,7 @@
             <!-- class="skills-dropdown" -->
             <h3>Skills</h3>
             <select
-              class="skills-dropdown"
+              class="skills-dropdown w-full"
               multiple="multiple"
               v-model="search.skills"
             >

@@ -7453,7 +7453,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-xl-3 col-lg-4" }, [
-        _c("div", { staticClass: "sidebar-container" }, [
+        _c("div", { staticClass: "sidebar-container w-full" }, [
           _c("div", { staticClass: "sidebar-widget" }, [
             _c("h3", [_vm._v("Search")]),
             _vm._v(" "),
@@ -7513,7 +7513,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "select-picker",
-                attrs: { "data-size": "7", "data-live-search": "true" },
+                attrs: { "data-size": "10", "data-live-search": "true" },
                 on: {
                   change: [
                     function($event) {
@@ -7670,7 +7670,7 @@ var render = function() {
                     expression: "search.skills"
                   }
                 ],
-                staticClass: "skills-dropdown",
+                staticClass: "skills-dropdown w-full",
                 attrs: { multiple: "multiple" },
                 on: {
                   change: function($event) {
