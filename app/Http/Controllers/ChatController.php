@@ -35,6 +35,27 @@ class ChatController extends Controller
          return view('dashboard.messages', compact('conversations', 'timezone'));
     }
 
+    public function index_json(Request $request)
+    {
+         
+         $conversations = Auth::user()->conversations();
+         $conversations = $conversations->map(function($item, $value){
+             return [
+                 $item,
+                // 'auth_user' => $item->participants->filter(function($innerItem){
+                //     return $innerItem->user->id == Auth::user()->id;
+                // })
+             ];
+                
+         })->values()->flatten();
+
+        // return ($conversations);
+
+        // dd($timezone);
+
+         return response()->json($conversations);
+    }
+
 
     public function send(Request $request, $id)
     {

@@ -190,6 +190,7 @@ const app = window.app = new Vue({
 		job_id: '',
 		files: null,
 		spinner: false,
+		previousChannel: null,
 	},
 
 	computed: {
@@ -245,6 +246,22 @@ const app = window.app = new Vue({
 		
 
 		},
+
+		// getConversations: function(){
+		// 	self.spinner = true;
+		// 	axios.get('../conversations').then(function(r){
+		// 		self.conversations = r.data;
+		// 		conversations = r.data;
+		// 		self.spinner = false;
+		// 		// console.log(self.$refs.files.files);
+		// 	}).catch(function(){
+		// 		// console.log(e);
+		// 		self.spinner = false;
+				
+		// 	})
+
+			
+		// },
 
 		showAttachemnts: function(media){
 			if(media != undefined){
@@ -343,6 +360,14 @@ const app = window.app = new Vue({
 		},
 		findConversation:  function(id, profile, job_id){
 			// console.log(id);
+			if(this.previousChannel != null){
+				try {
+					Echo.leave(this.previousChannel);
+				} catch (error) {
+					console.log(error);
+					
+				}
+			}
 			this.body = null;
 			this.files = null;
 			this.job_id = job_id;
@@ -357,6 +382,7 @@ const app = window.app = new Vue({
 
 			if(this.single_conversation[0] != undefined)
 			{
+				
 				this.activateWebsocket()
 				
 			}else{
@@ -380,7 +406,7 @@ const app = window.app = new Vue({
 			}
 
 			this.scrollDown();
-			
+			this.previousChannel = `chat-conversation.${this.single_conversation[0].conversation_id}`;
 			Echo.join(`chat-conversation.${this.single_conversation[0].conversation_id}`)
 				.listen('MessageWasSent', function(e) {
 					if(self.single_conversation[0].conversation_id == e.message.conversation_id)

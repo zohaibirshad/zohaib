@@ -84,6 +84,7 @@ Route::get('posts/trending', 'BlogController@trending_posts');
 Route::group(['middleware' => ['auth', 'verified']], function () {
     //chat
     Route::get('chats', 'ChatController@index')->name('chats'); 
+    Route::get('conversations', 'ChatController@index_json'); 
     Route::post('chats/{id}', 'ChatController@send'); 
     Route::put('chats/{id}/markseen', 'ChatController@markSeen'); 
     // Profile Settings
