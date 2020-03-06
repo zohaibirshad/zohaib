@@ -445,7 +445,13 @@ class AccountController extends Controller
         
                 $bid_amount = 0;
                 foreach ($jobs as $job) {
-                    $bid_sum = $job->bids()->where('status', 'accepted')->first()->rate;
+                    $bid_sum = $job->bids()->where('status', 'accepted')->first();
+
+                    if($bid_sum){
+                        $bid_sum = $bid_sum->rate;
+                    }else{
+                        $bid_sum = 0;
+                    }
         
                     $bid_amount =  $bid_amount + $bid_sum;
                 }

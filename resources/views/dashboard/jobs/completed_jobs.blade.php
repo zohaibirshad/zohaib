@@ -39,7 +39,7 @@
                             <!-- Task Details -->
                             <ul class="dashboard-task-info">
                                 <li><strong>{{ $job->milestones_count }}</strong><span>Milestones</span></li>
-                                <li><strong>${{ number_format($job->bids()->where('status', 'accepted')->first()->rate) }}</strong><span class="text-capitalize">{{ $job->budget_type }} Rate</span></li>
+                                <li><strong>${{ number_format($job->bids()->where('status', 'accepted')->first()->rate ?? 0) }}</strong><span class="text-capitalize">{{ $job->budget_type }} Rate</span></li>
                                 <li><strong>${{ $job->milestones()->where('is_paid', 1)->sum('cost') }}</strong><span class="text-capitalize">Amount Paid</span></li>
                             </ul>
     

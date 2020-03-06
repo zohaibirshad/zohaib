@@ -15,9 +15,9 @@ class CreateSocialLinksTable extends Migration
         Schema::create('social_links', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('profile_id')->unsigned()->nullable();
-            $table->foreign('profile_id')->references('id')->on('profiles');
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->bigInteger('social_profile_id')->unsigned()->nullable();
-            $table->foreign('social_profile_id')->references('id')->on('social_profiles');
+            $table->foreign('social_profile_id')->references('id')->on('social_profiles')->onDelete('cascade');
             $table->string('link')->nullable();
             $table->timestamps();
         });

@@ -14,8 +14,8 @@ class CreateBlogPosts extends Migration
     {
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->BigInteger('user_id')->index()->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->BigInteger('user_id')->index()->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->string('featured')->default("no")->nullable();

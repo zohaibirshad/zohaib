@@ -18,13 +18,13 @@ class CreateJobsTable extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('profile_id')->unsigned()->nullable();
-            $table->foreign('profile_id')->references('id')->on('profiles');
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->bigInteger('industry_id')->nullable()->unsigned();
-            $table->foreign('industry_id')->references('id')->on('industries');
+            $table->foreign('industry_id')->references('id')->on('industries')->onDelete('cascade');
             $table->integer('country_id')->unsigned()->nullable();
-            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->integer('job_budget_id')->unsigned()->nullable();
-            $table->foreign('job_budget_id')->references('id')->on('job_budgets');
+            $table->foreign('job_budget_id')->references('id')->on('job_budgets')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->decimal('min_budget', 13, 2)->nullable();
             $table->decimal('max_budget', 13, 2)->nullable();
