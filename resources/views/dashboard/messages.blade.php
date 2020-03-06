@@ -52,7 +52,7 @@
 													</div>
 													<div class="flex flex-col justify-between">
 														<span class="font-light">{{ $p->user->name }}</span>
-														<span class=""><b>Job:</b> {{ $p->conversationWithLastMessage->job->title }}</span>
+														<span class=""><b>Job:</b> {{ $p->conversationWithLastMessage->job->title ?? 'Job Deleted' }}</span>
 														@if($p->conversationWithLastMessage->last_message)
 														<small>{{ $p->conversationWithLastMessage->last_message->created_at->timezone($timezone)->diffForHumans() }}</small>
 														@else
