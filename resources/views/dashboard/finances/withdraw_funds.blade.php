@@ -101,27 +101,11 @@ amount.addEventListener('input',updateValue)
 function updateValue(e){
      var total = document.getElementById('total');
      total.value = Number(Number(e.target.value));
-     console.log();
     
 
      var e = document.getElementById("payment_method");
      var title = e.options[e.selectedIndex].value;
-     switch (title) {
-         case title == 'momo':
-             title = 'mobile money'
-             break;
-        case title == 'bank':
-             title = 'international wire'
-             break;
-     
-         default:
-             break;
-     }
      var fees = '';
-     console.log(payment_providers);
-     console.log(title);
-     
-     
      payment_providers.forEach(element => {
          if(element.title == title){
             fees = element.withdrawal_rate;
@@ -129,7 +113,6 @@ function updateValue(e){
             
          }
      });
-     console.log(fees);
      
      var perc = Number((fees / 100) * total.value);
 

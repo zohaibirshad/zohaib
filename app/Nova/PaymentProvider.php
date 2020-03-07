@@ -75,21 +75,21 @@ class PaymentProvider extends Resource
             ->sortable(),
             Text::make( __('Title'),  'title')
             ->sortable(),
-            Number::make( __('Withdrawal Rate'),  'withdrawal_rate')
+            Number::make( __('Withdrawal Rate'),  'withdrawal_rate')->step(0.01)
             ->sortable(),
-            Number::make( __('Deposit Rate'),  'deposit_rate')
+            Number::make( __('Deposit Rate'),  'deposit_rate')->step(0.01)
             ->sortable(),
-            Number::make( __('Withdrawal Fixed  Rate'),  'withdrawal_fixed_rate')
+            Number::make( __('Withdrawal Fixed  Rate'),  'withdrawal_fixed_rate')->step(0.01)
             ->sortable(),
-            Number::make( __('Deposit Fixed Rate'),  'deposit_fixed_rate')
+            Number::make( __('Deposit Fixed Rate'),  'deposit_fixed_rate')->step(0.01)
             ->sortable(),
-            Number::make( __('Api Key'),  'api_key')
+            Number::make( __('Api Key'),  'api_key')->step(0.01)
             ->sortable(),
-            Number::make( __('Api Secret'),  'api_secret')
+            Number::make( __('Api Secret'),  'api_secret')->step(0.01)
             ->sortable(),
-            Number::make( __('Merchant Id'),  'merchant_id')
+            Number::make( __('Merchant Id'),  'merchant_id')->step(0.01)
             ->sortable(),
-            Number::make( __('Merchank Key'),  'merchank_key')
+            Number::make( __('Merchank Key'),  'merchank_key')->step(0.01)
             ->sortable(),
         ];
     }

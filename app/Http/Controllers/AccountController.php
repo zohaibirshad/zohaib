@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\MoMoPayOutEvent;
+use App\Models\PaymentProvider;
 use Illuminate\Validation\Rule;
 use App\Events\PayPalPayOutEvent;
 use Illuminate\Support\Facades\DB;
@@ -417,7 +418,8 @@ class AccountController extends Controller
             } 
         } 
         $payment = new Transaction;
-        $payment->amount = $request->amount  + $request->percentage;
+        $payment->amount = $request->amount;
+        $payment->charge =  $request->percentage;
         $payment->account_id = $user->account->id;
         $payment->type = $request->type;
         $payment->payment_method = $request->method;
@@ -462,13 +464,23 @@ class AccountController extends Controller
         
                     $milestone_amount =  $milestone_amount + $milestone_sum;
                 }
+               
+             
+                $fee = PaymentProvider::where('title', $request->method)->first();
+                $fee = $fee->withdrawal_rate;
+                $fee = $fee / 100;
+                $fee = $fee * $request->amount;
+
+                $payment->charge =  $fee;
+
+                $withdrawal_amount = $request->amount + $fee;
 
                 $aggregateRoot->setAccountLimit($bid_amount + $milestone_amount);
                        
                 try {
                     $payment->status = "pending";
                     $payment->description = "Account " . $request->type . " Pending";
-                    $aggregateRoot->subtractMoney($request->amount);
+                    $aggregateRoot->subtractMoney($withdrawal_amount);
                 } catch (CouldNotSubtractMoney $e) {
                     \Log::error($e->getMessage());
 
