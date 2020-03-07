@@ -34,7 +34,7 @@
                                     <tr>
                                         <td>{{ $t->id }}</td>
                                         <td>${{ $t->amount }}</td>
-                                        <td>${{ $t->charges }}</td>
+                                        <td>${{ $t->charge ?? 0 }}</td>
                                         <td>{{ $t->status }}</td>
                                         <td>{{ $t->type }}</td>
                                         <td>{{ $t->payment_method }}</td>

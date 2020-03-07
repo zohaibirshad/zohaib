@@ -16,7 +16,6 @@ class AddNewFieldsToTransactionsTable extends Migration
             $table->string('transaction_id')->nullable();
             $table->string('batch_id')->nullable();
             $table->string('paypal_status')->nullable();
-            $table->string('charges')->nullable();
         });
     }
 
@@ -31,7 +30,6 @@ class AddNewFieldsToTransactionsTable extends Migration
             $table->dropColumn('transaction_id');
             $table->dropColumn('batch_id');
             $table->dropColumn('paypal_status');
-            // $table->dropColumn('charges')->nullable();
         });
     }
 }
