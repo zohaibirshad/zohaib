@@ -95,7 +95,7 @@
 
 <script>
 var payment_providers = <?= json_encode($payment_providers); ?>;
-
+var amount = document.getElementById('amount')
 amount.addEventListener('input',updateValue)
 
 function updateValue(e){
@@ -123,6 +123,36 @@ function updateValue(e){
      amountValue.innerHTML = "Confirm & Withdraw $" +  Number(Number( total.value) + perc);
      console.log(amountValue.innerHTML);
 }
+
+const selectElement = document.getElementById('payment_method');
+
+selectElement.addEventListener('change', (event) => {
+
+     var total = document.getElementById('total');
+     var amount = document.getElementById('amount')
+
+     total.value = Number(Number(amount.value));
+    
+
+     var title = event.target.value;
+     var fees = '';
+     payment_providers.forEach(element => {
+         if(element.title == title){
+            fees = element.withdrawal_rate;
+            console.log(element);
+            
+         }
+     });
+     
+     var perc = Number((fees / 100) * total.value);
+
+     var per_fees = document.getElementById('fees')
+     per_fees.innerHTML = "Fee $" + perc;
+
+     var amountValue = document.getElementById('amount-value')
+     amountValue.innerHTML = "Confirm & Withdraw $" +  Number(Number( total.value) + perc);
+     console.log(amountValue.innerHTML);
+});
 
 </script>
 @endsection
