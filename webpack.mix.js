@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 let tailwindcss = require('tailwindcss');
+const purgeCss = require("laravel-mix-purgecss");
 
 /*
  |--------------------------------------------------------------------------
@@ -13,11 +14,14 @@ let tailwindcss = require('tailwindcss');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+   .js('resources/js/websocket.js', 'public/js')
+   .sass('resources/sass/style.scss', 'public/css')
    .sass('resources/sass/app.scss', 'public/css')
    .options({
-      processCssUrls: false,
-      postCss: [ tailwindcss('./tailwind.js') ],
-    })
+         processCssUrls: false,
+         postCss: [ tailwindcss('./tailwind.js') ],
+      }).purgeCss({
+         defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || []
+   });
 
-mix.js('resources/js/websocket.js', 'public/js')
     
