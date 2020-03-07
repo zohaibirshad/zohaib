@@ -31,6 +31,7 @@ class PaymentService {
         $pay->processing_code = "404010";
         $pay->account_issuer = $profile->momo_network;
         $pay->r_switch = "FLT";
+        $pay->currency = "USD";
 
         $pay->momoTransfer();
 
