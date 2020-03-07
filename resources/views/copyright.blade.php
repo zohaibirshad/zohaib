@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="bg-light-custom max py-16">
+<div class="bg-light-custom max py-16 px-6">
     <div class="max-w-4xl mx-auto ">
 
         <h1 class="pb-6">Yohli Copyrigth Policy</h1>
