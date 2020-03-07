@@ -408,4 +408,20 @@ class JobsController extends Controller
 
         return back()->with('success', 'Job created successfully!');
     }
+    public function saveSearchVal(Request $request)
+    {
+        $text = $request->text;
+        $skills = Skill::where(['title' => $text])->get()->first();
+        if($skills)
+        {
+            return response()->json();
+        }else
+        {
+            $data = array('title' => $text,'created_at' => date('Y-m-d h:i:s') ,'updated_at' => date('Y-m-d h:i:s') );
+            Skill::insert($data);
+            $skill_id = Skill::where(['title' => $text])->get()->first();
+            $json = array('text_val' => $text , 'skills_id' => $skill_id->id);
+            return response()->json($json);
+        }
+    }
 }
