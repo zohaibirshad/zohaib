@@ -103,7 +103,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('browse-jobs', 'JobsController@index')->name('jobs.index');
     Route::resource('jobs', 'JobsController')->except('index');
     Route::get('post-job', 'JobsController@create')->name('post-job');
-
+    Route::post('search-input-text', 'JobsController@saveSearchVal')->name('search.text');
+    
     // Freelancer Stuff
     Route::group(['middleware' => ['role:freelancer']], function () {
         Route::get('my-bids', 'FreelancersController@bids')->name('my-bids');
