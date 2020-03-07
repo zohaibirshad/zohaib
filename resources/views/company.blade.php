@@ -13,7 +13,7 @@
 			<div class="col-md-12">
 				<div class="single-page-header-inner">
 					<div class="left-side">
-						<div class="freelancer-avatar w-32 h-32">
+						<div class="header-image p-0">
                             @if (sizeof($profile->getMedia('profile')) == 0)
                              <img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
                             @else

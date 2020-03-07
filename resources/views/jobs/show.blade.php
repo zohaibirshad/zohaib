@@ -11,9 +11,9 @@
 			<div class="col-md-12">
 				<div class="single-page-header-inner">
 					<div class="left-side">
-						<div class="freelancer-avatar w-32 h-32">
+						<div class="header-image p-0">
                             @if (sizeof($job->owner->profile->getMedia('profile')) == 0)
-                             <img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
+                             <img class="" src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
                             @else
                                 <img src="{{ $job->owner->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
                             @endif	
@@ -127,7 +127,7 @@
 							<div class="bids-content">
 								<!-- Name -->
 								<div class="freelancer-name">
-									<h4><a href="#"> {{ $bid->profile->name }} <img class="flag" src="{{ asset('assets/images/flags/'. strtolower($job->owner->profile->country->code.'.svg')) }}"  title="{{ $job->owner->profile->country->name }}" data-tippy-placement="top" alt=""> {{ $job->owner->profile->country->name ?? "N/A" }} </a></h4>
+									<h4><a href="../freelancers/{{ $bid->profile->uuid }}"> {{ $bid->profile->name }} <img class="flag" src="{{ asset('assets/images/flags/'. strtolower($job->owner->profile->country->code.'.svg')) }}"  title="{{ $job->owner->profile->country->name }}" data-tippy-placement="top" alt=""> {{ $job->owner->profile->country->name ?? "N/A" }} </a></h4>
 									<div class="star-rating" data-rating="{{ $bid->profile->rating ?? 0 }}"></div>
 								</div>
 							</div>

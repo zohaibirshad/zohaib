@@ -200,7 +200,7 @@
   .right-side {
     max-width: 35%;
   }
-  .freelancer-avatar w-32 h-32 {
+  .header-image {
     a {
       display: flex;
       height: 100%;
@@ -214,7 +214,7 @@
     display: flex;
     padding: 0 20px;
   }
-  &.freelancer-header .freelancer-avatar w-32 h-32 {
+  &.freelancer-header .header-image {
     background: #fff;
     border-radius: 50%;
     box-shadow: none;
@@ -225,7 +225,7 @@
     flex: 0 0 130px;
     width: 130px;
   }
-  .freelancer-avatar w-32 h-32 img {
+  .header-image img {
     align-self: center;
     transform: translate3d(0, 0, 0);
   }
@@ -336,14 +336,14 @@
 
 /* IE 11 Fixes */
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-  .single-page-header .freelancer-avatar w-32 h-32 {
+  .single-page-header .header-image {
     max-width: 140px;
   }
 }
 
 /* IE 11 FIX */
 @media all and (-ms-high-contrast: none) {
-  .single-page-header .freelancer-avatar w-32 h-32 img {
+  .single-page-header .header-image img {
     width: 100%;
   }
 }
@@ -367,7 +367,7 @@
 
 /* Media Queries for Single Page Header */
 @media (max-width: 1366px) {
-  .single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
+  .single-page-header.freelancer-header .header-image {
     height: 130px;
     flex: 0 0 130px;
     width: 130px;
@@ -386,11 +386,11 @@
     line-height: 32px;
   }
   .single-page-header {
-    .freelancer-avatar w-32 h-32 {
+    .header-image {
       height: 120px;
       flex: 0 0 120px;
     }
-    &.freelancer-header .freelancer-avatar w-32 h-32 {
+    &.freelancer-header .header-image {
       height: 120px;
       flex: 0 0 120px;
       width: 120px;
@@ -438,7 +438,7 @@
     max-width: 100%;
   }
   .single-page-header {
-    .freelancer-avatar w-32 h-32 {
+    .header-image {
       height: 70px;
       width: auto;
       padding: 15px 20px;
@@ -453,7 +453,7 @@
       padding-top: 25px;
     }
     &.freelancer-header {
-      .freelancer-avatar w-32 h-32 {
+      .header-image {
         height: 70px;
         flex: 0 0 70px;
         width: 70px;
@@ -472,7 +472,7 @@
       background: #f7f7f7;
     }
     &.freelancer-header {
-      .freelancer-avatar w-32 h-32 {
+      .header-image {
         height: 70px;
         flex: 0 0 70px;
         width: 70px;
