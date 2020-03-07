@@ -162,7 +162,7 @@
 				</div> -->
 
 				<!-- Widget -->
-				<div class="sidebar-widget">
+				<!-- <div class="sidebar-widget">
 					<h3>Social Profiles</h3>
 					<div class="freelancer-socials margin-top-25">
 						<ul>
@@ -173,12 +173,10 @@
 						
 						</ul>
 					</div>
-				</div>
+				</div> -->
 
 				<!-- Sidebar Widget -->
 				<div class="sidebar-widget">
-					<h3>Bookmark or Share</h3>
-
                     @if($profile->user_id != Auth::id())
 					@role('freelancer')
 					<h3>Bookmark</h3>
@@ -191,6 +189,7 @@
 					@endrole
 					@endif
 					<!-- Copy URL -->
+					<h3>Share</h3>
 					<div class="copy-url">
 						<input id="copy-url" type="text" value="" class="with-border">
 						<button class="copy-url-button ripple-effect" data-clipboard-target="#copy-url" title="Copy to Clipboard" data-tippy-placement="top"><i class="icon-material-outline-file-copy"></i></button>

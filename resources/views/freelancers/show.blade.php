@@ -143,7 +143,7 @@
                     </div>
                     
                     <!-- Widget -->
-                    <div class="sidebar-widget">
+                    <!-- <div class="sidebar-widget">
                         <h3>Social Profiles</h3>
                         <div class="freelancer-socials margin-top-25">
                             <ul>
@@ -154,7 +154,7 @@
                             
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
     
                     <!-- Widget -->
                     <div class="sidebar-widget">
