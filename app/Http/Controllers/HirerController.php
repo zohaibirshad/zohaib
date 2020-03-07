@@ -81,6 +81,7 @@ class HirerController extends Controller
                     ->where('status', 'not assigned')
                     ->with('bids', 'milestones')
                     ->withCount('bids', 'milestones')
+                    ->latest()
                     ->get();
 
         return view('dashboard.jobs.new_jobs', compact('jobs'));
@@ -97,7 +98,7 @@ class HirerController extends Controller
     public function manage_bids(Request $request, $job_uuid)
     {
         $job = Job::where('uuid', $job_uuid)->first();
-        $bids = Bid::where('job_id', $job->id)->with('profile')->get();
+        $bids = Bid::where('job_id', $job->id)->with('profile')->latest()->get();
 
         return view('dashboard.bidders', compact('bids', 'job'));
     }
@@ -354,7 +355,7 @@ class HirerController extends Controller
     public function reviews()
     {
 
-        $reviews = Review::where('user_id', Auth::user()->id)->get();
+        $reviews = Review::where('user_id', Auth::user()->id)->latest()->get();
 
         return view('dashboard.reviews',  compact('reviews'));
 
@@ -406,6 +407,7 @@ class HirerController extends Controller
     {
         $invites = Invite::where('user_id', Auth::user()->id)
                     ->with('job', 'profile')
+                    ->latest()
                     ->get();
 
         return view('dashboard.jobs.invites', compact('invites'));
@@ -440,7 +442,7 @@ class HirerController extends Controller
      */
     public function bookmarks()
     {
-        $bookmarks = Bookmark::where('user_id', Auth::user()->id)->get();
+        $bookmarks = Bookmark::where('user_id', Auth::user()->id)->latest()->get();
 
         return view('dashboard.bookmarks', compact('bookmarks'));
     }

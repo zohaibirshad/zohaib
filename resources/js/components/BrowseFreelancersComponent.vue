@@ -204,6 +204,7 @@
 export default {
   data() {
     return {
+      timezone: null,
       profile: {},
       freelancers: {},
       countries: [],
@@ -232,6 +233,16 @@ export default {
     link(freelancer) {
       return "freelancers/" + freelancer.uuid;
     },
+
+    dateFormat(d){
+			var date = Moment.tz(d, this.timezone).fromNow();
+			// console.log(date);
+			if(date == "Invalid date"){
+				return d
+			}
+			return date;
+			
+		},
 
     truncate(text, no) {
       if(text == null || text == undefined){
@@ -284,8 +295,9 @@ export default {
         })
         .then(response => {
           this.isLoading = false;
-          this.freelancers = response.data;
-          this.hasData = response.data.data.length == 0 ? false : true;
+          this.freelancers = response.data['freelancers'];
+          this.timezone = response.data['timezone'];
+          this.hasData = response.data['freelancers'].data.length == 0 ? false : true;
         });
     },
 

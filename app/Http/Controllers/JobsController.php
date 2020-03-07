@@ -114,8 +114,13 @@ class JobsController extends Controller
             ->where('status', 'not assigned')
             ->paginate(20);
 
+        $timezone = geoip($request->ip());
+        $timezone = $timezone['timezone'];
 
-        return response()->json($jobs);
+        return response()->json([
+            'jobs' => $jobs, 
+            'timezone' => $timezone
+        ]);
     }
 
     /**
@@ -309,12 +314,14 @@ class JobsController extends Controller
                 ->where('status', 'assigned')
                 ->with('milestones', 'accepted_bid', 'job_budget')
                 ->withCount('milestones')
+                ->latest()
                 ->get();
         } else {
             $jobs = Job::where('profile_id',  $freelancer->id)
                 ->where('status', 'assigned')
                 ->with('milestones', 'accepted_bid', 'job_budget')
                 ->withCount('milestones')
+                ->latest()
                 ->get();
         }
 
@@ -330,12 +337,14 @@ class JobsController extends Controller
                 ->where('status', 'completed')
                 ->with('milestones', 'accepted_bid', 'job_budget')
                 ->withCount('milestones')
+                ->latest()
                 ->get();
         } else {
             $jobs = Job::where('profile_id',  $freelancer->id)
                 ->where('status', 'completed')
                 ->with('milestones', 'accepted_bid', 'job_budget')
                 ->withCount('milestones')
+                ->latest()
                 ->get();
         }
 

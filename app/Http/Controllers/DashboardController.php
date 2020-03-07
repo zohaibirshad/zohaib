@@ -196,7 +196,7 @@ class DashboardController extends Controller
         }
 
 
-        $milestones = $m->get();
+        $milestones = $m->latest()->get();
         $mCount = $m->count();
 
         $completion = 0;
@@ -229,7 +229,7 @@ class DashboardController extends Controller
     public function bidders(Request $request, $slug)
     {
         $user = Auth::user();
-        $job = Job::where('slug', $slug)->first();
+        $job = Job::where('slug', $slug)->with(['bids'])->first();
 
         if(empty($job)){
             abort(404);

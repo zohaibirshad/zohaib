@@ -42,7 +42,7 @@ class FreelancersController extends Controller
         $maxHourlyRate = $request->max_hourly_rate;
 
 
-        $freelancer = Profile::where('type', 'freelancer')->with('skills', 'country', 'reviews')
+        $freelancers = Profile::where('type', 'freelancer')->with('skills', 'country', 'reviews')
             ->when(!empty($keyword), function ($query) use ($keyword) { 
                 $query->where('name', 'LIKE', "%$keyword%");
             })
@@ -82,9 +82,14 @@ class FreelancersController extends Controller
             })
             ->paginate(20);
 
+        $timezone = geoip($request->ip());
+        $timezone = $timezone['timezone'];
+        
 
-
-        return response()->json($freelancer);
+        return response()->json([
+            'freelancers' => $freelancers, 
+            'timezone' => $timezone
+        ]);
     }
 
     public function countries()
@@ -101,7 +106,7 @@ class FreelancersController extends Controller
      */
     public function bookmarks()
     {
-        $bookmarks = Bookmark::where('user_id', Auth::user()->id)->get();
+        $bookmarks = Bookmark::where('user_id', Auth::user()->id)->latest()->get();
 
         return view('dashboard.bookmarks', compact('bookmarks'));
     }

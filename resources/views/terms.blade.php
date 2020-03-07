@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="bg-light-custom max py-16 px-6">
+<div class="bg-light-custom max py-16 px-8">
     <div class="max-w-4xl mx-auto ">
         <h1 ><span ><b>Terms and Conditions </b></span></h1>
         <p ><span >The Terms and Conditions which you accept by using our Website or our Services. We have incorporated by reference some linked information.</span></p>

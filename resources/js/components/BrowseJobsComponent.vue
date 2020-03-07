@@ -134,7 +134,7 @@
                     </li>
                     <li>
                       <i class="icon-material-outline-access-time"></i>
-                      {{ job.created_at }}
+                      {{ dateFormat(job.created_at) }}
                     </li>
                   </ul>
                   <p class="task-listing-text">{{ truncate(job.description) }}</p>
@@ -186,6 +186,7 @@ export default {
   props : ['user'],
   data() {
     return {
+      timezone: null,
       profile: {},
       jobs: {},
       categories: {},
@@ -242,6 +243,17 @@ export default {
       return "jobs/" + slug;
     },
 
+
+    dateFormat(d){
+			var date = Moment.tz(d, this.timezone).fromNow();
+			// console.log(date);
+			if(date == "Invalid date"){
+				return d
+			}
+			return date;
+			
+		},
+
     bidCheck(job){
       let result = false;
       let self = this;
@@ -280,8 +292,9 @@ export default {
         })
         .then(response => {
           this.isLoading = false;
-          this.jobs = response.data;
-          this.hasData = response.data.data.length == 0 ? false : true;
+          this.jobs = response.data['jobs'];
+          this.timezone = response.data['timezone'];
+          this.hasData = response.data['jobs'].data.length == 0 ? false : true;
         });
     },
 
