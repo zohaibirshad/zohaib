@@ -357,6 +357,8 @@ class AccountController extends Controller
             'bank_no' => 'nullable|string',
             'bank_branch' => 'nullable|string',
             'bank_country' => 'nullable|string',
+            'bank_routing_number' => 'nullable|string',
+            'bank_account_type' => 'nullable|string',
         ]);
 
         $profile = Profile::where('user_id', Auth::user()->id)->first();
@@ -370,6 +372,8 @@ class AccountController extends Controller
         $profile->bank_no = $request->bank_no;
         $profile->bank_branch = $request->bank_branch;
         $profile->bank_country = $request->bank_country;
+        $profile->bank_routing_number = $request->bank_routing_number;
+        $profile->bank_account_type = $request->bank_account_type;
         $profile->save();
 
         toastr()->success("Withdrawal Info updated Succesfully");

@@ -380,7 +380,14 @@ class Profile extends Resource
             ])->displayUsingLabels()->hideFromIndex(),
             Text::make( __('Bank Name'),  'bank_name')->hideFromIndex(),
             Text::make( __('Bank Branch'),  'bank_branch')->hideFromIndex(),
-            Text::make( __('Bank Account Name'),  'bank_account_name')->hideFromIndex(),
+            Select::make( __('Bank Account Type'),  'bank_account_type')
+            ->sortable()
+            ->options([
+                'saving' => 'Saving',
+                'checking' => 'Checking',
+                'business' => 'Business',
+            ])->displayUsingLabels()->hideFromIndex(),            
+            Text::make( __('Bank Routing Number'),  'bank_routing_number')->hideFromIndex(),
             Select::make(__('Bank Country'),  'bank_country')->options([
                 'AF' => 'Afghanistan',
                 'AX' => 'Aland Islands',

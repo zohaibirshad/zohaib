@@ -323,12 +323,19 @@
                         <h2 class="mb-4 col-xl-12">Mobile Money</h2>
                             <div class="col-xl-4">
                                 <div class="submit-field">
-                                    <h5>Mobile Money Number</h5>
-                                    <input type="text" name="momo" class="with-border" value="{{  old('momo', $user->momo) }}">
+                                    <h5>Mobile Money Issued Country</h5>
+                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_country" id="momo_country">
+                                        @foreach ($countries as $country)
+                                            @if($country->name == 'Ghana')
+                                            <option value="{{ $country->code }}" {{ $user->momo_country == $country->code ? 'selected="selected"' : '' }}>
+                                                {{ $country->name }}
+                                            </option> 
+                                            @endif
+                                        @endforeach                                 
+                                    </select>
                                 </div>
                             </div>
-                        
-
+                         
                             <div class="col-xl-4">
                                 <div class="submit-field">
                                     <h5>Mobile Money Network</h5>
@@ -357,21 +364,23 @@
                                     </select>
                                 </div>
                             </div>
-
+                            
                             <div class="col-xl-4">
                                 <div class="submit-field">
-                                    <h5>Mobile Money Issued Country</h5>
-                                    <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="momo_country" id="momo_country">
-                                        @foreach ($countries as $country)
-                                        <option value="{{ $country->code }}" {{ $user->momo_country == $country->code ? 'selected="selected"' : '' }}>
-                                            {{ $country->name }}
-                                        </option> 
-                                        @endforeach                                 
-                                    </select>
+                                    <h5>Mobile Money Number</h5>
+                                    <input type="text" name="momo" class="with-border" value="{{  old('momo', $user->momo) }}">
                                 </div>
                             </div>
-                            <hr class="col-xl-11 mb-4">
+                           
+                        <hr class="col-xl-11 mb-4">
                         <h2 class="mb-4 col-xl-12">Bank</h2>
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Account Holder Name</h5>
+                                <input type="text" name="bank_account_name" class="with-border" value="{{  old('bank_account_name', $user->bank_account_name) }}">
+                            </div>
+                        </div>
+
                         <div class="col-xl-4">
                             <div class="submit-field">
                                 <h5>Bank Name</h5>
@@ -379,12 +388,28 @@
                             </div>
                         </div>
 
+
                         <div class="col-xl-4">
                             <div class="submit-field">
-                                <h5>Bank Account Name</h5>
-                                <input type="text" name="bank_account_name" class="with-border" value="{{  old('bank_account_name', $user->bank_account_name) }}">
+                                <h5>Account Type</h5>
+                                <select class="selectpicker with-border" data-size="7" title="Select Account Type" data-live-search="true" name="bank_account_type" id="bank_account_type">
+                                    <option value="checking"
+                                    @if($user->bank_account_type == "checking") 
+                                    selected 
+                                    @endif
+                                    >Checking</option>
+                                    <option value="saving" 
+                                    @if($user->bank_account_type == "saving") 
+                                    selected 
+                                    @endif>Saving</option>
+                                    <option value="business"
+                                    @if($user->bank_account_type == "business") 
+                                    selected 
+                                    @endif>Business</option>
+                                </select>
                             </div>
                         </div>
+
 
                         <div class="col-xl-4">
                             <div class="submit-field">
@@ -393,14 +418,21 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Bank Routing Number</h5>
+                                <input type="text" name="bank_routing_number" class="with-border" value="{{  old('bank_routing_number', $user->bank_routing_number) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
                             <div class="submit-field">
                                 <h5>Bank Account Branch</h5>
                                 <input type="text" name="bank_branch" class="with-border" value="{{  old('bank_branch', $user->bank_branch) }}">
                             </div>
                         </div>
 
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
                             <div class="submit-field">
                                 <h5>Bank Account Country</h5>
                                 <select class="selectpicker with-border" data-size="7" title="Select Country" data-live-search="true" name="bank_country" id="bank_country">
