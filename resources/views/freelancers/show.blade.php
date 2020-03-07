@@ -18,7 +18,7 @@
                             @endif
                         </div>
 						<div class="header-details">
-							<h3>{{ $freelancer->name ?? "" }} <span>{{ $freelancer->headline }}</span></h3>
+							<h3>{{ $freelancer->name ?? "" }} <span>{{ $freelancer->headline ?? "No Headline" }}</span></h3>
 							<ul>
 								<li><div class="star-rating" data-rating="{{ $freelancer->rating ?? 0 }}"></div></li>
                                 <li><img class="flag" src="{{ asset('assets/images/flags/'. strtolower($freelancer->country->code.'.svg')) }}" alt="{{ $freelancer->country->name }}"> {{ $freelancer->country->name }}</li>
