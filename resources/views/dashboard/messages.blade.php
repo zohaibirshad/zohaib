@@ -39,7 +39,7 @@
 								@foreach($c->participants as $p)
 									@if($p->user->id != auth()->user()->id)
 										<li>
-											<a class="cursor-pointer " @click="findConversation({{ $c->id }}, {{ $p->user->profile }}, {{ $c->job_id }})">
+											<a class="cursor-pointer" :class="[isActive == {{ $c->id }} ? activeClass : '']" href="#{{ $c->id }}" @click="findConversation({{ $c->id }}, {{ $p->user->profile }}, {{ $c->job_id }})">
 												<div class="flex flex-row flex-no-wrap">
 													<div class="mr-1">
 														@isset($p->user->profile)
@@ -183,6 +183,8 @@ Vue.use(VueChatScroll);
 const app = window.app = new Vue({
 	el: '#app',
 	data:{
+		isActive: '',
+		activeClass: 'bg-gray-200',
 		conversations: conversations,
 		single_conversation: {},
 		user: user,
@@ -384,7 +386,6 @@ const app = window.app = new Vue({
 
 			if(this.single_conversation[0] != undefined)
 			{
-				
 				this.activateWebsocket()
 				
 			}else{
@@ -398,7 +399,7 @@ const app = window.app = new Vue({
 
 		activateWebsocket: function(){
 			var self = this;
-
+			this.isActive = this.single_conversation[0].conversation_id;
 			this.markSeen(this.single_conversation[0].conversation_id);
 
 			if(this.job_id == null){
