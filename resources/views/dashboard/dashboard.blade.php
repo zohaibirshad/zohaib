@@ -146,9 +146,9 @@
 			</div>
 			
 			<!-- Row -->
-			<div class="xl:flex xl:flex-row xl:w-full">
-
-				<div class="xl:w-8/12 lg:mr-1">
+			<div class="flex flex-row w-full flex-wrap justify-between ">
+				
+				<div class="w-full">
 					<!-- Dashboard Box -->
 					<div class="dashboard-box main-box-in-row">
 						<div class="headline">
@@ -166,7 +166,7 @@
 					</div>
 					<!-- Dashboard Box / End -->
 				</div>
-				<div class="xl:w-4/12 lg:ml-1">
+				<div class="w-full">
 
 					<!-- Dashboard Box -->
 					<!-- If you want adjust height of two boxes 
