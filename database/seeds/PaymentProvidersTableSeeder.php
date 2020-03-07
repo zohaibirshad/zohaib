@@ -29,11 +29,6 @@ class PaymentProvidersTableSeeder extends Seeder
                 'deposit_rate' => 2.5,
             ],
             [
-                'title' => 'card',
-                'withdrawal_rate' => 3.0,
-                'deposit_rate' => 2.5,
-            ],
-            [
                 'title' => 'international wire',
                 'withdrawal_rate' => 0,
                 'withdrawal_fixed_rate' => 25,

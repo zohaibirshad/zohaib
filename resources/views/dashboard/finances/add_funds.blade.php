@@ -77,6 +77,9 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script>
+
+    var conversations = <?= json_encode($payment_providers); ?>;
+
     const stripe = Stripe('pk_test_5dfSYbt8bR3wfq8YcleK1YSE00CyBMueNa');
 
     const elements = stripe.elements();

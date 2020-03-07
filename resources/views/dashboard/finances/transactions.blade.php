@@ -22,6 +22,7 @@
                                     <tr>
                                         <th>Transaction ID</th>
                                         <th>Amount</th>
+                                        <th>Charges</th>
                                         <th>Status</th>
                                         <th>Type </th>
                                         <th>Payment Method</th>
@@ -33,6 +34,7 @@
                                     <tr>
                                         <td>{{ $t->id }}</td>
                                         <td>${{ $t->amount }}</td>
+                                        <td>${{ $t->charges }}</td>
                                         <td>{{ $t->status }}</td>
                                         <td>{{ $t->type }}</td>
                                         <td>{{ $t->payment_method }}</td>
