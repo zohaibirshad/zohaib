@@ -29,20 +29,15 @@ class PaymentProvidersTableSeeder extends Seeder
                 'deposit_rate' => 2.5,
             ],
             [
-                'title' => 'international wire',
+                'title' => 'bank',
                 'withdrawal_rate' => 0,
                 'withdrawal_fixed_rate' => 25,
                 'deposit_rate' => 2.5,
             ],
             [
-                'title' => 'mobile money',
+                'title' => 'momo',
                 'withdrawal_rate' => 3.0,
                 'deposit_rate' => 2.5,
-            ],
-            [
-                'title' => 'local bank',
-                'withdrawal_rate' => 0,
-                'deposit_rate' => 0,
             ],
         ];
 

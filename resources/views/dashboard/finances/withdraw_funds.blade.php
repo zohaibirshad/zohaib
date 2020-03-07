@@ -52,7 +52,7 @@
                                             <input type="hidden" name="withdrawal" value="withdrawal"/>
                                             <input type="hidden" name="type" value="withdrawal"/>
                                         </div> 
-                                        <small class="text-muted"><span class="float-right">Additional fee may be applied</span></small>  
+                                        <small class="text-muted"><span id="fees" class="float-right">Additional fee may be applied</span></small>  
                                 
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
         </div>
       </form>
     </div>
-    <div class="col-xl-6">
+    <div class="col-xl-6 py-5">
         <h3>Withdrawal fees</h3>
         <ul>
         <li>Minimum withdrawal of $30</li>
@@ -94,6 +94,7 @@
 </div>
 
 <script>
+var payment_providers = <?= json_encode($payment_providers); ?>;
 
 amount.addEventListener('input',updateValue)
 
@@ -101,10 +102,42 @@ function updateValue(e){
      var total = document.getElementById('total');
      total.value = Number(Number(e.target.value));
      console.log();
+    
+
+     var e = document.getElementById("payment_method");
+     var title = e.options[e.selectedIndex].value;
+     switch (title) {
+         case title == 'momo':
+             title = 'mobile money'
+             break;
+        case title == 'bank':
+             title = 'international wire'
+             break;
+     
+         default:
+             break;
+     }
+     var fees = '';
+     console.log(payment_providers);
+     console.log(title);
      
      
+     payment_providers.forEach(element => {
+         if(element.title == title){
+            fees = element.withdrawal_rate;
+            console.log(element);
+            
+         }
+     });
+     console.log(fees);
+     
+     var perc = Number((fees / 100) * total.value);
+
+     var per_fees = document.getElementById('fees')
+     per_fees.innerHTML = "Fee $" + perc;
+
      var amountValue = document.getElementById('amount-value')
-     amountValue.innerHTML = "Confirm & Withdraw $" + total.value;
+     amountValue.innerHTML = "Confirm & Withdraw $" +  Number(Number( total.value) + perc);
      console.log(amountValue.innerHTML);
 }
 

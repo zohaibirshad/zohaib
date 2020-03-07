@@ -290,11 +290,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Finances
     Route::get('add-funds', function () {
         $intent = Auth::user()->createSetupIntent();
-        $payment_providers = App\Models\PaymentProvider::all();
+        $payment_provider = App\Models\PaymentProvider::where('title', 'card')->first();
 
         $account = \App\Models\Account::where('user_id', Auth::user()->id)->first();
     
-        return view('dashboard.finances.add_funds', compact('intent', 'account', 'payment_providers'));
+        return view('dashboard.finances.add_funds', compact('intent', 'account', 'payment_provider'));
     })->name('add-funds');
     
     Route::get('withdraw-funds', function () {

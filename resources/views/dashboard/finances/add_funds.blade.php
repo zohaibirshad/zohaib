@@ -78,7 +78,8 @@
 
 <script>
 
-    var conversations = <?= json_encode($payment_providers); ?>;
+    var payment_provider = <?= json_encode($payment_provider); ?>;
+    var deposit_rate = Number(payment_provider.deposit_rate);
 
     const stripe = Stripe('pk_test_5dfSYbt8bR3wfq8YcleK1YSE00CyBMueNa');
 
@@ -98,7 +99,7 @@
 
     function updateValue(e){
          var total = document.getElementById('total');
-         var perc = Number((2.5 / 100) * e.target.value);
+         var perc = Number((deposit_rate / 100) * e.target.value);
          var processing_fee = document.getElementById('processing_fee');
          processing_fee.innerHTML = "$"+perc
          total.innerHTML = Number(Number(e.target.value) + perc);
@@ -113,7 +114,7 @@
     cardButton.addEventListener('click', async (e) => {
 
         const amount = document.getElementById('amount').value;
-        var perc = Number((2.5 / 100) * amount);
+        var perc = Number((deposit_rate / 100) * amount);
 
         function addMoney(method){
             axios.post('add-funds',{
