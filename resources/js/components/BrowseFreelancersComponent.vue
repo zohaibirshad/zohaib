@@ -248,11 +248,11 @@ export default {
       if(text == null || text == undefined){
         return ''
       }
-      console.log(text);
+      // console.log(text);
       
       text = String(text);
       text =  text.substring(0, no);
-       console.log(text);
+      //  console.log(text);
        return text;
     },
 
