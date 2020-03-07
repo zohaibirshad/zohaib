@@ -2363,12 +2363,12 @@ __webpack_require__.r(__webpack_exports__);
     truncate: function truncate(text, no) {
       if (text == null || text == undefined) {
         return '';
-      }
+      } // console.log(text);
 
-      console.log(text);
+
       text = String(text);
-      text = text.substring(0, no);
-      console.log(text);
+      text = text.substring(0, no); //  console.log(text);
+
       return text;
     },
     skillChange: function skillChange(selected) {
@@ -2715,9 +2715,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           result = true;
           return result;
         }
-      }
+      } // console.log(result);
 
-      console.log(result);
+
       return result;
     },
     getUser: function getUser() {
