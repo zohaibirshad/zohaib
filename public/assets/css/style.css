@@ -2995,12 +2995,12 @@ body #backtotop a {
 }
 
 /* Image */
-.single-page-header .header-image a {
+.single-page-header .freelancer-avatar w-32 h-32 a {
 	display: flex; 
 	height: 100%;
 }
 
-.single-page-header .header-image {
+.single-page-header .freelancer-avatar w-32 h-32 {
     height: 140px;
     flex: 0 0 140px;
     margin-right: 35px;
@@ -3013,10 +3013,10 @@ body #backtotop a {
 
 /* IE 11 Fixes */
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
-	.single-page-header .header-image { max-width: 140px; }
+	.single-page-header .freelancer-avatar w-32 h-32 { max-width: 140px; }
 }
 
-.single-page-header.freelancer-header .header-image {
+.single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
     background: #fff;
     border-radius: 50%;
     box-shadow: none;
@@ -3028,7 +3028,7 @@ body #backtotop a {
     width: 130px;
 }
 
-.single-page-header .header-image img {
+.single-page-header .freelancer-avatar w-32 h-32 img {
 	align-self: center;
 	transform: translate3d(0,0,0);
 }
@@ -3036,7 +3036,7 @@ body #backtotop a {
 
 /* IE 11 FIX */
 @media all and (-ms-high-contrast:none) {
-	.single-page-header .header-image img {
+	.single-page-header .freelancer-avatar w-32 h-32 img {
 		width: 100%;
 	}
 }
@@ -3157,7 +3157,7 @@ body #backtotop a {
 
 /* Media Queries for Single Page Header */
 @media (max-width: 1366px) {
-	.single-page-header.freelancer-header .header-image {
+	.single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
 	    height: 130px;
 	    flex: 0 0 130px;
 	    width: 130px;
@@ -3175,12 +3175,12 @@ body #backtotop a {
         font-size: 26px;
         line-height: 32px;
     }
-    .single-page-header .header-image {
+    .single-page-header .freelancer-avatar w-32 h-32 {
         height: 120px;
         flex: 0 0 120px;
     }
 
-	.single-page-header.freelancer-header .header-image {
+	.single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
 	    height: 120px;
 	    flex: 0 0 120px;
 	    width: 120px;
@@ -3220,14 +3220,14 @@ body #backtotop a {
         display: block;
         max-width: 100%;
     }
-    .single-page-header .header-image {
+    .single-page-header .freelancer-avatar w-32 h-32 {
         height: 70px;
         width: auto;
         padding: 15px 20px;
         margin: 15px 0;
         display: inline-block;
     }
-    .single-page-header .header-image img {
+    .single-page-header .freelancer-avatar w-32 h-32 img {
         height: 100%;
     }
 
@@ -3236,7 +3236,7 @@ body #backtotop a {
         padding-top: 25px;
     }
 
-	.single-page-header.freelancer-header .header-image {
+	.single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
 	    height: 70px;
 	    flex: 0 0 70px;
 	    width: 70px;
@@ -3250,7 +3250,7 @@ body #backtotop a {
 @media (max-width: 768px) {
 	.single-page-header:after, .single-page-header:before { background: #f7f7f7; }
 
-	.single-page-header.freelancer-header .header-image {
+	.single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
 	    height: 70px;
 	    flex: 0 0 70px;
 	    width: 70px;

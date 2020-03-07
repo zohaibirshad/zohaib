@@ -5385,7 +5385,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
   max-width: 35%;
 }
 
-.single-page-header .header-image {
+.single-page-header .freelancer-avatar w-32 h-32 {
   height: 140px;
   -webkit-box-flex: 0;
           flex: 0 0 140px;
@@ -5398,13 +5398,13 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
   padding: 0 20px;
 }
 
-.single-page-header .header-image a {
+.single-page-header .freelancer-avatar w-32 h-32 a {
   display: -webkit-box;
   display: flex;
   height: 100%;
 }
 
-.single-page-header.freelancer-header .header-image {
+.single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
   background: #fff;
   border-radius: 50%;
   box-shadow: none;
@@ -5418,7 +5418,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
   width: 130px;
 }
 
-.single-page-header .header-image img {
+.single-page-header .freelancer-avatar w-32 h-32 img {
   align-self: center;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
@@ -5548,7 +5548,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
 /* IE 11 Fixes */
 
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-  .single-page-header .header-image {
+  .single-page-header .freelancer-avatar w-32 h-32 {
     max-width: 140px;
   }
 }
@@ -5556,7 +5556,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
 /* IE 11 FIX */
 
 @media all and (-ms-high-contrast: none) {
-  .single-page-header .header-image img {
+  .single-page-header .freelancer-avatar w-32 h-32 img {
     width: 100%;
   }
 }
@@ -5579,7 +5579,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
 /* Media Queries for Single Page Header */
 
 @media (max-width: 1366px) {
-  .single-page-header.freelancer-header .header-image {
+  .single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
     height: 130px;
     -webkit-box-flex: 0;
             flex: 0 0 130px;
@@ -5601,13 +5601,13 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
     line-height: 32px;
   }
 
-  .single-page-header .header-image {
+  .single-page-header .freelancer-avatar w-32 h-32 {
     height: 120px;
     -webkit-box-flex: 0;
             flex: 0 0 120px;
   }
 
-  .single-page-header.freelancer-header .header-image {
+  .single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
     height: 120px;
     -webkit-box-flex: 0;
             flex: 0 0 120px;
@@ -5664,7 +5664,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
     max-width: 100%;
   }
 
-  .single-page-header .header-image {
+  .single-page-header .freelancer-avatar w-32 h-32 {
     height: 70px;
     width: auto;
     padding: 15px 20px;
@@ -5672,7 +5672,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
     display: inline-block;
   }
 
-  .single-page-header .header-image img {
+  .single-page-header .freelancer-avatar w-32 h-32 img {
     height: 100%;
   }
 
@@ -5681,7 +5681,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
     padding-top: 25px;
   }
 
-  .single-page-header.freelancer-header .header-image {
+  .single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
     height: 70px;
     -webkit-box-flex: 0;
             flex: 0 0 70px;
@@ -5699,7 +5699,7 @@ em.mm-counter + a.mm-fullsubopen + a, em.mm-counter + a.mm-fullsubopen + span {
     background: #f7f7f7;
   }
 
-  .single-page-header.freelancer-header .header-image {
+  .single-page-header.freelancer-header .freelancer-avatar w-32 h-32 {
     height: 70px;
     -webkit-box-flex: 0;
             flex: 0 0 70px;

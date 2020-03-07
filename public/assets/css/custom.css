@@ -80,7 +80,7 @@ ul li ul{
 }
 
 /* Single Jobs Page */
-.single-page-header .header-image {
+.single-page-header .freelancer-avatar w-32 h-32 {
   height: 140px;
   flex: 0 0 140px;
   margin-right: 35px;
