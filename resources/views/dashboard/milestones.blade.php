@@ -9,7 +9,7 @@ Milestones for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}<
     <a href="#small-dialog-4 mr-1"  class="popup-with-zoom-anim">
         <span class=" text-sm bg-light-blue-500 shadow px-5 py-2 rounded-full text-white">Add Milestone</span>
     </a>
-    <p class="px-4 py-2 bg-red-400 text-white shadow ml-1">Ensure You add all milestones before the start of the project.</p>
+    <p class="px-4 py-2 bg-red-400 text-white shadow ml-1 mt-2">Ensure You add all milestones before the start of the project.</p>
 </div>
 @endif
 @endrole
