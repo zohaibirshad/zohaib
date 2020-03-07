@@ -145,7 +145,7 @@
               </div>
 
               <!-- Details -->
-              <div class="freelancer-details">
+              <div v-if="freelancer.id != profile.id" class="freelancer-details">
                 <div class="freelancer-details-list">
                   <ul>
                     <li>

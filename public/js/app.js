@@ -26236,81 +26236,83 @@ var render = function() {
                             ])
                           : _vm._e(),
                         _vm._v(" "),
-                        _c("div", { staticClass: "freelancer-details" }, [
-                          _c(
-                            "div",
-                            { staticClass: "freelancer-details-list" },
-                            [
-                              _c("ul", [
-                                _c("li", [
-                                  _vm._v(
-                                    "\n                    Location\n                    "
-                                  ),
-                                  _c("strong", [
-                                    _c("i", {
-                                      staticClass:
-                                        "icon-material-outline-location-on"
-                                    }),
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(freelancer.country.name) +
-                                        "\n                    "
-                                    )
+                        freelancer.id != _vm.profile.id
+                          ? _c("div", { staticClass: "freelancer-details" }, [
+                              _c(
+                                "div",
+                                { staticClass: "freelancer-details-list" },
+                                [
+                                  _c("ul", [
+                                    _c("li", [
+                                      _vm._v(
+                                        "\n                    Location\n                    "
+                                      ),
+                                      _c("strong", [
+                                        _c("i", {
+                                          staticClass:
+                                            "icon-material-outline-location-on"
+                                        }),
+                                        _vm._v(
+                                          "\n                      " +
+                                            _vm._s(freelancer.country.name) +
+                                            "\n                    "
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _vm._v(
+                                        "\n                    Rate\n                    "
+                                      ),
+                                      _c("strong", [
+                                        _vm._v(
+                                          "\n                      $" +
+                                            _vm._s(freelancer.rate) +
+                                            " /\n                      hr\n                    "
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _vm._v(
+                                        "\n                    Job Success\n                    "
+                                      ),
+                                      _c("strong", [
+                                        _vm._v(
+                                          "\n                      " +
+                                            _vm._s(
+                                              _vm.truncate(
+                                                freelancer.completion_rate,
+                                                5
+                                              )
+                                            ) +
+                                            "%\n                    "
+                                        )
+                                      ])
+                                    ])
                                   ])
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _vm._v(
-                                    "\n                    Rate\n                    "
-                                  ),
-                                  _c("strong", [
-                                    _vm._v(
-                                      "\n                      $" +
-                                        _vm._s(freelancer.rate) +
-                                        " /\n                      hr\n                    "
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _vm._v(
-                                    "\n                    Job Success\n                    "
-                                  ),
-                                  _c("strong", [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(
-                                          _vm.truncate(
-                                            freelancer.completion_rate,
-                                            5
-                                          )
-                                        ) +
-                                        "%\n                    "
-                                    )
-                                  ])
-                                ])
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              staticClass:
-                                "button button-sliding-icon ripple-effect",
-                              attrs: { href: _vm.link(freelancer) }
-                            },
-                            [
-                              _vm._v(
-                                "\n                View Profile\n                "
+                                ]
                               ),
-                              _c("i", {
-                                staticClass:
-                                  "icon-material-outline-arrow-right-alt"
-                              })
-                            ]
-                          )
-                        ])
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "button button-sliding-icon ripple-effect",
+                                  attrs: { href: _vm.link(freelancer) }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                View Profile\n                "
+                                  ),
+                                  _c("i", {
+                                    staticClass:
+                                      "icon-material-outline-arrow-right-alt"
+                                  })
+                                ]
+                              )
+                            ])
+                          : _vm._e()
                       ]
                     )
                   }),
