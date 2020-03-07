@@ -41,5 +41,31 @@ $('.status-switch label.user-online').on('click', function(){
     $('#update_role_account_type').val('freelancer');
     $('#update_role_form').submit();
 });
+$.ajaxSetup({
+   headers: {
+       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   }
+});
+$(document).on('keyup','.bs-searchbox input',function(e){
+   var text =$(this).val();
+       if (e.keyCode == 13 ) {
+       $.ajax({
+           url: "{{route('search.text')}}",
+           type: 'post',
+           data: {text:text},
+           success: function(results)
+           {
+               var skill_id = results.skills_id;
+               if(skill_id)
+               {
+                   $('#skills').append('<option value ='+results.skills_id+' selected>'+results.text_val+'</option>');
+                   $('#skills').selectpicker('destroy');
+                   $('#skills').selectpicker();
+               }
+           }
+       });
+   }
+
+});
 </script>
 @stack('custom-scripts')
