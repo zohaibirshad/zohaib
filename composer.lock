@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10ad4b0b96d607306822538cca979711",
+    "content-hash": "694d9afe1db98672807def95b47718ba",
     "packages": [
         {
             "name": "ampeco/nova-date-range-filter",
@@ -2072,6 +2072,55 @@
             "time": "2019-08-29T03:57:40+00:00"
         },
         {
+            "name": "geoip/geoip",
+            "version": "v1.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxmind/geoip-api-php.git",
+                "reference": "2053a85c2ed3e7adcbaf0117e26832f57366e370"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxmind/geoip-api-php/zipball/2053a85c2ed3e7adcbaf0117e26832f57366e370",
+                "reference": "2053a85c2ed3e7adcbaf0117e26832f57366e370",
+                "shasum": ""
+            },
+            "conflict": {
+                "ext-geoip": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "1.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/geoip.inc",
+                    "src/geoipcity.inc",
+                    "src/timezone.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL 2.1+"
+            ],
+            "authors": [
+                {
+                    "name": "MaxMind, Inc.",
+                    "email": "support@maxmind.com",
+                    "homepage": "http://www.maxmind.com/"
+                }
+            ],
+            "description": "MaxMind GeoIP PHP API",
+            "homepage": "http://dev.maxmind.com/geoip/legacy/downloadable",
+            "keywords": [
+                "geoip",
+                "geolocation",
+                "maxmind"
+            ],
+            "time": "2016-05-16T19:06:50+00:00"
+        },
+        {
             "name": "geoip2/geoip2",
             "version": "v2.10.0",
             "source": {
@@ -2993,17 +3042,11 @@
         },
         {
             "name": "laravel/nova",
-            "version": "v2.9.4",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:laravel/nova.git",
-                "reference": "98f7dac7cf6518e57398f9e73b4068d705daf60f"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-98f7dac7cf6518e57398f9e73b4068d705daf60f-zip-66ff64.zip",
-                "reference": "98f7dac7cf6518e57398f9e73b4068d705daf60f",
-                "shasum": "cfbb70e224755a3b43b852eb89b91092dcfd96d9"
+                "type": "path",
+                "url": "./nova",
+                "reference": "67cd49e072362dc380e7b5c9a474b68a3401ded7"
             },
             "require": {
                 "cakephp/chronos": "^1.0",
@@ -3057,8 +3100,7 @@
             "keywords": [
                 "admin",
                 "laravel"
-            ],
-            "time": "2020-01-21T18:45:10+00:00"
+            ]
         },
         {
             "name": "laravel/passport",
@@ -3612,9 +3654,9 @@
             "authors": [
                 {
                     "name": "Ben Corlett",
-                    "role": "Developer",
                     "email": "bencorlett@me.com",
-                    "homepage": "http://www.webcomm.com.au"
+                    "homepage": "http://www.webcomm.com.au",
+                    "role": "Developer"
                 }
             ],
             "description": "OAuth 1.0 Client Library",
@@ -6857,6 +6899,7 @@
                 "request",
                 "spatie"
             ],
+            "abandoned": "laravel/framework",
             "time": "2019-09-04T06:55:15+00:00"
         },
         {
@@ -9815,9 +9858,9 @@
             "authors": [
                 {
                     "name": "Marcel Pociot",
-                    "role": "Developer",
                     "email": "marcel@beyondco.de",
-                    "homepage": "https://beyondco.de"
+                    "homepage": "https://beyondco.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Symfony Var-Dump Server for Laravel",
@@ -10303,18 +10346,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "role": "Developer",
-                    "email": "sebastian@phpeople.de"
+                    "email": "sebastian@phpeople.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "Developer",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -10350,18 +10393,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "role": "Developer",
-                    "email": "sebastian@phpeople.de"
+                    "email": "sebastian@phpeople.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "Developer",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -10632,8 +10675,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -10683,8 +10726,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -10725,8 +10768,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Simple template engine.",
@@ -10774,8 +10817,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Utility class for timing",
@@ -11476,8 +11519,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
@@ -11517,8 +11560,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",

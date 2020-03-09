@@ -279,3 +279,10 @@ ul li ul{
 .is-enhanced .tab__nav a.is-active {
   box-shadow: inset 0 4px 0 #B5A54A;
 }
+
+
+/* Badge Icon added in header 9-march-2020 */
+img.badge-icon {
+    max-width: 30px;
+    width: 100%;
+}

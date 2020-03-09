@@ -27,7 +27,7 @@
 
         
         <!-- Dashboard Container -->
-        <div class="dashboard-container">
+        <div class="dashboard-container" id="app">
             <!-- Dashboard Sidebar
             ================================================== -->
             @include('partials.dashboard_sidebar')
@@ -46,7 +46,7 @@
                     
                     @yield('content')
 
-
+                    @php echo fb_chat(); @endphp
                     <!-- Footer -->
                     @include('partials.dashboard_footer')
                     <!-- Footer / End -->
@@ -69,5 +69,5 @@
     ================================================== -->
 
     @include('partials.scripts')
-
+    
 </body>

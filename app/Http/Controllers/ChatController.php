@@ -15,6 +15,7 @@ class ChatController extends Controller
     {
          
          $conversations = Auth::user()->conversations();
+         //dd($conversations);
          $conversations = $conversations->map(function($item, $value){
              return [
                  $item,
@@ -24,9 +25,8 @@ class ChatController extends Controller
              ];
                 
          })->values()->flatten();
-
+        
         //   return ($conversations);
-
         $timezone = geoip($request->ip());
         $timezone = $timezone['timezone'];
 

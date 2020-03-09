@@ -99,7 +99,8 @@ class HirerController extends Controller
     {
         $job = Job::where('uuid', $job_uuid)->first();
         $bids = Bid::where('job_id', $job->id)->with('profile')->latest()->get();
-
+        //$bids = Bid::where('job_id', $job->id)->with('profile')->get();
+        //dd($bids);
         return view('dashboard.bidders', compact('bids', 'job'));
     }
     
@@ -114,6 +115,7 @@ class HirerController extends Controller
      */
     public function accept_bid(Request $request, $bid_uuid)
     {
+        //dd($request->user());
         $validateData = $request->validate([
             'profile_id' => 'required',
         ]);

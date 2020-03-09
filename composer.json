@@ -23,6 +23,7 @@
         "facade/ignition": "^1.9",
         "fideloper/proxy": "^4.0",
         "genealabs/nova-passport-manager": "*",
+        "geoip/geoip": "~1.16",
         "geoip2/geoip2": "^2.10",
         "gregoriohc/laravel-nova-theme-responsive": "^0.6.2",
         "guzzlehttp/guzzle": "^6.5",
@@ -30,7 +31,7 @@
         "kabbouchi/nova-impersonate": "^1.1",
         "laravel/cashier": "^10.3",
         "laravel/framework": "6.0.*",
-        "laravel/nova": "~2.9.2",
+        "laravel/nova": "*",
         "laravel/passport": "^7.5",
         "laravel/socialite": "^4.1",
         "laravel/telescope": "^2.1",
@@ -65,8 +66,8 @@
     },
     "repositories": [
         {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
+            "type": "path",
+            "url": "./nova"
         }
     ],
     "config": {
@@ -81,11 +82,13 @@
     },
     "autoload": {
         "psr-4": {
+            "FBCHAT\\FBstylechat\\": "packages/fbchat/fbstylechat/src",
             "App\\": "app/"
         },
         "files": [
             "app/Support/ViewHelpers.php",
-            "app/Helpers/Common.php"
+            "app/Helpers/Common.php",
+            "packages/fbchat/fbstylechat/src/FbChatHelper.php"
         ],
         "classmap": [
             "database/seeds",

@@ -119,7 +119,6 @@
 									</li>
 								</template>	
 								<span id="pane"></span>
-
 							</ul>
 						</div>
 						<!-- Reply Area -->

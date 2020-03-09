@@ -180,6 +180,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
 
+        /*Facebook Style Chat Pack */
+        FBCHAT\FBstylechat\FBstyleChatServiceProvider::class,
+
     ],
 
     /*
@@ -194,7 +197,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

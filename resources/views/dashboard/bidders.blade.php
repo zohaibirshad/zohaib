@@ -80,6 +80,11 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-0">
                                         <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect acceptBids" data-bid="{{ $bid }}"><i class="icon-material-outline-check"></i> Accept Offer</a>
                                         <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect viewBid" data-bid="{{ $bid }}"><i class="icon-feather-eye"></i> View Bid</a>
+                                        @php
+                                            //dd($bid);
+                                            $chatID = getChatID($bid->job_id, $bid->profile->user_id);
+                                        @endphp
+                                        <a class="button dark ripple-effect sendMsg" data-bid="{{$bid}}" data-to="{{ $bid->profile->user_id }}" data-chat_id="{{$chatID}}"><i class="icon-line-awesome-envelope"></i> Send Message</a>
                                     @endif
                                     </div>
                                 </div>
@@ -197,6 +202,38 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                 $('#view_rate').text('Rate $'+bid.rate);
                 $('#view_body').text(bid.description);
             });
+            $('body').on('click', '.sendMsg', function(e){
+                e.preventDefault();
+                //alert('hello');
+                var that    = $(this);
+                var chat_ID  = $(this).data("chat_id");
+                var toUser  = $(this).data("to");
+                var bid     = $(this).data("bid");
+                if(parseInt(chat_ID) > 0)
+                {
+                    //$('.sidebar-user-box')data-chatid
+                    $('.sidebar-user-box[data-chatid="'+chat_ID+'"]').trigger('click');
+                }
+                else
+                    $.ajax({
+                        url: "{{route('fbchat.sendMsg')}}",
+                        type: 'post',
+                        data: {bid: bid,toUser:toUser},
+                        dataType: 'json',
+                        success: function(results)
+                        {
+                            //check conversations count
+                            var chats = $('.sidebar-user-box').length;
+                            if(chats == 0)
+                                $('.chat-wrapper').html(results.html);
+                            else
+                                $('.chat-wrapper').append(results);
+                            that.attr("data-chat_id", results.chatID);
+                        }
+                    });
+                return false;
+            });
+            
             function ThousandSeparator2(nStr) {
                 nStr += '';
                 var x = nStr.split('.');
