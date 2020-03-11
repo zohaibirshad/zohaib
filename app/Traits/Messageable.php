@@ -17,11 +17,19 @@ trait Messageable
     public function conversations()
     {
         /*return Conversation::wherein('id', $this->participation->pluck('conversation.id'))->latest()->with('participants', 'messages')->get();*/
-        $orderBy = 'CASE WHEN plan_user.plan_id = 4 THEN 0 
-              WHEN plan_user.plan_id = 3 THEN 1 
-              WHEN plan_user.plan_id = 2 THEN 2 
-              WHEN plan_user.plan_id = 1 THEN 3 
-         END, `messages`.`created_at` desc';
+        /*$orderBy = 'CASE WHEN plan_user.plan_id = 3 THEN 0 
+              WHEN plan_user.plan_id = 2 THEN 1 
+              WHEN plan_user.plan_id = 1 THEN 2 
+              WHEN plan_user.plan_id = 0 THEN 3 
+         END desc';*/
+
+
+         /*select `conversations`.`id`, `messages`.`created_at` from `conversations` left join `messages` on `messages`.`conversation_id` = `conversations`.`id` left join `plan_user` on `plan_user`.`user_id` = `messages`.`participation_id` where `conversations`.`id` in (55, 56) group by `messages`.`conversation_id` 
+ order by */
+
+ /*select `conversations`.`id`, `messages`.`created_at` from `conversations` left join `messages` on `messages`.`conversation_id` = `conversations`.`id` left join `plan_user` on `plan_user`.`user_id` = `messages`.`participation_id` where `conversations`.`id` in (55, 56) group by `messages`.`conversation_id` order by CASE WHEN plan_user.plan_id = 3 THEN `messages`.`created_at` END desc, CASE WHEN plan_user.plan_id = 2 THEN `messages`.`created_at` END desc, CASE WHEN plan_user.plan_id = 1 THEN `messages`.`created_at` END desc, CASE WHEN plan_user.plan_id = 0 THEN `messages`.`created_at` END desc*/
+
+        $orderBy = 'CASE WHEN plan_user.plan_id = 3 THEN `messages`.`created_at` END desc, CASE WHEN plan_user.plan_id = 2 THEN `messages`.`created_at` END desc, CASE WHEN plan_user.plan_id = 1 THEN `messages`.`created_at` END desc, CASE WHEN plan_user.plan_id = 0 THEN `messages`.`created_at` END desc';
         return Conversation::leftJoin('messages', function($join){
                 $join->on('messages.conversation_id', '=', 'conversations.id');
             })
@@ -29,9 +37,10 @@ trait Messageable
                 $join->on('plan_user.user_id', '=', 'messages.participation_id');
             })
             ->wherein('conversations.id', $this->participation->pluck('conversation.id'))
-            ->select('conversations.id')
-            ->groupBy('conversations.id')
+            ->select('conversations.id'. `messages`.`created_at`)
+            ->groupBy('messages.conversation_id')
             ->orderByRaw($orderBy)
+            //->orderBy('messages.created_at', 'desc')
             //->latest()
             ->with('participants', 'messages')->get();
     }
