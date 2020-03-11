@@ -137,7 +137,6 @@
 								@endif								
 							</a>
 						</div>
-
 						<!-- Dropdown -->
 						<div class="header-notifications-dropdown">
 
@@ -152,7 +151,7 @@
 											$badge = '';// Default to 'free'
 											/*$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon" />';*/
 											if($my_plan)
-												switch($my_plan->id):
+												switch($my_plan->plan_id):
 													case 'economy-plus':
 														$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon"/>';
 														break;
