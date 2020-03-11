@@ -16,9 +16,25 @@ trait Messageable
 
     public function conversations()
     {
-        return Conversation::wherein('id', $this->participation->pluck('conversation.id'))->latest()->with('participants', 'messages')->get();
+        /*return Conversation::wherein('id', $this->participation->pluck('conversation.id'))->latest()->with('participants', 'messages')->get();*/
+        $orderBy = 'CASE WHEN plan_user.plan_id = 4 THEN 0 
+              WHEN plan_user.plan_id = 3 THEN 1 
+              WHEN plan_user.plan_id = 2 THEN 2 
+              WHEN plan_user.plan_id = 1 THEN 3 
+         END, `messages`.`created_at` desc';
+        return Conversation::leftJoin('messages', function($join){
+                $join->on('messages.conversation_id', '=', 'conversations.id');
+            })
+            ->leftJoin('plan_user', function($join){
+                $join->on('plan_user.user_id', '=', 'messages.participation_id');
+            })
+            ->wherein('conversations.id', $this->participation->pluck('conversation.id'))
+            ->select('conversations.id')
+            ->groupBy('conversations.id')
+            ->orderByRaw($orderBy)
+            //->latest()
+            ->with('participants', 'messages')->get();
     }
-
 
     public function chat_notifications()
     {
@@ -30,16 +46,10 @@ trait Messageable
             ->where('conversation_id', $conversation)
             ->where('is_seen', 0)
             ->count();
-
             // \Log::error($notifications);
-
-
             $count = $count + $notifications;
         }
-
         return $count;
-
-
     }
 
     /**
