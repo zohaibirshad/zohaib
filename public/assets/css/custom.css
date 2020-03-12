@@ -286,3 +286,63 @@ img.badge-icon {
     max-width: 30px;
     width: 100%;
 }
+.chatonline li.business {
+    border: 1px solid #c0c0c0;
+}
+.chatonline li.economy-plus {
+    border: 1px solid #da9537;
+}
+.chatonline li.first-class {
+    border: 1px solid #febe42;
+}
+
+.user-badge, .chat-badge {
+  position: relative;
+}
+
+
+.user-badge:after {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    background-color: #38b653;
+    top: 0;
+    left: 0;
+    display: block;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+}
+
+img.badge-icon {
+    position: absolute;
+    bottom: 0;
+    width: 18px;
+    right: -4px;
+    background: #848484;
+    padding: 3px;
+}
+
+img.badge-icon.gold-badge {
+    background: #febe42;
+}
+
+.chat-badge {}
+
+.chat-badge  img.badge-icon {
+    position: absolute;
+    right: 0;
+    width: 22px;
+    border-radius: 20px;
+    padding: 4px;
+    bottom: 0;
+}
+
+.img-margin {
+    position: relative;
+}
+
+.img-margin img.img-circle.object-contain {
+    width: 60px;
+}

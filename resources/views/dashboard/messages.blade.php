@@ -38,10 +38,14 @@
 							@forelse ($conversations as $c)
 								@foreach($c->participants as $p)
 									@if($p->user->id != auth()->user()->id)
-										<li>
+										@php
+											$planInfo = get_user_plan($p->user->id);
+											//dd($planInfo);
+										@endphp
+										<li class="{{$planInfo['plan']}}">
 											<a class="cursor-pointer" :class="[isActive == {{ $c->id }} ? activeClass : '']" href="#{{ $c->id }}" @click="findConversation({{ $c->id }}, {{ $p->user->profile }}, {{ $c->job_id }})">
-												<div class="flex flex-row flex-no-wrap">
-													<div class="mr-1">
+												<div class="flex flex-row flex-no-wrap chat-badge">
+													<div class="mr-1 img-margin">
 														@isset($p->user->profile)
 															@if (sizeof($p->user->profile->getMedia('profile')) == 0)
 															<img class="img-circle object-contain" src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
@@ -49,6 +53,7 @@
 															<img class="img-circle object-contain" src="{{ $p->user->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
 															@endif
 														@endisset
+														{!!$planInfo['badge']!!}
 													</div>
 													<div class="flex flex-col justify-between">
 														<span class="font-light">{{ $p->user->name }}</span>

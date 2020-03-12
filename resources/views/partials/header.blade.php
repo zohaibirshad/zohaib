@@ -145,21 +145,21 @@
 
 								<!-- User Name / Avatar -->
 								<div class="user-details">
-									<div class="user-avatar status-online">
+									<div class="user-avatar status-online user-badge">
 										@php
 											$my_plan = Auth::user()->plan()->first();
 											$badge = '';// Default to 'free'
 											/*$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon" />';*/
 											if($my_plan)
 												switch($my_plan->plan_id):
-													case 'economy-plus':
+													/*case 'economy-plus':
 														$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon"/>';
-														break;
+														break;*/
 													case 'business':
-														$badge = '<img src="'.asset('assets/images/silver.png').'" alt="" class="badge-icon"/>';
+														$badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon silver-badge"/>';
 														break;
 													case 'first-class':
-														$badge = '<img src="'.asset('assets/images/gold.png').'" alt="" class="badge-icon"/>';
+														$badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon gold-badge"/>';
 														break;
 												endswitch
 										@endphp
@@ -168,10 +168,10 @@
 										@else
 										<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb')  }}" alt=""/>
 										@endif
-										
+										{!!$badge!!}
 									</div>
 									<div class="user-name">
-										{!!$badge!!} {{ Auth::user()->first_name  }} {{ substr(Auth::user()->last_name, 0, 1)  }}.
+										 {{ Auth::user()->first_name  }} {{ substr(Auth::user()->last_name, 0, 1)  }}.
 									</div>
 								</div>
 								
