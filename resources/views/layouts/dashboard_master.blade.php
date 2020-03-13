@@ -46,7 +46,7 @@
                     
                     @yield('content')
 
-                    @php echo fb_chat(); @endphp
+                    @php //echo fb_chat(); @endphp
                     <!-- Footer -->
                     @include('partials.dashboard_footer')
                     <!-- Footer / End -->
