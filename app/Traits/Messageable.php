@@ -14,7 +14,7 @@ trait Messageable
         return Conversation::wherein('id', $this->participation->pluck('conversation.id'))->with('participantsWithLastMessage')->get();
     }
 
-    public function conversations_working()
+    public function conversations()
     {
         /*return Conversation::wherein('id', $this->participation->pluck('conversation.id'))->latest()->with('participants', 'messages')->get();*/
         $orderBy = 'CASE WHEN plan_user.plan_id = 3 THEN 0 
@@ -39,7 +39,7 @@ trait Messageable
             //->latest()
             ->with('participants', 'messages')->get();
     }
-    public function conversations()
+    public function conversations_new()
     {
         $orderBy = 'conversations.plan_type desc';
         /*return Conversation::wherein('id', $this->participation->pluck('conversation.id'))
