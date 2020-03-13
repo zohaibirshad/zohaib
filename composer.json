@@ -82,13 +82,11 @@
     },
     "autoload": {
         "psr-4": {
-            "FBCHAT\\FBstylechat\\": "packages/fbchat/fbstylechat/src",
             "App\\": "app/"
         },
         "files": [
             "app/Support/ViewHelpers.php",
-            "app/Helpers/Common.php",
-            "packages/fbchat/fbstylechat/src/FbChatHelper.php"
+            "app/Helpers/Common.php"
         ],
         "classmap": [
             "database/seeds",

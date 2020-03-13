@@ -1,4 +1,23 @@
-
+	@php
+		$badge = '';// Default to 'free'
+		if(Auth::check()){
+			$my_plan = Auth::user()->plan()->first();
+			
+			/*$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon" />';*/
+			if($my_plan)
+				switch($my_plan->plan_id):
+					/*case 'economy-plus':
+						$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon"/>';
+						break;*/
+					case 'business':
+						$badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon silver-badge"/>';
+						break;
+					case 'first-class':
+						$badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon gold-badge"/>';
+						break;
+				endswitch;
+		}
+	@endphp
 
 	<!-- Header -->
 	<div id="header">
@@ -128,13 +147,17 @@
 
 					<!-- Messages -->
 					<div class="header-notifications user-menu">
-						<div class="header-notifications-trigger">
-							<a href="#"><div class="user-avatar status-online">
-								@if (sizeof(Auth::user()->profile->getMedia('profile')) == 0)
-									<img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt=""></div>
-								@else
-									<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') }}" alt=""/> </div>
-								@endif								
+						<div class="header-notifications-trigger ">
+							<a href="#">
+								<div class="user-avatar status-online user-badge">
+									@if (sizeof(Auth::user()->profile->getMedia('profile')) == 0)
+										<img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
+										{!!$badge!!}
+									@else
+										<img src="{{ Auth::user()->profile->getFirstMediaUrl('profile', 'thumb') }}" alt=""/>
+										{!!$badge!!}
+									@endif
+								</div>
 							</a>
 						</div>
 						<!-- Dropdown -->
@@ -146,23 +169,7 @@
 								<!-- User Name / Avatar -->
 								<div class="user-details">
 									<div class="user-avatar status-online user-badge">
-										@php
-											$my_plan = Auth::user()->plan()->first();
-											$badge = '';// Default to 'free'
-											/*$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon" />';*/
-											if($my_plan)
-												switch($my_plan->plan_id):
-													/*case 'economy-plus':
-														$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon"/>';
-														break;*/
-													case 'business':
-														$badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon silver-badge"/>';
-														break;
-													case 'first-class':
-														$badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon gold-badge"/>';
-														break;
-												endswitch
-										@endphp
+										
 										@if (sizeof(Auth::user()->profile->getMedia('profile')) == 0)
 										<img src="{{ asset('assets/images/user-avatar-placeholder.png')  }}" alt=""/>
 										@else

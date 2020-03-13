@@ -82,9 +82,9 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                                         <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect viewBid" data-bid="{{ $bid }}"><i class="icon-feather-eye"></i> View Bid</a>
                                         @php
                                             //dd($bid);
-                                            $chatID = getChatID($bid->job_id, $bid->profile->user_id);
+                                            //$chatID = getChatID($bid->job_id, $bid->profile->user_id);
                                         @endphp
-                                        <a class="button dark ripple-effect sendMsg" data-bid="{{$bid}}" data-to="{{ $bid->profile->user_id }}" data-chat_id="{{$chatID}}"><i class="icon-line-awesome-envelope"></i> Send Message</a>
+                                        {{--<a class="button dark ripple-effect sendMsg" data-bid="{{$bid}}" data-to="{{ $bid->profile->user_id }}" data-chat_id="{{$chatID}}"><i class="icon-line-awesome-envelope"></i> Send Message</a>--}}
                                     @endif
                                     </div>
                                 </div>
@@ -202,6 +202,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                 $('#view_rate').text('Rate $'+bid.rate);
                 $('#view_body').text(bid.description);
             });
+            {{--
             $('body').on('click', '.sendMsg', function(e){
                 e.preventDefault();
                 //alert('hello');
@@ -233,7 +234,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
                     });
                 return false;
             });
-            
+            --}}
             function ThousandSeparator2(nStr) {
                 nStr += '';
                 var x = nStr.split('.');
