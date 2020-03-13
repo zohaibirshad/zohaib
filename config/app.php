@@ -181,7 +181,7 @@ return [
         App\Providers\ViewServiceProvider::class,
 
         /*Facebook Style Chat Pack */
-        FBCHAT\FBstylechat\FBstyleChatServiceProvider::class,
+        //FBCHAT\FBstylechat\FBstyleChatServiceProvider::class,
 
     ],
 
