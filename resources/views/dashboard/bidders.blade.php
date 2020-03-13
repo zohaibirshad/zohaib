@@ -29,6 +29,25 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
             <div class="content">
                 <ul class="dashboard-box-list">
                     @forelse ($bids as $bid)
+                        @php
+                            //dd($freelancer);
+                            $user = \App\Models\User::where('id', $bid->profile->user_id)->first();
+                            $my_plan = $user->plan()->first();
+                            $badge = '';// Default to 'free'
+                            /*$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon" />';*/
+                            if($my_plan)
+                                switch($my_plan->plan_id):
+                                    /*case 'economy-plus':
+                                        $badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon"/>';
+                                        break;*/
+                                    case 'business':
+                                        $badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon silver-badge"/>';
+                                        break;
+                                    case 'first-class':
+                                        $badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon gold-badge"/>';
+                                        break;
+                                endswitch
+                        @endphp
                        <li>
                         <!-- Overview -->
                         <div class="freelancer-overview manage-candidates">
@@ -36,7 +55,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 
                                 <!-- Avatar -->
                                 
-                                <div class="freelancer-avatar">
+                                <div class="freelancer-avatar user-badge">
                                     @if($bid->profile->verified)
                                     <div class="verified-badge"></div>
                                     @endif
@@ -45,6 +64,7 @@ Bidders for <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->name }}</a>
 									@else
 									<a href="../freelancers/{{ $bid->profile->uuid }}"><img src="{{ $bid->profile->getFirstMediaUrl('profile', 'big') }}" alt=""/></a>
 									@endif
+                                    {!!$badge!!}
                                 </div>
 
                                 <!-- Name -->

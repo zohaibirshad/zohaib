@@ -2,6 +2,25 @@
 @section('title',  $freelancer->name ?? "")
 
 @section('content')
+@php
+    //dd($freelancer);
+    $user = \App\Models\User::where('id', $freelancer->user_id)->first();
+    $my_plan = $user->plan()->first();
+    $badge = '';// Default to 'free'
+    /*$badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon" />';*/
+    if($my_plan)
+        switch($my_plan->plan_id):
+            /*case 'economy-plus':
+                $badge = '<img src="'.asset('assets/images/bronze.png').'" alt="" class="badge-icon"/>';
+                break;*/
+            case 'business':
+                $badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon silver-badge"/>';
+                break;
+            case 'first-class':
+                $badge = '<img src="'.asset('assets/images/silver-white.png').'" alt="" class="badge-icon gold-badge"/>';
+                break;
+        endswitch
+@endphp
 <!-- Titlebar
 ================================================== -->
 <div class="single-page-header freelancer-header" data-background-image="{{ asset('assets/images/single-freelancer.jpg') }}">
@@ -10,12 +29,13 @@
 			<div class="col-md-12">
 				<div class="single-page-header-inner">
 					<div class="left-side">
-						<div class="header-image  freelancer-avatar">
+						<div class="header-image1 freelancer-avatar user-badge">
                             @if (sizeof($freelancer->getMedia('profile')) == 0)
                              <img src="{{ asset('assets/images/user-avatar-placeholder.png') }}" alt="">
                             @else
                                 <img src="{{ $freelancer->getFirstMediaUrl('profile', 'big') }}" alt=""/> 
                             @endif
+                            {!!$badge!!}
                         </div>
 						<div class="header-details">
 							<h3>{{ $freelancer->name ?? "" }} <span>{{ $freelancer->headline ?? "No Headline" }}</span></h3>
